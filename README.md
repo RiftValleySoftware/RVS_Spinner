@@ -52,42 +52,22 @@ You can also have a standard UIPickerView come up, which may be better for large
 ![The Spinner When Open, Using A UIPickerView](doc-images/OpenPicker.png)
 Figure 6: The Spinner, Open, Using a UIPickerView.
 
-MAP ANNOTATION
-----------------------
-There is also a specialized set of classes that implement a "canned" map annotation and marker view. It is designed to be "self-contained," generating its own images.
-
-If you annotate your map with instances of RVP_SpinnerMarkerAnnotation, and supply the RVP_SpinnerMarkerAnnotationView instance that each annotation creates, you will be able to use the Spinner as map markers.
-
-![The Spinner When Closed As A Map Marker](doc-images/MapClosed.png)
-Figure 7: The Spinner, Closed, As A Map Marker.
-
-![The Spinner When Open As A Map Marker](doc-images/MapDaisyLarge.png)
-Figure 8: The Spinner, Open, As A Map Marker.
-
-![The Spinner When Open As A Map Marker With Many Values](doc-images/MapDaisySmall.png)
-Figure 9: The Spinner, Open, As A Map Marker With Many Values.
-
-![The Spinner When Open, Using A UIPickerView, As A Map Marker](doc-images/MapPicker.png)
-Figure 10: The Spinner, Open, As A Map Marker, Using a UIPickerView.
-
-In this case, you can create a data source (the protocol is RVP_SpinnerMarkerAnnotationDataSource), an optional source, which supplies an Array of values, and a selected value (an index of the Array). You can also specify a delegate (RVP_SpinnerMarkerAnnotationDelegate), to receive notifications of changes in the Spinner.
-
 IMPLEMENTATION
 ==============
-To use Spinner, import the framework into your Swift 4.0 or above project. The main Spinner class is called "RVP_Spinner," and you can use this class in storyboards.
+To use Spinner, import the framework into your Swift 4.0 or above project. The main Spinner class is called "RVS_Spinner," and you can use this class in storyboards.
 
-Unlike the UIPickerView, the Spinner is self-contained. You supply it an Array of RVP_Spinner.RVP_SpinnerDataItem instances, which contain, at minimum, and icon (a UIImage), and a title (a String). These are displayed by the Spinner when it is opened.
+Unlike the UIPickerView, the Spinner is self-contained. You supply it an Array of RVS_Spinner.RVS_SpinnerDataItem instances, which contain, at minimum, and icon (a UIImage), and a title (a String). These are displayed by the Spinner when it is opened.
 
-The Spinner has a  RVP_Spinner.selectedIndex property that denotes which Array element is the selected value.
+The Spinner has a  RVS_Spinner.selectedIndex property that denotes which Array element is the selected value.
 
-In order to use this in Interface Builder/Storyboard Editor, you need to drag in a UIView, then make it an instance of RVP_Spinner. The module will be RVP_Spinner.
+In order to use this in Interface Builder/Storyboard Editor, you need to drag in a UIView, then make it an instance of RVS_Spinner. The module will be RVS_Spinner.
 
 ![Adding The Spinner, Using the Interface Builder/Storyboard Editor](doc-images/StoryboardEditor.png)
 Figure 11: Adding the Spinner, Using the Storyboard Editor.
 
 INTERFACE BUILDER/STORYBOARD EDITOR OPTIONS
 -----------------------------------------------------------------
-Once you assign the RVP_Spinner class to the UIView, a number of options will appear in the Attributes Inspector for the Spinner:
+Once you assign the RVS_Spinner class to the UIView, a number of options will appear in the Attributes Inspector for the Spinner:
 
 ![The Spinner Attributes Inspector Options](doc-images/SpinnerOptions.png)
 Figure 12: The Spinner Attribute Inspector Options in the Storyboard Editor.
