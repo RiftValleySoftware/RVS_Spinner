@@ -1,0 +1,5 @@
+xcodebuild_arguments:
+    - "-project"
+    - "RVS_Spinner.xcodeproj"
+    - "-scheme"
+    - "RVS_Spinner (Static)"

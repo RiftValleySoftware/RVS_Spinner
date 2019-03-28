@@ -1,0 +1,28 @@
+disabled_rules:
+- identifier_name
+- nesting
+- function_parameter_count
+- function_body_length
+- trailing_whitespace
+- type_name
+- file_length
+- type_body_length
+- unused_setter_value
+
+opt_in_rules:
+- control_statement
+- empty_count
+- trailing_newline
+- colon
+- comma
+
+excluded:
+- Pods
+
+line_length:
+- 400 # warning
+- 500 # error
+
+cyclomatic_complexity:
+- 13 # warning
+- 14 # error

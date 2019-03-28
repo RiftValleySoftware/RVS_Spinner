@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1024 1024" style="enable-background:new 0 0 1024 1024;" xml:space="preserve">
+<style type="text/css">
+	.st0{clip-path:url(#SVGID_5_);}
+	.st1{clip-path:url(#SVGID_6_);fill:url(#Background_Square_1_);}
+	.st2{clip-path:url(#SVGID_8_);fill:url(#SVGID_9_);}
+	.st3{display:none;fill:none;}
+	.st4{fill:#FFFFFF;}
+</style>
+<g id="Background_1_">
+	<g id="Clip_Group">
+		<g>
+			<defs>
+				<circle id="SVGID_1_" cx="512" cy="512" r="458"/>
+			</defs>
+			<clipPath id="SVGID_2_">
+				<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+			</clipPath>
+		</g>
+		<g>
+			<defs>
+				<circle id="SVGID_3_" cx="512" cy="512" r="458"/>
+			</defs>
+			<defs>
+				<path id="SVGID_4_" d="M843,1023H179C79.6,1023-1,942.4-1,843V179C-1,79.6,79.6-1,179-1h664c99.4,0,180,80.6,180,180v664
+					C1023,942.4,942.4,1023,843,1023z"/>
+			</defs>
+			<clipPath id="SVGID_5_">
+				<use xlink:href="#SVGID_3_"  style="overflow:visible;"/>
+			</clipPath>
+			<clipPath id="SVGID_6_" class="st0">
+				<use xlink:href="#SVGID_4_"  style="overflow:visible;"/>
+			</clipPath>
+			
+				<linearGradient id="Background_Square_1_" gradientUnits="userSpaceOnUse" x1="512" y1="2436" x2="512" y2="1412" gradientTransform="matrix(1 0 0 1 0 -1412)">
+				<stop  offset="0" style="stop-color:#006A1E"/>
+				<stop  offset="1" style="stop-color:#3FFF91"/>
+			</linearGradient>
+			<rect id="Background_Square" class="st1" width="1024" height="1024"/>
+		</g>
+	</g>
+</g>
+<g id="Logo_1_">
+	<g>
+		<g>
+			<defs>
+				<path id="SVGID_7_" d="M640.3,666.8l78.2-119.2c0,0,24.2,18.1,39.6,18.1c16.8,0,38.3-18.1,38.3-18.1l105.1,162.8
+					c30.9-60.1,47.3-125.9,47.3-197.7c0-242.1-196.1-437.8-437.5-437.8S74.9,269.6,74.9,511.4c0,183.6,113.8,340.4,274.3,404.9
+					l229-357.9L640.3,666.8z"/>
+			</defs>
+			<clipPath id="SVGID_8_">
+				<use xlink:href="#SVGID_7_"  style="overflow:visible;"/>
+			</clipPath>
+			
+				<radialGradient id="SVGID_9_" cx="512" cy="512" r="433" gradientTransform="matrix(1 0 0 -1 0 1024)" gradientUnits="userSpaceOnUse">
+				<stop  offset="0" style="stop-color:#FFFFFF"/>
+				<stop  offset="0.9947" style="stop-color:#FFFFFF;stop-opacity:0.2"/>
+			</radialGradient>
+			<path class="st2" d="M810.5,198L557.8,450.7c-10-7.5-21.9-12.6-34.9-14.4V79C631,81.7,732.3,123.6,810.5,198z M213.5,198
+				l252.7,252.7c10-7.5,21.9-12.6,34.9-14.4V79C393,81.7,291.7,123.6,213.5,198z M557.8,573.3c-10,7.5-21.9,12.6-34.9,14.4V945
+				c108-2.7,209.4-44.6,287.6-119L557.8,573.3z M436.3,501.1c1.9-13,6.9-24.9,14.4-34.9L198,213.5C123.6,291.7,81.7,393,79,501.1
+				H436.3z M587.7,522.9c-1.9,13-6.9,24.9-14.4,34.9L826,810.5c74.4-78.2,116.4-179.5,119-287.6H587.7z M198,810.5l252.7-252.7
+				c-7.5-10-12.6-21.9-14.4-34.9H79C81.7,631,123.6,732.3,198,810.5z M826,213.5L573.3,466.2c7.5,10,12.6,21.9,14.4,34.9H945
+				C942.3,393,900.4,291.7,826,213.5z M501.1,587.7c-13-1.9-24.9-6.9-34.9-14.4L213.5,826c78.2,74.4,179.5,116.4,287.6,119V587.7z"
+				/>
+		</g>
+	</g>
+</g>
+<g id="Moon_and_Mountains_1_">
+	<path id="Moon_Fill_1_" class="st3" d="M640.3,666.8l78.2-119.2c0,0,24.2,18.1,39.6,18.1c16.8,0,38.3-18.1,38.3-18.1l105.1,162.8
+		c30.9-60.1,47.3-125.9,47.3-197.7c0-242.1-196.1-437.8-437.5-437.8S74.9,269.6,74.9,511.4c0,183.6,113.8,340.4,274.3,404.9
+		l229-357.9L640.3,666.8z"/>
+	<path id="Moon_and_Mountains" class="st4" d="M953.5,512.7c0-244.1-198.4-442.2-441.8-442.2c-118.2,0-229,45.7-312.2,128.9
+		c-83,83-129,193.8-129,312c0,89.6,26.9,176.3,77.9,249.5c49.4,71.5,118.5,126.9,199.1,159.5l3.4,1.3l51.4-79.9
+		c59.4-88.6,153.1-223.9,174.6-231.7c11.1-0.7,23.2,24.5,55.7,68.5L455.9,947.5h0.3c43-62.4,240.1-346.5,268.9-368
+		c11.8,4.7,22.8,9.4,32.9,9.4c9.7,0,17.5-3.7,31.6-9.4c19.8,16.5,66.1,68.8,112.5,141.3c7.1-13.1,13.1-27.2,18.5-41.3
+		C942.4,627.2,953.5,570.8,953.5,512.7z M797.7,540.9l-3.7,3.4c-0.3,0.3-20.8,16.8-35.6,16.8c-11.4,0-30.6-12.4-36.9-17.1l-3.7-3
+		l-76.9,117.2l-62.1-108.4L347.5,910.5c-77.9-31.9-144-85.6-191.7-154.8C106.1,683.6,79.6,599,79.6,511.4
+		c0-115.8,45-224.6,126.2-305.9s190-126.2,305.9-126.2c238.7,0,433.1,194.4,433.1,433.4c0,66.8-14.4,130.3-43.6,189L797.7,540.9z"/>
+</g>
+</svg>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:.swift-version">
+   </FileRef>
+   <FileRef
+      location = "group:.swiftlint.yml">
+   </FileRef>
+   <FileRef
+      location = "group:CHANGELOG.md">
+   </FileRef>
+   <FileRef
+      location = "group:jazzy.sh">
+   </FileRef>
+   <FileRef
+      location = "group:jazzy.yaml">
+   </FileRef>
+   <FileRef
+      location = "group:LICENSE.txt">
+   </FileRef>
+   <FileRef
+      location = "group:Podfile">
+   </FileRef>
+   <FileRef
+      location = "group:README.md">
+   </FileRef>
+   <FileRef
+      location = "group:RVS_Spinner.xcodeproj">
+   </FileRef>
+</Workspace>
