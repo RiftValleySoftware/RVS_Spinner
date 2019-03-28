@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D40705E3224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40705E2224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness_AppDelegate.swift */; };
 		D40705E5224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40705E4224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness_ViewController.swift */; };
 		D40705E8224A9FC500F1E8A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D40705E6224A9FC500F1E8A2 /* Main.storyboard */; };
 		D40705EA224A9FC700F1E8A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D40705E9224A9FC700F1E8A2 /* Assets.xcassets */; };
@@ -36,6 +35,7 @@
 		D45144FA2173E82700D7FCD4 /* RVS_Spinner.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D45144F92173E82700D7FCD4 /* RVS_Spinner.xcassets */; };
 		D49B3726224D1A850049EEDE /* RVS_Spinner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D428DB292169391D004B130B /* RVS_Spinner.framework */; };
 		D49B3729224D646F0049EEDE /* RVS_Spinner.framework in Copy Embedded Frameworks */ = {isa = PBXBuildFile; fileRef = D428DB292169391D004B130B /* RVS_Spinner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D4D7E69F224D800B00613FB8 /* RVS_Spinner_Basic_Test_Harness_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40705E2224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness_AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -373,8 +373,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4D7E69F224D800B00613FB8 /* RVS_Spinner_Basic_Test_Harness_AppDelegate.swift in Sources */,
 				D40705E5224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness_ViewController.swift in Sources */,
-				D40705E3224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness_AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

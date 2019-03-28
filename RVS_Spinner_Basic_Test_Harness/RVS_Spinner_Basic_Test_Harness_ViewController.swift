@@ -24,37 +24,13 @@
 import UIKit
 import RVS_Spinner
 
-extension UIImage {
-    /* ################################################################## */
-    /**
-     This allows us to create a simple "filled color" image.
-     
-     From here: https://stackoverflow.com/a/33675160/879365
-     
-     - parameter color: The UIColor we want to fill the image with.
-     - parameter size: An optional parameter (default is 1 X 1) that designates the size of the image.
-     */
-    public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
-        let rect = CGRect(origin: .zero, size: size)
-        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
-        color.setFill()
-        UIRectFill(rect)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        guard let cgImage = image?.cgImage else { return nil }
-        self.init(cgImage: cgImage)
-    }
-}
-
+/* ###################################################################################################################################### */
 class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_SpinnerDelegate {
+    /* ################################################################################################################################## */
     typealias ShapeValueTuple = (name: String, image: UIImage, index: Int)
     
-    private static let _countValues = 8
-    
-    private var _shapes = [ShapeValueTuple]()
-    private var _dataItems = [RVS_Spinner.RVS_SpinnerDataItem]()
-    private var _colorList: [UIColor] = [
+    /* ################################################################################################################################## */
+    private let _colorList: [UIColor] = [
         UIColor.clear,
         UIColor.white,
         UIColor.black,
@@ -63,7 +39,8 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         UIColor(red: 1, green: 0.75, blue: 1, alpha: 1),
         UIColor(red: 0.75, green: 1, blue: 1, alpha: 1)
     ]
-    private var _darkColorList: [UIColor] = [
+    
+    private let _darkColorList: [UIColor] = [
         UIColor.clear,
         UIColor.white,
         UIColor.black,
@@ -73,7 +50,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         UIColor(red: 0, green: 1, blue: 1, alpha: 1)
     ]
     
-    private var _associatedText: [String] = [
+    private let _associatedText: [String] = [
         "I'm looking over, a four-pointed star...",
         "Gimme FIVE!",
         "Number NINE...Number NINE...",
@@ -95,7 +72,13 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         "Born in Arizona, Moved to Babylonia. King Tut",
         "Mulder? Where Are You?"
     ]
+    
+    /* ################################################################################################################################## */
+    private var _shapes = [ShapeValueTuple]()
+    
+    private var _dataItems = [RVS_Spinner.RVS_SpinnerDataItem]()
 
+    /* ################################################################################################################################## */
     @IBOutlet weak var spinnerView: RVS_Spinner!
     @IBOutlet weak var numberOfItemsSegmentedControl: UISegmentedControl!
     @IBOutlet weak var innerColorSegmentedControl: UISegmentedControl!
@@ -106,15 +89,33 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     @IBOutlet weak var hapticsSwitch: UISwitch!
     @IBOutlet weak var soundsSwitch: UISwitch!
     @IBOutlet weak var associatedTextLabel: UILabel!
+
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     */
+    var everyShape: [ShapeValueTuple] {
+        return _shapes
+    }
     
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     */
     @IBAction func soundsSwitchChanged(_ inSwitch: UISwitch) {
         spinnerView.isSoundOn = inSwitch.isOn
     }
     
+    /* ################################################################## */
+    /**
+     */
     @IBAction func hapticsSwitchChanged(_ inSwitch: UISwitch) {
         spinnerView.isHapticsOn = inSwitch.isOn
     }
     
+    /* ################################################################## */
+    /**
+     */
     @IBAction func rotationSliderChanged(_ inSlider: UISlider) {
         var offset = Float.pi * inSlider.value
         
@@ -126,16 +127,27 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         spinnerView.selectedItemOffsetInRadians = offset
     }
     
+    /* ################################################################## */
+    /**
+     */
     @IBAction func spinnerModeSegSwitchHit(_ inSegmentedSwitch: UISegmentedControl) {
         spinnerView.spinnerMode = inSegmentedSwitch.selectedSegmentIndex - 1
+        associatedTextLabel?.text = ""
     }
 
+    /* ################################################################## */
+    /**
+     */
     @IBAction func numberSegSwitchHit(_ inSegmentedSwitch: UISegmentedControl) {
         if let numberOfItems = Int(inSegmentedSwitch.titleForSegment(at: inSegmentedSwitch.selectedSegmentIndex) ?? "") {
             setUpDataItemsArray(numberOfItems)
         }
+        associatedTextLabel?.text = ""
     }
 
+    /* ################################################################## */
+    /**
+     */
     @IBAction func colorSegSwitchHit(_ inSegmentedSwitch: UISegmentedControl) {
         if inSegmentedSwitch == innerColorSegmentedControl {
             spinnerView.backgroundColor = _colorList[inSegmentedSwitch.selectedSegmentIndex]
@@ -146,10 +158,10 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         }
     }
 
-    var everyShape: [ShapeValueTuple] {
-        return _shapes
-    }
-    
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     */
     func subsetOfShapes(_ inNumberOfShapes: Int) -> [ShapeValueTuple] {
         let shapes = everyShape
         let stepSize = Double(shapes.count) / Double(inNumberOfShapes)
@@ -163,6 +175,9 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         return ret
     }
 
+    /* ################################################################## */
+    /**
+     */
     func extractValueList() {
         _shapes = []
         
@@ -189,6 +204,9 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         }
     }
     
+    /* ################################################################## */
+    /**
+     */
     func setUpControls() {
         spinnerView.delegate = self
         spinnerView.values = _dataItems
@@ -196,8 +214,12 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         spinnerView.backgroundColor = _colorList[innerColorSegmentedControl.selectedSegmentIndex]
         spinnerView.openBackgroundColor = _colorList[radialColorSegmentedControl.selectedSegmentIndex]
         spinnerView.tintColor = _darkColorList[borderColorSegmentedControl.selectedSegmentIndex]
+        spinner(spinnerView, hasSelectedTheValue: spinnerView?.value)
     }
     
+    /* ################################################################## */
+    /**
+     */
     func setUpCountSwitch() {
         let step = Double(everyShape.count) / Double(numberOfItemsSegmentedControl.numberOfSegments)
         for index in 0..<numberOfItemsSegmentedControl.numberOfSegments {
@@ -208,6 +230,9 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         numberOfItemsSegmentedControl.selectedSegmentIndex = numberOfItemsSegmentedControl.numberOfSegments / 2
     }
     
+    /* ################################################################## */
+    /**
+     */
     func setUpDataItemsArray(_ inNumberOfItems: Int) {
         _dataItems = []
         let items = subsetOfShapes(inNumberOfItems)
@@ -217,6 +242,10 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         setUpControls()
     }
     
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
         extractValueList()
@@ -226,6 +255,9 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         rotationSliderChanged(rotationSlider)
     }
     
+    /* ################################################################## */
+    /**
+     */
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if let containerView = spinnerView.superview {
@@ -234,6 +266,10 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         }
     }
     
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     */
     func spinner(_ inSpinner: RVS_Spinner, hasSelectedTheValue inValueSelected: RVS_Spinner.RVS_SpinnerDataItem?) {
         if let associatedText = inValueSelected?.value as? String, !associatedText.isEmpty {
             associatedTextLabel?.text = associatedText
