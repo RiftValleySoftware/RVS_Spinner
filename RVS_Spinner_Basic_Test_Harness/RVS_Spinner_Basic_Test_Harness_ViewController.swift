@@ -76,7 +76,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     /* ################################################################################################################################## */
     private var _shapes = [ShapeValueTuple]()
     
-    private var _dataItems = [RVS_Spinner.RVS_SpinnerDataItem]()
+    private var _dataItems = [RVS_SpinnerDataItem]()
 
     /* ################################################################################################################################## */
     @IBOutlet weak var spinnerView: RVS_Spinner!
@@ -85,6 +85,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     @IBOutlet weak var radialColorSegmentedControl: UISegmentedControl!
     @IBOutlet weak var borderColorSegmentedControl: UISegmentedControl!
     @IBOutlet weak var spinnerModeSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var thresholdSegmentedControl: UISegmentedControl!
     @IBOutlet weak var rotationSlider: UISlider!
     @IBOutlet weak var hapticsSwitch: UISwitch!
     @IBOutlet weak var soundsSwitch: UISwitch!
@@ -124,15 +125,24 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
             inSlider.value = offset
         }
         
-        spinnerView.selectedItemOffsetInRadians = offset
+        spinnerView.rotationInRadians = offset
     }
     
     /* ################################################################## */
     /**
      */
+    @IBAction func thresholdSegmentedControlHit(_ inSegmentedSwitch: UISegmentedControl) {
+        if let value = Int(inSegmentedSwitch.titleForSegment(at: inSegmentedSwitch.selectedSegmentIndex) ?? "") {
+            spinnerView?.spinnerThreshold = value
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     */
     @IBAction func spinnerModeSegSwitchHit(_ inSegmentedSwitch: UISegmentedControl) {
         spinnerView.spinnerMode = inSegmentedSwitch.selectedSegmentIndex - 1
-        associatedTextLabel?.text = ""
+        thresholdSegmentedControl.isEnabled = 0 == spinnerView.spinnerMode
     }
 
     /* ################################################################## */
@@ -142,7 +152,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         if let numberOfItems = Int(inSegmentedSwitch.titleForSegment(at: inSegmentedSwitch.selectedSegmentIndex) ?? "") {
             setUpDataItemsArray(numberOfItems)
         }
-        associatedTextLabel?.text = ""
+        updateAssociatedText()
     }
 
     /* ################################################################## */
@@ -173,6 +183,13 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         }
         
         return ret
+    }
+
+    /* ################################################################## */
+    /**
+     */
+    func updateAssociatedText() {
+        associatedTextLabel?.text = spinnerView?.value?.value as? String
     }
 
     /* ################################################################## */
@@ -237,7 +254,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         _dataItems = []
         let items = subsetOfShapes(inNumberOfItems)
         items.forEach {
-            _dataItems.append(RVS_Spinner.RVS_SpinnerDataItem(title: $0.name, icon: $0.image, value: _associatedText[$0.index]))
+            _dataItems.append(RVS_SpinnerDataItem(title: $0.name, icon: $0.image, value: _associatedText[$0.index]))
         }
         setUpControls()
     }
@@ -253,17 +270,15 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         numberSegSwitchHit(numberOfItemsSegmentedControl)
         spinnerModeSegSwitchHit(spinnerModeSegmentedControl)
         rotationSliderChanged(rotationSlider)
+        thresholdSegmentedControlHit(thresholdSegmentedControl)
+        updateAssociatedText()
     }
         
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      */
-    func spinner(_ inSpinner: RVS_Spinner, hasSelectedTheValue inValueSelected: RVS_Spinner.RVS_SpinnerDataItem?) {
-        if let associatedText = inValueSelected?.value as? String, !associatedText.isEmpty {
-            associatedTextLabel?.text = associatedText
-        } else {
-            associatedTextLabel?.text = ""
-        }
+    func spinner(_ inSpinner: RVS_Spinner, hasSelectedTheValue inValueSelected: RVS_SpinnerDataItem?) {
+        updateAssociatedText()
     }
 }

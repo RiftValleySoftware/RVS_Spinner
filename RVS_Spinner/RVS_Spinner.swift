@@ -30,7 +30,7 @@ import AudioToolbox
 /**
  This allows us to see if a color is clear.
  */
-extension UIColor {
+fileprivate extension UIColor {
     /* ################################################################## */
     /**
      - returns true, if the color is clear.
@@ -47,8 +47,65 @@ extension UIColor {
     }
 }
 
+/* ################################################################################################################################## */
+// MARK: - Public Control Value Data Struct
+/* ################################################################################################################################## */
+/* ################################################################## */
+/**
+ This struct is used to represent one value of the spinner.
+ 
+ You need to watch out when comparing instances of this class, because we don't take the value into account.
+ We compare the title, icon and description.
+ The value is only tested for nil/not-nil. This is because it is an "Any", and we want to be able to jam whatever we want in there.
+ */
+public struct RVS_SpinnerDataItem: Equatable {
+    /** This is the required title for the data item. This is what is most prominently displayed. */
+    public let title: String
+    /** This is an image to be displayed for the data item. */
+    public let icon: UIImage
+    /** This is an optional description String, which can provide more detailed information about the data item. */
+    public let description: String?
+    /** This is any associated data value. It is an optional "Any," and needs to be cast. */
+    public let value: Any?
+    
+    /* ################################################################## */
+    /**
+     This is the basic equatable operator.
+     
+     We compare all the fields except for the value (which may not be equatable).
+     
+     - parameter lhs: The left-hand side of the comparison.
+     - parameter rhs: The right-hand side of the comparator.
+     - returns true, if the two instances appear equal.
+     */
+    public static func == (lhs: RVS_SpinnerDataItem, rhs: RVS_SpinnerDataItem) -> Bool {
+        var ret = lhs.title == rhs.title && lhs.icon == rhs.icon && lhs.description == rhs.description
+        
+        // We can't compare values, because they may not be equatable. However, we will look to see if their nil status is the same.
+        ret = ret && ((nil == lhs.value) == (nil == rhs.value))
+        
+        return ret
+    }
+    
+    /* ################################################################## */
+    /**
+     The default initializer. The only required parameters are the title and icon.
+     
+     - parameter inTitle: A String, with the title of this value.
+     - parameter icon: An image to be displayed for the value.
+     - parameter description: An optional String (default is nil), with a description of the value.
+     - parameter value: An optional value (default is nil) to be associated with this value item.
+     */
+    public init(title inTitle: String, icon inIcon: UIImage, description inDescription: String? = nil, value inValue: Any? = nil) {
+        title = inTitle
+        icon = inIcon
+        description = inDescription
+        value = inValue
+    }
+}
+
 /* ###################################################################################################################################### */
-// MARK: - Delegate Protocol -
+// MARK: - Public Delegate Protocol -
 /* ###################################################################################################################################### */
 /**
  This is the delegate protocol for the Spinner. It is a Swift class protocol, because it provides the delegate with a Swift object, and is weakly referenced by the Spinner.
@@ -64,7 +121,7 @@ public protocol RVS_SpinnerDelegate: class {
      - parameter spinner: The RVS_Spinner instance.
      - parameter singleValueSelected: The value that was just selected. This is optional.
      */
-    func spinner(_: RVS_Spinner, singleValueSelected: RVS_Spinner.RVS_SpinnerDataItem?)
+    func spinner(_: RVS_Spinner, singleValueSelected: RVS_SpinnerDataItem?)
     
     /* ################################################################## */
     /**
@@ -73,7 +130,7 @@ public protocol RVS_SpinnerDelegate: class {
      - parameter spinner: The RVS_Spinner instance.
      - parameter hasSelectedTheValue: The value that was just selected. This is optional.
      */
-    func spinner(_: RVS_Spinner, hasSelectedTheValue: RVS_Spinner.RVS_SpinnerDataItem?)
+    func spinner(_: RVS_Spinner, hasSelectedTheValue: RVS_SpinnerDataItem?)
     
     /* ################################################################## */
     /**
@@ -82,7 +139,7 @@ public protocol RVS_SpinnerDelegate: class {
      - parameter spinner: The RVS_Spinner instance.
      - parameter hasOpenedWithTheValue: The value that was selected when the control opened. This is optional.
      */
-    func spinner(_: RVS_Spinner, hasOpenedWithTheValue: RVS_Spinner.RVS_SpinnerDataItem?)
+    func spinner(_: RVS_Spinner, hasOpenedWithTheValue: RVS_SpinnerDataItem?)
     
     /* ################################################################## */
     /**
@@ -91,7 +148,7 @@ public protocol RVS_SpinnerDelegate: class {
      - parameter spinner: The RVS_Spinner instance.
      - parameter hasClosedWithTheValue: The value that was selected when the control closed. This is optional.
      */
-    func spinner(_: RVS_Spinner, hasClosedWithTheValue: RVS_Spinner.RVS_SpinnerDataItem?)
+    func spinner(_: RVS_Spinner, hasClosedWithTheValue: RVS_SpinnerDataItem?)
 }
 
 /* ###################################################################################################################################### */
@@ -109,7 +166,7 @@ public extension RVS_SpinnerDelegate {
      - parameter spinner: The RVS_Spinner instance.
      - parameter singleValueSelected: The value that was just selected. This is optional.
      */
-    func spinner(_: RVS_Spinner, singleValueSelected: RVS_Spinner.RVS_SpinnerDataItem?) {
+    func spinner(_: RVS_Spinner, singleValueSelected: RVS_SpinnerDataItem?) {
         #if DEBUG
             print("spinner(:, singleValueSelected:) called in default.")
         #endif
@@ -122,7 +179,7 @@ public extension RVS_SpinnerDelegate {
      - parameter spinner: The RVS_Spinner instance.
      - parameter hasSelectedTheValue: The value that was just selected. This is optional.
      */
-    func spinner(_: RVS_Spinner, hasSelectedTheValue: RVS_Spinner.RVS_SpinnerDataItem?) {
+    func spinner(_: RVS_Spinner, hasSelectedTheValue: RVS_SpinnerDataItem?) {
         #if DEBUG
             print("spinner(:, hasSelectedTheValue:) called in default.")
         #endif
@@ -135,7 +192,7 @@ public extension RVS_SpinnerDelegate {
      - parameter spinner: The RVS_Spinner instance.
      - parameter hasOpenedWithTheValue: The value that was selected when the control opened. This is optional.
      */
-    func spinner(_: RVS_Spinner, hasOpenedWithTheValue: RVS_Spinner.RVS_SpinnerDataItem?) {
+    func spinner(_: RVS_Spinner, hasOpenedWithTheValue: RVS_SpinnerDataItem?) {
         #if DEBUG
             print("spinner(:, hasOpenedWithTheValue:) called in default.")
         #endif
@@ -148,7 +205,7 @@ public extension RVS_SpinnerDelegate {
      - parameter spinner: The RVS_Spinner instance.
      - parameter hasClosedWithTheValue: The value that was selected when the control closed. This is optional.
      */
-    func spinner(_: RVS_Spinner, hasClosedWithTheValue: RVS_Spinner.RVS_SpinnerDataItem?) {
+    func spinner(_: RVS_Spinner, hasClosedWithTheValue: RVS_SpinnerDataItem?) {
         #if DEBUG
             print("spinner(:, hasClosedWithTheValue:) called in default.")
         #endif
@@ -156,7 +213,7 @@ public extension RVS_SpinnerDelegate {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - Main Class -
+// MARK: - Public Main Class -
 /* ###################################################################################################################################### */
 /**
  This is a "spinner" control, which acts a bit like a circular UIPickerView.
@@ -175,90 +232,84 @@ public extension RVS_SpinnerDelegate {
  always use the picker, or never use the picker.
  */
 @IBDesignable
-public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource, Sequence {
+public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource {
     /* ################################################################################################################################## */
-    // MARK: - Private Static Properties
+    // MARK: - Internal Static Properties
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      This is the "opening" system sound.
      */
-    private static let _kOpenSystemSoundID: UInt32 = 1104
+    static let _kOpenSystemSoundID: UInt32 = 1104
     
     /* ################################################################## */
     /**
      This is the "setting" system sound.
      */
-    private static let _kSelectSystemSoundID: UInt32 = 1103
+    static let _kSelectSystemSoundID: UInt32 = 1103
     
     /* ################################################################## */
     /**
      This is the "closing" system sound.
      */
-    private static let _kCloseSystemSoundID: UInt32 = 1105
+    static let _kCloseSystemSoundID: UInt32 = 1105
 
     /* ################################################################## */
     /**
      This is the width of the lines in the control.
      */
-    private static let _kBorderWidth: CGFloat = 1.0
-    
-    /* ################################################################## */
-    /**
-     This is the height of the label in the open spinner.
-     */
-    private static let _kDisplayLabelHeight: CGFloat = 30.0
+    static let _kBorderWidth: CGFloat = 1.0
     
     /* ################################################################## */
     /**
      This is the padding in the open control "pie slices.".
      */
-    private static let _kOpenPaddingInDisplayUnits: CGFloat = 8.0
+    static let _kOpenPaddingInDisplayUnits: CGFloat = 8.0
     
     /* ################################################################## */
     /**
      This is the largest square image we allow in the pickerview.
      */
-    private static let _kMaxOpenImageSizeInDisplayUnits: CGFloat = 40.0
+    static let _kMaxOpenPickerViewImageSizeInDisplayUnits: CGFloat = 40.0
     
     /* ################################################################## */
     /**
      This is the maximum velocity for the "flywheel."
      */
-    private static let _kMaxFlywheelVelocity: CGFloat = 4
+    static let _kMaxFlywheelVelocity: CGFloat = 4
     
     /* ################################################################## */
     /**
      This is the minimum velocity for the "flywheel." Below this, "clicks" in a value.
      */
-    private static let _kMinFlywheelVelocity: CGFloat = 0.94
+    static let _kMinFlywheelVelocity: CGFloat = 0.94
     
     /* ################################################################## */
     /**
      This is the deceleration constant for the "flywheel."
      */
-    private static let _kFlywheelVelocityDecelerationMultiplier: CGFloat = 0.994
+    static let _kFlywheelVelocityDecelerationMultiplier: CGFloat = 0.994
     
     /* ################################################################## */
     /**
      This is a constant for the "accumulator" of the "flywheel."
      */
-    private static let _kFlywheelVelocityDecelerationNudgeMultiplier: CGFloat = 0.1
+    static let _kFlywheelVelocityDecelerationNudgeMultiplier: CGFloat = 0.1
     
     /* ################################################################## */
     /**
      This is the preferred frames per second for our decelerator.
      */
-    private static let _kFlywheelPreferredFramesPerSecond: Int = 60
+    static let _kFlywheelPreferredFramesPerSecond: Int = 60
     
     /* ################################################################## */
     /**
      This is used to derive the velocity from the pan.
      */
-    private static let _kFlywheelVelocityDivisor: CGFloat = 600
+    static let _kFlywheelVelocityDivisor: CGFloat = 600
 
     /* ################################################################################################################################## */
-    // MARK: - Private Instance Properties
+    // MARK: - Internal Instance Properties
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
@@ -266,7 +317,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      This is set from the view background color.
      */
-    private var _closedBackgroundColor: UIColor? {
+    var _closedBackgroundColor: UIColor? {
         didSet {
             // We will want to update our layout. Do it in the main thread, just in case.
             DispatchQueue.main.async {
@@ -280,110 +331,110 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      This is the radius of the open control "pie slices.".
      */
-    private var _radiusOfOpenControlInDisplayUnits: Float = 0.0
+    var _radiusOfOpenControlInDisplayUnits: Float = 0.0
 
     /* ################################################################## */
     /**
      This is used to track the velocity for "flywheel" behavior.
      */
-    private var _flywheelVelocity: CGFloat = 0
+    var _flywheelVelocity: CGFloat = 0
     
     /* ################################################################## */
     /**
      This is also used to track the velocity for "flywheel" behavior during deceleration.
      */
-    private var _currentFlywheelVelocity: CGFloat = 0
+    var _currentFlywheelVelocity: CGFloat = 0
     
     /* ################################################################## */
     /**
      This is a Core Animation Display Link pointer that we use for the decelerator.
      */
-    private var _decelerationDisplayLink: CADisplayLink?
+    var _decelerationDisplayLink: CADisplayLink?
     
     /* ################################################################## */
     /**
      This accumulates "bumps" to "nudge the value as we decelerate.
      */
-    private var _decelerationAccumulator: CGFloat = 0
+    var _decelerationAccumulator: CGFloat = 0
     
     /* ################################################################## */
     /**
      This is the first angle for a pan. We use this to track the delta.
      */
-    private var _initialAngleForPan: CGFloat = 0
+    var _initialAngleForPan: CGFloat = 0
     
     /* ################################################################## */
     /**
      This is the item that was selected when we started the pan.
      */
-    private var _initialSelectionForPan: Int = 0
+    var _initialSelectionForPan: Int = 0
     
     /* ################################################################## */
     /**
      This caches all the "spokes."
      */
-    private var _layerCache: [CAShapeLayer?] = []
+    var _layerCache: [CAShapeLayer?] = []
     
     /* ################################################################## */
     /**
      This is an invisible view that we instantiate over the control to catch gestures.
      It is only available when the control is open.
      */
-    private var _openSpinnerView: UIView!
+    var _openSpinnerView: UIView!
 
     /* ################################################################## */
     /**
      This is the gesture recognizer we will use to determine if the control is being fiddled with.
      */
-    private var _rotateGestureRecognizer: UIPanGestureRecognizer!
+    var _rotateGestureRecognizer: UIPanGestureRecognizer!
 
     /* ################################################################## */
     /**
      This is the gesture recognizer we will use to determine if the control is being tapped.
      */
-    private var _tapGestureRecognizer: UITapGestureRecognizer!
+    var _tapGestureRecognizer: UITapGestureRecognizer!
 
     /* ################################################################## */
     /**
      This is the gesture recognizer we will use to determine if the control is being tapped, but in a long, lingering, kinda creepy way.
      */
-    private var _longPressGestureRecognizer: UILongPressGestureRecognizer!
+    var _longPressGestureRecognizer: UILongPressGestureRecognizer!
     
     /* ################################################################## */
     /**
      This is a UIView that will hold the picker.
      */
-    private var _openPickerContainerView: UIView!
+    var _openPickerContainerView: UIView!
     
     /* ################################################################## */
     /**
      This is standard UIPickerView, for when we have too much.
      */
-    private var _openPickerView: UIPickerView!
+    var _openPickerView: UIPickerView!
 
     /* ################################################################## */
     /**
      This is the animation layer for the control center.
      */
-    private var _centerLayer: CAShapeLayer!
+    var _centerLayer: CAShapeLayer!
     
     /* ################################################################## */
     /**
      This is a semaphore to indicate that we are done tracking the control.
      */
-    private var _doneTracking: Bool = true
+    var _doneTracking: Bool = true
     
     /* ################################################################## */
     /**
      This will provide haptic/audio feedback for opening and closing the control.
      */
-    private var _impactFeedbackGenerator: UIImpactFeedbackGenerator?
+    var _impactFeedbackGenerator: UIImpactFeedbackGenerator?
     
     /* ################################################################## */
     /**
      This will provide haptic/audio feedback for selection "ticks."
      */
-    private var _selectionFeedbackGenerator: UISelectionFeedbackGenerator?
+    var _selectionFeedbackGenerator: UISelectionFeedbackGenerator?
     
     /* ################################################################################################################################## */
     // MARK: - Internal Instance Calculated Properties
@@ -392,7 +443,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      This is the frame for the open spinner.
      */
-    internal var openSpinnerFrame: CGRect {
+    var openSpinnerFrame: CGRect {
         var ret = CGRect.zero
         
         ret.origin.x = frame.midX - CGFloat(_radiusOfOpenControlInDisplayUnits)
@@ -407,7 +458,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      This is the frame for the open picker.
      */
-    internal var openPickerFrame: CGRect {
+    var openPickerFrame: CGRect {
         var ret = openSpinnerFrame
         
         ret.size.height /= 2    // Start at the midpoint.
@@ -415,18 +466,9 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         
         return ret
     }
-    
-    /* ################################################################################################################################## */
-    // MARK: - Internal Instance Properties
-    /* ################################################################################################################################## */
-    /* ################################################################## */
-    /**
-     This is an additional "bump" that may be added to the bottom of the button (for markers).
-     */
-    internal var kAdditionalBottomInset: CGFloat = 0
 
     /* ################################################################################################################################## */
-    // MARK: - Private Instance Methods
+    // MARK: - Internal Instance Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
@@ -434,7 +476,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      - parameter inVelocity: The initial velocity. Negative is clockwise, positive, widdershins.
      */
-    private func _startYourEngines(_ inVelocity: CGFloat) {
+    func _startYourEngines(_ inVelocity: CGFloat) {
         _flywheelVelocity = inVelocity
         _currentFlywheelVelocity = _flywheelVelocity
         _decelerationAccumulator = 0
@@ -445,7 +487,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      This plays a sound (and gives haptic feedback) for the "opening" animation.
      */
-    private func _playOpenSound() {
+    func _playOpenSound() {
         if isSoundOn {
             AudioServicesPlaySystemSound(type(of: self)._kOpenSystemSoundID)
         }
@@ -459,7 +501,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      This plays the faint "tink" sound when a new value is selected.
      */
-    private func _playSelectionTink() {
+    func _playSelectionTink() {
         if isOpen {
             if isSoundOn {
                 AudioServicesPlaySystemSound(type(of: self)._kSelectSystemSoundID)
@@ -475,7 +517,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      This plays a sound for the control closing.
      */
-    private func _playCloseSound() {
+    func _playCloseSound() {
         if isSoundOn {
             AudioServicesPlaySystemSound(type(of: self)._kCloseSystemSoundID)
         }
@@ -489,7 +531,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      This continues the deceleration/flywheel.
      */
-    private func _decelerate() {
+    func _decelerate() {
         if nil != _openSpinnerView && isOpen {
             _currentFlywheelVelocity = Swift.min(abs(_currentFlywheelVelocity), type(of: self)._kMaxFlywheelVelocity) * (0 > _currentFlywheelVelocity ? -1 : 1)
             if Swift.abs(_currentFlywheelVelocity) >= type(of: self)._kMinFlywheelVelocity {
@@ -517,7 +559,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      translate that to a "detented" set of integer values.
      This way does that, and gives a fairly realistic logarithmic response.
      */
-    @objc private func _decelerationStep() {
+    @objc func _decelerationStep() {
         let newVelocity = _currentFlywheelVelocity * type(of: self)._kFlywheelVelocityDecelerationMultiplier
         _currentFlywheelVelocity = newVelocity
         let nudge = type(of: self)._kFlywheelVelocityDecelerationNudgeMultiplier * newVelocity
@@ -554,7 +596,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      - parameter inRect: The drawing rectangle
      */
-    private func _drawControlCenter(_ inRect: CGRect) {
+    func _drawControlCenter(_ inRect: CGRect) {
         if nil != _centerLayer {
             _centerLayer?.removeFromSuperlayer()
             _centerLayer = nil
@@ -587,7 +629,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      - parameter inIndex: The index of the value to be used.
      */
-    private func _drawOneValueRadius(_ inIndex: Int) -> CALayer! {
+    func _drawOneValueRadius(_ inIndex: Int) -> CALayer! {
         var ret: CAShapeLayer! = nil
         let arclengthInRadians = (CGFloat.pi * 2) / CGFloat(values.count)
 
@@ -648,7 +690,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             }
 
             // This displays the wedge rotated properly.
-            let rotationAngleInRadians = (CGFloat(inIndex - selectedIndex) * arclengthInRadians) + CGFloat(selectedItemOffsetInRadians)
+            let rotationAngleInRadians = (CGFloat(inIndex - selectedIndex) * arclengthInRadians) + CGFloat(rotationInRadians)
             ret.transform = CATransform3DMakeRotation(rotationAngleInRadians, 0, 0, 1.0)
 
             // We use this to reduce the opacity of the values that are not actually on top.
@@ -659,12 +701,8 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 indexDistance -= maximumIndexPlusOne
             }
 
-            switch Swift.abs(indexDistance) {
-            case 0:
-                ret.opacity = 1.0   // Top item gets all the goodies.
-            default:
-                ret.opacity = 0.25 / Float(Swift.abs(indexDistance))   // 3 or more away, hidden.
-            }
+            // The selected value is always full visibility, but it dimms drastically, the further we are from it.
+            ret.opacity = (0 == Swift.abs(indexDistance)) ? 1.0 : 0.25 / Float(Swift.abs(indexDistance))
         }
         
         return ret
@@ -680,7 +718,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      - returns a new CALayer, with the display-ready icon.
      */
-    private func _createIconDisplay(_ inIcon: UIImage, inFrame: CGRect, isDimmed inIsDimmed: Bool = false) -> CALayer {
+    func _createIconDisplay(_ inIcon: UIImage, inFrame: CGRect, isDimmed inIsDimmed: Bool = false) -> CALayer {
         let iconDisplayLayer = CALayer()
         iconDisplayLayer.backgroundColor = UIColor.clear.cgColor
         iconDisplayLayer.frame = inFrame
@@ -723,7 +761,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      - parameter inRect: The drawing rectangle
      */
-    private func _drawOpenControl(_ inRect: CGRect) {
+    func _drawOpenControl(_ inRect: CGRect) {
         if isOpen { // Only counts if we're open.
             _drawControlCenter(inRect) // Draw the center.
             if nil != _openSpinnerView {
@@ -745,7 +783,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      - parameter inPointInLocalCoordinates: This is a point, in the coordinate system of the given view, to test.
      - parameter forView: The view in which we will test.
      */
-    private func _handleOpenTouchEvent(_ inPointInLocalCoordinates: CGPoint, forView inView: UIView) {
+    func _handleOpenTouchEvent(_ inPointInLocalCoordinates: CGPoint, forView inView: UIView) {
         if isOpen && nil != _openSpinnerView { // Only counts if we're open.
             if nil != _decelerationDisplayLink {   // If we are spinning, a tap in the control will stop the spin.
                 _decelerationDisplayLink?.invalidate()
@@ -784,7 +822,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      Handle the control opening.
      */
-    private func _openControl() {
+    func _openControl() {
         if !isEmpty {  // Only if we have something to display.
             if isHapticsOn {
                 _selectionFeedbackGenerator = UISelectionFeedbackGenerator()
@@ -792,7 +830,11 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 _impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
                 _impactFeedbackGenerator?.prepare()
             }
-            _playOpenSound()
+            
+            // We play our sounds in the main queue.
+            DispatchQueue.main.async {
+                self._playOpenSound()
+            }
 
             if opensAsSpinner { // Only if we are opening the radial spinner.
                 // We will add our big ol' getsure recognizer view.
@@ -865,7 +907,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      This ensures that we don't get bigger than our container.
      */
-    private func _correctRadius() {
+    func _correctRadius() {
         DispatchQueue.main.async {
             let oldRadius = self._radiusOfOpenControlInDisplayUnits
             let myCenter = CGPoint(x: self.frame.midX, y: self.frame.midY)
@@ -890,7 +932,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      Handle the control closing.
      */
-    private func _closeControl() {
+    func _closeControl() {
         _decelerationDisplayLink?.invalidate() // Stop any spinning.
         _decelerationDisplayLink = nil
 
@@ -947,14 +989,14 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     }
     
     /* ################################################################## */
-    // MARK: - Private Selector Methods
+    // MARK: - Internal Selector Methods
     /* ################################################################## */
     /**
      This is called when the orientation of the device has changed.
      
      - parameter notification: The notification object (ignored).
      */
-    @objc private func _orientationChanged(notification inNotification: Notification) {
+    @objc func _orientationChanged(notification inNotification: Notification) {
         _correctRadius()    // Make sure we stay in our lane.
     }
     
@@ -964,7 +1006,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      - parameter inGesture: The tap gesture recognizer.
      */
-    @objc private func _handleOpenTapGesture(_ inGesture: UITapGestureRecognizer) {
+    @objc func _handleOpenTapGesture(_ inGesture: UITapGestureRecognizer) {
         if isOpen && nil != _openSpinnerView { // Only counts if we're open.
             if let view = inGesture.view {
                 let touchPoint = inGesture.location(in: view)
@@ -979,7 +1021,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      - parameter inGesture: The tap gesture recognizer.
      */
-    @objc private func _handleOpenLongPressGesture(_ inGesture: UILongPressGestureRecognizer) {
+    @objc func _handleOpenLongPressGesture(_ inGesture: UILongPressGestureRecognizer) {
         if isOpen && nil != _openSpinnerView { // Only counts if we're open.
             if let view = inGesture.view {
                 let touchPoint = inGesture.location(in: view)
@@ -994,7 +1036,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      - parameter inGesture: The specialized pan gesture recognizer.
      */
-    @objc private func _handleOpenPanGesture(_ inGesture: UIPanGestureRecognizer) {
+    @objc func _handleOpenPanGesture(_ inGesture: UIPanGestureRecognizer) {
         if isOpen && nil != _openSpinnerView { // Only counts if we're open.
             if .began == inGesture.state || .changed == inGesture.state || .ended == inGesture.state {  // Make sure we're in the correct state.
                 if let view = inGesture.view {  // ...and the correct view.
@@ -1065,105 +1107,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             }
         }
     }
-
-    /* ################################################################################################################################## */
-    // MARK: - Public Control Value Data Class
-    /* ################################################################################################################################## */
-    /* ################################################################## */
-    /**
-     This class is used to represent one value of the spinner. We specify a class, as opposed to a struct, because we want to reference items.
-     
-     You need to watch out when comparing instances of this class, because we don't take the owner or the actual value into account.
-     We compare the title, icon and description.
-     The value is only tested for nil/not-nil. This is because it is an "Any", and we want to be able to jam whatever we want in there.
-     The owner is not tested in the equatable test, but you can test it explicitly.
-     */
-    public class RVS_SpinnerDataItem: Equatable {
-        /** This is the required title for the data item. This is what is most prominently displayed. */
-        public var title: String
-        /** This is an image to be displayed for the data item. */
-        public var icon: UIImage
-        /** This is an optional description String, which can provide more detailed information about the data item. */
-        public var description: String?
-        /** This is any associated data value. It is an optional "Any," and needs to be cast. */
-        public var value: Any?
-        /** This is the RVS_Spinner instance that "owns" this value . */
-        public var owner: RVS_Spinner?
-        /** This returns the index, in the owner. -1 if there is no owner, or the object cannot be found in the owner. READ ONLY */
-        public var myIndex: Int {
-            if let owner = owner {
-                var index = 0
-
-                for value in owner {
-                    if value === self {
-                        return index
-                    }
-                    
-                    index += 1
-                }
-            }
-            
-            return -1
-        }
-        
-        /* ################################################################## */
-        /**
-         This is the basic equatable operator.
-         
-         We compare all the fields except for the value (which may not be equatable), and the owner (because that's kind of dynamic).
-         
-         - parameter lhs: The left-hand side of the comparison.
-         - parameter rhs: The right-hand side of the comparator.
-         - returns true, if the two instances appear equal.
-         */
-        public static func == (lhs: RVS_Spinner.RVS_SpinnerDataItem, rhs: RVS_Spinner.RVS_SpinnerDataItem) -> Bool {
-            var ret = lhs.title == rhs.title && lhs.icon == rhs.icon && lhs.description == rhs.description
-            
-            // We can't compare values, because they may not be equatable. However, we will look to see if their nil status is the same.
-            ret = ret && ((nil == lhs.value) == (nil == rhs.value))
-            
-            return ret
-        }
-        
-        /* ################################################################## */
-        /**
-         The default initializer. The only required parameter is the title.
-         
-         - parameter inTitle: A String, with the title of this value.
-         - parameter icon: An image to be displayed for the value.
-         - parameter description: A String, with a description of the value.
-         - parameter value: A value to be associated with this value item.
-         */
-        public init(title inTitle: String, icon inIcon: UIImage, description inDescription: String? = nil, value inValue: Any? = nil) {
-            title = inTitle
-            icon = inIcon
-            description = inDescription
-            value = inValue
-        }
-        
-        /* ################################################################## */
-        /**
-         A convenience initializer, allowing a title/image-only instantiation with a simple parameter list.
-         
-         - parameter inTitle: A String, with the title of this value.
-         - parameter icon: An image, to be used as the icon for the value.
-         */
-        public convenience init(_ inTitle: String, icon inIcon: UIImage) {
-            self.init(title: inTitle, icon: inIcon)
-        }
-        
-        /* ################################################################## */
-        /**
-         This allows you to select the selectedIndex from the data item.
-         
-         This only works for a valid owner that actually owns this instance.
-         */
-        public func select() {
-            if 0 <= myIndex {
-                owner?.selectedIndex = myIndex
-            }
-        }
-    }
     
     /* ################################################################################################################################## */
     // MARK: - Public Properties
@@ -1208,8 +1151,8 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             // Make sure we are in range.
             selectedIndex = Swift.max(0, Swift.min(values.count - 1, selectedIndex))
             // We will want to update our layout and tell the delegate we changed. Do it in the main thread, just in case.
-            DispatchQueue.main.async {
-                if self.selectedIndex != oldValue {
+            if self.selectedIndex != oldValue {
+                DispatchQueue.main.async {
                     self._playSelectionTink()
                     // Let any delegate know that we have a new selected item.
                     self.delegate?.spinner(self, hasSelectedTheValue: self.value)
@@ -1228,17 +1171,12 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      */
     public var values: [RVS_SpinnerDataItem] = [] {
         didSet {
-            // Who's your daddy? Who's your daddy?
-            _ = values.compactMap({ [unowned self] in
-                $0.owner = self
-            })
-            
             selectedIndex = Swift.max(0, Swift.min(values.count - 1, selectedIndex))
             _layerCache = [CAShapeLayer?](repeating: nil, count: values.count)    // Clear the cache.
            // We will want to update our layout. Do it in the main thread, just in case.
             DispatchQueue.main.async {
                 if self.isOpen {
-                    self.isOpen = false
+                    self.isOpen = false // Close our picker/spinner, if open.
                 } else {
                     self.setNeedsLayout()
                     self.setNeedsDisplay()
@@ -1259,44 +1197,25 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      If true, the control will play haptics (on devices that support haptics).
      */
     public var isHapticsOn: Bool = true
-    
-    /* ################################################################## */
-    /**
-     This is the maximum number of elements that can be displayed in a spinner.
-     Above this, needs to be displayed in a picker.
-     */
-    public  var spinnerThreshold: Int = 15
-    
-    /* ################################################################## */
-    /**
-     This is the spinner mode. It determines which control is displayed when the spinner is open.
-     
-     - both is 0 The spinnerThreshold is used to determine which will be displayed.
-     - radial spinner only is -1 (default)
-     - picker only is 1
-     */
-    public var spinnerMode: Int = SpinnerMode.both.rawValue {
-        didSet {
-            DispatchQueue.main.async {
-                if self.isOpen {
-                    self.isOpen = false
-                } else {
-                    self.setNeedsLayout()
-                    self.setNeedsDisplay()
-                }
-            }
-        }
-    }
 
     /* ################################################################## */
     /**
-     This is the offset from the top, in radians, of a spinner (ignored for picker).
+     If this is true, then the spinner is open. Setting this will open or close the control.
      */
-    public var selectedItemOffsetInRadians: Float = 0 {
-        didSet {
-            // We will want to update our layout. Do it in the main thread, just in case.
+    public var isOpen: Bool = false {
+        didSet {    // This is the way we open and close the control.
+            if isOpen && isOpen != oldValue, 1 < count {
+                _openControl()
+                // Let any delegate know that we have opened with a selected item.
+                delegate?.spinner(self, hasOpenedWithTheValue: value)
+            } else if !isOpen && isOpen != oldValue {
+                _closeControl()
+                // Let any delegate know that we have closed with a selected item.
+                delegate?.spinner(self, hasClosedWithTheValue: value)
+            }
+            
             DispatchQueue.main.async {
-                self._layerCache = [CAShapeLayer?](repeating: nil, count: self.values.count)    // Clear the cache.
+                self.setNeedsLayout()
                 self.setNeedsDisplay()
             }
         }
@@ -1307,23 +1226,14 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
-     This calculated property will return either the currently selected item, or nil.
+     This calculated property will return either the currently selected item, or nil. READ-ONLY
      */
     public var value: RVS_SpinnerDataItem? {
-        get {
-            if !values.isEmpty, selectedIndex < values.count, 0 <= selectedIndex {
-                return values[selectedIndex]
-            }
-            
-            return nil
+        if !values.isEmpty, (0..<values.count).contains(selectedIndex) {
+            return values[selectedIndex]
         }
         
-        // We allow "setting," as long as the Element is ours.
-        set {
-            if newValue?.owner == self {
-                newValue?.select()
-            }
-        }
+        return nil
     }
 
     /* ################################################################## */
@@ -1343,6 +1253,22 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      */
     public var opensAsSpinner: Bool {
         return SpinnerMode.spinnerOnly.rawValue == spinnerMode || ((SpinnerMode.both.rawValue == spinnerMode) && spinnerThreshold > count)
+    }
+    
+    /* ################################################################## */
+    /**
+     - returns: The number of values.
+     */
+    public var count: Int {
+        return values.count
+    }
+    
+    /* ################################################################## */
+    /**
+     - returns: Yes, we have no bananas.
+     */
+    public var isEmpty: Bool {
+        return values.isEmpty
     }
 
     /* ################################################################################################################################## */
@@ -1417,23 +1343,53 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
 
     /* ################################################################## */
     /**
-     If this is true, then the spinner is open. Setting this will open or close the control.
+     This is the offset from the top, in radians, of a spinner (ignored for picker).
      */
-    @IBInspectable public var isOpen: Bool = false {
-        didSet {    // This is the way we open and close the control.
-            if isOpen && isOpen != oldValue, 1 < count {
-                _openControl()
-                // Let any delegate know that we have opened with a selected item.
-                delegate?.spinner(self, hasOpenedWithTheValue: value)
-            } else if !isOpen && isOpen != oldValue {
-                _closeControl()
-                // Let any delegate know that we have closed with a selected item.
-                delegate?.spinner(self, hasClosedWithTheValue: value)
-            }
-            
+    @IBInspectable public var rotationInRadians: Float = 0 {
+        didSet {
+            // We will want to update our layout. Do it in the main thread, just in case.
             DispatchQueue.main.async {
-                self.setNeedsLayout()
+                self._layerCache = [CAShapeLayer?](repeating: nil, count: self.values.count)    // Clear the cache.
                 self.setNeedsDisplay()
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This is the spinner mode. It determines which control is displayed when the spinner is open.
+     
+     - both (default) is 0 The spinnerThreshold is used to determine which will be displayed.
+     - radial spinner only is -1
+     - picker only is 1
+     */
+    @IBInspectable public var spinnerMode: Int = SpinnerMode.both.rawValue {
+        didSet {
+            DispatchQueue.main.async {
+                if self.isOpen {
+                    self.isOpen = false
+                } else {
+                    self.setNeedsLayout()
+                    self.setNeedsDisplay()
+                }
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This is the maximum number of elements that can be displayed in a spinner.
+     Above this, needs to be displayed in a picker.
+     */
+    @IBInspectable public var spinnerThreshold: Int = 15 {
+        didSet {
+            DispatchQueue.main.async {
+                if self.isOpen {
+                    self.isOpen = false
+                } else {
+                    self.setNeedsLayout()
+                    self.setNeedsDisplay()
+                }
             }
         }
     }
@@ -1613,361 +1569,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     deinit {
         _decelerationDisplayLink?.invalidate()
     }
-
-    /* ################################################################################################################################## */
-    // MARK: - Public Array-Like Typealiases, Methods and Calculated Properties
-    /* ################################################################################################################################## */
-    /* ################################################################## */
-    /** This is the Sequence and Array Element typedef (an alias of RVS_SpinnerDataItem). */
-    public typealias Element = RVS_SpinnerDataItem
-    
-    /* ################################################################## */
-    /**
-     - returns the number of elements in the value list
-     */
-    public var count: Int {
-        return values.count
-    }
-    
-    /* ################################################################## */
-    /**
-     - returns true, if the list is empty.
-     */
-    public var isEmpty: Bool {
-        return 0 == count
-    }
-    
-    /* ################################################################## */
-    /**
-     - returns the first element of the list. Nil, if the list is empty.
-     */
-    public var first: Element? {
-        return isEmpty ? nil : self[0]
-    }
-    
-    /* ################################################################## */
-    /**
-     - returns the last element of the list. Nil, if the list is empty.
-     */
-    public var last: Element? {
-        return isEmpty ? nil : self[count - 1]
-    }
-
-    /* ################################################################## */
-    /**
-     Allows read/write access to one of the elements in the value list.
-     
-     - parameter inIndex: The 0-based index of the element to access. If it is out of range, the method will return nil, or ignore the set.
-     - returns: One Element (or nil)
-     */
-    public subscript(_ inIndex: Int) -> Element! {
-        get {
-            var ret: Element?
-            
-            if (0..<values.count).contains(inIndex) {
-                ret = values[inIndex]
-            }
-        
-            return ret
-        }
-        
-        set {
-            if (0..<values.count).contains(inIndex), let value = newValue {
-                values[inIndex] = value
-            }
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     Allows read/write access to a range of the elements in the value list.
-     
-     This version of subscript is simpler than the single subscript, so range errors will result in a runtime error.
-     
-     - parameter bounds: The 0-based range of the elements to access. This isn't exactly the same as the Array method. You need to say "bounds:".
-     - returns: An ArraySlice Range of Element
-     */
-    public subscript(bounds inRange: Range<Int>) -> ArraySlice<Element> {
-        get {
-            return values[inRange]
-        }
-        
-        set {
-            values[inRange] = newValue
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     Appends one element to the end of the list.
-     
-     - parameter inElement: One value to be added to the end of the value list.
-     */
-    public func append(_ inElement: Element) {
-        insert(inElement, at: values.count)
-    }
-    
-    /* ################################################################## */
-    /**
-     Appends an Array of Element to the end of the list.
-     
-     - parameter inElement: An Array of values to be added to the end of the value list.
-     */
-    public func append(contentsOf inElementArray: [Element]) {
-        insert(contentsOf: inElementArray, at: values.count)
-    }
-    
-    /* ################################################################## */
-    /**
-     Inserts one element into the given position in the list.
-     
-     - parameter inElement: One value to be inserted into the value list.
-     - parameter at: The index of the Element that will be AFTER the new Element. If 0, then the insertion is the first. If count, then the Element is appended.
-     */
-    public func insert(_ inElement: Element, at inIndexAfter: Int) {
-        if 0 <= inIndexAfter && inIndexAfter < values.count {
-            values.insert(inElement, at: inIndexAfter)
-        } else if inIndexAfter == values.count {
-            values.append(inElement)
-        }
-        
-        // We will want to update our layout.
-        DispatchQueue.main.async {
-            self.setNeedsLayout()
-            self.sendActions(for: .valueChanged)
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     Inserts an Array of Element into the given position in the list.
-     
-     - parameter contentsOf: An Array of Element to be inserted into the value list.
-     - parameter at: The index of the Element that will be AFTER the new Elements. If 0, then the insertion is the first. If count, then the Elements are appended.
-     */
-    public func insert(contentsOf inElementArray: [Element], at inIndexAfter: Int) {
-        if 0 <= inIndexAfter && inIndexAfter < values.count {
-            values.insert(contentsOf: inElementArray, at: inIndexAfter)
-        } else if inIndexAfter == values.count {
-            values.append(contentsOf: inElementArray)
-        }
-        
-        // We will want to update our layout. Do it in the main thread, just in case.
-        DispatchQueue.main.async {
-            self.setNeedsLayout()
-            self.sendActions(for: .valueChanged)
-        }
-    }
-
-    /* ################################################################## */
-    /**
-     Remove a single indexed Element from the values list.
-     
-     - parameter inIndex: The 0-based index of the Element to remove.
-     - returns: The removed Element
-     */
-    public func remove(at inIndex: Int) -> Element {
-        let ret = values.remove(at: inIndex)
-        ret.owner = nil // This is now an orphan.
-        
-        // We will want to update our layout.
-        DispatchQueue.main.async {
-            self.setNeedsLayout()
-            self.sendActions(for: .valueChanged)
-        }
-        
-        return ret
-    }
-    
-    /* ################################################################## */
-    /**
-     Remove a single provided Element from the values list.
-     
-     - parameter inElement: The Element to remove.
-     
-     - returns: true, if the removal was successful.
-     */
-    public func remove(_ inElement: Element) -> Bool {
-        var ret = false
-        
-        if 0 <= indexOf(inElement) {
-            values.remove(at: indexOf(inElement))
-            ret = true
-            
-            // We will want to update our layout.
-            DispatchQueue.main.async {
-                self.setNeedsLayout()
-                self.sendActions(for: .valueChanged)
-            }
-        }
-        
-        return ret
-    }
-    
-    /* ################################################################## */
-    /**
-     Remove a number of provided Elements from the values list.
-     
-     - parameter inElements: An Array of Elements to remove.
-     
-     - returns: true, if the removal was successful. If there was a problem, the removal is halted immediately. It may be incomplete.
-     */
-    public func remove(_ inElements: [Element]) -> Bool {
-        var ret = false
-        for element in inElements {
-            ret = true
-            
-            if !remove(element) {
-                ret = false
-                break
-            }
-        }
-        
-        return ret
-    }
-    
-    /* ################################################################## */
-    /**
-     Remove every Element from the values list.
-     */
-    public func removeAll() {
-        values = []
-    }
-    
-    /* ################################################################## */
-    /**
-     Remove the first Element from the values list.
-     
-     - returns: The removed Element. Nil, if no elements left.
-     */
-    public func removeFirst() -> Element? {
-        let ret = values.removeFirst()
-        ret.owner = nil // This is now an orphan.
-
-        // We will want to update our layout.
-        DispatchQueue.main.async {
-            self.setNeedsLayout()
-            self.sendActions(for: .valueChanged)
-        }
-        
-        return ret
-    }
-
-    /* ################################################################## */
-    /**
-     Remove a number of Elements from the beginning of the values list.
-     
-     - parameter inNumberOfElements: The 1-based count of elements to remove.
-     */
-    public func removeFirst(_ inNumberOfElements: Int) {
-        values.removeFirst(inNumberOfElements)
-        
-        // We will want to update our layout.
-        DispatchQueue.main.async {
-            self.setNeedsLayout()
-            self.sendActions(for: .valueChanged)
-        }
-    }
-
-    /* ################################################################## */
-    /**
-     Remove the last Element from the values list.
-     
-     - returns: The removed Element. Nil, if no elements left.
-     */
-    public func removeLast() -> Element? {
-        let ret = values.removeLast()
-        ret.owner = nil // This is now an orphan.
-
-        // We will want to update our layout.
-        DispatchQueue.main.async {
-            self.setNeedsLayout()
-            self.sendActions(for: .valueChanged)
-        }
-        
-        return ret
-    }
-    
-    /* ################################################################## */
-    /**
-     Remove a number of Elements from the end of the values list.
-     
-     - parameter inNumberOfElements: The 1-based count of elements to remove (going backwards from -and including- the last Element).
-     */
-    public func removeLast(_ inNumberOfElements: Int) {
-        values.removeLast(inNumberOfElements)
-        
-        // We will want to update our layout.
-        DispatchQueue.main.async {
-            self.setNeedsLayout()
-            self.sendActions(for: .valueChanged)
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     This will find the index, within our values Array, of the item.
-     
-     - parameter inItem: An Element to find in our values list
-     
-     - returns: -1 if not found, 0..<count for an item that was found.
-     */
-    public func indexOf(_ inItem: Element) -> Int {
-        if self == inItem.owner {
-            return inItem.myIndex
-        }
-        
-        return -1
-    }
-
-    /* ################################################################################################################################## */
-    // MARK: - Public Sequence Protocol Methods
-    /* ################################################################################################################################## */
-    /* ################################################################## */
-    /**
-     - returns: a new iterator for the instance.
-     */
-    public func makeIterator() -> Iterator {
-        return Iterator(self)
-    }
-    
-    /* ################################################################## */
-    /**
-     This is the Sequence Iterator Struct.
-     */
-    public struct Iterator: IteratorProtocol {
-        /** We actually reference the object it */
-        private let _iteratedObject: RVS_Spinner!
-        /** This is the current item in that list. */
-        private var _index: Int
-        
-        /* ############################################################## */
-        /**
-         The default initializer.
-         
-         - parameter inIteratorTarget: The actual object instance to iterate. We don't iterate a captured Array.
-         */
-        init(_ inIteratorTarget: RVS_Spinner) {
-            _iteratedObject = inIteratorTarget
-            _index = 0
-        }
-        
-        /* ############################################################## */
-        /**
-         Simple "next" iterator method.
-         */
-        mutating public func next() -> Element? {
-            if _index < _iteratedObject.count {
-                let ret = _iteratedObject[_index]
-                
-                _index += 1
-                
-                return ret
-            } else {
-                return nil
-            }
-        }
-    }
     
     /* ################################################################################################################################## */
     // MARK: - Public UIPickerViewDataSource/Delegate Protocol Methods
@@ -2004,7 +1605,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      - returns: float, with the row height for that component.
      */
     public func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return type(of: self)._kMaxOpenImageSizeInDisplayUnits
+        return type(of: self)._kMaxOpenPickerViewImageSizeInDisplayUnits
     }
     
     /* ################################################################## */

@@ -56,7 +56,7 @@ IMPLEMENTATION
 ==============
 To use Spinner, import the framework into your Swift 4.0 or above project. The main Spinner class is called "RVS_Spinner," and you can use this class in storyboards.
 
-Unlike the UIPickerView, the Spinner is self-contained. You supply it an Array of RVS_Spinner.RVS_SpinnerDataItem instances, which contain, at minimum, and icon (a UIImage), and a title (a String). These are displayed by the Spinner when it is opened.
+Unlike the UIPickerView, the Spinner is self-contained. You supply it an Array of RVS_SpinnerDataItem instances, which contain, at minimum, and icon (a UIImage), and a title (a String). These are displayed by the Spinner when it is opened.
 
 The Spinner has a  RVS_Spinner.selectedIndex property that denotes which Array element is the selected value.
 
