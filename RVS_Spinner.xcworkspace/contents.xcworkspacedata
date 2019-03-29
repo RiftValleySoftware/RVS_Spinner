@@ -8,13 +8,13 @@
       location = "group:.swiftlint.yml">
    </FileRef>
    <FileRef
+      location = "group:.jazzy.yaml">
+   </FileRef>
+   <FileRef
       location = "group:CHANGELOG.md">
    </FileRef>
    <FileRef
       location = "group:jazzy.sh">
-   </FileRef>
-   <FileRef
-      location = "group:jazzy.yaml">
    </FileRef>
    <FileRef
       location = "group:LICENSE.txt">

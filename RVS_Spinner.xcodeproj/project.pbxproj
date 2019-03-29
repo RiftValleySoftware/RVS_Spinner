@@ -100,6 +100,7 @@
 		D40705E9224A9FC700F1E8A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D40705EC224A9FC700F1E8A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D40705EE224A9FC700F1E8A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D40B5FD5224E76CB00C72A7D /* .jazzy.yaml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .jazzy.yaml; sourceTree = "<group>"; };
 		D428DB292169391D004B130B /* RVS_Spinner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RVS_Spinner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D428DB2D2169391D004B130B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D428DB43216939A9004B130B /* RVS_Spinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_Spinner.swift; sourceTree = "<group>"; };
@@ -158,6 +159,7 @@
 		D428DB1F2169391D004B130B = {
 			isa = PBXGroup;
 			children = (
+				D40B5FD5224E76CB00C72A7D /* .jazzy.yaml */,
 				D428DB2B2169391D004B130B /* RVS_Spinner */,
 				D40705E1224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness */,
 				D428DB2A2169391D004B130B /* Products */,

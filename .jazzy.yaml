@@ -3,3 +3,4 @@ xcodebuild_arguments:
     - "RVS_Spinner.xcodeproj"
     - "-scheme"
     - "RVS_Spinner"
+    
