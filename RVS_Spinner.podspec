@@ -15,4 +15,3 @@ Pod::Spec.new do |spec|
     spec.swift_versions             = '5.0'
     spec.dependency                'SwiftLint'
 end
-
