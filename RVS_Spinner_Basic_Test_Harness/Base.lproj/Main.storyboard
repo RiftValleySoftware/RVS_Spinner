@@ -13,7 +13,7 @@
         <!--Spinner Basic Test Harness View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="RVS_Spinner_Basic_Test_Harness_ViewController" customModule="RVS_Spinner_Basic_Test_Harness__Direct_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="RVS_Spinner_Basic_Test_Harness_ViewController" customModule="RVS_Spinner_Basic_Test_Harness" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="418"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s8R-RL-1KT" customClass="RVS_Spinner" customModule="RVS_Spinner">
-                                        <rect key="frame" x="179.5" y="181.5" width="55" height="55"/>
+                                        <rect key="frame" x="186.5" y="188.5" width="41" height="41"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="s8R-RL-1KT" secondAttribute="height" multiplier="1:1" id="2qE-O5-ETq"/>
@@ -31,10 +31,9 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="s8R-RL-1KT" firstAttribute="width" secondItem="aOJ-Ve-Ptm" secondAttribute="width" multiplier="0.133333" priority="999" id="Esn-wa-Qxe"/>
+                                    <constraint firstItem="s8R-RL-1KT" firstAttribute="width" secondItem="aOJ-Ve-Ptm" secondAttribute="width" multiplier="0.1" id="6vd-pR-Qxe"/>
                                     <constraint firstItem="s8R-RL-1KT" firstAttribute="centerY" secondItem="aOJ-Ve-Ptm" secondAttribute="centerY" id="NhX-2h-fcG"/>
                                     <constraint firstItem="s8R-RL-1KT" firstAttribute="centerX" secondItem="aOJ-Ve-Ptm" secondAttribute="centerX" id="wQu-Vp-2aN"/>
-                                    <constraint firstItem="s8R-RL-1KT" firstAttribute="height" secondItem="aOJ-Ve-Ptm" secondAttribute="height" multiplier="0.133333" priority="998" id="wzb-FX-5L7"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZJy-Ra-OKA">

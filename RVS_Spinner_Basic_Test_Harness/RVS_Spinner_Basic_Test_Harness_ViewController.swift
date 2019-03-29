@@ -51,26 +51,26 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     ]
     
     private let _associatedText: [String] = [
-        "I'm looking over, a four-pointed star...",
-        "Gimme FIVE!",
-        "Number NINE...Number NINE...",
-        "Polished Gem",
-        "Faerie Ring",
-        "A new slant",
-        "A gal's best friend",
-        "Gollumn Needs to Remember...",
-        "For All Those Ancient Strategy Games",
-        "O God",
-        "Rectangular",
-        "Stop Sign",
-        "Car Logos Like this Shape",
-        "What Your House Looks Like After An Earthquake :(",
-        "Lots of Brass, Here.",
-        "Quality Seal.",
-        "Un-Groovy, Man.",
-        "Where the Mayans would eat your heart out...",
-        "Born in Arizona, Moved to Babylonia. King Tut",
-        "Mulder? Where Are You?"
+        "Associated Text #01",
+        "Associated Text #02",
+        "Associated Text #03",
+        "Associated Text #04",
+        "Associated Text #05",
+        "Associated Text #06",
+        "Associated Text #07",
+        "Associated Text #08",
+        "Associated Text #09",
+        "Associated Text #10",
+        "Associated Text #11",
+        "Associated Text #12",
+        "Associated Text #13",
+        "Associated Text #14",
+        "Associated Text #15",
+        "Associated Text #16",
+        "Associated Text #17",
+        "Associated Text #18",
+        "Associated Text #19",
+        "Associated Text #20"
     ]
     
     /* ################################################################################################################################## */
@@ -254,18 +254,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         spinnerModeSegSwitchHit(spinnerModeSegmentedControl)
         rotationSliderChanged(rotationSlider)
     }
-    
-    /* ################################################################## */
-    /**
-     */
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if let containerView = spinnerView.superview {
-            let radiusValue = Swift.min(Float(containerView.bounds.size.width / 2), Float(containerView.bounds.size.height / 2))
-            spinnerView.radiusOfOpenControlInDisplayUnits = radiusValue
-        }
-    }
-    
+        
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**

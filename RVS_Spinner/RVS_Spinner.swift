@@ -275,6 +275,12 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             }
         }
     }
+    
+    /* ################################################################## */
+    /**
+     This is the radius of the open control "pie slices.".
+     */
+    private var _radiusOfOpenControlInDisplayUnits: Float = 0.0
 
     /* ################################################################## */
     /**
@@ -389,10 +395,10 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     internal var openSpinnerFrame: CGRect {
         var ret = CGRect.zero
         
-        ret.origin.x = frame.midX - CGFloat(radiusOfOpenControlInDisplayUnits)
-        ret.origin.y = frame.midY - CGFloat(radiusOfOpenControlInDisplayUnits)
-        ret.size.width = CGFloat(radiusOfOpenControlInDisplayUnits) * 2
-        ret.size.height = CGFloat(radiusOfOpenControlInDisplayUnits) * 2
+        ret.origin.x = frame.midX - CGFloat(_radiusOfOpenControlInDisplayUnits)
+        ret.origin.y = frame.midY - CGFloat(_radiusOfOpenControlInDisplayUnits)
+        ret.size.width = CGFloat(_radiusOfOpenControlInDisplayUnits) * 2
+        ret.size.height = CGFloat(_radiusOfOpenControlInDisplayUnits) * 2
 
         return ret
     }
@@ -566,7 +572,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             // Next, see if we have been given an image to be displayed over the oval.
             let centerImage = values[selectedIndex].icon
             let isDimmed = !isEnabled || (isTracking && isTouchInside && !_doneTracking)
-            let imageLayer = createIconDisplay(centerImage, inFrame: bounds, isDimmed: isDimmed)
+            let imageLayer = _createIconDisplay(centerImage, inFrame: bounds, isDimmed: isDimmed)
             _centerLayer.addSublayer(imageLayer)
         }
         
@@ -598,7 +604,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 let paddingWidth = type(of: self)._kOpenPaddingInDisplayUnits * 2
                 
                 let centerPointInDisplayUnits = CGPoint(x: bounds.size.width / 2, y: bounds.size.height / 2)
-                let radiusInDisplayUnits = CGFloat(radiusOfOpenControlInDisplayUnits)
+                let radiusInDisplayUnits = CGFloat(_radiusOfOpenControlInDisplayUnits)
                 let centerAngleInRadians = (3 * CGFloat.pi) / 2
                 let circumferenceInDisplayUnits = CGFloat(Double.pi * 2 * Double(radiusInDisplayUnits))
                 let arcCircumferenceInDisplayUnits = circumferenceInDisplayUnits / CGFloat(values.count)
@@ -606,7 +612,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 ret = CAShapeLayer()
                 ret.frame = bounds
                 // This is the distance between our circumference, and the outside of the center circle, and adding some padding on either end.
-                let workingLength = (CGFloat(radiusOfOpenControlInDisplayUnits) - bounds.size.height) - paddingWidth
+                let workingLength = (CGFloat(_radiusOfOpenControlInDisplayUnits) - bounds.size.height) - paddingWidth
                 // This is all pretty rough, but it will get us there. We use some basic trig to get a rough idea of how much room we have, if we need to shrink.
                 let radiansPerValue = (2 * CGFloat.pi) / CGFloat(count) // This is how many radians in our 2π circle it takes to account for one value.
                 let oppositeLength = Swift.min(workingLength, (workingLength * tan(radiansPerValue / 2)) * 2)
@@ -625,7 +631,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 
                 let imageFrame = CGRect(x: centerPointInDisplayUnits.x - (imageSquareSize / 2), y: -(radiusInDisplayUnits - (bounds.size.height / 2) - type(of: self)._kOpenPaddingInDisplayUnits), width: imageSquareSize, height: imageSquareSize)
                 
-                let displayLayer = createIconDisplay(value.icon, inFrame: imageFrame)
+                let displayLayer = _createIconDisplay(value.icon, inFrame: imageFrame)
                 
                 let newFrame = displayLayer.frame
                 
@@ -674,7 +680,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      - returns a new CALayer, with the display-ready icon.
      */
-    func createIconDisplay(_ inIcon: UIImage, inFrame: CGRect, isDimmed inIsDimmed: Bool = false) -> CALayer {
+    private func _createIconDisplay(_ inIcon: UIImage, inFrame: CGRect, isDimmed inIsDimmed: Bool = false) -> CALayer {
         let iconDisplayLayer = CALayer()
         iconDisplayLayer.backgroundColor = UIColor.clear.cgColor
         iconDisplayLayer.frame = inFrame
@@ -857,6 +863,31 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     
     /* ################################################################## */
     /**
+     This ensures that we don't get bigger than our container.
+     */
+    private func _correctRadius() {
+        DispatchQueue.main.async {
+            let oldRadius = self._radiusOfOpenControlInDisplayUnits
+            let myCenter = CGPoint(x: self.frame.midX, y: self.frame.midY)
+            if self.opensAsSpinner {    // If we are a spinner, we need to look all around.
+                if let mySuperView = self.superview {
+                    let minReachX = Float(Swift.min(myCenter.x, mySuperView.bounds.size.width - myCenter.x))
+                    let minReachY = Float(Swift.min(myCenter.y, mySuperView.bounds.size.height - myCenter.y))
+                    self._radiusOfOpenControlInDisplayUnits = Swift.min(minReachX, minReachY)
+                }
+            } else {
+                self._radiusOfOpenControlInDisplayUnits = Float(myCenter.y)    // PickerView is easy. That's just above us.
+            }
+            
+            if self._radiusOfOpenControlInDisplayUnits != oldRadius {
+                self._layerCache = [CAShapeLayer?](repeating: nil, count: self.values.count)    // Clear the cache.
+                self.setNeedsDisplay()
+            }
+        }
+    }
+
+    /* ################################################################## */
+    /**
      Handle the control closing.
      */
     private func _closeControl() {
@@ -924,14 +955,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      - parameter notification: The notification object (ignored).
      */
     @objc private func _orientationChanged(notification inNotification: Notification) {
-        DispatchQueue.main.async {
-            if self.isOpen {
-                self._closeControl()
-            }
-            
-            self._layerCache = [CAShapeLayer?](repeating: nil, count: self.values.count)    // Clear the cache.
-            self.setNeedsLayout()
-        }
+        _correctRadius()    // Make sure we stay in our lane.
     }
     
     /* ################################################################## */
@@ -1223,29 +1247,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             }
         }
     }
-
-    /* ################################################################## */
-    /**
-     If this is true, then the spinner is open. Setting this will open or close the control.
-     */
-    public var isOpen = false {
-        didSet {    // This is the way we open and close the control.
-            if isOpen && isOpen != oldValue, 1 < count {
-                _openControl()
-                // Let any delegate know that we have opened with a selected item.
-                delegate?.spinner(self, hasOpenedWithTheValue: value)
-            } else if !isOpen && isOpen != oldValue {
-                _closeControl()
-                // Let any delegate know that we have closed with a selected item.
-                delegate?.spinner(self, hasClosedWithTheValue: value)
-            }
-            
-            DispatchQueue.main.async {
-                self.setNeedsLayout()
-                self.setNeedsDisplay()
-            }
-        }
-    }
     
     /* ################################################################## */
     /**
@@ -1286,21 +1287,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             }
         }
     }
-    
-    /* ################################################################## */
-    /**
-     This is the radius of the open control "pie slices.".
-     */
-    public var radiusOfOpenControlInDisplayUnits: Float = 150.0 {
-        didSet {
-            if isOpen {    // If we are open, then we'll need to update our display.
-                DispatchQueue.main.async {
-                    self.setNeedsDisplay()
-                }
-            }
-        }
-    }
-    
+
     /* ################################################################## */
     /**
      This is the offset from the top, in radians, of a spinner (ignored for picker).
@@ -1428,6 +1415,29 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         }
     }
 
+    /* ################################################################## */
+    /**
+     If this is true, then the spinner is open. Setting this will open or close the control.
+     */
+    @IBInspectable public var isOpen: Bool = false {
+        didSet {    // This is the way we open and close the control.
+            if isOpen && isOpen != oldValue, 1 < count {
+                _openControl()
+                // Let any delegate know that we have opened with a selected item.
+                delegate?.spinner(self, hasOpenedWithTheValue: value)
+            } else if !isOpen && isOpen != oldValue {
+                _closeControl()
+                // Let any delegate know that we have closed with a selected item.
+                delegate?.spinner(self, hasClosedWithTheValue: value)
+            }
+            
+            DispatchQueue.main.async {
+                self.setNeedsLayout()
+                self.setNeedsDisplay()
+            }
+        }
+    }
+
     /* ################################################################################################################################## */
     // MARK: - Public Overrides
     /* ################################################################################################################################## */
@@ -1545,6 +1555,8 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
 
         super.layoutSubviews()
         
+        _correctRadius()    // Make sure we stay in our lane.
+
         // We make sure that our frames are correct, if we rotated.
         if let openView = _openSpinnerView {
             openView.frame = openSpinnerFrame
