@@ -1131,7 +1131,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     
     /* ################################################################## */
     /**
-     This is the display font that we'll use.
+     This is the display font that we'll use in the picker. Default is system bold 20.
      */
     public var displayFont: UIFont! = UIFont.boldSystemFont(ofSize: 20) {
         didSet {
@@ -1166,7 +1166,9 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /* ################################################################## */
      /**
      This property represents the values to be selected and displayed by the spinner. Instead of a datasource, we use an instance property. This can be overloaded to make it dynamic.
-     At minimum, each value needs a "title," which is a String. It may also have an icon, to be displayed, a description, with more information, and associated data.
+     At minimum, each value needs a "title," which is a String, and an icon to be displayed.
+     Optionally, it can have a description, with more information, and associated data.
+     The associated data is an "Any?" item. It can be anything (or nothing). It is up to the implementor to cast and manage this. This is just a "context hook."
      The order is not changed by the spinner. Values are displayed in the order they are set in this Array, clockwise.
      */
     public var values: [RVS_SpinnerDataItem] = [] {
@@ -1185,18 +1187,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             }
         }
     }
-    
-    /* ################################################################## */
-    /**
-     If true, the control will play sounds.
-     */
-    public var isSoundOn: Bool = true
-    
-    /* ################################################################## */
-    /**
-     If true, the control will play haptics (on devices that support haptics).
-     */
-    public var isHapticsOn: Bool = true
 
     /* ################################################################## */
     /**
@@ -1393,6 +1383,18 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             }
         }
     }
+    
+    /* ################################################################## */
+    /**
+     If true, the control will play sounds.
+     */
+    @IBInspectable public var isSoundOn: Bool = true
+    
+    /* ################################################################## */
+    /**
+     If true, the control will play haptics (on devices that support haptics).
+     */
+    @IBInspectable public var isHapticsOn: Bool = true
 
     /* ################################################################################################################################## */
     // MARK: - Public Overrides
