@@ -72,7 +72,7 @@ Once you assign the RVS_Spinner class to the UIView, a number of options will ap
 This is a color to display behind the open radial spinner or picker. By default, it is clear.
 
 2. **Rotation In Radians**
-This is a radians (-2π -> 2π) value that rotates the open spinner (does not affect the picker)
+This is a radians (-π...π) value that rotates the open spinner (does not affect the picker)
 
 3. **Spinner Mode**
 This is an integer, with 3 values:
