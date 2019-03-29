@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4F7FCA3C0FB4035805AF40AC /* libPods-RVS_Spinner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE98F6E0791EE9A5955FB1B6 /* libPods-RVS_Spinner.a */; };
 		D40705E5224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40705E4224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness_ViewController.swift */; };
 		D40705E8224A9FC500F1E8A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D40705E6224A9FC500F1E8A2 /* Main.storyboard */; };
 		D40705EA224A9FC700F1E8A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D40705E9224A9FC700F1E8A2 /* Assets.xcassets */; };
@@ -93,9 +92,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		532430A1CD6580F5D52A56F1 /* Pods-RVS_Spinner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RVS_Spinner.release.xcconfig"; path = "Target Support Files/Pods-RVS_Spinner/Pods-RVS_Spinner.release.xcconfig"; sourceTree = "<group>"; };
-		9A80F76C9386E34095BC9CEC /* Pods-RVS_Spinner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RVS_Spinner.debug.xcconfig"; path = "Target Support Files/Pods-RVS_Spinner/Pods-RVS_Spinner.debug.xcconfig"; sourceTree = "<group>"; };
-		AE98F6E0791EE9A5955FB1B6 /* libPods-RVS_Spinner.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RVS_Spinner.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D40705E0224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RVS_Spinner_Basic_Test_Harness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D40705E2224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness_AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_Spinner_Basic_Test_Harness_AppDelegate.swift; sourceTree = "<group>"; };
 		D40705E4224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_Spinner_Basic_Test_Harness_ViewController.swift; sourceTree = "<group>"; };
@@ -132,14 +128,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		BDE6AA063D796C3B9947EC22 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4F7FCA3C0FB4035805AF40AC /* libPods-RVS_Spinner.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D40705DD224A9FC500F1E8A2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -151,23 +139,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0DB8088392AA490DB946027E /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				9A80F76C9386E34095BC9CEC /* Pods-RVS_Spinner.debug.xcconfig */,
-				532430A1CD6580F5D52A56F1 /* Pods-RVS_Spinner.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		3F25F87932B7A1DB5A611F6C /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				AE98F6E0791EE9A5955FB1B6 /* libPods-RVS_Spinner.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		D40705E1224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,8 +160,6 @@
 				D40705E1224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness */,
 				D428DB2A2169391D004B130B /* Products */,
 				D44B3102224AAE9300BFE4AE /* spec */,
-				0DB8088392AA490DB946027E /* Pods */,
-				3F25F87932B7A1DB5A611F6C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -277,11 +246,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D428DB3D2169391D004B130B /* Build configuration list for PBXNativeTarget "RVS_Spinner" */;
 			buildPhases = (
-				EE0C9738AC86FE1726697D90 /* [CP] Check Pods Manifest.lock */,
 				D4B6B468224AB2DF00B1F336 /* SwiftLINT */,
 				D428DB252169391D004B130B /* Sources */,
 				D428DB272169391D004B130B /* Resources */,
-				BDE6AA063D796C3B9947EC22 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -386,28 +353,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if test -f \"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"\nfi\n";
-		};
-		EE0C9738AC86FE1726697D90 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RVS_Spinner-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -628,7 +573,6 @@
 		};
 		D428DB3E2169391D004B130B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9A80F76C9386E34095BC9CEC /* Pods-RVS_Spinner.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -657,7 +601,6 @@
 		};
 		D428DB3F2169391D004B130B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 532430A1CD6580F5D52A56F1 /* Pods-RVS_Spinner.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
