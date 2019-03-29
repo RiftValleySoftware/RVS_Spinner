@@ -220,11 +220,6 @@ public extension RVS_SpinnerDelegate {
  
  However, instead of having the values provided by a delegate/datasource, the values are associated directly with the control in an Array.
  
- This class has a number of Array-like methods, properties and subscripts, so it can be treated much like an Array (and iterated).
- Making changes to the Array will result in a setNeedsLayout(), which is done in the main thread, allowing you to call the methods in non-main threads.
- They will also send valueChanged events.
- Values and Arrays of values are captured by RVS_Spinner instances, so the modifications will only apply to values and arrays for individual instances.
- 
  This control has a lot of "little things" to make it usable and intuitive. It has "inertia," where you can start it spinning, it has "one-tap increment/decrement,"
  and it has haptic and audio feedback.
  

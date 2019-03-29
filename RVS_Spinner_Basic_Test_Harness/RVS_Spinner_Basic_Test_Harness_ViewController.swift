@@ -25,11 +25,20 @@ import UIKit
 import RVS_Spinner
 
 /* ###################################################################################################################################### */
+// MARK: - The Main View Controller Class
+/* ###################################################################################################################################### */
+/**
+ All the action happens here.
+ */
 class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_SpinnerDelegate {
     /* ################################################################################################################################## */
+    /// This is a simple tuple that we use to hold an iterated value.
     typealias ShapeValueTuple = (name: String, image: UIImage, index: Int)
     
     /* ################################################################################################################################## */
+    /**
+     This is a set of washed-out colors (for the most part), that are applied as backgrounds.
+     */
     private let _colorList: [UIColor] = [
         UIColor.clear,
         UIColor.white,
@@ -40,6 +49,9 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         UIColor(red: 0.75, green: 1, blue: 1, alpha: 1)
     ]
     
+    /**
+     This is a set of more saturated colors that are used for borders and text.
+     */
     private let _darkColorList: [UIColor] = [
         UIColor.clear,
         UIColor.white,
@@ -50,6 +62,9 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         UIColor(red: 0, green: 1, blue: 1, alpha: 1)
     ]
     
+    /**
+     These are associated with data items as the "value" property.
+     */
     private let _associatedText: [String] = [
         "Associated Text #01",
         "Associated Text #02",
@@ -74,26 +89,39 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     ]
     
     /* ################################################################################################################################## */
+    /// This will contain all of the shapes that we will use to populate our data items array. It contains the full list, and is populated by reading in a bunch of images in the bundle.
     private var _shapes = [ShapeValueTuple]()
-    
+    /// This is aour actual data items array. This changes to reflect the number of items selected by the "Number of Values" switch.
     private var _dataItems = [RVS_SpinnerDataItem]()
 
     /* ################################################################################################################################## */
+    /// These are hooks to our IB items. This is the RVS_Spinner instance.
     @IBOutlet weak var spinnerView: RVS_Spinner!
+    /// This is the "Number of Values" switch at the bottom.
     @IBOutlet weak var numberOfItemsSegmentedControl: UISegmentedControl!
+    /// This is the "Center Background Color" switch.
     @IBOutlet weak var innerColorSegmentedControl: UISegmentedControl!
+    /// This is the "Open Control Background Color" switch.
     @IBOutlet weak var radialColorSegmentedControl: UISegmentedControl!
+    /// This is the "Border and Text Color" switch
     @IBOutlet weak var borderColorSegmentedControl: UISegmentedControl!
+    /// This is the Spinner Mode switch
     @IBOutlet weak var spinnerModeSegmentedControl: UISegmentedControl!
+    /// This is the "Spinner/Picker Threshold" switch, at the top.
     @IBOutlet weak var thresholdSegmentedControl: UISegmentedControl!
+    /// This is the "Rotation" slider
     @IBOutlet weak var rotationSlider: UISlider!
+    /// This is the "Haptics" switch
     @IBOutlet weak var hapticsSwitch: UISwitch!
+    /// This is the "Sounds" switch
     @IBOutlet weak var soundsSwitch: UISwitch!
+    /// This is the label under the spinner that displays the associated strings (in red text).
     @IBOutlet weak var associatedTextLabel: UILabel!
 
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     This returns every shape in the list (all 20).
      */
     var everyShape: [ShapeValueTuple] {
         return _shapes
@@ -102,6 +130,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     This is called when the "Sounds" switch changes.
      */
     @IBAction func soundsSwitchChanged(_ inSwitch: UISwitch) {
         spinnerView.isSoundOn = inSwitch.isOn
@@ -109,6 +138,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     
     /* ################################################################## */
     /**
+     This is called when the "Haptics" switch changes.
      */
     @IBAction func hapticsSwitchChanged(_ inSwitch: UISwitch) {
         spinnerView.isHapticsOn = inSwitch.isOn
@@ -116,6 +146,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     
     /* ################################################################## */
     /**
+     This is called when the "Rotation" slider changes.
      */
     @IBAction func rotationSliderChanged(_ inSlider: UISlider) {
         var offset = Float.pi * inSlider.value
@@ -130,6 +161,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     
     /* ################################################################## */
     /**
+     This is called when the "Spinner/Picker Threshold" segmented switch changes.
      */
     @IBAction func thresholdSegmentedControlHit(_ inSegmentedSwitch: UISegmentedControl) {
         if let value = Int(inSegmentedSwitch.titleForSegment(at: inSegmentedSwitch.selectedSegmentIndex) ?? "") {
@@ -139,6 +171,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
 
     /* ################################################################## */
     /**
+     This is called when the Spinner Mode segmented switch changes.
      */
     @IBAction func spinnerModeSegSwitchHit(_ inSegmentedSwitch: UISegmentedControl) {
         spinnerView.spinnerMode = inSegmentedSwitch.selectedSegmentIndex - 1
@@ -147,6 +180,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
 
     /* ################################################################## */
     /**
+     This is called when the "Number of Values" segmented switch changes.
      */
     @IBAction func numberSegSwitchHit(_ inSegmentedSwitch: UISegmentedControl) {
         if let numberOfItems = Int(inSegmentedSwitch.titleForSegment(at: inSegmentedSwitch.selectedSegmentIndex) ?? "") {
@@ -157,6 +191,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
 
     /* ################################################################## */
     /**
+     This is called when the any of the color segmented switches change.
      */
     @IBAction func colorSegSwitchHit(_ inSegmentedSwitch: UISegmentedControl) {
         if inSegmentedSwitch == innerColorSegmentedControl {
@@ -171,6 +206,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     This filters the main list, and returns a subset of the images. This is used by the "Number of Values" handler.
      */
     func subsetOfShapes(_ inNumberOfShapes: Int) -> [ShapeValueTuple] {
         let shapes = everyShape
@@ -187,6 +223,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
 
     /* ################################################################## */
     /**
+     This just makes sure that the associated text label shows the associated value for the current selected item.
      */
     func updateAssociatedText() {
         associatedTextLabel?.text = spinnerView?.value?.value as? String
@@ -194,6 +231,9 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
 
     /* ################################################################## */
     /**
+     This runs through the images we have stored in the app bundle, and produces our list.
+     
+     It uses the file name as the text for each image.
      */
     func extractValueList() {
         _shapes = []
@@ -223,6 +263,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     
     /* ################################################################## */
     /**
+     This sets up the spinner view to reflect the condition of the controls.
      */
     func setUpControls() {
         spinnerView.delegate = self
@@ -231,11 +272,11 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         spinnerView.backgroundColor = _colorList[innerColorSegmentedControl.selectedSegmentIndex]
         spinnerView.openBackgroundColor = _colorList[radialColorSegmentedControl.selectedSegmentIndex]
         spinnerView.tintColor = _darkColorList[borderColorSegmentedControl.selectedSegmentIndex]
-        spinner(spinnerView, hasSelectedTheValue: spinnerView?.value)
     }
     
     /* ################################################################## */
     /**
+     This sets up the "Number of Values" switch, selecting the center one.
      */
     func setUpCountSwitch() {
         let step = Double(everyShape.count) / Double(numberOfItemsSegmentedControl.numberOfSegments)
@@ -249,6 +290,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     
     /* ################################################################## */
     /**
+     This sets up the data items array to reflect the number of values selected by the "Number of Values" switch.
      */
     func setUpDataItemsArray(_ inNumberOfItems: Int) {
         _dataItems = []
@@ -262,6 +304,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     Do our initialization here.
      */
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -277,6 +320,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     This is the only delegate callback we use. We use it to update the associated text label.
      */
     func spinner(_ inSpinner: RVS_Spinner, hasSelectedTheValue inValueSelected: RVS_SpinnerDataItem?) {
         updateAssociatedText()
