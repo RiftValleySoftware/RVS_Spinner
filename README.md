@@ -1,4 +1,4 @@
-![Spinner Icon](icon.png)
+![Spinner Icon](https://riftvalleysoftware.com/RVS_Spinner/icon.png)
 
 RVS_Spinner Control
 =
@@ -28,8 +28,14 @@ It also uses a fairly simple Array data provider. Simply associate an Array of s
 
 WHERE TO GET
 =
-[This is available here, on CocoaPods.]()
+[This is available here, on CocoaPods.](https://cocoapods.org/pods/RVS_Spinner)
 
+Just put:
+
+    pod 'RVS_Spinner'
+    
+In your podfile.
+    
 [Here is the GitHub Repo for This Project.](https://github.com/RiftValleySoftware/RVS_Spinner)
 
 [Here is the online documentation page for this project.](https://riftvalleysoftware.com/work/open-source-projects/#RVS_Spinner)
@@ -60,7 +66,7 @@ PICKER VIEW VARIANT
 -
 You can also have a standard UIPickerView come up, which may be better for larger numbers of values, or for developers that prefer a more standard Apple User Experience.
 
-![UIPickerView Wheel Display](img/PickerPopup.gif)
+![UIPickerView Wheel Display](https://riftvalleysoftware.com/RVS_Spinner/img/PickerPopup.gif)
 
 IMPLEMENTATION
 =
@@ -76,7 +82,7 @@ INTERFACE BUILDER/STORYBOARD EDITOR OPTIONS
 -
 Once you assign the RVS_Spinner class to the UIView, a number of options will appear in the Attributes Inspector for the Spinner:
 
-![The Spinner Attributes Inspector Options](img/SpinnerOptions.png)
+![The Spinner Attributes Inspector Options](https://riftvalleysoftware.com/RVS_Spinner/img/SpinnerOptions.png)
 
 1. **Open Background Color**
 This is a color to display behind the open radial spinner or picker. By default, it is clear.
@@ -101,7 +107,7 @@ This specifies whether or not to use haptic feedback (on devices that can play h
 
 Additionally, the View **Background** color is used to establish the color surrounding icons, and the **Tint** color is used to set the color of the borders around icons, and displayed text in the picker.
 
-![How the Options Affect the Spinner](img/OpenSpinner.png) ![How the Options Affect the Picker](img/OpenPicker.png)
+![How the Options Affect the Spinner](https://riftvalleysoftware.com/RVS_Spinner/img/OpenSpinner.png) ![How the Options Affect the Picker](https://riftvalleysoftware.com/RVS_Spinner/img/OpenPicker.png)
 
 If the UIView Background Color is clear, and the UIView Tint is clear, the icons will be displayed slightly larger, with no surrounding ring (BTW: You can change the shape of the ring programattically. Circle/Oval is default).
 
@@ -129,7 +135,7 @@ The test harness target uses the compiled framework, so it does provide a real-w
 
 It is a simple 1-view app, with a single window:
 
-![The Test Harness Screen](img/TestHarnessScreen.gif)
+![The Test Harness Screen](https://riftvalleysoftware.com/RVS_Spinner/img/TestHarnessScreen.gif)
 
 The controls operate in real time on the instance of RVS_Spinner, displayed above the control panel:
 
