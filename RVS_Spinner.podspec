@@ -11,7 +11,8 @@ Pod::Spec.new do |spec|
     spec.license                    = { :type => 'MIT', :file => 'LICENSE' }
     spec.source                     = { :git => 'https://github.com/RiftValleySoftware/RVS_Spinner.git', :tag => spec.version.to_s }
     spec.ios.framework              = 'UIKit'
-    spec.source_files               = 'RVS_Spinner/**/*'
+    spec.source_files               = 'RVS_Spinner/RVS_Spinner.swift'
+    spec.swift_versions             = '5.0'
     spec.dependency                'SwiftLint'
 end
 

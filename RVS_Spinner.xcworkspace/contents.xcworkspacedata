@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:.swift-version">
-   </FileRef>
-   <FileRef
       location = "group:.swiftlint.yml">
    </FileRef>
    <FileRef
@@ -17,7 +14,7 @@
       location = "group:jazzy.sh">
    </FileRef>
    <FileRef
-      location = "group:LICENSE.txt">
+      location = "group:/Users/cmarshall/Documents/Development/RiftValley/RVS_Spinner/LICENSE">
    </FileRef>
    <FileRef
       location = "group:Podfile">
@@ -30,5 +27,8 @@
    </FileRef>
    <FileRef
       location = "group:RVS_Spinner.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>
