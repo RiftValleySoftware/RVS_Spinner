@@ -54,7 +54,7 @@ The way it works, is that the "quiescent" control is small. By default, it is an
 
 Tapping on the circle "pops up" a surrounding ring of images, which can be rotated about the center, like a prize wheel or a knob.
 
-![Prize Wheel Display](img/SpinnerPopup.gif)
+![Prize Wheel Display](https://riftvalleysoftware.com/RVS_Spinner/img/SpinnerPopup.gif)
 
 This popup is a UIView that is opened in the superview of the center, so the superview must be able to support having a larger view added.
 
