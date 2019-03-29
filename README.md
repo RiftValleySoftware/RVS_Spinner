@@ -26,9 +26,19 @@ RVS_Spinner is a small icon, until it is touched and expanded. It is also design
 
 It also uses a fairly simple Array data provider. Simply associate an Array of structs to the control, and it's sorted.
 
+WHERE TO GET
+=
+[This is available here, on CocoaPods.]()
+
+[Here is the GitHub Repo for This Project.](https://github.com/RiftValleySoftware/RVS_Spinner)
+
+[Here is the online documentation page for this project.](https://riftvalleysoftware.com/work/open-source-projects/#RVS_Spinner)
+
 REQUIREMENTS
 =
 The Spinner is presented as a Swift-only shared dynamic framework, supporting iOS 11.0 and above.
+
+This is meant for iOS (UIKit) only.
 
 OPERATION
 =

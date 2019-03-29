@@ -23,6 +23,9 @@
       location = "group:Podfile">
    </FileRef>
    <FileRef
+      location = "group:RVS_Spinner.podspec">
+   </FileRef>
+   <FileRef
       location = "group:README.md">
    </FileRef>
    <FileRef
