@@ -32,7 +32,6 @@
 		D44206CF224BBE6E008038A9 /* Cabuchon.png in Copy Extra Resource Files */ = {isa = PBXBuildFile; fileRef = D44206AA224BBDBE008038A9 /* Cabuchon.png */; };
 		D44206D4224BBF6D008038A9 /* 9-PointStar.png in Copy Extra Resource Files */ = {isa = PBXBuildFile; fileRef = D44206D0224BBF58008038A9 /* 9-PointStar.png */; };
 		D44206D5224BBF6D008038A9 /* Parallelogram.png in Copy Extra Resource Files */ = {isa = PBXBuildFile; fileRef = D44206D1224BBF58008038A9 /* Parallelogram.png */; };
-		D45144FA2173E82700D7FCD4 /* RVS_Spinner.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D45144F92173E82700D7FCD4 /* RVS_Spinner.xcassets */; };
 		D49B3726224D1A850049EEDE /* RVS_Spinner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D428DB292169391D004B130B /* RVS_Spinner.framework */; };
 		D49B3729224D646F0049EEDE /* RVS_Spinner.framework in Copy Embedded Frameworks */ = {isa = PBXBuildFile; fileRef = D428DB292169391D004B130B /* RVS_Spinner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D4D7E69F224D800B00613FB8 /* RVS_Spinner_Basic_Test_Harness_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40705E2224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness_AppDelegate.swift */; };
@@ -127,7 +126,6 @@
 		D44B3103224AAE9300BFE4AE /* icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = icon.svg; sourceTree = "<group>"; };
 		D44B3104224AAE9300BFE4AE /* TestShapes.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = TestShapes.pdf; sourceTree = "<group>"; };
 		D44B3105224AAE9300BFE4AE /* Marker.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Marker.pdf; sourceTree = "<group>"; };
-		D45144F92173E82700D7FCD4 /* RVS_Spinner.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = RVS_Spinner.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,7 +178,6 @@
 		D428DB2B2169391D004B130B /* RVS_Spinner */ = {
 			isa = PBXGroup;
 			children = (
-				D45144F92173E82700D7FCD4 /* RVS_Spinner.xcassets */,
 				D428DB43216939A9004B130B /* RVS_Spinner.swift */,
 				D428DB2D2169391D004B130B /* Info.plist */,
 			);
@@ -325,7 +322,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D45144FA2173E82700D7FCD4 /* RVS_Spinner.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
