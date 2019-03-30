@@ -6,7 +6,7 @@ This is a special control class that implements a "pop-up spinner" control.
 
 You can associate an array of values with a Spinner, and they will be presented to the user when they tap the center of the control.
 
-The control will pop up either a "fan" of values that can be scrolled like a knob, or a UIPickerView.
+The control will pop up either a "fan" of values that can be scrolled like a knob, or a [UIPickerView](https://developer.apple.com/documentation/uikit/uipickerview).
 
 It is completely self-contained. You only need to instantiate the control, give it a place in the view (just like any other control), and associate a set of values with it.
 
@@ -18,7 +18,7 @@ WHAT PROBLEM DOES THIS SOLVE?
 =
 Mobile devices present difficulties for things like shuttles and pickers. Apple's [UIPickerView](https://developer.apple.com/documentation/uikit/uipickerview) is an excellent approach to the problem of dynamic selection, but there are issues.
 
-For one thing, UIPickerViews are BIG. They hog up a lot of precious screen real estate. This is necessary.
+For one thing, [UIPickerView](https://developer.apple.com/documentation/uikit/uipickerview)s are BIG. They hog up a lot of precious screen real estate. This is necessary.
 
 Also, they use the DataSource pattern, in which you supply the data at runtime, in a JIT manner. This is an excellent method, but it is rather complex. You sacrifice simplicity for power.
 
@@ -34,17 +34,23 @@ Just put:
 
     pod 'RVS_Spinner'
     
-In your podfile.
-    
+In your podfile, then run `pod install`.
+
+You will then need to import the module, like so:
+
+    import RVS_Spinner
+
 [Here is the GitHub Repo for This Project.](https://github.com/RiftValleySoftware/RVS_Spinner)
+
+Since the entire control is contained in only one file, you also have the option of simply grabbing that source file ([the RVS_Spinner/RVS_Spinner.swift file](https://github.com/RiftValleySoftware/RVS_Spinner/blob/master/RVS_Spinner/RVS_Spinner.swift)), and just including that in your project; in which case, you won't need to `import` the module.
 
 [Here is the online documentation page for this project.](https://riftvalleysoftware.com/work/open-source-projects/#RVS_Spinner)
 
 REQUIREMENTS
 =
-The Spinner is presented as a Swift-only shared dynamic framework, supporting iOS 11.0 and above.
+The Spinner is presented as a [Swift](https://developer.apple.com/swift/)-only shared dynamic framework, supporting [iOS](https://www.apple.com/ios/) 11.0 and above.
 
-This is meant for iOS (UIKit) only.
+This is meant for [iOS](https://www.apple.com/ios/) ([UIKit](https://developer.apple.com/documentation/uikit)) only.
 
 OPERATION
 =
@@ -56,7 +62,7 @@ Tapping on the circle "pops up" a surrounding ring of images, which can be rotat
 
 ![Prize Wheel Display](https://riftvalleysoftware.com/RVS_Spinner/img/SpinnerPopup.gif)
 
-This popup is a UIView that is opened in the superview of the center, so the superview must be able to support having a larger view added.
+This popup is a [UIControl](https://developer.apple.com/documentation/uikit/uicontrol) that is opened in the superview of the center, so the superview must be able to support having a larger view added.
 
 You can prescribe the radius of the popup or UIPickerView at runtime, or in the Interface Builder/Storyboard Editor. The sizes of the images will adjust to fit the circle.
 
@@ -64,23 +70,23 @@ You can control the open Spinner with gestures. It was designed to be thumb-cont
 
 PICKER VIEW VARIANT
 -
-You can also have a standard UIPickerView come up, which may be better for larger numbers of values, or for developers that prefer a more standard Apple User Experience.
+You can also have a standard [UIPickerView](https://developer.apple.com/documentation/uikit/uipickerview) come up, which may be better for larger numbers of values, or for developers that prefer a more standard Apple User Experience.
 
 ![UIPickerView Wheel Display](https://riftvalleysoftware.com/RVS_Spinner/img/PickerPopup.gif)
 
 IMPLEMENTATION
 =
-To use RVS_Spinner in your project, import the framework into your Swift 4.0 or above project. The main Spinner class is called "RVS_Spinner," and you can use this class in storyboards.
+To use `RVS_Spinner` in your project, import the framework into your Swift 4.0 or above project. The main Spinner class is called "RVS_Spinner," and you can use this class in storyboards.
 
-Unlike the UIPickerView, the Spinner is self-contained. You supply it an Array of RVS_SpinnerDataItem instances, which contain, at minimum, and icon (a UIImage), and a title (a String). These are displayed by the Spinner when it is opened.
+Unlike the [UIPickerView](https://developer.apple.com/documentation/uikit/uipickerview), the Spinner is self-contained. You supply it an Array of `RVS_SpinnerDataItem` instances, which contain, at minimum, and icon (a `UIImage`), and a title (a `String`). These are displayed by the Spinner when it is opened.
 
-The Spinner has a  RVS_Spinner.selectedIndex property that denotes which Array element is the selected value.
+The Spinner has a  `RVS_Spinner.selectedIndex` property that denotes which Array element is the selected value.
 
-In order to use this in Interface Builder/Storyboard Editor, you need to drag in a UIView, then make it an instance of RVS_Spinner. The module will be RVS_Spinner.
+In order to use this in Interface Builder/Storyboard Editor, you need to drag in a `UIView`, then make it an instance of `RVS_Spinner`. The module will be "RVS_Spinner" *(if you used CocoaPods or the framework)*.
 
 INTERFACE BUILDER/STORYBOARD EDITOR OPTIONS
 -
-Once you assign the RVS_Spinner class to the UIView, a number of options will appear in the Attributes Inspector for the Spinner:
+Once you assign the `RVS_Spinner` class to the `UIView`, a number of options will appear in the Attributes Inspector for the Spinner:
 
 ![The Spinner Attributes Inspector Options](https://riftvalleysoftware.com/RVS_Spinner/img/SpinnerOptions.png)
 
@@ -111,7 +117,7 @@ Additionally, the View **Background** color is used to establish the color surro
 
 If the UIView Background Color is clear, and the UIView Tint is clear, the icons will be displayed slightly larger, with no surrounding ring (BTW: You can change the shape of the ring programattically. Circle/Oval is default).
 
-If the Tint is clear, then the UIPickerView text will be black.
+If the Tint is clear, then the [UIPickerView](https://developer.apple.com/documentation/uikit/uipickerview) text will be black.
 
 PROGRAMMATIC OPTIONS
 -

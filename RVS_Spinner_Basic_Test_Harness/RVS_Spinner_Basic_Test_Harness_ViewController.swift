@@ -89,7 +89,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     ]
     
     /* ################################################################################################################################## */
-    /// This will contain all of the shapes that we will use to populate our data items array. It contains the full list, and is populated by reading in a bunch of images in the bundle.
+    /// This will contain all of the shapes that we will use to establish our data items array. It contains the full list, and is populated by reading in a bunch of images in the bundle.
     private var _shapes = [ShapeValueTuple]()
     /// This is aour actual data items array. This changes to reflect the number of items selected by the "Number of Values" switch.
     private var _dataItems = [RVS_SpinnerDataItem]()

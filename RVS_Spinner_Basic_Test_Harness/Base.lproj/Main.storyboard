@@ -23,7 +23,7 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s8R-RL-1KT" customClass="RVS_Spinner" customModule="RVS_Spinner">
                                         <rect key="frame" x="186.5" y="163.5" width="41" height="41"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="s8R-RL-1KT" secondAttribute="height" multiplier="1:1" id="2qE-O5-ETq"/>
                                         </constraints>
@@ -57,7 +57,7 @@
                                             <action selector="numberSegSwitchHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="tX6-Qt-vG5"/>
                                         </connections>
                                     </segmentedControl>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dtF-8E-DOT">
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="dtF-8E-DOT">
                                         <rect key="frame" x="8" y="360" width="398" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="27" id="C7e-2C-B27"/>
@@ -75,7 +75,7 @@
                                             <action selector="colorSegSwitchHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="UTo-EN-Pr7"/>
                                         </connections>
                                     </segmentedControl>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="SxO-Dy-D3I">
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="4" translatesAutoresizingMaskIntoConstraints="NO" id="SxO-Dy-D3I">
                                         <rect key="frame" x="8" y="305" width="398" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="27" id="TWd-Sw-CAk"/>

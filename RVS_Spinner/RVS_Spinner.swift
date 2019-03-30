@@ -316,9 +316,9 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      */
     var _closedBackgroundColor: UIColor? {
         didSet {
-            // We will want to update our layout. Do it in the main thread, just in case.
+            self._layerCache = [CAShapeLayer?](repeating: nil, count: self.values.count)    // Clear the cache.
             DispatchQueue.main.async {
-                self._layerCache = [CAShapeLayer?](repeating: nil, count: self.values.count)    // Clear the cache.
+                super.backgroundColor = UIColor.clear
                 self.setNeedsDisplay()
             }
         }
@@ -1279,18 +1279,13 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
-     This is the background color associated with the "closed" control.
+     This is the background color associated with the "closed" control. We use the UIView's backgroundColor as the source.
      
      This is set from the view background color.
      */
     public override var backgroundColor: UIColor? {
         didSet {
-            // We will want to update our layout. Do it in the main thread, just in case.
-            DispatchQueue.main.async {
-                let bgColor = self.backgroundColor
-                super.backgroundColor = UIColor.clear
-                self._closedBackgroundColor = bgColor
-            }
+            self._closedBackgroundColor = self.backgroundColor
         }
     }
     
@@ -1354,7 +1349,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     @IBInspectable public var spinnerMode: Int = SpinnerMode.both.rawValue {
         didSet {
             DispatchQueue.main.async {
-                if self.isOpen {
+                if self.isOpen {    // We close any open spinner.
                     self.isOpen = false
                 } else {
                     self.setNeedsLayout()
@@ -1372,7 +1367,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     @IBInspectable public var spinnerThreshold: Int = 15 {
         didSet {
             DispatchQueue.main.async {
-                if self.isOpen {
+                if self.isOpen {    // We close any open spinner.
                     self.isOpen = false
                 } else {
                     self.setNeedsLayout()
@@ -1404,11 +1399,21 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      - parameter inRect: The rect to be drawn into.
      */
     override public func draw(_ inRect: CGRect) {
+        // See if we need to switch out the background color.
+        if nil == self._closedBackgroundColor {
+            self._closedBackgroundColor = self.backgroundColor
+        }
+        
+        super.backgroundColor = UIColor.clear   // The main background is always clear.
+
+        super.draw(inRect)  // Won't do much, but lets the superclass do any housekeeping. It's only polite.
+        
         // Clear the decks.
         layer.sublayers?.forEach {
             $0.removeFromSuperlayer()
         }
         
+        // Draw the control; either open or closed.
         if 0 < values.count && isOpen {
             _drawOpenControl(inRect)
         } else {
@@ -1502,11 +1507,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     override public func layoutSubviews() {
         if nil == openBackgroundColor {
             openBackgroundColor = UIColor.clear    // We are at least clear.
-        }
-        
-        if nil == self._closedBackgroundColor {
-            self._closedBackgroundColor = self.backgroundColor
-            super.backgroundColor = UIColor.clear
         }
 
         super.layoutSubviews()
