@@ -203,6 +203,20 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         }
     }
 
+    /* ################################################################## */
+    /**
+     This is redundant, but it shows how we can listen for spinner control events.
+     
+     It is called when the spinner selects a new value.
+     
+     In the case of the spinner variant, this is called repeatedly while the spinner is spinning.
+     
+     In the case of the picker variant, it is called once, after the picker has settled.
+     */
+    @IBAction func valueChanged(_ inSpinnerObject: RVS_Spinner) {
+        updateAssociatedText()
+    }
+    
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
@@ -270,7 +284,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     /**
      This sets up the spinner view to reflect the condition of the controls.
      */
-    func setUpControls() {
+    func setUpSpinnerControl() {
         spinnerView.values = _dataItems
         spinnerView.selectedIndex = _dataItems.count / 2
         spinnerView.backgroundColor = _colorList[innerColorSegmentedControl.selectedSegmentIndex]
@@ -304,7 +318,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         items.forEach {
             _dataItems.append(RVS_SpinnerDataItem(title: $0.name, icon: $0.image, value: _associatedText[$0.index]))
         }
-        setUpControls()
+        setUpSpinnerControl()
     }
     
     /* ################################################################################################################################## */
@@ -321,7 +335,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         rotationSliderChanged(rotationSlider)
         thresholdSegmentedControlHit(thresholdSegmentedControl)
         updateAssociatedText()
-        setUpControls()
+        setUpSpinnerControl()
     }
     
     /* ################################################################################################################################## */
@@ -345,6 +359,10 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     /* ################################################################## */
     /**
      This is called when a selection is made from a multiple selection list.
+     
+     In the case of the spinner variant, this is called repeatedly while the spinner is spinning.
+     
+     In the case of the picker variant, it is called once, after the picker has settled.
      */
     func spinner(_: RVS_Spinner, hasSelectedTheValue: RVS_SpinnerDataItem?) {
         updateAssociatedText()

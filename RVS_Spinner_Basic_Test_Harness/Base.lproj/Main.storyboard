@@ -27,6 +27,9 @@
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="s8R-RL-1KT" secondAttribute="height" multiplier="1:1" id="2qE-O5-ETq"/>
                                         </constraints>
+                                        <connections>
+                                            <action selector="valueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="j2n-5C-LRH"/>
+                                        </connections>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

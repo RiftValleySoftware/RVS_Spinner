@@ -868,18 +868,20 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
             } else {    // Otherwise, we are using the picker.
                 _openPickerContainerView = UIView(frame: openPickerFrame)
-                _openPickerContainerView!.backgroundColor = UIColor.clear
-                _openPickerView = UIPickerView(frame: _openPickerContainerView!.bounds)
-                _openPickerView.dataSource = self
-                _openPickerView.delegate = self
-                _openPickerView.showsSelectionIndicator = true
-                _openPickerContainerView!.addSubview(_openPickerView!)
+                if let pickerContainer = _openPickerContainerView {    // Just to be sure, but what the heck...
+                    pickerContainer.backgroundColor = UIColor.clear
+                    _openPickerView = UIPickerView(frame: pickerContainer.bounds)
+                    _openPickerView.dataSource = self
+                    _openPickerView.delegate = self
+                    _openPickerView.showsSelectionIndicator = true
+                    pickerContainer.addSubview(_openPickerView!)
+                }
                 if let holderView = superview {
                     holderView.insertSubview(_openPickerContainerView!, belowSubview: self)
                 }
                 
                 _openPickerView.selectRow(selectedIndex, inComponent: 0, animated: true)
-                _openPickerContainerView!.transform = CGAffineTransform(scaleX: 0.01, y: 0.01).concatenating(CGAffineTransform(translationX: 0, y: openPickerFrame.size.height))
+                _openPickerContainerView?.transform = CGAffineTransform(scaleX: 0.01, y: 0.01).concatenating(CGAffineTransform(translationX: 0, y: openPickerFrame.size.height))
                 transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
             }
             
@@ -892,7 +894,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                            animations: { [weak self] in
                             self?.transform = .identity
                             if nil != self?._openPickerContainerView {
-                                self?._openPickerContainerView!.transform = .identity
+                                self?._openPickerContainerView?.transform = .identity
                             }
                 },
                            completion: nil
@@ -957,7 +959,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 self.setNeedsLayout()
                 self.setNeedsDisplay()
             } else if nil != self._openPickerContainerView {
-                self._openPickerContainerView!.transform = .identity
+                self._openPickerContainerView?.transform = .identity
             }
         
             // We animate the closing of the picker, but not the spinner.
@@ -969,13 +971,13 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                            animations: { [weak self] in
                             self?.transform = .identity
                             if nil != self?._openPickerContainerView {
-                                self?._openPickerContainerView!.transform =  CGAffineTransform(scaleX: 0.01, y: 0.01).concatenating(CGAffineTransform(translationX: 0, y: self?.openPickerFrame.size.height ?? 0 / 2))
+                                self?._openPickerContainerView?.transform =  CGAffineTransform(scaleX: 0.01, y: 0.01).concatenating(CGAffineTransform(translationX: 0, y: self?.openPickerFrame.size.height ?? 0 / 2))
                             }
                 },
                            completion: { [weak self] (_: Bool) in
                             self?.transform = .identity
                             if nil != self?._openPickerContainerView {
-                                self?._openPickerContainerView!.removeFromSuperview()
+                                self?._openPickerContainerView?.removeFromSuperview()
                                 self?._openPickerContainerView = nil
                                 self?.setNeedsLayout()
                                 self?.setNeedsDisplay()
@@ -1470,7 +1472,9 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 DispatchQueue.main.async {
                     if 1 < self.count {
                         self.isOpen = !self.isOpen
+                        self.sendActions(for: .touchUpInside)
                     } else if 1 == self.count { // If we are a single value, there's a special case, where we don't open, but send a message.
+                        self.sendActions(for: .touchUpInside)
                         self.delegate?.spinner(self, singleValueSelected: self.values[0])
                         self.setNeedsDisplay()
                     }
@@ -1658,7 +1662,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             label.text = values[inRow].title
             containerView.addSubview(label)
             // This is how we center the combination of the icon and the text. This calculates the size necessary for the text.
-            enclosingRect = label.text!.boundingRect(with: ret.bounds.size, context: nil)
+            enclosingRect = label.text?.boundingRect(with: ret.bounds.size, context: nil) ?? CGRect.zero
         }
         
         let containerRect = CGRect(x: ret.bounds.midX - (enclosingRect.size.width + myFrame.size.height + type(of: self)._kOpenPaddingInDisplayUnits) / 2,
