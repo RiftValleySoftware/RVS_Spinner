@@ -117,7 +117,7 @@ Additionally, the View **[Background Color](https://developer.apple.com/document
 
 ![How the Options Affect the Spinner](https://riftvalleysoftware.com/RVS_Spinner/img/OpenSpinner.png) ![How the Options Affect the Picker](https://riftvalleysoftware.com/RVS_Spinner/img/OpenPicker.png)
 
-If the [`UIView`](https://developer.apple.com/documentation/uikit/uiview) [Background Color](https://developer.apple.com/documentation/uikit/uiview/1622591-backgroundcolor) is clear, and the [`UIView`](https://developer.apple.com/documentation/uikit/uiview) [Tint](https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor) is clear, the icons will be displayed slightly larger, with no surrounding ring (BTW: You can change the shape of the ring programattically. Circle/Oval is default).
+If the [`UIView`](https://developer.apple.com/documentation/uikit/uiview) [Background Color](https://developer.apple.com/documentation/uikit/uiview/1622591-backgroundcolor) is clear, and the [`UIView`](https://developer.apple.com/documentation/uikit/uiview) [Tint](https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor) is clear, the icons will be displayed slightly larger, with no surrounding ring (BTW: You can change the shape of the ring programatically. Circle/Oval is default).
 
 If the [Tint](https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor) is clear, then the [`UIPickerView`](https://developer.apple.com/documentation/uikit/uipickerview) text will be black.
 
