@@ -224,9 +224,14 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     /* ################################################################## */
     /**
      This just makes sure that the associated text label shows the associated value for the current selected item.
+     
+     The ignored parameter is so this can be used as a timer callback.
      */
-    func updateAssociatedText() {
-        associatedTextLabel?.text = spinnerView?.value?.value as? String
+    @objc func updateAssociatedText(_ : Any! = nil) {
+        DispatchQueue.main.async {  // Since this could be called from a timer completion, we need to make sure that UI changes are done in the main thread.
+            self.associatedTextLabel?.textColor = UIColor.red
+            self.associatedTextLabel?.text = self.spinnerView?.value?.value as? String
+        }
     }
 
     /* ################################################################## */
@@ -266,12 +271,12 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
      This sets up the spinner view to reflect the condition of the controls.
      */
     func setUpControls() {
-        spinnerView.delegate = self
         spinnerView.values = _dataItems
         spinnerView.selectedIndex = _dataItems.count / 2
         spinnerView.backgroundColor = _colorList[innerColorSegmentedControl.selectedSegmentIndex]
-        spinnerView.openBackgroundColor = _colorList[radialColorSegmentedControl.selectedSegmentIndex]
         spinnerView.tintColor = _darkColorList[borderColorSegmentedControl.selectedSegmentIndex]
+        spinnerView.openBackgroundColor = _colorList[radialColorSegmentedControl.selectedSegmentIndex]
+        spinnerView.delegate = self
     }
     
     /* ################################################################## */
@@ -280,7 +285,8 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
      */
     func setUpCountSwitch() {
         let step = Double(everyShape.count) / Double(numberOfItemsSegmentedControl.numberOfSegments)
-        for index in 0..<numberOfItemsSegmentedControl.numberOfSegments {
+        numberOfItemsSegmentedControl.setTitle(String("1"), forSegmentAt: 0)
+        for index in 1..<numberOfItemsSegmentedControl.numberOfSegments {
             let count = Int(Swift.max(2.0, Swift.min(Double(everyShape.count), ceil(Double(index + 1) * step))))
             numberOfItemsSegmentedControl.setTitle(String(count), forSegmentAt: index)
         }
@@ -315,14 +321,54 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         rotationSliderChanged(rotationSlider)
         thresholdSegmentedControlHit(thresholdSegmentedControl)
         updateAssociatedText()
+        setUpControls()
     }
-        
+    
     /* ################################################################################################################################## */
+    /**
+     These are the various delegate callbacks.
+     
+     They are all made in the main thread.
+     
+     For some of them, the text will briefly flash a message in green text, indicating the callback was made.
+     */
     /* ################################################################## */
     /**
-     This is the only delegate callback we use. We use it to update the associated text label.
+     This is called when the user taps a control with only one value.
      */
-    func spinner(_ inSpinner: RVS_Spinner, hasSelectedTheValue inValueSelected: RVS_SpinnerDataItem?) {
+    func spinner(_: RVS_Spinner, singleValueSelected: RVS_SpinnerDataItem?) {
+        associatedTextLabel?.text = "The user tapped the Button."
+        associatedTextLabel?.textColor = UIColor.green
+        _ = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(updateAssociatedText), userInfo: nil, repeats: false)
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called when a selection is made from a multiple selection list.
+     */
+    func spinner(_: RVS_Spinner, hasSelectedTheValue: RVS_SpinnerDataItem?) {
         updateAssociatedText()
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called when the popup opens.
+     */
+    func spinner(_ inSpinnerObject: RVS_Spinner, hasOpenedWithTheValue: RVS_SpinnerDataItem?) {
+        let spinnerPicker = (0 == inSpinnerObject.spinnerMode && inSpinnerObject.count < inSpinnerObject.spinnerThreshold) || -1 == inSpinnerObject.spinnerMode ? "spinner" : "picker"
+        associatedTextLabel?.text = "The user opened the \(spinnerPicker)."
+        associatedTextLabel?.textColor = UIColor.green
+        _ = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(updateAssociatedText), userInfo: nil, repeats: false)
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called when the popup closes.
+     */
+    func spinner(_ inSpinnerObject: RVS_Spinner, hasClosedWithTheValue: RVS_SpinnerDataItem?) {
+        let spinnerPicker = (0 == inSpinnerObject.spinnerMode && inSpinnerObject.count < inSpinnerObject.spinnerThreshold) || -1 == inSpinnerObject.spinnerMode ? "spinner" : "picker"
+        associatedTextLabel?.text = "The user closed the \(spinnerPicker)."
+        associatedTextLabel?.textColor = UIColor.green
+        _ = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(updateAssociatedText), userInfo: nil, repeats: false)
     }
 }

@@ -75,7 +75,7 @@
                                             <action selector="colorSegSwitchHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="UTo-EN-Pr7"/>
                                         </connections>
                                     </segmentedControl>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="SxO-Dy-D3I">
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="SxO-Dy-D3I">
                                         <rect key="frame" x="8" y="305" width="398" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="27" id="TWd-Sw-CAk"/>
@@ -93,7 +93,7 @@
                                             <action selector="colorSegSwitchHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="S8L-xF-Yix"/>
                                         </connections>
                                     </segmentedControl>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="InS-fb-PTe">
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="2" translatesAutoresizingMaskIntoConstraints="NO" id="InS-fb-PTe">
                                         <rect key="frame" x="8" y="250" width="398" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="27" id="wyb-LW-4J6"/>
@@ -240,7 +240,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="5" translatesAutoresizingMaskIntoConstraints="NO" id="pYr-fG-VZH">
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="7" translatesAutoresizingMaskIntoConstraints="NO" id="pYr-fG-VZH">
                                         <rect key="frame" x="8" y="71" width="398" height="29"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="NdK-LP-eLf"/>

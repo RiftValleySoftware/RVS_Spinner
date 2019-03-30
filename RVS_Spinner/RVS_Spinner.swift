@@ -19,6 +19,8 @@
  
  
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
+ 
+ Version 1.0.3
  */
 
 import UIKit
@@ -59,9 +61,9 @@ fileprivate extension UIColor {
  The value is only tested for nil/not-nil. This is because it is an "Any", and we want to be able to jam whatever we want in there.
  */
 public struct RVS_SpinnerDataItem: Equatable {
-    /** This is the required title for the data item. This is what is most prominently displayed. */
+    /** This is the required title for the data item. */
     public let title: String
-    /** This is an image to be displayed for the data item. */
+    /** This is the required image to be displayed for the data item. This is what is most prominently displayed. */
     public let icon: UIImage
     /** This is an optional description String, which can provide more detailed information about the data item. */
     public let description: String?
@@ -1281,12 +1283,13 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      This is set from the view background color.
      */
-    public override var backgroundColor: UIColor! {
+    public override var backgroundColor: UIColor? {
         didSet {
             // We will want to update our layout. Do it in the main thread, just in case.
             DispatchQueue.main.async {
-                self._closedBackgroundColor = self.backgroundColor
+                let bgColor = self.backgroundColor
                 super.backgroundColor = UIColor.clear
+                self._closedBackgroundColor = bgColor
             }
         }
     }
