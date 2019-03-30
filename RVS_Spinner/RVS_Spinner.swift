@@ -920,7 +920,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 self._radiusOfOpenControlInDisplayUnits = Float(myCenter.y)    // PickerView is easy. That's just above us.
             }
             
-            if self._radiusOfOpenControlInDisplayUnits != oldRadius {
+            if self._radiusOfOpenControlInDisplayUnits != oldRadius {   // Only if we changed.
                 self._layerCache = [CAShapeLayer?](repeating: nil, count: self.values.count)    // Clear the cache.
                 self.setNeedsDisplay()
             }
@@ -1435,6 +1435,10 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
 
     /* ################################################################## */
     /**
+     This is called when we start tracking a pan.
+     
+     - parameter inTouch: The touch object associated with this event.
+     - parameter with: The event that triggered this.
      */
     override public func beginTracking(_ inTouch: UITouch, with inEvent: UIEvent?) -> Bool {
         _doneTracking = false
@@ -1446,6 +1450,10 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     
     /* ################################################################## */
     /**
+     This is called repeatedly while we are tracking a pan. We just make sure that we keep updating the display.
+     
+     - parameter inTouch: The touch object associated with this event.
+     - parameter with: The event that triggered this.
      */
     override public func continueTracking(_ inTouch: UITouch, with inEvent: UIEvent?) -> Bool {
         DispatchQueue.main.async {
@@ -1456,6 +1464,10 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     
     /* ################################################################## */
     /**
+     We end the tracking, and make sure that we update the display properly.
+     
+     - parameter inTouch: The touch object associated with this event.
+     - parameter with: The event that triggered this.
      */
     override public func endTracking(_ inTouch: UITouch?, with inEvent: UIEvent?) {
         _doneTracking = true
@@ -1491,6 +1503,9 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     
     /* ################################################################## */
     /**
+     We cancel the tracking, and make sure that we update the display.
+     
+     - parameter with: The event that triggered this.
      */
     override public func cancelTracking(with inEvent: UIEvent?) {
         DispatchQueue.main.async {
@@ -1504,8 +1519,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      This is called before the subviews (aren't any) will get laid out.
      We use it to switch out the background color.
-     We need the main UIView background to be clear, and use the set background
-     as the "closed" control background color.
+     We use the set background color as the "closed" control background color.
      We use the tint color as the border color.
      */
     override public func layoutSubviews() {
@@ -1558,12 +1572,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      */
     required init?(coder inDecoder: NSCoder) {
         super.init(coder: inDecoder)
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(type(of: self)._orientationChanged(notification:)),
-            name: UIApplication.didChangeStatusBarOrientationNotification,
-            object: nil
-        )
     }
     
     /* ################################################################## */
@@ -1594,6 +1602,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      This returns how many rows will be displayed by the pickerview.
      
      - parameter inPickerView: The pickerview doing the querying.
+     - parameter numberOfRowsInComponent: The 0-based index (always 0, and ignored) of the component we are asking after.
      
      - returns the number of rows (the number of values in our Array).
      */
@@ -1604,7 +1613,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /* ################################################################## */
     /**
      - parameter inPickerView: The pickerview doing the querying.
-     - parameter rowHeightForComponent: The component (always 0, and ignored).
+     - parameter rowHeightForComponent: The 0-based index (always 0, and ignored) of the component we are asking after.
      
      - returns: float, with the row height for that component.
      */
@@ -1619,7 +1628,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      - parameter inPickerView: The pickerview doing the querying.
      - parameter viewForRow: the 0-based index of the row (used to index our values).
-     - parameter forComponent: The component (always 0, and ignored).
+     - parameter forComponent: The 0-based index (always 0, and ignored) of the component we are asking after.
      - parameter reusing: The view object to reuse.
      
      - returns: a new (or refurbed) view object.
@@ -1683,7 +1692,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      - parameter inPickerView: The pickerview doing the querying.
      - parameter didSelectRow: the 0-based index of the row (used to index our values).
-     - parameter inComponent: The component (always 0, and ignored).
+     - parameter inComponent: The 0-based index (always 0, and ignored) of the component we are asking after.
      */
     public func pickerView(_ inPickerView: UIPickerView, didSelectRow inRow: Int, inComponent: Int) {
         selectedIndex = inRow

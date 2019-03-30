@@ -28,21 +28,23 @@ It also uses a fairly simple [`Array`](https://developer.apple.com/documentation
 
 WHERE TO GET
 =
-[This is available here, on CocoaPods.](https://cocoapods.org/pods/RVS_Spinner)
+[This is available here, as a CocoaPod.](https://cocoapods.org/pods/RVS_Spinner)
 
 Just put:
 
     pod 'RVS_Spinner'
     
-In your podfile, then run `pod install`.
+In your [podfile](https://guides.cocoapods.org/using/the-podfile.html), then run `pod install`.
 
-You will then need to import the module, like so:
+You will then need to import the module, by adding the following to the source files that will be accessing the spinner:
 
     import RVS_Spinner
 
 [Here is the GitHub Repo for This Project.](https://github.com/RiftValleySoftware/RVS_Spinner)
 
 Since the entire control is contained in only one file, you also have the option of simply grabbing that source file ([the RVS_Spinner/RVS_Spinner.swift file](https://github.com/RiftValleySoftware/RVS_Spinner/blob/master/RVS_Spinner/RVS_Spinner.swift)), and just including that in your project; in which case, you won't need to `import` the module.
+
+In fact, I'd actually suggest doing this. I'm not a huge fan of "live" dependencies (I usually "snapshot" code dependencies and include them in the project repo), and it will actually slightly reduce overhead.
 
 [Here is the online documentation page for this project.](https://riftvalleysoftware.com/work/open-source-projects/#RVS_Spinner)
 
@@ -76,17 +78,17 @@ You can also have a standard [`UIPickerView`](https://developer.apple.com/docume
 
 IMPLEMENTATION
 =
-To use `RVS_Spinner` in your project, import the framework into your Swift 4.0 or above project. The main Spinner class is called "RVS_Spinner," and you can use this class in storyboards.
+To use [`RVS_Spinner`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html) in your project, import the framework into your Swift 4.0 or above project. The main Spinner class is called "RVS_Spinner," and you can use this class in storyboards.
 
 Unlike the [`UIPickerView`](https://developer.apple.com/documentation/uikit/uipickerview), the Spinner is self-contained. You supply it an [`Array`](https://developer.apple.com/documentation/swift/array) of `RVS_SpinnerDataItem` instances, which contain, at minimum, an icon (a [`UIImage`](https://developer.apple.com/documentation/uikit/uiimage)), and a title (a [`String`](https://developer.apple.com/documentation/swift/string)). These are displayed by the Spinner when it is opened (the spinner variant displays only icons, but the picker variant displays both).
 
 The Spinner has a  `RVS_Spinner.selectedIndex` property that denotes which [`Array`](https://developer.apple.com/documentation/swift/array) element is the selected value.
 
-In order to use this in Interface Builder/Storyboard Editor, you need to drag in a [`UIView`](https://developer.apple.com/documentation/uikit/uiview), then make it an instance of `RVS_Spinner`. The module will be "RVS_Spinner" *(if you used CocoaPods or the framework)*.
+In order to use this in Interface Builder/Storyboard Editor, you need to drag in a [`UIView`](https://developer.apple.com/documentation/uikit/uiview), then make it an instance of [`RVS_Spinner`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html). The module will be "RVS_Spinner" *(if you used CocoaPods or the framework)*.
 
 INTERFACE BUILDER/STORYBOARD EDITOR OPTIONS
 -
-Once you assign the `RVS_Spinner` class to the [`UIView`](https://developer.apple.com/documentation/uikit/uiview), a number of options will appear in the Attributes Inspector for the Spinner:
+Once you assign the [`RVS_Spinner`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html) class to the [`UIView`](https://developer.apple.com/documentation/uikit/uiview), a number of options will appear in the Attributes Inspector for the Spinner:
 
 ![The Spinner Attributes Inspector Options](https://riftvalleysoftware.com/RVS_Spinner/img/SpinnerOptions.png)
 
@@ -127,9 +129,9 @@ This is a struct that contains an icon for display (a [`UIImage`](https://develo
 
 In the spinner popup, only the image is shown, but in the PickerView variant, the text is also shown. Setting the text to "" will show only the image in the picker.
 
-You can also attach any arbitrary data item to an instance of `RVS_SpinnerDataItem`. There is a property called `value`, which is an [`Any?`](https://docs.swift.org/swift-book/LanguageGuide/TypeCasting.html#ID342) property. You can associate any data that you want with an RVS_Spinner data item. Selecting the `value` calculated property of the RVS_Spinner instance will return the entire selected data item. These are copy items (structs), not reference items.
+You can also attach any arbitrary data item to an instance of [`RVS_SpinnerDataItem`](https://riftvalleysoftware.com/RVS_Spinner/Structs/RVS_SpinnerDataItem.html). There is a property called [`value`]((https://riftvalleysoftware.com/RVS_Spinner/Structs/RVS_SpinnerDataItem.html)), which is an [`Any?`](https://docs.swift.org/swift-book/LanguageGuide/TypeCasting.html#ID342) property. You can associate any data that you want with an RVS_Spinner data item. Selecting the [`RVS_Spinner.value`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html) calculated property of the [`RVS_Spinner`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html) instance will return the entire selected data item. These are [value types, and not a reference types](https://developer.apple.com/swift/blog/?id=10).
 
-You need to provide this array programmatically. You assign it to the `RVS_Spinner.values` property, and the data will be immediately available to use.
+You need to provide this array programmatically. You assign it to the [`RVS_Spinner.values`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html) property, and the data will be immediately available to use.
 
 Here is an example code snippet (from the Test Harness app):
 
@@ -155,27 +157,41 @@ Note the `value: _associatedText[$0.index]`. This is how we associate arbitrary 
         spinnerView.delegate = self
     }
 
-Note the `spinnerView.delegate = self`. This is because the test harness [`UIViewController`](https://developer.apple.com/documentation/uikit/uiviewcontroller) applies the `RVS_SpinnerDelegate` protocol.
+Note the `spinnerView.delegate = self`. This is because the test harness [`UIViewController`](https://developer.apple.com/documentation/uikit/uiviewcontroller) applies the [`RVS_SpinnerDelegate`](https://riftvalleysoftware.com/RVS_Spinner/Protocols/RVS_SpinnerDelegate.html) protocol.
 
 DELEGATE
 -
 The spinner uses a [`Delegate`](https://developer.apple.com/documentation/swift/cocoa_design_patterns/using_delegates_to_customize_object_behavior) pattern to interact with the implementation. You can choose to use the control without assigning a delegate, but having the delegate allows greater interaction and reactiveness.
 
-In order to be a delegate, you should assign `RVS_SpinnerDelegate` as a base [protocol](https://docs.swift.org/swift-book/LanguageGuide/Protocols.html) for your class. Your class does not have to be a [`@objc`](https://docs.swift.org/swift-book/ReferenceManual/Attributes.html#ID592) class. The delegate protocol is a pure Swift protocol (Which is also why you can't assign the delegate in Interface Builder).
+In order to be a delegate, you should assign [`RVS_SpinnerDelegate`](https://riftvalleysoftware.com/RVS_Spinner/Protocols/RVS_SpinnerDelegate.html) as a base [protocol](https://docs.swift.org/swift-book/LanguageGuide/Protocols.html) for your class. Your class does not have to be a [`@objc`](https://docs.swift.org/swift-book/ReferenceManual/Attributes.html#ID592) class. The delegate protocol is a pure Swift protocol (Which is also why you can't assign the delegate in Interface Builder).
 
-The `RVS_Spinner` class does send out traditional [`UIControl` Target/Action](https://developer.apple.com/documentation/uikit/uicontrol#1658488) events. In particular, [`UIControl.Event.valueChanged`](https://developer.apple.com/documentation/uikit/uicontrol/event/1618238-valuechanged) and [`UIControl.Event.touchUpInside`](https://developer.apple.com/documentation/uikit/uicontrol/event/1618236-touchupinside). You can listen for these events. The spinner variant will send [`UIControl.Event.valueChanged`](https://developer.apple.com/documentation/uikit/uicontrol/event/1618238-valuechanged) out continuously while spinning, while the picker variant won't send them out until it finishes its scroll.
+The [`RVS_Spinner`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html) class does send out traditional [`UIControl` Target/Action](https://developer.apple.com/documentation/uikit/uicontrol#1658488) events. In particular, [`UIControl.Event.valueChanged`](https://developer.apple.com/documentation/uikit/uicontrol/event/1618238-valuechanged) and [`UIControl.Event.touchUpInside`](https://developer.apple.com/documentation/uikit/uicontrol/event/1618236-touchupinside). You can listen for these events. The spinner variant will send [`UIControl.Event.valueChanged`](https://developer.apple.com/documentation/uikit/uicontrol/event/1618238-valuechanged) out continuously while spinning, while the picker variant won't send them out until it finishes its scroll.
 
 [`UIControl.Event.touchUpInside`](https://developer.apple.com/documentation/uikit/uicontrol/event/1618236-touchupinside) is called when the center of the control is tapped to open, close or behave like a button.
 
+SUBCLASSING AND MODIFICATION
+-
+It is possible to subclass and extend [`RVS_Spinner`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html).
+
+One reason might be to provide a "frame" shape for items other than the default circle. You do this by overidding the [`RVS_Spinner.centerShape`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html) property to supply a different [`UIBezierPath`](https://developer.apple.com/documentation/uikit/uibezierpath).
+
+You can also modify all types of other things. [`RVS_Spinner`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html) was designed as a "baseline" control.
+
+You can modify the font used to display the title strings in the picker variant by setting a new value to the [`RVS_Spinner.displayFont`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html) property.
+
+USAGE
+-
+A lot has already been covered, here, and the test harness app will help to show some real-world implementation, but you change the selected index (which item is selected as the current value) by altering the 0-based index in [`RVS_Spinner.selectedIndex`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html). [`RVS_Spinner.value`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html) cannot be set. It is a read-only property.
+
 TEST HARNESS APP
 =
-The test harness target imports the compiled framework, so it does provide a real-world application of `RVS_Spinner`.
+The test harness target imports the compiled framework, so it does provide a real-world application of [`RVS_Spinner`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html).
 
 It is a simple 1-view app, with a single window:
 
 ![The Test Harness Screen](https://riftvalleysoftware.com/RVS_Spinner/img/TestHarnessScreen.gif)
 
-The controls operate in real time on the instance of `RVS_Spinner`, displayed above the control panel:
+The controls operate in real time on the instance of [`RVS_Spinner`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html), displayed above the control panel:
 
 The red "**Associated Text #*XX***" is a label that displays test data that was associated with each of 20 data items used for testing. The `value` property of each item was set to a [`String`](https://developer.apple.com/documentation/swift/string), which is displayed as that item is selected.
 
@@ -199,4 +215,28 @@ The "**Center Background Color**" Segmented Switch affects the [`UIView.backgrou
 
 The "**Number of Values**" Segmented Switch applies a subset of up to 20 available values to the control. If "1" is selected, then the control will not pop up, but will behave somewhat like a regular [`UIButton`](https://developer.apple.com/documentation/uikit/uibutton).
 
-The test harness app is deliberately simple, and should provide an excellent "starting point" for using the `RVS_Spinner`.
+The test harness app is deliberately simple, and should provide an excellent "starting point" for using the [`RVS_Spinner`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html).
+
+DEPENDENCIES
+=
+
+There are no dependencies to use this class in your project. In order to test it and run it in the module project, you should use [CocoaPods](https://cocoapods.org) to install [SwiftLint](https://cocoapods.org/pods/SwiftLint), although that is not required. It's [just good practice](https://littlegreenviper.com/series/swiftwater/swiftlint/).
+
+LICENSE
+=
+MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
+modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+[The Great Rift Valley Software Company: https://riftvalleysoftware.com](https://riftvalleysoftware.com)
