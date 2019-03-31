@@ -1,3 +1,9 @@
+*Version 1.0.6* **March 31, 2019**
+- Made the animations smoother.
+- Removed the cache stuff. It is no longer necessary.
+- Updated the documentation.
+- Added the demo projects.
+
 *Version 1.0.5* **March 30, 2019**
 - Rearranged the way the CALayers were being done to get rid of a "false positive" leak that happens when you keep a CALayer as an instance property.
 - Removed the SwiftLint dependency, as it really isn't one.
