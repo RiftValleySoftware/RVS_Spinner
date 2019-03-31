@@ -1,3 +1,7 @@
+*Version 1.0.7* **March 31, 2019**
+- Almost exclusively documentation changes.
+- Added a couple of xcodeproj files for the two demo apps.
+
 *Version 1.0.6* **March 31, 2019**
 - Made the animations smoother.
 - Removed the cache stuff. It is no longer necessary.
