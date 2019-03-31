@@ -227,6 +227,14 @@ There are two simple examples, featuring the test harness app, that show how to 
 
 These links will download .zip files, which expand into small project directories.
 
+TODO
+=
+- Improve the spinner animation.
+Currently, the animation is a bit "fixed," with no radial "motion." The way to deal with this, is to split the background and foreground layers up, and animate the foreground (transparent icons) over a fixed background (background color slices). That will take a fair bit of refactoring, and a lot of testing, so it's a "2.0" update.
+
+- Examine leaks reported in the test harness.
+The Leaks tool reports some leaks in the test harness app. It's quite possible these are "false positives," but we should check them out.
+
 DEPENDENCIES
 =
 
