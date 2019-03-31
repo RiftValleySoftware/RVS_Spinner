@@ -769,7 +769,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     func _drawOpenControl(_ inRect: CGRect) {
         if isOpen { // Only counts if we're open.
             _drawControlCenter(inRect) // Draw the center. This also removes all of the layers from the previous drawing.
-            _arclengthInRadians = (CGFloat.pi * 2) / CGFloat(values.count)
             if nil != _openSpinnerView {
                 for index in 0..<count {
                     if let subLayer = _drawOneValueRadius(index) {
@@ -1181,6 +1180,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     public var values: [RVS_SpinnerDataItem] = [] {
         didSet {
             selectedIndex = Swift.max(0, Swift.min(values.count - 1, selectedIndex))
+            _arclengthInRadians = (CGFloat.pi * 2) / CGFloat(values.count)
            // We will want to update our layout. Do it in the main thread, just in case.
             DispatchQueue.main.async {
                 if self.isOpen {
