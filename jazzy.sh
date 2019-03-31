@@ -12,4 +12,6 @@ jazzy   --github_url https://github.com/RiftValleySoftware/RVS_Spinner\
 cp icon.png docs/icon.png
 mkdir docs/images
 cp img/*.* docs/img/
+cp RVS_Spinner-Pod-Demo.zip docs/
+cp RVS_Spinner-Standalone-Demo.zip docs/
 cd "${CWD}"

@@ -217,6 +217,16 @@ The "**Number of Values**" Segmented Switch applies a subset of up to 20 availab
 
 The test harness app is deliberately simple, and should provide an excellent "starting point" for using the [`RVS_Spinner`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html).
 
+SIMPLE EXAMPLES
+=
+
+There are two simple examples, featuring the test harness app, that show how to implement the [`RVS_Spinner`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html) into your project:
+
+- [Here is an example using CocoaPods](https://riftvalleysoftware.com/RVS_Spinner/RVS_Spinner-Pod-Demo.zip)
+- [Here is an example, where we directly import the source file](https://riftvalleysoftware.com/RVS_Spinner/RVS_Spinner-Standalone-Demo.zip)
+
+These links will download .zip files, which expand into small project directories.
+
 DEPENDENCIES
 =
 
