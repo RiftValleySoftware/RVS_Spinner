@@ -156,7 +156,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
 
     /* ################################################################## */
     /**
-     This is called when the any of the color segmented switches change.
+     This is called when any of the color segmented switches change.
      */
     @IBAction func colorSegSwitchHit(_ inSegmentedSwitch: UISegmentedControl) {
         if inSegmentedSwitch == innerColorSegmentedControl {
@@ -189,7 +189,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
      
      The ignored parameter is so this can be used as a timer callback.
      */
-    @objc func updateAssociatedText(_ : Any! = nil) {
+    @objc func updateAssociatedText(_: Any! = nil) {
         DispatchQueue.main.async {  // Since this could be called from a timer completion, we need to make sure that UI changes are done in the main thread.
             self.associatedTextLabel?.textColor = UIColor.red
             self.associatedTextLabel?.text = self.spinnerView?.value?.value as? String
