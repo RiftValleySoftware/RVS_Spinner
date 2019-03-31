@@ -20,7 +20,7 @@
  
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  
- Version 1.0.3
+ Version 1.0.5
  */
 
 import UIKit
@@ -316,7 +316,9 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      */
     var _closedBackgroundColor: UIColor? {
         didSet {
-            self._layerCache = [CAShapeLayer?](repeating: nil, count: self.values.count)    // Clear the cache.
+            if isCached {
+                _layerCache = [CAShapeLayer?](repeating: nil, count: self.values.count)    // Clear the cache.
+            }
             DispatchQueue.main.async {
                 super.backgroundColor = UIColor.clear
                 self.setNeedsDisplay()
@@ -409,12 +411,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      */
     var _openPickerView: UIPickerView!
 
-    /* ################################################################## */
-    /**
-     This is the animation layer for the control center.
-     */
-    var _centerLayer: CAShapeLayer!
-    
     /* ################################################################## */
     /**
      This is a semaphore to indicate that we are done tracking the control.
@@ -594,70 +590,87 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      - parameter inRect: The drawing rectangle
      */
     func _drawControlCenter(_ inRect: CGRect) {
-        if nil != _centerLayer {
-            _centerLayer?.removeFromSuperlayer()
-            _centerLayer = nil
+        layer.sublayers?.forEach {  // Get rid of our previous control drawing layer.
+            $0.removeFromSuperlayer()
         }
         
         // We stroke and fill the basic shape with the colors we have set up.
-        _centerLayer = CAShapeLayer()
+        let centerLayer = CAShapeLayer()
         // The control is an oval (should be a circle, but we allow an oval).
-        _centerLayer.path = centerShape.cgPath
-        _centerLayer.fillColor = _closedBackgroundColor?.cgColor
-        _centerLayer.strokeColor = tintColor.cgColor
-        _centerLayer.lineWidth = type(of: self)._kBorderWidth
+        centerLayer.path = centerShape.cgPath
+        centerLayer.fillColor = _closedBackgroundColor?.cgColor
+        centerLayer.strokeColor = tintColor.cgColor
+        centerLayer.lineWidth = type(of: self)._kBorderWidth
 
         if 0 < values.count {   // Have to have values to draw anything more.
             // Next, see if we have been given an image to be displayed over the oval.
             let centerImage = values[selectedIndex].icon
             let isDimmed = !isEnabled || (isTracking && isTouchInside && !_doneTracking)
             let imageLayer = _createIconDisplay(centerImage, inFrame: bounds, isDimmed: isDimmed)
-            _centerLayer.addSublayer(imageLayer)
+            centerLayer.addSublayer(imageLayer)
         }
         
-        if let centerLayer = _centerLayer {
-            layer.addSublayer(centerLayer)
-        }
+        layer.addSublayer(centerLayer)
     }
     
     /* ################################################################## */
     /**
-     This draws one of the "flower petals" that surround the center of an open spinner.
+     This draws one of the "spokes" that surround the center of an open spinner.
+     It calculates the size of the images to be drawn at the end of each spoke to fit in the space provided.
      
-     - parameter inIndex: The index of the value to be used.
+     - parameter inIndex: The 0-based index of the value to be used.
      */
     func _drawOneValueRadius(_ inIndex: Int) -> CALayer! {
         var ret: CAShapeLayer! = nil
         let arclengthInRadians = (CGFloat.pi * 2) / CGFloat(values.count)
 
-        if !values.isEmpty {
-            if _layerCache.isEmpty {   // Make sure that we have an allocated cache array.
+        if !values.isEmpty {    // If we don't have any values, then this is for naught.
+            if isCached && _layerCache.isEmpty {   // Make sure that we have an allocated cache array.
                 _layerCache = [CAShapeLayer?](repeating: nil, count: values.count)
             }
             
-            if let subLayer = _layerCache[inIndex] {  // See if we already have it.
+            if isCached, let subLayer = _layerCache[inIndex] {  // See if we already have it.
                 ret = subLayer
             } else {
                 let value = values[inIndex]
-
+                
+                // This is how much padding we'll want around the image.
                 let paddingWidth = type(of: self)._kOpenPaddingInDisplayUnits * 2
                 
+                // This is the center of the control. All spokes start here.
                 let centerPointInDisplayUnits = CGPoint(x: bounds.size.width / 2, y: bounds.size.height / 2)
+                
+                // This is the radius we have available. It will be calculated dynamically to fit in our allotted space.
                 let radiusInDisplayUnits = CGFloat(_radiusOfOpenControlInDisplayUnits)
+                
+                // This is the angle at which this spoke will be shown (Right up and down).
                 let centerAngleInRadians = (3 * CGFloat.pi) / 2
+                
+                // This is the circumference of the entire open spinner.
                 let circumferenceInDisplayUnits = CGFloat(Double.pi * 2 * Double(radiusInDisplayUnits))
+                
+                // This is the length (circular) of the arc segment that caps each spoke.
                 let arcCircumferenceInDisplayUnits = circumferenceInDisplayUnits / CGFloat(values.count)
 
                 ret = CAShapeLayer()
+                
                 ret.frame = bounds
                 // This is the distance between our circumference, and the outside of the center circle, and adding some padding on either end.
                 let workingLength = (CGFloat(_radiusOfOpenControlInDisplayUnits) - bounds.size.height) - paddingWidth
+                
                 // This is all pretty rough, but it will get us there. We use some basic trig to get a rough idea of how much room we have, if we need to shrink.
                 let radiansPerValue = (2 * CGFloat.pi) / CGFloat(count) // This is how many radians in our 2π circle it takes to account for one value.
+                
+                // This is the width of the end of our little "measuring triangle." It is the distance in a straight line from the center of the spoke to the edge.
+                // The workingLength is our adjacent side, and we know the angle, which is a spoke angle, divided by 2.
                 let oppositeLength = Swift.min(workingLength, (workingLength * tan(radiansPerValue / 2)) * 2)
                 
-                let maxIconSize = value.icon.size
+                let maxIconSize = value.icon.size   // We can't have icons bigger than the images provided.
+                
+                // This is how big each icon will be, in our rendered spoke.
                 let iconSize = CGSize(width: Swift.min(maxIconSize.width, oppositeLength), height: Swift.min(maxIconSize.height, oppositeLength))
+                
+                // Draw the spoke.
                 let path = UIBezierPath()
                 path.move(to: centerPointInDisplayUnits)
                 path.addArc(withCenter: centerPointInDisplayUnits, radius: radiusInDisplayUnits, startAngle: centerAngleInRadians - (arclengthInRadians / 2), endAngle: centerAngleInRadians + (arclengthInRadians / 2), clockwise: true)
@@ -670,6 +683,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 
                 let imageFrame = CGRect(x: centerPointInDisplayUnits.x - (imageSquareSize / 2), y: -(radiusInDisplayUnits - (bounds.size.height / 2) - type(of: self)._kOpenPaddingInDisplayUnits), width: imageSquareSize, height: imageSquareSize)
                 
+                // Each image is the same as the center.
                 let displayLayer = _createIconDisplay(value.icon, inFrame: imageFrame)
                 
                 let newFrame = displayLayer.frame
@@ -679,11 +693,9 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 ret.path = path.cgPath
                 ret.addSublayer(displayLayer)
                 
-                // Make sure that we clip the contents (should be unnecessary).
-                let clipLayer = CAShapeLayer()
-                clipLayer.path = path.cgPath
-                ret.mask = clipLayer
-                _layerCache[inIndex] = ret
+                if isCached {
+                    _layerCache[inIndex] = ret
+                }
             }
 
             // This displays the wedge rotated properly.
@@ -737,7 +749,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             frameCircleLayer.path = UIBezierPath(arcCenter: CGPoint(x: circleFrame.midX, y: circleFrame.midY), radius: circleFrame.size.height / 2, startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true).cgPath
             frameCircleLayer.strokeColor = tintColor.cgColor
             frameCircleLayer.lineWidth = type(of: self)._kBorderWidth
-            frameCircleLayer.fillColor = _centerLayer.fillColor
+            frameCircleLayer.fillColor = _closedBackgroundColor?.cgColor
             
             let inset = Swift.max(iconDisplayLayer.frame.size.width, iconDisplayLayer.frame.size.height) / 6
             iconDisplayLayer.frame = iconDisplayLayer.frame.insetBy(dx: inset, dy: inset)
@@ -760,13 +772,11 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      */
     func _drawOpenControl(_ inRect: CGRect) {
         if isOpen { // Only counts if we're open.
-            _drawControlCenter(inRect) // Draw the center.
+            _drawControlCenter(inRect) // Draw the center. This also removes all of the layers from the previous drawing.
             if nil != _openSpinnerView {
                 for index in 0..<count {
                     if let subLayer = _drawOneValueRadius(index) {
-                        if 0 < subLayer.opacity {  // Only insert the ones that matter.
-                            layer.insertSublayer(subLayer, at: 0)
-                        }
+                        layer.insertSublayer(subLayer, at: 0)
                     }
                 }
             }
@@ -921,7 +931,9 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             }
             
             if self._radiusOfOpenControlInDisplayUnits != oldRadius {   // Only if we changed.
-                self._layerCache = [CAShapeLayer?](repeating: nil, count: self.values.count)    // Clear the cache.
+                if self.isCached {
+                    self._layerCache = [CAShapeLayer?](repeating: nil, count: self.values.count)    // Clear the cache.
+                }
                 self.setNeedsDisplay()
             }
         }
@@ -934,6 +946,9 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     func _closeControl() {
         _decelerationDisplayLink?.invalidate() // Stop any spinning.
         _decelerationDisplayLink = nil
+        layer.sublayers?.forEach {
+            $0.removeFromSuperlayer()
+        }
 
         DispatchQueue.main.async {
             self._playCloseSound()
@@ -954,7 +969,9 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 }
                 
                 self._openSpinnerView.removeFromSuperview()
-                self._layerCache = [CAShapeLayer?](repeating: nil, count: self.values.count) // Clear the cache.
+                if self.isCached {
+                    self._layerCache = [CAShapeLayer?](repeating: nil, count: self.values.count)    // Clear the cache.
+                }
                 self._openSpinnerView = nil
                 self.setNeedsLayout()
                 self.setNeedsDisplay()
@@ -1173,7 +1190,9 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     public var values: [RVS_SpinnerDataItem] = [] {
         didSet {
             selectedIndex = Swift.max(0, Swift.min(values.count - 1, selectedIndex))
-            _layerCache = [CAShapeLayer?](repeating: nil, count: values.count)    // Clear the cache.
+            if isCached {
+                _layerCache = [CAShapeLayer?](repeating: nil, count: self.values.count)    // Clear the cache.
+            }
            // We will want to update our layout. Do it in the main thread, just in case.
             DispatchQueue.main.async {
                 if self.isOpen {
@@ -1210,6 +1229,20 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         }
     }
 
+    /* ################################################################## */
+    /**
+     The cache can make the spinner look more "spinny," but can lead to drawing artifacts.
+     */
+    public var isCached: Bool = false {
+        didSet {
+            if isCached {
+                _layerCache = [CAShapeLayer?](repeating: nil, count: self.values.count)    // Clear the cache.
+            }
+            
+            self.setNeedsDisplay()
+        }
+    }
+    
     /* ################################################################################################################################## */
     // MARK: - Public Calculated Propeties
     /* ################################################################################################################################## */
@@ -1301,7 +1334,9 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         didSet {
             // We will want to update our layout. Do it in the main thread, just in case.
             DispatchQueue.main.async {
-                self._layerCache = [CAShapeLayer?](repeating: nil, count: self.values.count)    // Clear the cache.
+                if self.isCached {
+                    self._layerCache = [CAShapeLayer?](repeating: nil, count: self.values.count)    // Clear the cache.
+                }
                 self._openPickerView?.reloadAllComponents()
                 self.setNeedsDisplay()
             }
@@ -1319,7 +1354,9 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         didSet {
             // We will want to update our layout. Do it in the main thread, just in case.
             DispatchQueue.main.async {
-                self._layerCache = [CAShapeLayer?](repeating: nil, count: self.values.count)    // Clear the cache.
+                if self.isCached {
+                    self._layerCache = [CAShapeLayer?](repeating: nil, count: self.values.count)    // Clear the cache.
+                }
                 self._openPickerView?.reloadAllComponents()
                 self.setNeedsDisplay()
             }
@@ -1334,7 +1371,9 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         didSet {
             // We will want to update our layout. Do it in the main thread, just in case.
             DispatchQueue.main.async {
-                self._layerCache = [CAShapeLayer?](repeating: nil, count: self.values.count)    // Clear the cache.
+                if self.isCached {
+                    self._layerCache = [CAShapeLayer?](repeating: nil, count: self.values.count)    // Clear the cache.
+                }
                 self.setNeedsDisplay()
             }
         }

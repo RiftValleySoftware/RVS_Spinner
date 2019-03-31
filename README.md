@@ -129,6 +129,8 @@ This is a struct that contains an icon for display (a [`UIImage`](https://develo
 
 In the spinner popup, only the image is shown, but in the PickerView variant, the text is also shown. Setting the text to "" will show only the image in the picker.
 
+There is an [`RVS_Spinner.isCached`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html) property, which controls whether or not the spinner uses a "layer cache." If the layer cache is selected, the spinner will give an animation that makes it look more like something that is "spinning," but the effect can be undesireable for some people.
+
 You can also attach any arbitrary data item to an instance of [`RVS_SpinnerDataItem`](https://riftvalleysoftware.com/RVS_Spinner/Structs/RVS_SpinnerDataItem.html). There is a property called [`value`]((https://riftvalleysoftware.com/RVS_Spinner/Structs/RVS_SpinnerDataItem.html)), which is an [`Any?`](https://docs.swift.org/swift-book/LanguageGuide/TypeCasting.html#ID342) property. You can associate any data that you want with an RVS_Spinner data item. Selecting the [`RVS_Spinner.value`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html) calculated property of the [`RVS_Spinner`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html) instance will return the entire selected data item. These are [value types, and not a reference types](https://developer.apple.com/swift/blog/?id=10).
 
 You need to provide this array programmatically. You assign it to the [`RVS_Spinner.values`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html) property, and the data will be immediately available to use.
@@ -197,7 +199,9 @@ The red "**Associated Text #*XX***" is a label that displays test data that was 
 
 The "**Spinner/Picker Threshold**" Segmented Switch will affect the "**Spinner Threshold**" property, described above. It is only enabled for the "**Both**" Spinner Mode (discussed below)
 
-The "**Haptics**" and "**Sounds**" switches control whether or not each of those properties is on.
+The "**Haptics**" and "**Sounds**" switches control whether or not each of those properties is on. Default is on.
+
+The "**Cache**" switch controls an image cache that can make the control look "spinnier," but can also introduce artifacts that can be undesireable. Default is off.
 
 The "**Rotation**" slider controls a clockwise/counterclockwise rotation of the open spinner control, and affects the "**Rotation In Radians**" value, discussed above.
 

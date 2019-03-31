@@ -62,36 +62,10 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         UIColor(red: 0, green: 1, blue: 1, alpha: 1)
     ]
     
-    /**
-     These are associated with data items as the "value" property.
-     */
-    private let _associatedText: [String] = [
-        "Associated Text #01",
-        "Associated Text #02",
-        "Associated Text #03",
-        "Associated Text #04",
-        "Associated Text #05",
-        "Associated Text #06",
-        "Associated Text #07",
-        "Associated Text #08",
-        "Associated Text #09",
-        "Associated Text #10",
-        "Associated Text #11",
-        "Associated Text #12",
-        "Associated Text #13",
-        "Associated Text #14",
-        "Associated Text #15",
-        "Associated Text #16",
-        "Associated Text #17",
-        "Associated Text #18",
-        "Associated Text #19",
-        "Associated Text #20"
-    ]
-    
     /* ################################################################################################################################## */
     /// This will contain all of the shapes that we will use to establish our data items array. It contains the full list, and is populated by reading in a bunch of images in the bundle.
     private var _shapes = [ShapeValueTuple]()
-    /// This is aour actual data items array. This changes to reflect the number of items selected by the "Number of Values" switch.
+    /// This is our actual data items array. This changes to reflect the number of items selected by the "Number of Values" switch.
     private var _dataItems = [RVS_SpinnerDataItem]()
 
     /* ################################################################################################################################## */
@@ -117,16 +91,9 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     @IBOutlet weak var soundsSwitch: UISwitch!
     /// This is the label under the spinner that displays the associated strings (in red text).
     @IBOutlet weak var associatedTextLabel: UILabel!
+    /// This is the display cache switch.
+    @IBOutlet weak var cacheSwitch: UISwitch!
 
-    /* ################################################################################################################################## */
-    /* ################################################################## */
-    /**
-     This returns every shape in the list (all 20).
-     */
-    var everyShape: [ShapeValueTuple] {
-        return _shapes
-    }
-    
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
@@ -138,12 +105,20 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     
     /* ################################################################## */
     /**
+     This is called when the "Cache" switch changes.
+     */
+    @IBAction func cacheSwitchHit(_ inSwitch: UISwitch) {
+        spinnerView.isCached = inSwitch.isOn
+    }
+
+    /* ################################################################## */
+    /**
      This is called when the "Haptics" switch changes.
      */
     @IBAction func hapticsSwitchChanged(_ inSwitch: UISwitch) {
         spinnerView.isHapticsOn = inSwitch.isOn
     }
-    
+
     /* ################################################################## */
     /**
      This is called when the "Rotation" slider changes.
@@ -216,25 +191,8 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     @IBAction func valueChanged(_ inSpinnerObject: RVS_Spinner) {
         updateAssociatedText()
     }
-    
-    /* ################################################################################################################################## */
-    /* ################################################################## */
-    /**
-     This filters the main list, and returns a subset of the images. This is used by the "Number of Values" handler.
-     */
-    func subsetOfShapes(_ inNumberOfShapes: Int) -> [ShapeValueTuple] {
-        let shapes = everyShape
-        let stepSize = Double(shapes.count) / Double(inNumberOfShapes)
-        var ret: [ShapeValueTuple] = []
-        let stepper = stride(from: 0.0, to: Double(shapes.count), by: stepSize)
-        
-        for step in stepper {
-            ret.append(shapes[Int(step)])
-        }
-        
-        return ret
-    }
 
+    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      This just makes sure that the associated text label shows the associated value for the current selected item.
@@ -248,6 +206,24 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         }
     }
 
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     This filters the main list, and returns a subset of the images. This is used by the "Number of Values" handler.
+     */
+    func subsetOfShapes(_ inNumberOfShapes: Int) -> [ShapeValueTuple] {
+        let shapes = _shapes
+        let stepSize = Double(shapes.count) / Double(inNumberOfShapes)
+        var ret: [ShapeValueTuple] = []
+        let stepper = stride(from: 0.0, to: Double(shapes.count), by: stepSize)
+        
+        for step in stepper {
+            ret.append(shapes[Int(step)])
+        }
+        
+        return ret
+    }
+
     /* ################################################################## */
     /**
      This runs through the images we have stored in the app bundle, and produces our list.
@@ -258,20 +234,14 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         _shapes = []
         
         if let resourcePath = Bundle.main.resourcePath {
-            let imagePath = resourcePath + "/SpinnerIcons"
-            let fileManager = FileManager.default
-            var index = 0
+            let imagePath =  "\(resourcePath)/SpinnerIcons"
             
             do {
-                let imagePaths = try fileManager.contentsOfDirectory(atPath: imagePath).sorted()
+                let imagePaths = try FileManager.default.contentsOfDirectory(atPath: imagePath).sorted()
                 imagePaths.forEach {
-                    if let imageFile = fileManager.contents(atPath: imagePath + "/" + $0) {
-                        if let image = UIImage(data: imageFile) {
-                            var name = $0
-                            name.removeLast(4)
-                            _shapes.append((name: name, image: image, index: index))
-                            index += 1
-                        }
+                    if let imageFile = FileManager.default.contents(atPath: "\(imagePath)/\($0)"), let image = UIImage(data: imageFile) {
+                        // The name is the filename, minus the file extension.
+                        _shapes.append((name: String($0.prefix($0.count - 4)), image: image, index: _shapes.count))
                     }
                 }
             } catch let error {
@@ -298,10 +268,10 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
      This sets up the "Number of Values" switch, selecting the center one.
      */
     func setUpCountSwitch() {
-        let step = Double(everyShape.count) / Double(numberOfItemsSegmentedControl.numberOfSegments)
+        let step = Double(_shapes.count) / Double(numberOfItemsSegmentedControl.numberOfSegments)
         numberOfItemsSegmentedControl.setTitle(String("1"), forSegmentAt: 0)
         for index in 1..<numberOfItemsSegmentedControl.numberOfSegments {
-            let count = Int(Swift.max(2.0, Swift.min(Double(everyShape.count), ceil(Double(index + 1) * step))))
+            let count = Int(Swift.max(2.0, Swift.min(Double(_shapes.count), ceil(Double(index + 1) * step))))
             numberOfItemsSegmentedControl.setTitle(String(count), forSegmentAt: index)
         }
         
@@ -316,7 +286,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         _dataItems = []
         let items = subsetOfShapes(inNumberOfItems)
         items.forEach {
-            _dataItems.append(RVS_SpinnerDataItem(title: $0.name, icon: $0.image, value: _associatedText[$0.index]))
+            _dataItems.append(RVS_SpinnerDataItem(title: $0.name, icon: $0.image, value: String(format: "Associated Text #%02d (\($0.name))", $0.index + 1)))
         }
         setUpSpinnerControl()
     }
