@@ -273,7 +273,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      This is the maximum velocity for the "flywheel."
      */
-    static let _kMaxFlywheelVelocity: CGFloat = 4
+    static let _kMaxFlywheelVelocity: CGFloat = 10
     
     /* ################################################################## */
     /**
