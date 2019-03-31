@@ -125,6 +125,12 @@
 		D44B3103224AAE9300BFE4AE /* icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = icon.svg; sourceTree = "<group>"; };
 		D44B3104224AAE9300BFE4AE /* TestShapes.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = TestShapes.pdf; sourceTree = "<group>"; };
 		D44B3105224AAE9300BFE4AE /* Marker.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Marker.pdf; sourceTree = "<group>"; };
+		D4BEEDC12250F486007BA3AD /* PickerPopup.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = PickerPopup.gif; sourceTree = "<group>"; };
+		D4BEEDC22250F486007BA3AD /* SpinnerPopup.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = SpinnerPopup.gif; sourceTree = "<group>"; };
+		D4BEEDC32250F486007BA3AD /* SpinnerOptions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpinnerOptions.png; sourceTree = "<group>"; };
+		D4BEEDC42250F486007BA3AD /* OpenSpinner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OpenSpinner.png; sourceTree = "<group>"; };
+		D4BEEDC52250F486007BA3AD /* TestHarnessScreen.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = TestHarnessScreen.gif; sourceTree = "<group>"; };
+		D4BEEDC62250F486007BA3AD /* OpenPicker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OpenPicker.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +166,7 @@
 				D40705E1224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness */,
 				D428DB2A2169391D004B130B /* Products */,
 				D44B3102224AAE9300BFE4AE /* spec */,
+				D4BEEDC02250F486007BA3AD /* img */,
 			);
 			sourceTree = "<group>";
 		};
@@ -216,6 +223,19 @@
 				D44B3105224AAE9300BFE4AE /* Marker.pdf */,
 			);
 			path = spec;
+			sourceTree = "<group>";
+		};
+		D4BEEDC02250F486007BA3AD /* img */ = {
+			isa = PBXGroup;
+			children = (
+				D4BEEDC12250F486007BA3AD /* PickerPopup.gif */,
+				D4BEEDC22250F486007BA3AD /* SpinnerPopup.gif */,
+				D4BEEDC32250F486007BA3AD /* SpinnerOptions.png */,
+				D4BEEDC42250F486007BA3AD /* OpenSpinner.png */,
+				D4BEEDC52250F486007BA3AD /* TestHarnessScreen.gif */,
+				D4BEEDC62250F486007BA3AD /* OpenPicker.png */,
+			);
+			path = img;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
