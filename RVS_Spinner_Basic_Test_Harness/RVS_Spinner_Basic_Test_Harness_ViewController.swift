@@ -202,13 +202,12 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
      This filters the main list, and returns a subset of the images. This is used by the "Number of Values" handler.
      */
     func subsetOfShapes(_ inNumberOfShapes: Int) -> [ShapeValueTuple] {
-        let shapes = _shapes
-        let stepSize = Double(shapes.count) / Double(inNumberOfShapes)
+        let stepSize = Double(_shapes.count) / Double(inNumberOfShapes)
         var ret: [ShapeValueTuple] = []
-        let stepper = stride(from: 0.0, to: Double(shapes.count), by: stepSize)
+        let stepper = stride(from: 0.0, to: Double(_shapes.count), by: stepSize)
         
         for step in stepper {
-            ret.append(shapes[Int(step)])
+            ret.append(_shapes[Int(step)])
         }
         
         return ret
@@ -274,8 +273,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
      */
     func setUpDataItemsArray(_ inNumberOfItems: Int) {
         _dataItems = []
-        let items = subsetOfShapes(inNumberOfItems)
-        items.forEach {
+        subsetOfShapes(inNumberOfItems).forEach {
             _dataItems.append(RVS_SpinnerDataItem(title: $0.name, icon: $0.image, value: String(format: "Associated Text #%02d (\($0.name))", $0.index + 1)))
         }
         setUpSpinnerControl()
