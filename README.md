@@ -235,6 +235,8 @@ Currently, the animation is a bit "fixed," with no radial "motion." The way to d
 - Examine leaks reported in the test harness.
 The Leaks tool reports some leaks in the test harness app. It's quite possible these are "false positives," but we should check them out.
 
+- Make the displayed sizes of the icons and text in the picker variant more dynamic. In tight spaces, they can be too large.
+
 DEPENDENCIES
 =
 
