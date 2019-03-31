@@ -17,7 +17,7 @@
                BlueprintIdentifier = "D40705DF224A9FC500F1E8A2"
                BuildableName = "RVS_Spinner_Basic_Test_Harness.app"
                BlueprintName = "RVS_Spinner_Basic_Test_Harness"
-               ReferencedContainer = "container:RVS_Spinner_Demo.xcodeproj">
+               ReferencedContainer = "container:RVS_Spinner_Standalone_Demo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
             BlueprintIdentifier = "D40705DF224A9FC500F1E8A2"
             BuildableName = "RVS_Spinner_Basic_Test_Harness.app"
             BlueprintName = "RVS_Spinner_Basic_Test_Harness"
-            ReferencedContainer = "container:RVS_Spinner_Demo.xcodeproj">
+            ReferencedContainer = "container:RVS_Spinner_Standalone_Demo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -58,7 +58,7 @@
             BlueprintIdentifier = "D40705DF224A9FC500F1E8A2"
             BuildableName = "RVS_Spinner_Basic_Test_Harness.app"
             BlueprintName = "RVS_Spinner_Basic_Test_Harness"
-            ReferencedContainer = "container:RVS_Spinner_Demo.xcodeproj">
+            ReferencedContainer = "container:RVS_Spinner_Standalone_Demo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -77,7 +77,7 @@
             BlueprintIdentifier = "D40705DF224A9FC500F1E8A2"
             BuildableName = "RVS_Spinner_Basic_Test_Harness.app"
             BlueprintName = "RVS_Spinner_Basic_Test_Harness"
-            ReferencedContainer = "container:RVS_Spinner_Demo.xcodeproj">
+            ReferencedContainer = "container:RVS_Spinner_Standalone_Demo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

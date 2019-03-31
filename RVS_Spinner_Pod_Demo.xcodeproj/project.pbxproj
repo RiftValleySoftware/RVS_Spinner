@@ -11,7 +11,6 @@
 		D40705E8224A9FC500F1E8A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D40705E6224A9FC500F1E8A2 /* Main.storyboard */; };
 		D40705EA224A9FC700F1E8A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D40705E9224A9FC700F1E8A2 /* Assets.xcassets */; };
 		D40705ED224A9FC700F1E8A2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D40705EB224A9FC700F1E8A2 /* LaunchScreen.storyboard */; };
-		D428DB44216939A9004B130B /* RVS_Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D428DB43216939A9004B130B /* RVS_Spinner.swift */; };
 		D44206BE224BBE6E008038A9 /* 5-PointStar.png in Copy Extra Resource Files */ = {isa = PBXBuildFile; fileRef = D4420699224BBDBE008038A9 /* 5-PointStar.png */; };
 		D44206BF224BBE6E008038A9 /* Oblong.png in Copy Extra Resource Files */ = {isa = PBXBuildFile; fileRef = D442069A224BBDBE008038A9 /* Oblong.png */; };
 		D44206C0224BBE6E008038A9 /* 4-PointStar.png in Copy Extra Resource Files */ = {isa = PBXBuildFile; fileRef = D442069B224BBDBE008038A9 /* 4-PointStar.png */; };
@@ -34,16 +33,6 @@
 		D44206D5224BBF6D008038A9 /* Parallelogram.png in Copy Extra Resource Files */ = {isa = PBXBuildFile; fileRef = D44206D1224BBF58008038A9 /* Parallelogram.png */; };
 		D4D7E69F224D800B00613FB8 /* RVS_Spinner_Basic_Test_Harness_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40705E2224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness_AppDelegate.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		D49B3723224D1A690049EEDE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D428DB202169391D004B130B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D428DB282169391D004B130B;
-			remoteInfo = RVS_Spinner;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		D44206BD224BBE3B008038A9 /* Copy Extra Resource Files */ = {
@@ -89,15 +78,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		D40705E0224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = RVS_Spinner_Basic_Test_Harness.app; path = "/Users/cmarshall/Desktop/RVS_Spinner-Pod-Demo/build/Debug-iphoneos/RVS_Spinner_Basic_Test_Harness.app"; sourceTree = "<absolute>"; };
 		D40705E2224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness_AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_Spinner_Basic_Test_Harness_AppDelegate.swift; sourceTree = "<group>"; };
 		D40705E4224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_Spinner_Basic_Test_Harness_ViewController.swift; sourceTree = "<group>"; };
 		D40705E7224A9FC500F1E8A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D40705E9224A9FC700F1E8A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D40705EC224A9FC700F1E8A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D40705EE224A9FC700F1E8A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D428DB292169391D004B130B /* RVS_Spinner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = RVS_Spinner.framework; path = "/Users/cmarshall/Desktop/RVS_Spinner-Pod-Demo/build/Debug-iphoneos/RVS_Spinner.framework"; sourceTree = "<absolute>"; };
-		D428DB43216939A9004B130B /* RVS_Spinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_Spinner.swift; sourceTree = "<group>"; };
+		D43C1F2A22513F04002DAC30 /* RVS_Spinner_Basic_Test_Harness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = RVS_Spinner_Basic_Test_Harness.app; path = "/Users/cmarshall/Documents/Development/RiftValley/RVS_Spinner/build/Debug-iphoneos/RVS_Spinner_Basic_Test_Harness.app"; sourceTree = "<absolute>"; };
 		D4420699224BBDBE008038A9 /* 5-PointStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "5-PointStar.png"; sourceTree = "<group>"; };
 		D442069A224BBDBE008038A9 /* Oblong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Oblong.png; sourceTree = "<group>"; };
 		D442069B224BBDBE008038A9 /* 4-PointStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "4-PointStar.png"; sourceTree = "<group>"; };
@@ -148,17 +135,8 @@
 		D428DB1F2169391D004B130B = {
 			isa = PBXGroup;
 			children = (
-				D428DB2B2169391D004B130B /* RVS_Spinner */,
 				D40705E1224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness */,
 			);
-			sourceTree = "<group>";
-		};
-		D428DB2B2169391D004B130B /* RVS_Spinner */ = {
-			isa = PBXGroup;
-			children = (
-				D428DB43216939A9004B130B /* RVS_Spinner.swift */,
-			);
-			path = RVS_Spinner;
 			sourceTree = "<group>";
 		};
 		D4420698224BBDBE008038A9 /* SpinnerIcons */ = {
@@ -205,29 +183,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				D49B3724224D1A690049EEDE /* PBXTargetDependency */,
 			);
 			name = RVS_Spinner_Basic_Test_Harness;
 			productName = RVS_Spinner_Basic_Test_Harness;
-			productReference = D40705E0224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness.app */;
+			productReference = D43C1F2A22513F04002DAC30 /* RVS_Spinner_Basic_Test_Harness.app */;
 			productType = "com.apple.product-type.application";
-		};
-		D428DB282169391D004B130B /* RVS_Spinner */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D428DB3D2169391D004B130B /* Build configuration list for PBXNativeTarget "RVS_Spinner" */;
-			buildPhases = (
-				D4B6B468224AB2DF00B1F336 /* SwiftLINT */,
-				D428DB252169391D004B130B /* Sources */,
-				D428DB272169391D004B130B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = RVS_Spinner;
-			productName = RVP_Spinneroo;
-			productReference = D428DB292169391D004B130B /* RVS_Spinner.framework */;
-			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -242,13 +202,9 @@
 					D40705DF224A9FC500F1E8A2 = {
 						CreatedOnToolsVersion = 10.2;
 					};
-					D428DB282169391D004B130B = {
-						CreatedOnToolsVersion = 10.0;
-						LastSwiftMigration = 1020;
-					};
 				};
 			};
-			buildConfigurationList = D428DB232169391D004B130B /* Build configuration list for PBXProject "RVS_Spinner_Demo" */;
+			buildConfigurationList = D428DB232169391D004B130B /* Build configuration list for PBXProject "RVS_Spinner_Pod_Demo" */;
 			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -262,7 +218,6 @@
 			projectRoot = "";
 			targets = (
 				D40705DF224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness */,
-				D428DB282169391D004B130B /* RVS_Spinner */,
 			);
 		};
 /* End PBXProject section */
@@ -278,35 +233,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D428DB272169391D004B130B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		D4380617224ABC97002FE0E0 /* SwiftLINT */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = SwiftLINT;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if test -f \"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"\nfi\n";
-		};
-		D4B6B468224AB2DF00B1F336 /* SwiftLINT */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -336,23 +266,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D428DB252169391D004B130B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D428DB44216939A9004B130B /* RVS_Spinner.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		D49B3724224D1A690049EEDE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D428DB282169391D004B130B /* RVS_Spinner */;
-			targetProxy = D49B3723224D1A690049EEDE /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		D40705E6224A9FC500F1E8A2 /* Main.storyboard */ = {
@@ -541,61 +455,6 @@
 			};
 			name = Release;
 		};
-		D428DB3E2169391D004B130B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = P53V4JS928;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/RVS_Spinner/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-Spinner";
-				PRODUCT_MODULE_NAME = "${TARGET_NAME}";
-				PRODUCT_NAME = "${TARGET_NAME}";
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		D428DB3F2169391D004B130B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = P53V4JS928;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/RVS_Spinner/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-Spinner";
-				PRODUCT_MODULE_NAME = "${TARGET_NAME}";
-				PRODUCT_NAME = "${TARGET_NAME}";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -608,20 +467,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D428DB232169391D004B130B /* Build configuration list for PBXProject "RVS_Spinner_Demo" */ = {
+		D428DB232169391D004B130B /* Build configuration list for PBXProject "RVS_Spinner_Pod_Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D428DB3B2169391D004B130B /* Debug */,
 				D428DB3C2169391D004B130B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D428DB3D2169391D004B130B /* Build configuration list for PBXNativeTarget "RVS_Spinner" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D428DB3E2169391D004B130B /* Debug */,
-				D428DB3F2169391D004B130B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
