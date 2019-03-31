@@ -91,8 +91,6 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     @IBOutlet weak var soundsSwitch: UISwitch!
     /// This is the label under the spinner that displays the associated strings (in red text).
     @IBOutlet weak var associatedTextLabel: UILabel!
-    /// This is the display cache switch.
-    @IBOutlet weak var cacheSwitch: UISwitch!
 
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -101,14 +99,6 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
      */
     @IBAction func soundsSwitchChanged(_ inSwitch: UISwitch) {
         spinnerView.isSoundOn = inSwitch.isOn
-    }
-    
-    /* ################################################################## */
-    /**
-     This is called when the "Cache" switch changes.
-     */
-    @IBAction func cacheSwitchHit(_ inSwitch: UISwitch) {
-        spinnerView.isCached = inSwitch.isOn
     }
 
     /* ################################################################## */
