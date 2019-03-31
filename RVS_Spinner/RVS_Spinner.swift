@@ -20,7 +20,7 @@
  
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  
- - version: 1.0.7
+ - version: 1.0.8
  */
 
 import UIKit

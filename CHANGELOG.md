@@ -1,3 +1,6 @@
+*Version 1.0.8* **TBD**
+- Fixed an annoying auto-layour bug in the test harness that made the SE unusable.
+
 *Version 1.0.7* **March 31, 2019**
 - Almost exclusively documentation changes.
 - Added a couple of xcodeproj files for the two demo apps.

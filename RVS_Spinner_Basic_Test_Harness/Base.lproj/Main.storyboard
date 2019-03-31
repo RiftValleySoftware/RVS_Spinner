@@ -37,7 +37,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="s8R-RL-1KT" secondAttribute="trailing" constant="150" id="Dzi-Eq-5uq"/>
-                                    <constraint firstItem="s8R-RL-1KT" firstAttribute="top" relation="greaterThanOrEqual" secondItem="aOJ-Ve-Ptm" secondAttribute="top" constant="150" id="KQZ-hY-pR6"/>
+                                    <constraint firstItem="s8R-RL-1KT" firstAttribute="top" relation="greaterThanOrEqual" secondItem="aOJ-Ve-Ptm" secondAttribute="top" priority="750" constant="150" id="KQZ-hY-pR6"/>
                                     <constraint firstItem="s8R-RL-1KT" firstAttribute="centerX" secondItem="aOJ-Ve-Ptm" secondAttribute="centerX" id="VLL-Io-cyf"/>
                                     <constraint firstItem="s8R-RL-1KT" firstAttribute="centerY" secondItem="aOJ-Ve-Ptm" secondAttribute="centerY" id="wgy-fS-toE"/>
                                 </constraints>
