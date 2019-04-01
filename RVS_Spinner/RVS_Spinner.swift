@@ -981,6 +981,17 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     func _correctRadius() {
         DispatchQueue.main.async {
             let oldRadius = self._radiusOfOpenControlInDisplayUnits
+
+            // We make sure that our frames are correct, if we rotated.
+            if let openView = self._openSpinnerView {
+                if openView.frame != self.openSpinnerFrame {
+                    openView.frame = self.openSpinnerFrame
+                    self._clearDisplayCaches()
+                }
+            } else if let openView = self._openPickerContainerView {
+                openView.frame = self.openPickerFrame
+            }
+
             let myCenter = CGPoint(x: self.frame.midX, y: self.frame.midY)
             if self.opensAsSpinner {    // If we are a spinner, we need to look all around.
                 if let mySuperView = self.superview {
@@ -1498,6 +1509,28 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      */
     override public init(frame inRect: CGRect) {
         super.init(frame: inRect)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(type(of: self)._orientationChanged(notification:)),
+            name: UIApplication.didChangeStatusBarOrientationNotification,
+            object: nil
+        )
+    }
+
+    /* ################################################################## */
+    /**
+     The NSCoder init.
+     
+     - parameter coder: The decoder with the view state.
+     */
+    required init?(coder inDecoder: NSCoder) {
+        super.init(coder: inDecoder)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(type(of: self)._orientationChanged(notification:)),
+            name: UIApplication.didChangeStatusBarOrientationNotification,
+            object: nil
+        )
     }
 
     /* ################################################################## */
@@ -1593,17 +1626,11 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         if nil == openBackgroundColor {
             openBackgroundColor = UIColor.clear    // We are at least clear.
         }
-
-        super.layoutSubviews()
         
+        contentMode = .redraw
+        
+        super.layoutSubviews()
         _correctRadius()    // Make sure we stay in our lane.
-
-        // We make sure that our frames are correct, if we rotated.
-        if let openView = _openSpinnerView {
-            openView.frame = openSpinnerFrame
-        } else if let openView = _openPickerContainerView {
-            openView.frame = openPickerFrame
-        }
     }
     
     /* ################################################################################################################################## */
@@ -1633,19 +1660,10 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     
     /* ################################################################## */
     /**
-     The NSCoder init.
-     
-     - parameter coder: The decoder with the view state.
-     */
-    required init?(coder inDecoder: NSCoder) {
-        super.init(coder: inDecoder)
-    }
-    
-    /* ################################################################## */
-    /**
      We cancel any decelerator display link from here.
      */
     deinit {
+        NotificationCenter.default.removeObserver(self)
         _decelerationDisplayLink?.invalidate()
     }
     
