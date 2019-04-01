@@ -399,12 +399,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     
     /* ################################################################## */
     /**
-     This caches all the "spokes."
-     */
-    var _layerCache: [CAShapeLayer?] = []
-    
-    /* ################################################################## */
-    /**
      This is an invisible view that we instantiate over the control to catch gestures.
      It is only available when the control is open.
      */
@@ -619,17 +613,20 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      - parameter inRect: The drawing rectangle
      */
     func _drawControlCenter(_ inRect: CGRect) {
+        _centerImageLayer?.removeFromSuperlayer()   // Get rid of any previous center layer.
+        
         // We stroke and fill the basic shape with the colors we have set up.
         let centerLayer = CAShapeLayer()
-        // The control is an oval (should be a circle, but we allow an oval).
-        centerLayer.path = centerShape.cgPath
+        
+        centerLayer.path = centerShape.cgPath   // By default, the center is an oval/circle. You can override this to change the shape.
         centerLayer.fillColor = _closedBackgroundColor?.cgColor
-        centerLayer.strokeColor = tintColor.cgColor
+        centerLayer.strokeColor = tintColor?.cgColor
         centerLayer.lineWidth = type(of: self)._kBorderWidth
 
         if 0 < values.count {   // Have to have values to draw anything more.
-            // Next, see if we have been given an image to be displayed over the oval.
+            // Get the image to be displayed over the oval.
             let centerImage = values[selectedIndex].icon
+            // This is how we track clicks and long-presses in the center.
             let isDimmed = !isEnabled || (isTracking && isTouchInside && !_doneTracking)
             let imageLayer = _createIconDisplay(centerImage, inFrame: bounds, isDimmed: isDimmed)
             centerLayer.addSublayer(imageLayer)
@@ -652,95 +649,89 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         var ret: CAShapeLayer! = nil
 
         if !values.isEmpty {    // If we don't have any values, then this is for naught.
-            if let subLayer = _layerCache[inIndex] {  // See if we already have it.
-                ret = subLayer
+            let value = values[inIndex]
+        
+            // This is how much padding we'll want around the image.
+            let paddingWidth = type(of: self)._kOpenPaddingInDisplayUnits * 2
+        
+            // This is the center of the control. All spokes start here.
+            let centerPointInDisplayUnits = CGPoint(x: bounds.size.width / 2, y: bounds.size.height / 2)
+        
+            // This is the radius we have available. It will be calculated dynamically to fit in our allotted space.
+            let radiusInDisplayUnits = CGFloat(_radiusOfOpenControlInDisplayUnits)
+        
+            // This is the angle at which this spoke will be shown (Right up and down).
+            let centerAngleInRadians = (3 * CGFloat.pi) / 2
+        
+            // This is the circumference of the entire open spinner.
+            let circumferenceInDisplayUnits = CGFloat(Double.pi * 2 * Double(radiusInDisplayUnits))
+        
+            // This is the length (circular) of the arc segment that caps each spoke.
+            let arcCircumferenceInDisplayUnits = circumferenceInDisplayUnits / CGFloat(values.count)
+
+            ret = CAShapeLayer()
+        
+            ret.frame = bounds
+            // This is the distance between our circumference, and the outside of the center circle, and adding some padding on either end.
+            let workingLength = (CGFloat(_radiusOfOpenControlInDisplayUnits) - bounds.size.height) - paddingWidth
+        
+            // This is all pretty rough, but it will get us there. We use some basic trig to get a rough idea of how much room we have, if we need to shrink.
+            let radiansPerValue = (2 * CGFloat.pi) / CGFloat(count) // This is how many radians in our 2π circle it takes to account for one value.
+        
+            // This is the width of the end of our little "measuring triangle." It is the distance in a straight line from the center of the spoke to the edge.
+            // The workingLength is our adjacent side, and we know the angle, which is a spoke angle, divided by 2.
+            let oppositeLength = Swift.min(workingLength, (workingLength * tan(radiansPerValue / 2)) * 2)
+        
+            let maxIconSize = value.icon.size   // We can't have icons bigger than the images provided.
+        
+            // Draw the spoke.
+            let path = UIBezierPath()
+            path.move(to: centerPointInDisplayUnits)
+            path.addArc(withCenter: centerPointInDisplayUnits, radius: radiusInDisplayUnits, startAngle: centerAngleInRadians - (_arclengthInRadians / 2), endAngle: centerAngleInRadians + (_arclengthInRadians / 2), clockwise: true)
+            path.move(to: centerPointInDisplayUnits)
+        
+            if !inAsBackgroundOnly {    // We only do this is we are drawing the icon layer.
+                ret.fillColor = UIColor.clear.cgColor
+                
+                // This is how big each icon will be, in our rendered spoke.
+                let iconSize = CGSize(width: Swift.min(maxIconSize.width, oppositeLength), height: Swift.min(maxIconSize.height, oppositeLength))
+                
+                // We like to have a fixed size, but if the image is smaller, or we are packed in too tight, we may need to go smaller.
+                let maxWidth = Swift.min(iconSize.width, oppositeLength)  // This is how wide the displayed icon will be.
+                
+                let imageSquareSize = Swift.min(maxWidth, arcCircumferenceInDisplayUnits / 2)  // The image is displayed in a square.
+                
+                let imageFrame = CGRect(x: centerPointInDisplayUnits.x - (imageSquareSize / 2), y: -(radiusInDisplayUnits - (bounds.size.height / 2) - type(of: self)._kOpenPaddingInDisplayUnits), width: imageSquareSize, height: imageSquareSize)
+                
+                // Each image is the same as the center.
+                let displayLayer = _createIconDisplay(value.icon, inFrame: imageFrame)
+                
+                let newFrame = displayLayer.frame
+                
+                displayLayer.frame = CGRect(x: centerPointInDisplayUnits.x - (newFrame.size.width / 2), y: -(radiusInDisplayUnits - (bounds.size.height / 2) - type(of: self)._kOpenPaddingInDisplayUnits), width: newFrame.size.width, height: newFrame.size.height)
+
+                ret.path = path.cgPath
+                ret.addSublayer(displayLayer)
             } else {
-                let value = values[inIndex]
-                
-                // This is how much padding we'll want around the image.
-                let paddingWidth = type(of: self)._kOpenPaddingInDisplayUnits * 2
-                
-                // This is the center of the control. All spokes start here.
-                let centerPointInDisplayUnits = CGPoint(x: bounds.size.width / 2, y: bounds.size.height / 2)
-                
-                // This is the radius we have available. It will be calculated dynamically to fit in our allotted space.
-                let radiusInDisplayUnits = CGFloat(_radiusOfOpenControlInDisplayUnits)
-                
-                // This is the angle at which this spoke will be shown (Right up and down).
-                let centerAngleInRadians = (3 * CGFloat.pi) / 2
-                
-                // This is the circumference of the entire open spinner.
-                let circumferenceInDisplayUnits = CGFloat(Double.pi * 2 * Double(radiusInDisplayUnits))
-                
-                // This is the length (circular) of the arc segment that caps each spoke.
-                let arcCircumferenceInDisplayUnits = circumferenceInDisplayUnits / CGFloat(values.count)
-
-                ret = CAShapeLayer()
-                
-                ret.frame = bounds
-                // This is the distance between our circumference, and the outside of the center circle, and adding some padding on either end.
-                let workingLength = (CGFloat(_radiusOfOpenControlInDisplayUnits) - bounds.size.height) - paddingWidth
-                
-                // This is all pretty rough, but it will get us there. We use some basic trig to get a rough idea of how much room we have, if we need to shrink.
-                let radiansPerValue = (2 * CGFloat.pi) / CGFloat(count) // This is how many radians in our 2π circle it takes to account for one value.
-                
-                // This is the width of the end of our little "measuring triangle." It is the distance in a straight line from the center of the spoke to the edge.
-                // The workingLength is our adjacent side, and we know the angle, which is a spoke angle, divided by 2.
-                let oppositeLength = Swift.min(workingLength, (workingLength * tan(radiansPerValue / 2)) * 2)
-                
-                let maxIconSize = value.icon.size   // We can't have icons bigger than the images provided.
-                
-                // Draw the spoke.
-                let path = UIBezierPath()
-                path.move(to: centerPointInDisplayUnits)
-                path.addArc(withCenter: centerPointInDisplayUnits, radius: radiusInDisplayUnits, startAngle: centerAngleInRadians - (_arclengthInRadians / 2), endAngle: centerAngleInRadians + (_arclengthInRadians / 2), clockwise: true)
-                path.move(to: centerPointInDisplayUnits)
-                
-                if !inAsBackgroundOnly {    // We only do this is we are drawing the icon layer.
-                    ret.fillColor = UIColor.clear.cgColor
-                    
-                    // This is how big each icon will be, in our rendered spoke.
-                    let iconSize = CGSize(width: Swift.min(maxIconSize.width, oppositeLength), height: Swift.min(maxIconSize.height, oppositeLength))
-                    
-                    // We like to have a fixed size, but if the image is smaller, or we are packed in too tight, we may need to go smaller.
-                    let maxWidth = Swift.min(iconSize.width, oppositeLength)  // This is how wide the displayed icon will be.
-                    
-                    let imageSquareSize = Swift.min(maxWidth, arcCircumferenceInDisplayUnits / 2)  // The image is displayed in a square.
-                    
-                    let imageFrame = CGRect(x: centerPointInDisplayUnits.x - (imageSquareSize / 2), y: -(radiusInDisplayUnits - (bounds.size.height / 2) - type(of: self)._kOpenPaddingInDisplayUnits), width: imageSquareSize, height: imageSquareSize)
-                    
-                    // Each image is the same as the center.
-                    let displayLayer = _createIconDisplay(value.icon, inFrame: imageFrame)
-                    
-                    let newFrame = displayLayer.frame
-                    
-                    displayLayer.frame = CGRect(x: centerPointInDisplayUnits.x - (newFrame.size.width / 2), y: -(radiusInDisplayUnits - (bounds.size.height / 2) - type(of: self)._kOpenPaddingInDisplayUnits), width: newFrame.size.width, height: newFrame.size.height)
-
-                    ret.path = path.cgPath
-                    ret.addSublayer(displayLayer)
-                    
-                    _layerCache[inIndex] = ret
-                } else {
-                    ret.path = path.cgPath
-                    ret.fillColor = openBackgroundColor.cgColor
-                }
+                ret.path = path.cgPath
+                ret.fillColor = openBackgroundColor.cgColor
             }
-
-            // This displays the wedge rotated properly.
-            let rotationAngleInRadians = (CGFloat(inIndex - selectedIndex) * _arclengthInRadians) + CGFloat(rotationInRadians)
-            ret.transform = CATransform3DMakeRotation(rotationAngleInRadians, 0, 0, 1.0)
-
-            // We use this to reduce the opacity of the values that are not actually on top.
-            // This is a ring buffer distance calculation. Works for the circle we're using.
-            let maximumIndexPlusOne = count
-            var indexDistance = (maximumIndexPlusOne + selectedIndex - inIndex) % maximumIndexPlusOne
-            if indexDistance >= (maximumIndexPlusOne / 2) { // If we are beyond the end, we loop back.
-                indexDistance -= maximumIndexPlusOne
-            }
-
-            // The selected value is always full visibility, but it dimms drastically, the further we are from it.
-            ret.opacity = (0 == Swift.abs(indexDistance)) ? 1.0 : 0.25 / Float(Swift.abs(indexDistance))
         }
+        
+        // This displays the wedge rotated properly.
+        let rotationAngleInRadians = (CGFloat(inIndex - selectedIndex) * _arclengthInRadians) + CGFloat(rotationInRadians)
+        ret.transform = CATransform3DMakeRotation(rotationAngleInRadians, 0, 0, 1.0)
+
+        // We use this to reduce the opacity of the values that are not actually on top.
+        // This is a ring buffer distance calculation. Works for the circle we're using.
+        let maximumIndexPlusOne = count
+        var indexDistance = (maximumIndexPlusOne + selectedIndex - inIndex) % maximumIndexPlusOne
+        if indexDistance >= (maximumIndexPlusOne / 2) { // If we are beyond the end, we loop back.
+            indexDistance -= maximumIndexPlusOne
+        }
+
+        // The selected value is always full visibility, but it dimms drastically, the further we are from it.
+        ret.opacity = (0 == Swift.abs(indexDistance)) ? 1.0 : 0.25 / Float(Swift.abs(indexDistance))
         
         return ret
     }
@@ -1585,15 +1576,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         } else if let openView = _openPickerContainerView {
             openView.frame = openPickerFrame
         }
-    }
-
-    /* ################################################################## */
-    /**
-     We take the opportunity to clear our layer cache (if necessary).
-     */
-    override public func setNeedsDisplay() {
-        super.setNeedsDisplay()
-        _layerCache = [CAShapeLayer?](repeating: nil, count: self.values.count)    // Clear the cache.
     }
     
     /* ################################################################################################################################## */
