@@ -456,6 +456,12 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      */
     var _selectionFeedbackGenerator: UISelectionFeedbackGenerator?
     
+    /* ################################################################## */
+    /**
+     This stupid flag will be set the first time we open, so we do the animation.
+     */
+    var _iHateSemaphores: Bool = false
+    
     /* ################################################################################################################################## */
     // MARK: - Internal Instance Calculated Properties
     /* ################################################################################################################################## */
@@ -822,6 +828,27 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                     _openSpinnerView.layer.addSublayer(_animatedIconLayer)
                 }
                 
+                // We use a...gag...retch...semaphore to flag that we just opened a new bar, and are looking for a bouncer.
+                if _iHateSemaphores {
+                    _openSpinnerView.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
+                    // We animate the opening of the spinner, making it "bounce."
+                    UIView.animate(withDuration: 0.25,
+                                   delay: 0,
+                                   usingSpringWithDamping: 0.8,
+                                   initialSpringVelocity: 25.0,
+                                   options: .allowUserInteraction,
+                                   animations: { [unowned self] in
+                                    self._openSpinnerView.transform = .identity
+                        },
+                                   completion: { [unowned self] (_: Bool) -> Void in
+                                    DispatchQueue.main.async {
+                                        self._iHateSemaphores = false
+                                        self.setNeedsDisplay()
+                                    }
+                        }
+                    )
+                }
+                
                 // This is how much we should be rotated.
                 let rotationAngleInRadians = (CGFloat.pi - (CGFloat(selectedIndex) * _arclengthInRadians))
 
@@ -829,10 +856,10 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 if nil == _spinnerAnimation {
                     CATransaction.begin()
                     CATransaction.setAnimationDuration(0.2)
-                    CATransaction.setCompletionBlock { [weak self] in
+                    CATransaction.setCompletionBlock { [unowned self] in
                         DispatchQueue.main.async {
-                            self?._spinnerAnimation = nil
-                            self?._animatedIconLayer?.transform = transform
+                            self._spinnerAnimation = nil
+                            self._animatedIconLayer?.transform = transform
                         }
                    }
                     
@@ -840,6 +867,8 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                     
                     CATransaction.commit()
                }
+            } else {
+                self._clearDisplayCaches()  // Make sure we don't leave any dingleberries...
             }
         }
     }
@@ -935,8 +964,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                     _openSpinnerView.addGestureRecognizer(_rotateGestureRecognizer)
                     _rotateGestureRecognizer.delaysTouchesBegan = false
                 }
-                
-                transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
             } else {    // Otherwise, we are using the picker.
                 _openPickerContainerView = UIView(frame: openPickerFrame)
                 if let pickerContainer = _openPickerContainerView {    // Just to be sure, but what the heck...
@@ -953,24 +980,22 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 }
                 
                 _openPickerView.selectRow(selectedIndex, inComponent: 0, animated: true)
-                _openPickerContainerView?.transform = CGAffineTransform(scaleX: 0.01, y: 0.01).concatenating(CGAffineTransform(translationX: 0, y: openPickerFrame.size.height))
-                transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+                _openPickerContainerView?.transform =  CGAffineTransform(scaleX: 0.001, y: 0.001).concatenating(CGAffineTransform(translationX: 0, y: _openPickerContainerView.bounds.size.height / 2))
+                
+                // We animate the opening of the picker.
+                UIView.animate(withDuration: 0.25,
+                               delay: 0,
+                               usingSpringWithDamping: 0.8,
+                               initialSpringVelocity: 25.0,
+                               options: .allowUserInteraction,
+                               animations: { [unowned self] in
+                                if nil != self._openPickerContainerView {
+                                    self._openPickerContainerView?.transform = .identity
+                                }
+                    },
+                               completion: nil
+                )
             }
-            
-            // We animate the opening of both, and the closing of the picker.
-            UIView.animate(withDuration: 0.15,
-                           delay: 0,
-                           usingSpringWithDamping: 0.4,
-                           initialSpringVelocity: 25.0,
-                           options: .allowUserInteraction,
-                           animations: { [weak self] in
-                            self?.transform = .identity
-                            if nil != self?._openPickerContainerView {
-                                self?._openPickerContainerView?.transform = .identity
-                            }
-                },
-                           completion: nil
-            )
         }
     }
     
@@ -1035,14 +1060,25 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                     self._tapGestureRecognizer = nil
                 }
                 
-                self._animatedIconLayer?.removeFromSuperlayer()
-                self._animatedIconLayer = nil
-                self._centerImageLayer?.removeFromSuperlayer()
-                self._centerImageLayer = nil
-                self._openSpinnerView.removeFromSuperview()
-                self._openSpinnerView = nil
-                self.setNeedsLayout()
-                self._clearDisplayCaches()
+                self._openSpinnerView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                // We animate the closing of the spinner.
+                UIView.animate( withDuration: 0.25,
+                                delay: 0,
+                                usingSpringWithDamping: 1.0,
+                                initialSpringVelocity: 7.0,
+                                options: .allowUserInteraction,
+                                animations: { [unowned self] in
+                                    self._openSpinnerView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
+                                },
+                               completion: { [unowned self] (_: Bool) -> Void in
+                                DispatchQueue.main.async {
+                                    self._clearDisplayCaches()
+                                    self._openSpinnerView.removeFromSuperview()
+                                    self._openSpinnerView = nil
+                                    self.setNeedsLayout()
+                                }
+                    }
+                )
             } else if nil != self._openPickerContainerView {
                 self._openPickerContainerView?.transform = .identity
             }
@@ -1053,19 +1089,19 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                            usingSpringWithDamping: 1,
                            initialSpringVelocity: 7.0,
                            options: .allowUserInteraction,
-                           animations: { [weak self] in
-                            self?.transform = .identity
-                            if nil != self?._openPickerContainerView {
-                                self?._openPickerContainerView?.transform =  CGAffineTransform(scaleX: 0.01, y: 0.01).concatenating(CGAffineTransform(translationX: 0, y: self?.openPickerFrame.size.height ?? 0 / 2))
+                           animations: { [unowned self] in
+                            self.transform = .identity
+                            if nil != self._openPickerContainerView {
+                                self._openPickerContainerView?.transform =  CGAffineTransform(scaleX: 0.001, y: 0.001).concatenating(CGAffineTransform(translationX: 0, y: self._openPickerContainerView.bounds.size.height / 2))
                             }
                 },
-                           completion: { [weak self] (_: Bool) in
-                            self?.transform = .identity
-                            if nil != self?._openPickerContainerView {
-                                self?._openPickerContainerView?.removeFromSuperview()
-                                self?._openPickerContainerView = nil
-                                self?.setNeedsLayout()
-                                self?._clearDisplayCaches()
+                           completion: { [unowned self] (_: Bool) in
+                            self.transform = .identity
+                            if nil != self._openPickerContainerView {
+                                self._openPickerContainerView?.removeFromSuperview()
+                                self._openPickerContainerView = nil
+                                self.setNeedsLayout()
+                                self._clearDisplayCaches()
                             }
                 }
             )
@@ -1293,18 +1329,16 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     public var isOpen: Bool = false {
         didSet {    // This is the way we open and close the control.
             if isOpen && isOpen != oldValue, 1 < count {
+                _iHateSemaphores = true // Ick. Tell the control to sproing.
                 _openControl()
+                self.setNeedsLayout()
+                self._clearDisplayCaches()
                 // Let any delegate know that we have opened with a selected item.
                 delegate?.spinner(self, hasOpenedWithTheValue: value)
             } else if !isOpen && isOpen != oldValue {
                 _closeControl()
                 // Let any delegate know that we have closed with a selected item.
                 delegate?.spinner(self, hasClosedWithTheValue: value)
-            }
-            
-            DispatchQueue.main.async {
-                self.setNeedsLayout()
-                self._clearDisplayCaches()
             }
         }
     }
@@ -1578,7 +1612,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 _decelerationDisplayLink = nil
                 DispatchQueue.main.async {
                     self._doneTracking = true
-                    self._clearDisplayCaches()
+//                    self._clearDisplayCaches()
                 }
             } else {
                 DispatchQueue.main.async {
