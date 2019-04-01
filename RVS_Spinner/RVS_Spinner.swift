@@ -591,8 +591,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         if 0 != stepsToRotate {
             _decelerationAccumulator = 0
             let currentIndex = selectedIndex
-            let difference = Int(CGFloat(rotationInRadians) / _arclengthInRadians)
-            var newSelection = currentIndex + stepsToRotate + difference
+            var newSelection = currentIndex + stepsToRotate
 
             while newSelection >= count {
                 newSelection -= count
@@ -731,7 +730,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             }
             
             // This displays the wedge rotated properly.
-            let rotationAngleInRadians = (1 * CGFloat.pi) - (CGFloat(inIndex) * _arclengthInRadians) + CGFloat(rotationInRadians)
+            let rotationAngleInRadians = (1 * CGFloat.pi) - (CGFloat(inIndex) * _arclengthInRadians)
             ret.transform = CATransform3DMakeRotation(rotationAngleInRadians, 0, 0, 1.0)
         }
 
@@ -1299,23 +1298,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         }
     }
 
-    /* ################################################################## */
-    /**
-     This is the offset from the top, in radians, of a spinner (ignored for picker).
-     
-     NOTE: Rotation is not currently supported.
-     */
-    public var rotationInRadians: Float = 0 {
-        didSet {
-            let clipped = Int(round(CGFloat(rotationInRadians) / _arclengthInRadians))
-            rotationInRadians = Float(CGFloat(clipped) * _arclengthInRadians)
-            // We will want to update our layout. Do it in the main thread, just in case.
-            DispatchQueue.main.async {
-                self._clearDisplayCaches()
-            }
-        }
-    }
-
     /* ################################################################################################################################## */
     // MARK: - Public Calculated Propeties
     /* ################################################################################################################################## */
@@ -1702,8 +1684,8 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      - returns: float, with the row height for that component.
      */
-    public func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return type(of: self)._kMaxOpenPickerViewImageSizeInDisplayUnits
+    public func pickerView(_ inPickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return Swift.min(type(of: self)._kMaxOpenPickerViewImageSizeInDisplayUnits, inPickerView.bounds.height)
     }
     
     /* ################################################################## */

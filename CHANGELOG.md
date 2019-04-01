@@ -1,6 +1,8 @@
-*Version 2.0.0* **TBD**
+*Version 2.0.0* **April 1, 2019**
 - Fixed an annoying auto-layout bug in the test harness that made the SE unusable.
 - Improved the spinning animation.
+- Removed the rotation feature. It was a nice idea, but was actually a lot more complicated than initially envisioned, and definitely not worth the agita and quality hit.
+- Now make the icon display in the picker a bit more flexible.
 
 *Version 1.0.7* **March 31, 2019**
 - Almost exclusively documentation changes.

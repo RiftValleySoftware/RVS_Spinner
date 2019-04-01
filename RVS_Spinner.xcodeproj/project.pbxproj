@@ -129,8 +129,8 @@
 		D4BEEDC22250F486007BA3AD /* SpinnerPopup.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = SpinnerPopup.gif; sourceTree = "<group>"; };
 		D4BEEDC32250F486007BA3AD /* SpinnerOptions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpinnerOptions.png; sourceTree = "<group>"; };
 		D4BEEDC42250F486007BA3AD /* OpenSpinner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OpenSpinner.png; sourceTree = "<group>"; };
-		D4BEEDC52250F486007BA3AD /* TestHarnessScreen.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = TestHarnessScreen.gif; sourceTree = "<group>"; };
 		D4BEEDC62250F486007BA3AD /* OpenPicker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OpenPicker.png; sourceTree = "<group>"; };
+		D4C0D2B72252A2C100D69C46 /* TestHarnessScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TestHarnessScreen.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,8 +232,8 @@
 				D4BEEDC22250F486007BA3AD /* SpinnerPopup.gif */,
 				D4BEEDC32250F486007BA3AD /* SpinnerOptions.png */,
 				D4BEEDC42250F486007BA3AD /* OpenSpinner.png */,
-				D4BEEDC52250F486007BA3AD /* TestHarnessScreen.gif */,
 				D4BEEDC62250F486007BA3AD /* OpenPicker.png */,
+				D4C0D2B72252A2C100D69C46 /* TestHarnessScreen.png */,
 			);
 			path = img;
 			sourceTree = "<group>";
