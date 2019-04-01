@@ -326,6 +326,12 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     
     /* ################################################################## */
     /**
+     This is used to animate the spin.
+     */
+    var _spinnerAnimation: CABasicAnimation!
+    
+    /* ################################################################## */
+    /**
      This is a layer that contains a transparency mask for the spinner. It is applied to the open spinner layer as a mask.
      
      It's a weak reference to avoid memory leaks.
@@ -342,7 +348,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         didSet {
             DispatchQueue.main.async {
                 super.backgroundColor = UIColor.clear
-                self.setNeedsDisplay()
+                self._clearDisplayCaches()
             }
         }
     }
@@ -585,8 +591,9 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         if 0 != stepsToRotate {
             _decelerationAccumulator = 0
             let currentIndex = selectedIndex
-            var newSelection = currentIndex + stepsToRotate
-            
+            let difference = Int(CGFloat(rotationInRadians) / _arclengthInRadians)
+            var newSelection = currentIndex + stepsToRotate + difference
+
             while newSelection >= count {
                 newSelection -= count
             }
@@ -596,6 +603,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             }
             
             selectedIndex = newSelection
+
             _selectionFeedbackGenerator?.prepare()
             setNeedsDisplay()
             _decelerate()
@@ -721,11 +729,11 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 // The selected value is always full visibility, but it dimms drastically, the further we are from it.
                 ret.opacity = (0 == indexDistance) ? 1.0 : 0.25 / Float(indexDistance)
             }
+            
+            // This displays the wedge rotated properly.
+            let rotationAngleInRadians = (1 * CGFloat.pi) - (CGFloat(inIndex) * _arclengthInRadians) + CGFloat(rotationInRadians)
+            ret.transform = CATransform3DMakeRotation(rotationAngleInRadians, 0, 0, 1.0)
         }
-        
-        // This displays the wedge rotated properly.
-        let rotationAngleInRadians = (1 * CGFloat.pi) - (CGFloat(inIndex) * _arclengthInRadians) + CGFloat(rotationInRadians)
-        ret.transform = CATransform3DMakeRotation(rotationAngleInRadians, 0, 0, 1.0)
 
         return ret
     }
@@ -797,11 +805,9 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                     }
                     
                     _spinnerTransparencyMask = transMask
+                    
                     _openSpinnerView.layer.mask = _spinnerTransparencyMask
                 }
-                
-                _animatedIconLayer?.removeFromSuperlayer()
-                _animatedIconLayer = nil
                 
                 if nil == _animatedIconLayer {
                     let iconLayer = CALayer()
@@ -817,9 +823,24 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                     _openSpinnerView.layer.addSublayer(_animatedIconLayer)
                 }
                 
-                let rotationAngleInRadians = (CGFloat(selectedIndex) * _arclengthInRadians) + CGFloat(rotationInRadians)
-                let transform = CATransform3DRotate(CATransform3DIdentity, rotationAngleInRadians, 0.0, 0.0, 1.0)
-                _animatedIconLayer?.transform = transform
+                // This is how much we should be rotated.
+                let rotationAngleInRadians = (CGFloat.pi - (CGFloat(selectedIndex) * _arclengthInRadians))
+
+                let transform = CATransform3DRotate(CATransform3DIdentity, rotationAngleInRadians, 0.0, 0.0, -1.0)
+                if nil == _spinnerAnimation {
+                    CATransaction.begin()
+                    CATransaction.setAnimationDuration(0.2)
+                    CATransaction.setCompletionBlock { [weak self] in
+                        DispatchQueue.main.async {
+                            self?._spinnerAnimation = nil
+                            self?._animatedIconLayer?.transform = transform
+                        }
+                   }
+                    
+                    _animatedIconLayer?.transform = transform
+                    
+                    CATransaction.commit()
+               }
             }
         }
     }
@@ -847,14 +868,14 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                     var newValue = selectedIndex
 
                     if leftSide.contains(inPointInLocalCoordinates) {
-                        newValue += 1
-                        if count == newValue {
-                            newValue = 0
-                        }
-                    } else {
                         newValue -= 1
                         if 0 > newValue {
                             newValue = count - 1
+                        }
+                    } else {
+                        newValue += 1
+                        if count == newValue {
+                            newValue = 0
                         }
                     }
                     
@@ -1011,7 +1032,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 self._openSpinnerView.removeFromSuperview()
                 self._openSpinnerView = nil
                 self.setNeedsLayout()
-                self.setNeedsDisplay()
+                self._clearDisplayCaches()
             } else if nil != self._openPickerContainerView {
                 self._openPickerContainerView?.transform = .identity
             }
@@ -1034,11 +1055,25 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                                 self?._openPickerContainerView?.removeFromSuperview()
                                 self?._openPickerContainerView = nil
                                 self?.setNeedsLayout()
-                                self?.setNeedsDisplay()
+                                self?._clearDisplayCaches()
                             }
                 }
             )
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     We call this to clear the display caches, and tell the control to redraw.
+     */
+    func _clearDisplayCaches() {
+        _animatedIconLayer?.removeFromSuperlayer()
+        _animatedIconLayer = nil
+        _centerImageLayer?.removeFromSuperlayer()
+        _centerImageLayer = nil
+        _openSpinnerView?.layer.mask = nil
+        _spinnerTransparencyMask = nil
+        setNeedsDisplay()
     }
     
     /* ################################################################## */
@@ -1060,10 +1095,9 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      - parameter inGesture: The tap gesture recognizer.
      */
     @objc func _handleOpenTapGesture(_ inGesture: UITapGestureRecognizer) {
-        if isOpen && nil != _openSpinnerView { // Only counts if we're open.
+        if isOpen, nil != _openSpinnerView { // Only counts if we're open.
             if let view = inGesture.view {
-                let touchPoint = inGesture.location(in: view)
-                _handleOpenTouchEvent(touchPoint, forView: view)
+                _handleOpenTouchEvent(inGesture.location(in: view), forView: view)
             }
         }
     }
@@ -1075,10 +1109,9 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      - parameter inGesture: The tap gesture recognizer.
      */
     @objc func _handleOpenLongPressGesture(_ inGesture: UILongPressGestureRecognizer) {
-        if isOpen && nil != _openSpinnerView { // Only counts if we're open.
+        if isOpen, nil != _openSpinnerView { // Only counts if we're open.
             if let view = inGesture.view {
-                let touchPoint = inGesture.location(in: view)
-                _handleOpenTouchEvent(touchPoint, forView: view)
+                _handleOpenTouchEvent(inGesture.location(in: view), forView: view)
             }
         }
     }
@@ -1090,7 +1123,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      - parameter inGesture: The specialized pan gesture recognizer.
      */
     @objc func _handleOpenPanGesture(_ inGesture: UIPanGestureRecognizer) {
-        if isOpen && nil != _openSpinnerView { // Only counts if we're open.
+        if isOpen, nil != _openSpinnerView { // Only counts if we're open.
             if .began == inGesture.state || .changed == inGesture.state || .ended == inGesture.state {  // Make sure we're in the correct state.
                 if let view = inGesture.view {  // ...and the correct view.
                     let center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
@@ -1105,13 +1138,13 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                         newSelection = selectedIndex
                         let leftSide = CGRect(origin: CGPoint(x: view.bounds.origin.x, y: view.bounds.origin.y), size: CGSize(width: view.bounds.size.width / 2, height: view.bounds.size.height))
                         if leftSide.contains(gestureLocation) { // Left side increment. Right side decrement.
-                            newSelection += 1
-                        } else {
                             newSelection -= 1
+                        } else {
+                            newSelection += 1
                         }
                     } else {    // If this is not the initial call, then we simply determine a delta from the start.
-                        let delta = _initialAngleForPan - touchAngle
-                        let radiansPerValue = (2 * CGFloat.pi) / CGFloat(count) // This is how many radians in our 2π circle it takes to account for one value.
+                        let delta = (_initialAngleForPan - touchAngle)
+                        let radiansPerValue = -(2 * CGFloat.pi) / CGFloat(count) // This is how many radians in our 2π circle it takes to account for one value.
                         // What happens here, is that we slow the scrolling down a bit if we have "stuffed" the spinner.
                         let dampenedRadiansPerValue = radiansPerValue * Swift.max(1.0, Swift.min(0.1, CGFloat(spinnerThreshold) / CGFloat(count)))
                         let changedItems = Int(round(delta / dampenedRadiansPerValue))
@@ -1147,6 +1180,8 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                         default:
                             linearVelocity =  rawVelocity.y - rawVelocity.x
                         }
+                        
+                        linearVelocity = -linearVelocity
                         
                         // See if we will be giving this a spin.
                         let finalVelocity = Swift.min(type(of: self)._kMaxFlywheelVelocity, Swift.abs(linearVelocity / type(of: self)._kFlywheelVelocityDivisor)) * ((0 > linearVelocity) ? -1 : 1)
@@ -1234,7 +1269,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                     self.isOpen = false // Close our picker/spinner, if open.
                 } else {
                     self.setNeedsLayout()
-                    self.setNeedsDisplay()
+                    self._clearDisplayCaches()
                 }
                 self.sendActions(for: .valueChanged)
             }
@@ -1259,11 +1294,28 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             
             DispatchQueue.main.async {
                 self.setNeedsLayout()
-                self.setNeedsDisplay()
+                self._clearDisplayCaches()
             }
         }
     }
-    
+
+    /* ################################################################## */
+    /**
+     This is the offset from the top, in radians, of a spinner (ignored for picker).
+     
+     NOTE: Rotation is not currently supported.
+     */
+    public var rotationInRadians: Float = 0 {
+        didSet {
+            let clipped = Int(round(CGFloat(rotationInRadians) / _arclengthInRadians))
+            rotationInRadians = Float(CGFloat(clipped) * _arclengthInRadians)
+            // We will want to update our layout. Do it in the main thread, just in case.
+            DispatchQueue.main.async {
+                self._clearDisplayCaches()
+            }
+        }
+    }
+
     /* ################################################################################################################################## */
     // MARK: - Public Calculated Propeties
     /* ################################################################################################################################## */
@@ -1356,7 +1408,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             // We will want to update our layout. Do it in the main thread, just in case.
             DispatchQueue.main.async {
                 self._openPickerView?.reloadAllComponents()
-                self.setNeedsDisplay()
+                self._clearDisplayCaches()
             }
         }
     }
@@ -1373,20 +1425,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             // We will want to update our layout. Do it in the main thread, just in case.
             DispatchQueue.main.async {
                 self._openPickerView?.reloadAllComponents()
-                self.setNeedsDisplay()
-            }
-        }
-    }
-
-    /* ################################################################## */
-    /**
-     This is the offset from the top, in radians, of a spinner (ignored for picker).
-     */
-    @IBInspectable public var rotationInRadians: Float = 0 {
-        didSet {
-            // We will want to update our layout. Do it in the main thread, just in case.
-            DispatchQueue.main.async {
-                self.setNeedsDisplay()
+                self._clearDisplayCaches()
             }
         }
     }
@@ -1406,7 +1445,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                     self.isOpen = false
                 } else {
                     self.setNeedsLayout()
-                    self.setNeedsDisplay()
+                    self._clearDisplayCaches()
                 }
             }
         }
@@ -1424,7 +1463,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                     self.isOpen = false
                 } else {
                     self.setNeedsLayout()
-                    self.setNeedsDisplay()
+                    self._clearDisplayCaches()
                 }
             }
         }
@@ -1489,7 +1528,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     override public func beginTracking(_ inTouch: UITouch, with inEvent: UIEvent?) -> Bool {
         _doneTracking = false
         DispatchQueue.main.async {
-            self.setNeedsDisplay()
+            self._clearDisplayCaches()
         }
         return super.beginTracking(inTouch, with: inEvent)
     }
@@ -1524,7 +1563,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 _decelerationDisplayLink = nil
                 DispatchQueue.main.async {
                     self._doneTracking = true
-                    self.setNeedsDisplay()
+                    self._clearDisplayCaches()
                 }
             } else {
                 DispatchQueue.main.async {
@@ -1534,7 +1573,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                     } else if 1 == self.count { // If we are a single value, there's a special case, where we don't open, but send a message.
                         self.sendActions(for: .touchUpInside)
                         self.delegate?.spinner(self, singleValueSelected: self.values[0])
-                        self.setNeedsDisplay()
+                        self._clearDisplayCaches()
                     }
                 }
             }
@@ -1556,7 +1595,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     override public func cancelTracking(with inEvent: UIEvent?) {
         DispatchQueue.main.async {
             self._doneTracking = true
-            self.setNeedsDisplay()
+            self._clearDisplayCaches()
         }
         super.cancelTracking(with: inEvent)
     }

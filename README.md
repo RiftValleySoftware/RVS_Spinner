@@ -95,22 +95,19 @@ Once you assign the [`RVS_Spinner`](https://riftvalleysoftware.com/RVS_Spinner/C
 1. **Open Background Color**
 This is a color to display behind the open radial spinner or picker. By default, it is clear.
 
-2. **Rotation In Radians**
-This is a radians (-π...π) value that rotates the open spinner (does not affect the picker). Negative values are counter-clockwise, and positive values are clockwise. π in either direction is the bottom of the wheel.
-
-3. **Spinner Mode**
+2. **Spinner Mode**
 This is an integer, with 3 values:
     - **-1** Use only the radial spinner (ignore the **Spinner Threshold** value).
     - **0**  Switch between radial spinner and the picker (based on the **Spinner Threshold** value).
     - **1**  Use only the picker (ignore the **Spinner Threshold** value).
 
-4. **Spinner Threshold**
+3. **Spinner Threshold**
 This is an integer, from 0 to whatever value you wish, that represents the point at which an [`Array`](https://developer.apple.com/documentation/swift/array) of values switches from the radial spinner to the picker. This only applies when the **Spinner Mode** option is set o 0 (*both*).
 
-5. **Is Sound On**
+4. **Is Sound On**
 This specifies whether or not to use audible feedback. Sound will be disabled when the Alerts (ringer) setting is off.
 
-6. **Is Haptics On**
+5. **Is Haptics On**
 This specifies whether or not to use [haptic feedback](https://developer.apple.com/documentation/appkit/nshapticfeedbackmanager) (on devices that can play haptics).
 
 Additionally, the View **[Background Color](https://developer.apple.com/documentation/uikit/uiview/1622591-backgroundcolor)** color is used to establish the color surrounding icons, and the **[Tint](https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor)** color is used to set the color of the borders around icons, and displayed text in the picker.
@@ -189,7 +186,7 @@ The test harness target imports the compiled framework, so it does provide a rea
 
 It is a simple 1-view app, with a single window:
 
-![The Test Harness Screen](https://riftvalleysoftware.com/RVS_Spinner/img/TestHarnessScreen.gif)
+![The Test Harness Screen](https://riftvalleysoftware.com/RVS_Spinner/img/TestHarnessScreen.png)
 
 The controls operate in real time on the instance of [`RVS_Spinner`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html), displayed above the control panel:
 
@@ -198,8 +195,6 @@ The red "**Associated Text #*XX***" is a label that displays test data that was 
 The "**Spinner/Picker Threshold**" Segmented Switch will affect the "**Spinner Threshold**" property, described above. It is only enabled for the "**Both**" Spinner Mode (discussed below)
 
 The "**Haptics**" and "**Sounds**" switches control whether or not each of those properties is on. Default is on.
-
-The "**Rotation**" slider controls a clockwise/counterclockwise rotation of the open spinner control, and affects the "**Rotation In Radians**" value, discussed above.
 
 Below that, is the "**Spinner Mode**" Segmented Switch. If "**Spinner-Only**" is selected, then the control will ONLY pop up with a spinner; regardless of how many values are provided in the `values` array property. The "**Spinner/Picker Threshold**" Segmented Switch is disabled if this is selected.
 
@@ -229,8 +224,8 @@ These links will download .zip files, which expand into small project directorie
 
 TODO
 =
-- Improve the spinner animation.
-Currently, the animation is a bit "fixed," with no radial "motion." The way to deal with this, is to split the background and foreground layers up, and animate the foreground (transparent icons) over a fixed background (background color slices). That will take a fair bit of refactoring, and a lot of testing, so it's a "2.0" update.
+- Implement Control Rotation.
+The control should be able to be rotated around its center. The earlier version featured it, but the pan gestures were not working correctly for rotation. I need to figure out why, and re-implement it.
 
 - Examine leaks reported in the test harness.
 The Leaks tool reports some leaks in the test harness app. It's quite possible these are "false positives," but we should check them out.

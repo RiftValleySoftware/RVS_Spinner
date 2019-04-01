@@ -83,8 +83,6 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     @IBOutlet weak var spinnerModeSegmentedControl: UISegmentedControl!
     /// This is the "Spinner/Picker Threshold" switch, at the top.
     @IBOutlet weak var thresholdSegmentedControl: UISegmentedControl!
-    /// This is the "Rotation" slider
-    @IBOutlet weak var rotationSlider: UISlider!
     /// This is the "Haptics" switch
     @IBOutlet weak var hapticsSwitch: UISwitch!
     /// This is the "Sounds" switch
@@ -107,21 +105,6 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
      */
     @IBAction func hapticsSwitchChanged(_ inSwitch: UISwitch) {
         spinnerView.isHapticsOn = inSwitch.isOn
-    }
-
-    /* ################################################################## */
-    /**
-     This is called when the "Rotation" slider changes.
-     */
-    @IBAction func rotationSliderChanged(_ inSlider: UISlider) {
-        var offset = Float.pi * inSlider.value
-        
-        if 0.05 > abs(offset) { // Give a teeny little detent at 0.
-            offset = 0
-            inSlider.value = offset
-        }
-        
-        spinnerView.rotationInRadians = offset
     }
     
     /* ################################################################## */
@@ -290,7 +273,6 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         setUpCountSwitch()
         numberSegSwitchHit(numberOfItemsSegmentedControl)
         spinnerModeSegSwitchHit(spinnerModeSegmentedControl)
-        rotationSliderChanged(rotationSlider)
         thresholdSegmentedControlHit(thresholdSegmentedControl)
         updateAssociatedText()
         setUpSpinnerControl()
