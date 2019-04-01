@@ -279,7 +279,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      This is the minimum velocity for the "flywheel." Below this, "clicks" in a value.
      */
-    static let _kMinFlywheelVelocity: CGFloat = 0.94
+    static let _kMinFlywheelVelocity: CGFloat = 0.8
     
     /* ################################################################## */
     /**
@@ -318,21 +318,19 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     
     /* ################################################################## */
     /**
-     This is the display layer for the background spinner "fan" image.
-     
-     If the open background color is clear, this will be nil.
-     
-     It's a weak reference to avoid memory leaks.
-     */
-    weak var _backgroundFanLayer: CALayer!
-    
-    /* ################################################################## */
-    /**
      This is the display layer for the animated circle of icons image.
      
      It's a weak reference to avoid memory leaks.
      */
     weak var _animatedIconLayer: CALayer!
+    
+    /* ################################################################## */
+    /**
+     This is a layer that contains a transparency mask for the spinner. It is applied to the open spinner layer as a mask.
+     
+     It's a weak reference to avoid memory leaks.
+     */
+    weak var _spinnerTransparencyMask: CALayer!
 
     /* ################################################################## */
     /**
@@ -353,7 +351,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      This is the radius of the open control "pie slices.".
      */
-    var _radiusOfOpenControlInDisplayUnits: Float = 0.0
+    var _radiusOfOpenControlInDisplayUnits: Double = 0.0
     
     /* ################################################################## */
     /**
@@ -643,35 +641,36 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      It calculates the size of the images to be drawn at the end of each spoke to fit in the space provided.
      
      - parameter inIndex: The 0-based index of the value to be used.
-     - parameter asBackgroundOnly: true, if this is only the fan background. If alse, then the background will be clear, and only the icon will be drawn.
+     - parameter isTransparencyMask: true, if this is only a transparency mask. In this case, no icons will be drawn.
      */
-    func _drawOneValueRadius(_ inIndex: Int, asBackgroundOnly inAsBackgroundOnly: Bool) -> CALayer! {
+    func _drawOneValueRadius(_ inIndex: Int, isTransparencyMask inIsTransparencyMask: Bool) -> CALayer! {
         var ret: CAShapeLayer! = nil
 
         if !values.isEmpty {    // If we don't have any values, then this is for naught.
             let value = values[inIndex]
         
-            // This is how much padding we'll want around the image.
-            let paddingWidth = type(of: self)._kOpenPaddingInDisplayUnits * 2
-        
             // This is the center of the control. All spokes start here.
-            let centerPointInDisplayUnits = CGPoint(x: bounds.size.width / 2, y: bounds.size.height / 2)
-        
+            let centerPointInDisplayUnits = CGPoint(x: _openSpinnerView.bounds.size.width / 2, y: _openSpinnerView.bounds.size.height / 2)
+            
+            // This is the circumference of the entire open spinner.
+            let circumferenceInDisplayUnits = CGFloat(Double.pi * 2 * _radiusOfOpenControlInDisplayUnits)
+            
+            // This is the length (circular) of the arc segment that caps each spoke.
+            let arcCircumferenceInDisplayUnits = circumferenceInDisplayUnits / CGFloat(values.count)
+
             // This is the radius we have available. It will be calculated dynamically to fit in our allotted space.
             let radiusInDisplayUnits = CGFloat(_radiusOfOpenControlInDisplayUnits)
         
             // This is the angle at which this spoke will be shown (Right up and down).
             let centerAngleInRadians = (3 * CGFloat.pi) / 2
         
-            // This is the circumference of the entire open spinner.
-            let circumferenceInDisplayUnits = CGFloat(Double.pi * 2 * Double(radiusInDisplayUnits))
-        
-            // This is the length (circular) of the arc segment that caps each spoke.
-            let arcCircumferenceInDisplayUnits = circumferenceInDisplayUnits / CGFloat(values.count)
-
             ret = CAShapeLayer()
-        
-            ret.frame = bounds
+            
+            ret.frame = _openSpinnerView.bounds
+
+            // This is how much padding we'll want around the image.
+            let paddingWidth = type(of: self)._kOpenPaddingInDisplayUnits * 2
+
             // This is the distance between our circumference, and the outside of the center circle, and adding some padding on either end.
             let workingLength = (CGFloat(_radiusOfOpenControlInDisplayUnits) - bounds.size.height) - paddingWidth
         
@@ -680,7 +679,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         
             // This is the width of the end of our little "measuring triangle." It is the distance in a straight line from the center of the spoke to the edge.
             // The workingLength is our adjacent side, and we know the angle, which is a spoke angle, divided by 2.
-            let oppositeLength = Swift.min(workingLength, (workingLength * tan(radiansPerValue / 2)) * 2)
+            let oppositeLength = Swift.min(workingLength, abs((workingLength * tan(radiansPerValue / 2)) * 2))
         
             let maxIconSize = value.icon.size   // We can't have icons bigger than the images provided.
         
@@ -690,8 +689,8 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             path.addArc(withCenter: centerPointInDisplayUnits, radius: radiusInDisplayUnits, startAngle: centerAngleInRadians - (_arclengthInRadians / 2), endAngle: centerAngleInRadians + (_arclengthInRadians / 2), clockwise: true)
             path.move(to: centerPointInDisplayUnits)
         
-            if !inAsBackgroundOnly {    // We only do this is we are drawing the icon layer.
-                ret.fillColor = UIColor.clear.cgColor
+            if !inIsTransparencyMask {    // We only do this is we are drawing the icon layer.
+                ret.fillColor = openBackgroundColor.cgColor
                 
                 // This is how big each icon will be, in our rendered spoke.
                 let iconSize = CGSize(width: Swift.min(maxIconSize.width, oppositeLength), height: Swift.min(maxIconSize.height, oppositeLength))
@@ -701,38 +700,33 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 
                 let imageSquareSize = Swift.min(maxWidth, arcCircumferenceInDisplayUnits / 2)  // The image is displayed in a square.
                 
-                let imageFrame = CGRect(x: centerPointInDisplayUnits.x - (imageSquareSize / 2), y: -(radiusInDisplayUnits - (bounds.size.height / 2) - type(of: self)._kOpenPaddingInDisplayUnits), width: imageSquareSize, height: imageSquareSize)
+                let imageFrame = CGRect(x: centerPointInDisplayUnits.x - (imageSquareSize / 2), y: -(radiusInDisplayUnits - (_openSpinnerView.bounds.size.height / 2) - type(of: self)._kOpenPaddingInDisplayUnits), width: imageSquareSize, height: imageSquareSize)
                 
                 // Each image is the same as the center.
                 let displayLayer = _createIconDisplay(value.icon, inFrame: imageFrame)
                 
                 let newFrame = displayLayer.frame
                 
-                displayLayer.frame = CGRect(x: centerPointInDisplayUnits.x - (newFrame.size.width / 2), y: -(radiusInDisplayUnits - (bounds.size.height / 2) - type(of: self)._kOpenPaddingInDisplayUnits), width: newFrame.size.width, height: newFrame.size.height)
+                displayLayer.frame = CGRect(x: centerPointInDisplayUnits.x - (newFrame.size.width / 2), y: -(radiusInDisplayUnits - (_openSpinnerView.bounds.size.height / 2) - type(of: self)._kOpenPaddingInDisplayUnits), width: newFrame.size.width, height: newFrame.size.height)
 
                 ret.path = path.cgPath
                 ret.addSublayer(displayLayer)
             } else {
                 ret.path = path.cgPath
-                ret.fillColor = openBackgroundColor.cgColor
+                ret.fillColor = UIColor.white.cgColor
+
+                // We use this to reduce the opacity of the values that are not actually on top.
+                let indexDistance = abs(inIndex - (count / 2))
+                
+                // The selected value is always full visibility, but it dimms drastically, the further we are from it.
+                ret.opacity = (0 == indexDistance) ? 1.0 : 0.25 / Float(indexDistance)
             }
         }
         
         // This displays the wedge rotated properly.
-        let rotationAngleInRadians = (CGFloat(inIndex - selectedIndex) * _arclengthInRadians) + CGFloat(rotationInRadians)
+        let rotationAngleInRadians = (1 * CGFloat.pi) - (CGFloat(inIndex) * _arclengthInRadians) + CGFloat(rotationInRadians)
         ret.transform = CATransform3DMakeRotation(rotationAngleInRadians, 0, 0, 1.0)
 
-        // We use this to reduce the opacity of the values that are not actually on top.
-        // This is a ring buffer distance calculation. Works for the circle we're using.
-        let maximumIndexPlusOne = count
-        var indexDistance = (maximumIndexPlusOne + selectedIndex - inIndex) % maximumIndexPlusOne
-        if indexDistance >= (maximumIndexPlusOne / 2) { // If we are beyond the end, we loop back.
-            indexDistance -= maximumIndexPlusOne
-        }
-
-        // The selected value is always full visibility, but it dimms drastically, the further we are from it.
-        ret.opacity = (0 == Swift.abs(indexDistance)) ? 1.0 : 0.25 / Float(Swift.abs(indexDistance))
-        
         return ret
     }
     
@@ -791,19 +785,41 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      */
     func _drawOpenControl(_ inRect: CGRect) {
         if isOpen { // Only counts if we're open.
-            _animatedIconLayer?.removeFromSuperlayer()
-            
             if nil != _openSpinnerView {
-                let iconLayer = CALayer()
-                
-                for index in 0..<count {
-                    if let subLayer = _drawOneValueRadius(index, asBackgroundOnly: false) {
-                        iconLayer.insertSublayer(subLayer, at: 0)
+                if nil == _spinnerTransparencyMask {
+                    let transMask = CALayer()
+                    transMask.frame = _openSpinnerView.bounds
+                    
+                    for index in 0..<count {
+                        if let subLayer = _drawOneValueRadius(index, isTransparencyMask: true) {
+                            transMask.insertSublayer(subLayer, at: 0)
+                        }
                     }
+                    
+                    _spinnerTransparencyMask = transMask
+                    _openSpinnerView.layer.mask = _spinnerTransparencyMask
                 }
                 
-                _animatedIconLayer = iconLayer
-                layer.addSublayer(iconLayer)
+                _animatedIconLayer?.removeFromSuperlayer()
+                _animatedIconLayer = nil
+                
+                if nil == _animatedIconLayer {
+                    let iconLayer = CALayer()
+                    iconLayer.frame = _openSpinnerView.bounds
+
+                    for index in 0..<count {
+                        if let subLayer = _drawOneValueRadius(index, isTransparencyMask: false) {
+                            iconLayer.insertSublayer(subLayer, at: 0)
+                        }
+                    }
+                    
+                    _animatedIconLayer = iconLayer
+                    _openSpinnerView.layer.addSublayer(_animatedIconLayer)
+                }
+                
+                let rotationAngleInRadians = (CGFloat(selectedIndex) * _arclengthInRadians) + CGFloat(rotationInRadians)
+                let transform = CATransform3DRotate(CATransform3DIdentity, rotationAngleInRadians, 0.0, 0.0, 1.0)
+                _animatedIconLayer?.transform = transform
             }
         }
     }
@@ -900,17 +916,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                     _rotateGestureRecognizer.delaysTouchesBegan = false
                 }
                 
-                let subLayer = CALayer()
-                
-                for index in 0..<count {
-                    if let spokeLayer = _drawOneValueRadius(index, asBackgroundOnly: true) {
-                        subLayer.insertSublayer(spokeLayer, at: 0)
-                    }
-                }
-                
-                _backgroundFanLayer = subLayer
-                layer.insertSublayer(subLayer, at: 0)
-                
                 transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
             } else {    // Otherwise, we are using the picker.
                 _openPickerContainerView = UIView(frame: openPickerFrame)
@@ -922,6 +927,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                     _openPickerView.showsSelectionIndicator = true
                     pickerContainer.addSubview(_openPickerView!)
                 }
+                
                 if let holderView = superview {
                     holderView.insertSubview(_openPickerContainerView!, belowSubview: self)
                 }
@@ -960,10 +966,10 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 if let mySuperView = self.superview {
                     let minReachX = Float(Swift.min(myCenter.x, mySuperView.bounds.size.width - myCenter.x))
                     let minReachY = Float(Swift.min(myCenter.y, mySuperView.bounds.size.height - myCenter.y))
-                    self._radiusOfOpenControlInDisplayUnits = Swift.min(minReachX, minReachY)
+                    self._radiusOfOpenControlInDisplayUnits = Double(Swift.min(minReachX, minReachY))
                 }
             } else {
-                self._radiusOfOpenControlInDisplayUnits = Float(myCenter.y)    // PickerView is easy. That's just above us.
+                self._radiusOfOpenControlInDisplayUnits = Double(myCenter.y)    // PickerView is easy. That's just above us.
             }
             
             if self._radiusOfOpenControlInDisplayUnits != oldRadius {   // Only if we changed.
@@ -979,9 +985,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     func _closeControl() {
         _decelerationDisplayLink?.invalidate() // Stop any spinning.
         _decelerationDisplayLink = nil
-        layer.sublayers?.forEach {
-            $0.removeFromSuperlayer()
-        }
 
         DispatchQueue.main.async {
             self._playCloseSound()
@@ -1001,6 +1004,10 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                     self._tapGestureRecognizer = nil
                 }
                 
+                self._animatedIconLayer?.removeFromSuperlayer()
+                self._animatedIconLayer = nil
+                self._centerImageLayer?.removeFromSuperlayer()
+                self._centerImageLayer = nil
                 self._openSpinnerView.removeFromSuperview()
                 self._openSpinnerView = nil
                 self.setNeedsLayout()
