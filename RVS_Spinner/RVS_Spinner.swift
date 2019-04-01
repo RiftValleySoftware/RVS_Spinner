@@ -20,7 +20,7 @@
  
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  
- - version: 1.0.8
+ - version: 2.0.0
  */
 
 import UIKit
@@ -310,6 +310,32 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     This is the display layer for the center image.
+     
+     It's a weak reference to avoid memory leaks.
+     */
+    weak var _centerImageLayer: CALayer!
+    
+    /* ################################################################## */
+    /**
+     This is the display layer for the background spinner "fan" image.
+     
+     If the open background color is clear, this will be nil.
+     
+     It's a weak reference to avoid memory leaks.
+     */
+    weak var _backgroundFanLayer: CALayer!
+    
+    /* ################################################################## */
+    /**
+     This is the display layer for the animated circle of icons image.
+     
+     It's a weak reference to avoid memory leaks.
+     */
+    weak var _animatedIconLayer: CALayer!
+
+    /* ################################################################## */
+    /**
      This is the background color associated with the "closed" control.
      
      This is set from the view background color.
@@ -593,10 +619,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      - parameter inRect: The drawing rectangle
      */
     func _drawControlCenter(_ inRect: CGRect) {
-        layer.sublayers?.forEach {  // Get rid of our previous control drawing layer.
-            $0.removeFromSuperlayer()
-        }
-        
         // We stroke and fill the basic shape with the colors we have set up.
         let centerLayer = CAShapeLayer()
         // The control is an oval (should be a circle, but we allow an oval).
@@ -613,6 +635,8 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             centerLayer.addSublayer(imageLayer)
         }
         
+        _centerImageLayer = centerLayer
+        
         layer.addSublayer(centerLayer)
     }
     
@@ -622,8 +646,9 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      It calculates the size of the images to be drawn at the end of each spoke to fit in the space provided.
      
      - parameter inIndex: The 0-based index of the value to be used.
+     - parameter asBackgroundOnly: true, if this is only the fan background. If alse, then the background will be clear, and only the icon will be drawn.
      */
-    func _drawOneValueRadius(_ inIndex: Int) -> CALayer! {
+    func _drawOneValueRadius(_ inIndex: Int, asBackgroundOnly inAsBackgroundOnly: Bool) -> CALayer! {
         var ret: CAShapeLayer! = nil
 
         if !values.isEmpty {    // If we don't have any values, then this is for naught.
@@ -665,33 +690,40 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 
                 let maxIconSize = value.icon.size   // We can't have icons bigger than the images provided.
                 
-                // This is how big each icon will be, in our rendered spoke.
-                let iconSize = CGSize(width: Swift.min(maxIconSize.width, oppositeLength), height: Swift.min(maxIconSize.height, oppositeLength))
-                
                 // Draw the spoke.
                 let path = UIBezierPath()
                 path.move(to: centerPointInDisplayUnits)
                 path.addArc(withCenter: centerPointInDisplayUnits, radius: radiusInDisplayUnits, startAngle: centerAngleInRadians - (_arclengthInRadians / 2), endAngle: centerAngleInRadians + (_arclengthInRadians / 2), clockwise: true)
                 path.move(to: centerPointInDisplayUnits)
-                ret.fillColor = openBackgroundColor.cgColor
                 
-                // We like to have a fixed size, but if the image is smaller, or we are packed in too tight, we may need to go smaller.
-                let maxWidth = Swift.min(iconSize.width, oppositeLength)  // This is how wide the displayed icon will be.
-                let imageSquareSize = Swift.min(maxWidth, arcCircumferenceInDisplayUnits / 2)  // The image is displayed in a square.
-                
-                let imageFrame = CGRect(x: centerPointInDisplayUnits.x - (imageSquareSize / 2), y: -(radiusInDisplayUnits - (bounds.size.height / 2) - type(of: self)._kOpenPaddingInDisplayUnits), width: imageSquareSize, height: imageSquareSize)
-                
-                // Each image is the same as the center.
-                let displayLayer = _createIconDisplay(value.icon, inFrame: imageFrame)
-                
-                let newFrame = displayLayer.frame
-                
-                displayLayer.frame = CGRect(x: centerPointInDisplayUnits.x - (newFrame.size.width / 2), y: -(radiusInDisplayUnits - (bounds.size.height / 2) - type(of: self)._kOpenPaddingInDisplayUnits), width: newFrame.size.width, height: newFrame.size.height)
+                if !inAsBackgroundOnly {    // We only do this is we are drawing the icon layer.
+                    ret.fillColor = UIColor.clear.cgColor
+                    
+                    // This is how big each icon will be, in our rendered spoke.
+                    let iconSize = CGSize(width: Swift.min(maxIconSize.width, oppositeLength), height: Swift.min(maxIconSize.height, oppositeLength))
+                    
+                    // We like to have a fixed size, but if the image is smaller, or we are packed in too tight, we may need to go smaller.
+                    let maxWidth = Swift.min(iconSize.width, oppositeLength)  // This is how wide the displayed icon will be.
+                    
+                    let imageSquareSize = Swift.min(maxWidth, arcCircumferenceInDisplayUnits / 2)  // The image is displayed in a square.
+                    
+                    let imageFrame = CGRect(x: centerPointInDisplayUnits.x - (imageSquareSize / 2), y: -(radiusInDisplayUnits - (bounds.size.height / 2) - type(of: self)._kOpenPaddingInDisplayUnits), width: imageSquareSize, height: imageSquareSize)
+                    
+                    // Each image is the same as the center.
+                    let displayLayer = _createIconDisplay(value.icon, inFrame: imageFrame)
+                    
+                    let newFrame = displayLayer.frame
+                    
+                    displayLayer.frame = CGRect(x: centerPointInDisplayUnits.x - (newFrame.size.width / 2), y: -(radiusInDisplayUnits - (bounds.size.height / 2) - type(of: self)._kOpenPaddingInDisplayUnits), width: newFrame.size.width, height: newFrame.size.height)
 
-                ret.path = path.cgPath
-                ret.addSublayer(displayLayer)
-                
-                _layerCache[inIndex] = ret
+                    ret.path = path.cgPath
+                    ret.addSublayer(displayLayer)
+                    
+                    _layerCache[inIndex] = ret
+                } else {
+                    ret.path = path.cgPath
+                    ret.fillColor = openBackgroundColor.cgColor
+                }
             }
 
             // This displays the wedge rotated properly.
@@ -768,13 +800,19 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      */
     func _drawOpenControl(_ inRect: CGRect) {
         if isOpen { // Only counts if we're open.
-            _drawControlCenter(inRect) // Draw the center. This also removes all of the layers from the previous drawing.
+            _animatedIconLayer?.removeFromSuperlayer()
+            
             if nil != _openSpinnerView {
+                let iconLayer = CALayer()
+                
                 for index in 0..<count {
-                    if let subLayer = _drawOneValueRadius(index) {
-                        layer.insertSublayer(subLayer, at: 0)
+                    if let subLayer = _drawOneValueRadius(index, asBackgroundOnly: false) {
+                        iconLayer.insertSublayer(subLayer, at: 0)
                     }
                 }
+                
+                _animatedIconLayer = iconLayer
+                layer.addSublayer(iconLayer)
             }
         }
     }
@@ -870,6 +908,17 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                     _openSpinnerView.addGestureRecognizer(_rotateGestureRecognizer)
                     _rotateGestureRecognizer.delaysTouchesBegan = false
                 }
+                
+                let subLayer = CALayer()
+                
+                for index in 0..<count {
+                    if let spokeLayer = _drawOneValueRadius(index, asBackgroundOnly: true) {
+                        subLayer.insertSublayer(spokeLayer, at: 0)
+                    }
+                }
+                
+                _backgroundFanLayer = subLayer
+                layer.insertSublayer(subLayer, at: 0)
                 
                 transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
             } else {    // Otherwise, we are using the picker.
@@ -1417,9 +1466,9 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         // Draw the control; either open or closed.
         if 0 < values.count && isOpen {
             _drawOpenControl(inRect)
-        } else {
-            _drawControlCenter(inRect)
         }
+     
+        _drawControlCenter(inRect)
     }
 
     /* ################################################################## */

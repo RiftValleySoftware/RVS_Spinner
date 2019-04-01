@@ -1,9 +1,11 @@
-*Version 1.0.8* **TBD**
+*Version 2.0.0* **TBD**
 - Fixed an annoying auto-layout bug in the test harness that made the SE unusable.
+- Improved the spinning animation.
 
 *Version 1.0.7* **March 31, 2019**
 - Almost exclusively documentation changes.
 - Added a couple of xcodeproj files for the two demo apps.
+- This is the first "official" release of the pod.
 
 *Version 1.0.6* **March 31, 2019**
 - Made the animations smoother.
