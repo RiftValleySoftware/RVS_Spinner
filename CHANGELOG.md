@@ -5,6 +5,7 @@
 - Now make the icon display in the picker a bit more flexible.
 - The leaks are gone. I suspect that my gutting the way the layers were set up did it.
 - Had to reimplement the darn rotate notification, because of the new way I'm drawing stuff.
+- Improved the openinng and closing animations.
 
 *Version 1.0.7* **March 31, 2019**
 - Almost exclusively documentation changes.
