@@ -273,7 +273,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      This is the maximum velocity for the "flywheel."
      */
-    static let _kMaxFlywheelVelocity: CGFloat = 10
+    static let _kMaxFlywheelVelocity: CGFloat = 100
     
     /* ################################################################## */
     /**
@@ -1031,6 +1031,9 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             if self._radiusOfOpenControlInDisplayUnits != oldRadius {   // Only if we changed.
                 self.setNeedsDisplay()
             }
+            self._openPickerContainerView?.frame = self.openPickerFrame
+            self._openPickerView?.frame = self._openPickerContainerView?.bounds ?? CGRect.zero
+            self._openPickerView?.reloadAllComponents()
         }
     }
 
@@ -1228,6 +1231,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                         }
                         
                         linearVelocity = -linearVelocity
+                        _flywheelVelocity += linearVelocity
                         
                         // See if we will be giving this a spin.
                         let finalVelocity = Swift.min(type(of: self)._kMaxFlywheelVelocity, Swift.abs(linearVelocity / type(of: self)._kFlywheelVelocityDivisor)) * ((0 > linearVelocity) ? -1 : 1)

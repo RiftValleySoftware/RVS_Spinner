@@ -1,3 +1,7 @@
+*Version 2.0.1* **April 1, 2019**
+- The pickerView wasn't reorganizing itself properly after a rotation.
+- Raised the max flywheel velocity, and made the speed "cumulative," so it behaves a lot more like a normal flywheel.
+
 *Version 2.0.0* **April 1, 2019**
 - Fixed an annoying auto-layout bug in the test harness that made the SE unusable.
 - Improved the spinning animation.
