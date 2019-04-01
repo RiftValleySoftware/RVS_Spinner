@@ -3,6 +3,7 @@
 - Improved the spinning animation.
 - Removed the rotation feature. It was a nice idea, but was actually a lot more complicated than initially envisioned, and definitely not worth the agita and quality hit.
 - Now make the icon display in the picker a bit more flexible.
+- The leaks are gone.
 
 *Version 1.0.7* **March 31, 2019**
 - Almost exclusively documentation changes.

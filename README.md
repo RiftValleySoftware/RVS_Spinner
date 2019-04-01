@@ -222,16 +222,6 @@ There are two simple examples, featuring the test harness app, that show how to 
 
 These links will download .zip files, which expand into small project directories.
 
-TODO
-=
-- Implement Control Rotation.
-The control should be able to be rotated around its center. The earlier version featured it, but the pan gestures were not working correctly for rotation. I need to figure out why, and re-implement it.
-
-- Examine leaks reported in the test harness.
-The Leaks tool reports some leaks in the test harness app. It's quite possible these are "false positives," but we should check them out.
-
-- Make the displayed sizes of the icons and text in the picker variant more dynamic. In tight spaces, they can be too large.
-
 DEPENDENCIES
 =
 
