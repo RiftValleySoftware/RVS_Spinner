@@ -17,19 +17,63 @@
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="bHQ-aI-fDF">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EEj-fH-eQU" userLabel="Working Area">
+                                <rect key="frame" x="20" y="44" width="374" height="699"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="euJ-EL-R7h" customClass="RVS_Spinner" customModule="RVS_Spinner">
+                                        <rect key="frame" x="163" y="325.5" width="48" height="48"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="euJ-EL-R7h" secondAttribute="height" multiplier="1:1" id="Ja5-f6-e8K"/>
+                                            <constraint firstAttribute="width" constant="48" id="TaI-Ku-sri"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="openBackgroundColor">
+                                                <color key="value" red="1" green="1" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="spinnerMode">
+                                                <integer key="value" value="-1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="euJ-EL-R7h" firstAttribute="centerX" secondItem="EEj-fH-eQU" secondAttribute="centerX" id="92F-W3-wsw"/>
+                                    <constraint firstItem="euJ-EL-R7h" firstAttribute="centerY" secondItem="EEj-fH-eQU" secondAttribute="centerY" id="sTh-il-Vgk"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="EEj-fH-eQU" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="5hm-lW-hIJ"/>
+                            <constraint firstAttribute="bottom" secondItem="bHQ-aI-fDF" secondAttribute="bottom" id="A21-jQ-TmG"/>
+                            <constraint firstItem="bHQ-aI-fDF" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="LLk-1l-0y4"/>
+                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="trailing" secondItem="EEj-fH-eQU" secondAttribute="trailing" constant="20" id="VCx-7c-lkt"/>
+                            <constraint firstItem="bHQ-aI-fDF" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" id="Ye1-bK-imQ"/>
+                            <constraint firstItem="EEj-fH-eQU" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" constant="20" id="ajB-jx-7kb"/>
+                            <constraint firstAttribute="trailing" secondItem="bHQ-aI-fDF" secondAttribute="trailing" id="axu-7J-3ge"/>
+                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="EEj-fH-eQU" secondAttribute="bottom" constant="70" id="gZa-rb-1gq"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Simple Center" id="acW-dT-cKf"/>
+                    <connections>
+                        <outlet property="spinnerObject" destination="euJ-EL-R7h" id="7Ix-70-vcH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="749.27536231884062" y="-320.08928571428572"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Spinner Tabbed Test Harness Nav Controller-->
         <scene sceneID="vd1-Ji-jBn">
             <objects>
-                <navigationController navigationBarHidden="YES" id="PBn-U3-5bX" sceneMemberID="viewController">
+                <navigationController navigationBarHidden="YES" id="PBn-U3-5bX" customClass="RVS_Spinner_Tabbed_Test_Harness_NavController" customModule="RVS_Spinner_Tabbed_Test_Harness" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="657-bL-4Pb">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -50,7 +94,26 @@
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="jmB-Ba-9bH">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZmX-OO-ZP2" userLabel="Working Area">
+                                <rect key="frame" x="20" y="44" width="374" height="699"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ZmX-OO-ZP2" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" id="M7r-7V-TSd"/>
+                            <constraint firstItem="jmB-Ba-9bH" firstAttribute="top" secondItem="QS5-Rx-YEW" secondAttribute="top" id="Pv3-NI-nyf"/>
+                            <constraint firstItem="jmB-Ba-9bH" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="WXp-8a-gzj"/>
+                            <constraint firstItem="O1u-W8-tvY" firstAttribute="trailing" secondItem="ZmX-OO-ZP2" secondAttribute="trailing" constant="20" id="gwq-26-d97"/>
+                            <constraint firstItem="jmB-Ba-9bH" firstAttribute="bottom" secondItem="QS5-Rx-YEW" secondAttribute="bottom" id="lie-Pv-q2i"/>
+                            <constraint firstItem="O1u-W8-tvY" firstAttribute="bottom" secondItem="ZmX-OO-ZP2" secondAttribute="bottom" constant="70" id="n4h-LX-TVz"/>
+                            <constraint firstItem="jmB-Ba-9bH" firstAttribute="trailing" secondItem="QS5-Rx-YEW" secondAttribute="trailing" id="qun-mf-iby"/>
+                            <constraint firstItem="ZmX-OO-ZP2" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" constant="20" id="roe-CL-Rkt"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Bottom Right" id="cPa-gy-q4n"/>
@@ -64,12 +127,12 @@
             <objects>
                 <tabBarController extendedLayoutIncludesOpaqueBars="YES" id="49e-Tb-3d3" customClass="RVS_Spinner_Tabbed_Test_Harness_TabBarController" customModule="RVS_Spinner_Tabbed_Test_Harness" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="CH7-pQ-VsT"/>
-                    <tabBar key="tabBar" opaque="NO" contentMode="scaleToFill" translucent="NO" backgroundImage="background-gradient" id="W28-zg-YXA">
+                    <tabBar key="tabBar" opaque="NO" contentMode="scaleToFill" translucent="NO" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.058823529630000003" green="0.45098039509999999" blue="0.26666668059999998" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" red="0.0" green="0.41568627450980389" blue="0.11764705882352941" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>

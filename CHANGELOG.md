@@ -1,7 +1,9 @@
 *Version 2.1.0* **TBD**
-- Adding the tabbed test harness (tries the control in multiple scenarios).
+- Adding the tabbed test harness app (tries the control in multiple scenarios).
 - Added a real purdy splash screen.
-- Changed the background.
+- Changed the background in the basic test harness app.
+- Changed the basic test harness app icon.
+- Changed the icon source file to PDF -that's a better format.
 
 *Version 2.0.2* **April 1, 2019**
 - The data item struct is no longer Equatable. It didn't need to be, and the protocol conformance sucked.

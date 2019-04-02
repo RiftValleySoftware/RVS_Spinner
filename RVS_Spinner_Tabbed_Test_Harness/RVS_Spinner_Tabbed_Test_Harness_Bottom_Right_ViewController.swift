@@ -23,5 +23,17 @@
 
 import UIKit
 
-class RVS_Spinner_Tabbed_Test_Harness_Bottom_Right_ViewController: UIViewController {
+/* ###################################################################################################################################### */
+// MARK: - The Main View Controller Class
+/* ###################################################################################################################################### */
+/**
+ */
+class RVS_Spinner_Tabbed_Test_Harness_Bottom_Right_ViewController: RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController {
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     */
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
 }

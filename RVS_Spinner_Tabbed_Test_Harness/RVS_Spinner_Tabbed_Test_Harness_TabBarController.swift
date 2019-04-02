@@ -23,10 +23,10 @@
 
 import UIKit
 
+/* ###################################################################################################################################### */
+// MARK: - The Main Tab Bar Controller Class
+/* ###################################################################################################################################### */
+/**
+ */
 class RVS_Spinner_Tabbed_Test_Harness_TabBarController: UITabBarController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationController?.isNavigationBarHidden = true
-    }
 }
-
