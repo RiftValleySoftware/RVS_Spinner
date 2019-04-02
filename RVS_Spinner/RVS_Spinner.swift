@@ -60,7 +60,7 @@ fileprivate extension UIColor {
  We compare the title, icon and description.
  The value is only tested for nil/not-nil. This is because it is an "Any", and we want to be able to jam whatever we want in there.
  */
-public struct RVS_SpinnerDataItem: Equatable {
+public struct RVS_SpinnerDataItem {
     /** This is the required title for the data item. */
     public let title: String
     /** This is the required image to be displayed for the data item. This is what is most prominently displayed. */
@@ -69,25 +69,6 @@ public struct RVS_SpinnerDataItem: Equatable {
     public let description: String?
     /** This is any associated data value. It is an optional "Any," and needs to be cast. */
     public let value: Any?
-    
-    /* ################################################################## */
-    /**
-     This is the basic equatable operator.
-     
-     We compare all the fields except for the value (which may not be equatable).
-     
-     - parameter lhs: The left-hand side of the comparison.
-     - parameter rhs: The right-hand side of the comparator.
-     - returns true, if the two instances appear equal.
-     */
-    public static func == (lhs: RVS_SpinnerDataItem, rhs: RVS_SpinnerDataItem) -> Bool {
-        var ret = lhs.title == rhs.title && lhs.icon == rhs.icon && lhs.description == rhs.description
-        
-        // We can't compare values, because they may not be equatable. However, we will look to see if their nil status is the same.
-        ret = ret && ((nil == lhs.value) == (nil == rhs.value))
-        
-        return ret
-    }
     
     /* ################################################################## */
     /**

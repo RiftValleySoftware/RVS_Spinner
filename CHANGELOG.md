@@ -1,7 +1,10 @@
+*Version 2.0.2* **April 1, 2019**
+- The data item struct is no longer Equatable. It didn't need to be, and the protocol conformance sucked.
+- I'm ruthlessly going through the code, looking for weak spots and unnecessary cruft. There will be blood.
+
 *Version 2.0.1* **April 1, 2019**
 - The pickerView wasn't reorganizing itself properly after a rotation.
 - Raised the max flywheel velocity, and made the speed "cumulative," so it behaves a lot more like a normal flywheel.
-
 *Version 2.0.0* **April 1, 2019**
 - Fixed an annoying auto-layout bug in the test harness that made the SE unusable.
 - Improved the spinning animation.
