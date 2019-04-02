@@ -682,7 +682,8 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             path.move(to: centerPointInDisplayUnits)
             path.addArc(withCenter: centerPointInDisplayUnits, radius: radiusInDisplayUnits, startAngle: centerAngleInRadians - (_arclengthInRadians / 2), endAngle: centerAngleInRadians + (_arclengthInRadians / 2), clockwise: true)
             path.move(to: centerPointInDisplayUnits)
-        
+            var rotationAngleInRadians = CGFloat.pi - (CGFloat(inIndex) * _arclengthInRadians)
+
             if !inIsTransparencyMask {    // We only do this is we are drawing the icon layer.
                 ret.fillColor = openBackgroundColor.cgColor
                 
@@ -714,10 +715,12 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 
                 // The selected value is always full visibility, but it dimms drastically, the further we are from it.
                 ret.opacity = (0 == indexDistance) ? 1.0 : 0.25 / Float(indexDistance)
+
+                if 0 != (count % 2) {
+                    rotationAngleInRadians -= (_arclengthInRadians / 2)
+                }
             }
             
-            // This displays the wedge rotated properly.
-            let rotationAngleInRadians = (1 * CGFloat.pi) - (CGFloat(inIndex) * _arclengthInRadians)
             ret.transform = CATransform3DMakeRotation(rotationAngleInRadians, 0, 0, 1.0)
         }
 
