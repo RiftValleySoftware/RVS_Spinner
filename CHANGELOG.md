@@ -1,3 +1,6 @@
+*Version 2.0.3* **April 2, 2019**
+- Fixed a bug, in which the transparency overlay was off-kilter for odd-numbered datasets.
+
 *Version 2.0.2* **April 1, 2019**
 - The data item struct is no longer Equatable. It didn't need to be, and the protocol conformance sucked.
 - I'm ruthlessly going through the code, looking for weak spots and unnecessary cruft. There will be blood.
