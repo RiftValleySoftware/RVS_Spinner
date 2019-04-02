@@ -18,6 +18,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="NcB-qC-Kbn">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aOJ-Ve-Ptm">
                                 <rect key="frame" x="0.0" y="44" width="414" height="438"/>
                                 <subviews>
@@ -59,6 +62,7 @@
                                             <segment title=""/>
                                             <segment title=""/>
                                         </segments>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="numberSegSwitchHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="tX6-Qt-vG5"/>
                                         </connections>
@@ -77,6 +81,7 @@
                                             <segment title="Purple"/>
                                             <segment title="Cyan"/>
                                         </segments>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="colorSegSwitchHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="UTo-EN-Pr7"/>
                                         </connections>
@@ -95,6 +100,7 @@
                                             <segment title="Purple"/>
                                             <segment title="Cyan"/>
                                         </segments>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="colorSegSwitchHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="S8L-xF-Yix"/>
                                         </connections>
@@ -113,6 +119,7 @@
                                             <segment title="Purple"/>
                                             <segment title="Cyan"/>
                                         </segments>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="colorSegSwitchHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="jfG-LR-riN"/>
                                         </connections>
@@ -172,6 +179,7 @@
                                             <segment title="Both"/>
                                             <segment title="Picker-Only"/>
                                         </segments>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="spinnerModeSegSwitchHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="Xie-Lh-U8C"/>
                                         </connections>
@@ -194,6 +202,7 @@
                                             <segment title="18"/>
                                             <segment title="20"/>
                                         </segments>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="thresholdSegmentedControlHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="V7b-ev-Y2G"/>
                                         </connections>
@@ -201,7 +210,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="7RP-dK-nM0">
                                         <rect key="frame" x="8" y="0.0" width="398" height="33"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                        <color key="textColor" red="1" green="0.055564177690000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Te-W0-hPK">
@@ -309,15 +318,19 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ZJy-Ra-OKA" firstAttribute="top" secondItem="aOJ-Ve-Ptm" secondAttribute="bottom" id="0FY-RD-MIc"/>
                             <constraint firstItem="ZJy-Ra-OKA" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="0vR-AC-qHx"/>
+                            <constraint firstAttribute="bottom" secondItem="NcB-qC-Kbn" secondAttribute="bottom" id="0yk-ui-2dB"/>
                             <constraint firstItem="ZJy-Ra-OKA" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="2DU-M1-dhF"/>
                             <constraint firstItem="ZJy-Ra-OKA" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="8c0-qb-u8J"/>
                             <constraint firstItem="aOJ-Ve-Ptm" firstAttribute="trailing" secondItem="ZJy-Ra-OKA" secondAttribute="trailing" id="CeK-X9-lQ3"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NcB-qC-Kbn" secondAttribute="trailing" id="KKp-CU-VJh"/>
                             <constraint firstItem="aOJ-Ve-Ptm" firstAttribute="leading" secondItem="ZJy-Ra-OKA" secondAttribute="leading" id="d9N-tY-Nhv"/>
+                            <constraint firstItem="NcB-qC-Kbn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="fxo-JH-81D"/>
                             <constraint firstItem="aOJ-Ve-Ptm" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="gSj-4U-Jwb"/>
+                            <constraint firstItem="NcB-qC-Kbn" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="hJl-2U-bcc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -339,4 +352,7 @@
             <point key="canvasLocation" x="131.8840579710145" y="138.61607142857142"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="background-gradient" width="1" height="1000"/>
+    </resources>
 </document>

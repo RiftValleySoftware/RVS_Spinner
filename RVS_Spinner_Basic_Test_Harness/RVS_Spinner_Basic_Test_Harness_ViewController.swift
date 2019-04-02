@@ -174,7 +174,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
      */
     @objc func updateAssociatedText(_: Any! = nil) {
         DispatchQueue.main.async {  // Since this could be called from a timer completion, we need to make sure that UI changes are done in the main thread.
-            self.associatedTextLabel?.textColor = UIColor.red
+            self.associatedTextLabel?.textColor = UIColor.white
             self.associatedTextLabel?.text = self.spinnerView?.value?.value as? String
         }
     }
@@ -292,7 +292,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
      */
     func spinner(_: RVS_Spinner, singleValueSelected: RVS_SpinnerDataItem?) {
         associatedTextLabel?.text = "The user tapped the Button."
-        associatedTextLabel?.textColor = UIColor.green
+        associatedTextLabel?.textColor = UIColor.black
         _ = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(updateAssociatedText), userInfo: nil, repeats: false)
     }
     
@@ -315,7 +315,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     func spinner(_ inSpinnerObject: RVS_Spinner, hasOpenedWithTheValue: RVS_SpinnerDataItem?) {
         let spinnerPicker = (0 == inSpinnerObject.spinnerMode && inSpinnerObject.count < inSpinnerObject.spinnerThreshold) || -1 == inSpinnerObject.spinnerMode ? "spinner" : "picker"
         associatedTextLabel?.text = "The user opened the \(spinnerPicker)."
-        associatedTextLabel?.textColor = UIColor.green
+        associatedTextLabel?.textColor = UIColor.black
         _ = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(updateAssociatedText), userInfo: nil, repeats: false)
     }
     
@@ -326,7 +326,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     func spinner(_ inSpinnerObject: RVS_Spinner, hasClosedWithTheValue: RVS_SpinnerDataItem?) {
         let spinnerPicker = (0 == inSpinnerObject.spinnerMode && inSpinnerObject.count < inSpinnerObject.spinnerThreshold) || -1 == inSpinnerObject.spinnerMode ? "spinner" : "picker"
         associatedTextLabel?.text = "The user closed the \(spinnerPicker)."
-        associatedTextLabel?.textColor = UIColor.green
+        associatedTextLabel?.textColor = UIColor.black
         _ = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(updateAssociatedText), userInfo: nil, repeats: false)
     }
 }
