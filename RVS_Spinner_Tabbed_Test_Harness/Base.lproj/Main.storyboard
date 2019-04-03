@@ -100,10 +100,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZmX-OO-ZP2" userLabel="Working Area">
-                                <rect key="frame" x="20" y="44" width="394" height="735"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ipj-JQ-b3O">
-                                        <rect key="frame" x="44" y="385" width="550" height="550"/>
+                                        <rect key="frame" x="64" y="463" width="550" height="550"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X6L-tu-6O5" customClass="RVS_Spinner" customModule="RVS_Spinner">
                                                 <rect key="frame" x="243" y="243" width="64" height="64"/>
@@ -138,16 +138,14 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="ZmX-OO-ZP2" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" constant="20" id="C27-YI-QXd"/>
-                            <constraint firstItem="ZmX-OO-ZP2" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" id="D9o-Aw-Xkv"/>
-                            <constraint firstItem="ZmX-OO-ZP2" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" id="M7r-7V-TSd"/>
+                            <constraint firstItem="ZmX-OO-ZP2" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="C27-YI-QXd"/>
+                            <constraint firstItem="ZmX-OO-ZP2" firstAttribute="top" secondItem="QS5-Rx-YEW" secondAttribute="top" id="D9o-Aw-Xkv"/>
                             <constraint firstItem="jmB-Ba-9bH" firstAttribute="top" secondItem="QS5-Rx-YEW" secondAttribute="top" id="Pv3-NI-nyf"/>
                             <constraint firstItem="jmB-Ba-9bH" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="WXp-8a-gzj"/>
-                            <constraint firstItem="O1u-W8-tvY" firstAttribute="trailing" secondItem="ZmX-OO-ZP2" secondAttribute="trailing" id="gwq-26-d97"/>
+                            <constraint firstAttribute="trailing" secondItem="ZmX-OO-ZP2" secondAttribute="trailing" id="gwq-26-d97"/>
                             <constraint firstItem="jmB-Ba-9bH" firstAttribute="bottom" secondItem="QS5-Rx-YEW" secondAttribute="bottom" id="lie-Pv-q2i"/>
-                            <constraint firstItem="O1u-W8-tvY" firstAttribute="bottom" secondItem="ZmX-OO-ZP2" secondAttribute="bottom" constant="34" id="n4h-LX-TVz"/>
+                            <constraint firstAttribute="bottom" secondItem="ZmX-OO-ZP2" secondAttribute="bottom" id="n4h-LX-TVz"/>
                             <constraint firstItem="jmB-Ba-9bH" firstAttribute="trailing" secondItem="QS5-Rx-YEW" secondAttribute="trailing" id="qun-mf-iby"/>
-                            <constraint firstItem="ZmX-OO-ZP2" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" constant="20" id="roe-CL-Rkt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
