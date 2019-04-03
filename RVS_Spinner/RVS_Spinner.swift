@@ -620,7 +620,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             let centerImage = values[selectedIndex].icon
             // This is how we track clicks and long-presses in the center.
             let isDimmed = !isEnabled || (isTracking && isTouchInside && !_doneTracking)
-            let imageLayer = _createIconDisplay(centerImage, inFrame: bounds, isDimmed: isDimmed)
+            let imageLayer = _makeIconDisplay(centerImage, inFrame: bounds, isDimmed: isDimmed)
             if isCompensatingForContainerRotation {
                 if let superTransform = superview?.transform {
                     let rotationInRadians = -CGFloat(atan2(Double(superTransform.b), Double(superTransform.a)))
@@ -707,7 +707,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 let imageFrame = CGRect(x: centerPointInDisplayUnits.x - (imageSquareSize / 2), y: -(radiusInDisplayUnits - (_openSpinnerView.bounds.size.height / 2) - type(of: self)._kOpenPaddingInDisplayUnits), width: imageSquareSize, height: imageSquareSize)
                 
                 // Each image is the same as the center.
-                let displayLayer = _createIconDisplay(value.icon, inFrame: imageFrame)
+                let displayLayer = _makeIconDisplay(value.icon, inFrame: imageFrame)
                 
                 let newFrame = displayLayer.frame
                 
@@ -748,17 +748,14 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      - returns a new CALayer, with the display-ready icon.
      */
-    func _createIconDisplay(_ inIcon: UIImage, inFrame: CGRect, isDimmed inIsDimmed: Bool = false) -> CALayer {
+    func _makeIconDisplay(_ inIcon: UIImage, inFrame: CGRect, isDimmed inIsDimmed: Bool = false) -> CALayer {
         let iconDisplayLayer = CALayer()
         iconDisplayLayer.backgroundColor = UIColor.clear.cgColor
         iconDisplayLayer.frame = inFrame
         iconDisplayLayer.frame.origin = CGPoint.zero
         iconDisplayLayer.contents = inIcon.cgImage
         iconDisplayLayer.contentsGravity = .resizeAspect  // We will always display the icon accurately, as large as possible to fill the rectangle. Keep this in mind, when designing icons.
-        
-        if inIsDimmed {
-            iconDisplayLayer.opacity = 0.5
-        }
+        iconDisplayLayer.opacity = inIsDimmed ? 0.75 : 1.0
 
         var displayLayer = iconDisplayLayer
         
@@ -880,6 +877,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             if nil != _decelerationDisplayLink {   // If we are spinning, a tap in the control will stop the spin.
                 _decelerationDisplayLink?.invalidate()
                 _decelerationDisplayLink = nil
+                setNeedsDisplay()
             } else {
                 // We will hit test in the center (selects the current value and closes the control), the right side (decrements the value), or the left side (increments the value).
                 let center = CGRect(origin: CGPoint(x: inView.bounds.midX - (bounds.size.width / 2), y: inView.bounds.midY - (bounds.size.height / 2)), size: CGSize(width: bounds.size.width, height: bounds.size.height))
@@ -1141,6 +1139,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     @objc func _handleOpenTapGesture(_ inGesture: UITapGestureRecognizer) {
         if isOpen, nil != _openSpinnerView { // Only counts if we're open.
             if let view = inGesture.view {
+                _doneTracking = true
                 _handleOpenTouchEvent(inGesture.location(in: view), forView: view)
             }
         }
@@ -1155,6 +1154,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     @objc func _handleOpenLongPressGesture(_ inGesture: UILongPressGestureRecognizer) {
         if isOpen, nil != _openSpinnerView { // Only counts if we're open.
             if let view = inGesture.view {
+                _doneTracking = true
                 _handleOpenTouchEvent(inGesture.location(in: view), forView: view)
             }
         }
@@ -1168,6 +1168,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      */
     @objc func _handleOpenPanGesture(_ inGesture: UIPanGestureRecognizer) {
         if isOpen, nil != _openSpinnerView { // Only counts if we're open.
+            _doneTracking = true
             if .began == inGesture.state || .changed == inGesture.state || .ended == inGesture.state {  // Make sure we're in the correct state.
                 if let view = inGesture.view {  // ...and the correct view.
                     let center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
@@ -1623,7 +1624,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 _decelerationDisplayLink = nil
                 DispatchQueue.main.async {
                     self._doneTracking = true
-//                    self._clearDisplayCaches()
+                    self.setNeedsDisplay()
                 }
             } else {
                 DispatchQueue.main.async {

@@ -207,13 +207,12 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         
         if let resourcePath = Bundle.main.resourcePath {
             let imagePath =  "\(resourcePath)/SpinnerIcons"
-            
             do {
                 let imagePaths = try FileManager.default.contentsOfDirectory(atPath: imagePath).sorted()
-                imagePaths.forEach {
-                    if let imageFile = FileManager.default.contents(atPath: "\(imagePath)/\($0)"), let image = UIImage(data: imageFile) {
-                        // The name is the filename, minus the file extension.
-                        _shapes.append((name: String($0.prefix($0.count - 4)), image: image, index: _shapes.count))
+                imagePaths.forEach { fileName in
+                    if let imageData = FileManager.default.contents(atPath: "\(imagePath)/\(fileName)"), let image = UIImage(data: imageData) {
+                    // The name is the filename, minus the file extension.
+                        _shapes.append((name: String(fileName.prefix(fileName.count - 4)), image: image, index: _shapes.count))
                     }
                 }
             } catch let error {

@@ -35,5 +35,6 @@ class RVS_Spinner_Tabbed_Test_Harness_Bottom_Right_ViewController: RVS_Spinner_T
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        spinnerObject?.superview?.transform = CGAffineTransform(rotationAngle: CGFloat.pi / -4)
     }
 }
