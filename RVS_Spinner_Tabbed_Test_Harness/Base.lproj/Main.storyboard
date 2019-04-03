@@ -42,7 +42,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.15468199823943662" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="euJ-EL-R7h" firstAttribute="centerX" secondItem="EEj-fH-eQU" secondAttribute="centerX" id="92F-W3-wsw"/>
                                     <constraint firstItem="euJ-EL-R7h" firstAttribute="centerY" secondItem="EEj-fH-eQU" secondAttribute="centerY" id="sTh-il-Vgk"/>
@@ -120,7 +120,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.15083076584507044" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="X6L-tu-6O5" firstAttribute="centerY" secondItem="Ipj-JQ-b3O" secondAttribute="centerY" id="1yd-5O-qx1"/>
                                             <constraint firstAttribute="width" secondItem="Ipj-JQ-b3O" secondAttribute="height" multiplier="1:1" id="RO2-rb-kuV"/>
@@ -216,7 +216,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.14741967429577466" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="QAc-e2-Kqy" firstAttribute="centerY" secondItem="VKl-md-gUF" secondAttribute="centerY" id="FqQ-Jb-puB"/>
                                             <constraint firstItem="QAc-e2-Kqy" firstAttribute="centerX" secondItem="VKl-md-gUF" secondAttribute="centerX" id="H2N-gv-t57"/>
