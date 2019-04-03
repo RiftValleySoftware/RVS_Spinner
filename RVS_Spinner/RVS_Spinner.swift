@@ -682,6 +682,8 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             path.move(to: centerPointInDisplayUnits)
             path.addArc(withCenter: centerPointInDisplayUnits, radius: radiusInDisplayUnits, startAngle: centerAngleInRadians - (_arclengthInRadians / 2), endAngle: centerAngleInRadians + (_arclengthInRadians / 2), clockwise: true)
             path.move(to: centerPointInDisplayUnits)
+            
+            // This is the angle we need to rotate by to fit the spoke in the wheel.
             var rotationAngleInRadians = CGFloat.pi - (CGFloat(inIndex) * _arclengthInRadians)
 
             if !inIsTransparencyMask {    // We only do this is we are drawing the icon layer.
@@ -706,7 +708,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
 
                 ret.path = path.cgPath
                 ret.addSublayer(displayLayer)
-            } else {
+            } else {    // Otherwise, this is the transparency mask.
                 ret.path = path.cgPath
                 ret.fillColor = UIColor.white.cgColor
 
@@ -716,11 +718,13 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 // The selected value is always full visibility, but it dimms drastically, the further we are from it.
                 ret.opacity = (0 == indexDistance) ? 1.0 : 0.25 / Float(indexDistance)
 
+                // When doing the mask, we need to back up one-half spoke for odd-numbered counts.
                 if 0 != (count % 2) {
                     rotationAngleInRadians -= (_arclengthInRadians / 2)
                 }
             }
             
+            // Apply the rotation.
             ret.transform = CATransform3DMakeRotation(rotationAngleInRadians, 0, 0, 1.0)
         }
 
@@ -1134,7 +1138,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             }
         }
     }
-    
+
     /* ################################################################## */
     /**
      This method reacts to the long press gesture recognizer (for the open control).
@@ -1433,7 +1437,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
-     This is the background color associated with the "open" control "pie-slices."
+     This is the background color associated with the "open" control "pie-slices." Default is nil (clear).
      */
     @IBInspectable public var openBackgroundColor: UIColor! {
         didSet {
@@ -1469,7 +1473,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /* ################################################################## */
     /**
      This is the maximum number of elements that can be displayed in a spinner.
-     Above this, needs to be displayed in a picker.
+     Above this, needs to be displayed in a picker. Default is 15.
      */
     @IBInspectable public var spinnerThreshold: Int = 15 {
         didSet {
@@ -1486,16 +1490,16 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     
     /* ################################################################## */
     /**
-     If true, the control will play sounds.
+     If true, the control will play sounds. Default is true.
      */
     @IBInspectable public var isSoundOn: Bool = true
     
     /* ################################################################## */
     /**
-     If true, the control will play haptics (on devices that support haptics).
+     If true, the control will play haptics (on devices that support haptics). Default is true.
      */
     @IBInspectable public var isHapticsOn: Bool = true
-
+    
     /* ################################################################################################################################## */
     // MARK: - Public Overrides
     /* ################################################################################################################################## */

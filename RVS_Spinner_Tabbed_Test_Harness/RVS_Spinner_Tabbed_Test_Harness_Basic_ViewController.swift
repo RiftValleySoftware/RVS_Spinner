@@ -82,45 +82,19 @@ class RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController: UIViewController, RV
     /**
      */
     func setUpImageSelectorSwitch() {
+        // Yeah, all these functions are clunky, but this is a damn test harness. Not worth tweaking them to be suer-optimal. Copy-Pasta FTW.
         /* ################################################################## */
         /**
          */
         func addSegmentedView(_ inSubView: UIView, to inToView: UIView) {
             inToView.addSubview(inSubView)
             
+            let guide = self.view.safeAreaLayoutGuide
             inSubView.translatesAutoresizingMaskIntoConstraints = false
-            
-            inToView.addConstraints([
-                NSLayoutConstraint(item: inSubView,
-                                   attribute: .height,
-                                   relatedBy: .equal,
-                                   toItem: nil,
-                                   attribute: .notAnAttribute,
-                                   multiplier: 1.0,
-                                   constant: 20),
-                NSLayoutConstraint(item: inSubView,
-                                   attribute: .left,
-                                   relatedBy: .equal,
-                                   toItem: inToView,
-                                   attribute: .left,
-                                   multiplier: 1.0,
-                                   constant: 20),
-                NSLayoutConstraint(item: inToView,
-                                   attribute: .bottom,
-                                   relatedBy: .equal,
-                                   toItem: inSubView,
-                                   attribute: .bottom,
-                                   multiplier: 1.0,
-                                   constant: 4),
-                NSLayoutConstraint(item: inToView,
-                                   attribute: .right,
-                                   relatedBy: .equal,
-                                   toItem: inSubView,
-                                   attribute: .right,
-                                   multiplier: 1.0,
-                                   constant: 20)])
-            
-            NSLayoutConstraint.activate(inToView.constraints)
+            inSubView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+            inSubView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -8).isActive = true
+            inSubView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 8).isActive = true
+            inSubView.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: -4).isActive = true
         }
         
         /* ################################################################## */
@@ -129,39 +103,11 @@ class RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController: UIViewController, RV
         func addSwitch(_ inSubView: UIView, to inToView: UIView, previous inPrevious: UIView) {
             inToView.addSubview(inSubView)
             
+            let guide = self.view.safeAreaLayoutGuide
             inSubView.translatesAutoresizingMaskIntoConstraints = false
-            
-            inToView.addConstraints([
-                NSLayoutConstraint(item: inSubView,
-                                   attribute: .height,
-                                   relatedBy: .equal,
-                                   toItem: nil,
-                                   attribute: .notAnAttribute,
-                                   multiplier: 1.0,
-                                   constant: 30),
-                NSLayoutConstraint(item: inSubView,
-                                   attribute: .width,
-                                   relatedBy: .equal,
-                                   toItem: nil,
-                                   attribute: .notAnAttribute,
-                                   multiplier: 1.0,
-                                   constant: 49),
-                NSLayoutConstraint(item: inSubView,
-                                   attribute: .centerX,
-                                   relatedBy: .equal,
-                                   toItem: inToView,
-                                   attribute: .centerX,
-                                   multiplier: 1.0,
-                                   constant: 0),
-                NSLayoutConstraint(item: inPrevious,
-                                   attribute: .top,
-                                   relatedBy: .equal,
-                                   toItem: inSubView,
-                                   attribute: .bottom,
-                                   multiplier: 1.0,
-                                   constant: 4)])
-            
-            NSLayoutConstraint.activate(inToView.constraints)
+            inSubView.heightAnchor.constraint(equalToConstant: 30).isActive = true
+            inSubView.centerXAnchor.constraint(equalTo: guide.centerXAnchor).isActive = true
+            inSubView.bottomAnchor.constraint(equalTo: inPrevious.topAnchor, constant: -4).isActive = true
         }
         
         /* ################################################################## */
@@ -170,39 +116,12 @@ class RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController: UIViewController, RV
         func addSpinnerLabel(_ inSubView: UIView, to inToView: UIView, previous inPrevious: UIView) {
             inToView.addSubview(inSubView)
             
+            let guide = self.view.safeAreaLayoutGuide
             inSubView.translatesAutoresizingMaskIntoConstraints = false
-            
-            inToView.addConstraints([
-                NSLayoutConstraint(item: inSubView,
-                                   attribute: .height,
-                                   relatedBy: .equal,
-                                   toItem: nil,
-                                   attribute: .notAnAttribute,
-                                   multiplier: 1.0,
-                                   constant: 30),
-                NSLayoutConstraint(item: inSubView,
-                                   attribute: .left,
-                                   relatedBy: .equal,
-                                   toItem: inToView,
-                                   attribute: .left,
-                                   multiplier: 1.0,
-                                   constant: 0),
-                NSLayoutConstraint(item: inSubView,
-                                   attribute: .centerY,
-                                   relatedBy: .equal,
-                                   toItem: inPrevious,
-                                   attribute: .centerY,
-                                   multiplier: 1.0,
-                                   constant: 0),
-                NSLayoutConstraint(item: inPrevious,
-                                   attribute: .left,
-                                   relatedBy: .equal,
-                                   toItem: inSubView,
-                                   attribute: .right,
-                                   multiplier: 1.0,
-                                   constant: 4)])
-            
-            NSLayoutConstraint.activate(inToView.constraints)
+            inSubView.heightAnchor.constraint(equalTo: inPrevious.heightAnchor).isActive = true
+            inSubView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 8).isActive = true
+            inSubView.trailingAnchor.constraint(equalTo: inPrevious.leadingAnchor, constant: -2).isActive = true
+            inSubView.centerYAnchor.constraint(equalTo: inPrevious.centerYAnchor).isActive = true
         }
         
         /* ################################################################## */
@@ -211,39 +130,12 @@ class RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController: UIViewController, RV
         func addPickerLabel(_ inSubView: UIView, to inToView: UIView, previous inPrevious: UIView) {
             inToView.addSubview(inSubView)
             
+            let guide = self.view.safeAreaLayoutGuide
             inSubView.translatesAutoresizingMaskIntoConstraints = false
-            
-            inToView.addConstraints([
-                NSLayoutConstraint(item: inSubView,
-                                   attribute: .height,
-                                   relatedBy: .equal,
-                                   toItem: nil,
-                                   attribute: .notAnAttribute,
-                                   multiplier: 1.0,
-                                   constant: 30),
-                NSLayoutConstraint(item: inToView,
-                                   attribute: .right,
-                                   relatedBy: .equal,
-                                   toItem: inSubView,
-                                   attribute: .right,
-                                   multiplier: 1.0,
-                                   constant: 0),
-                NSLayoutConstraint(item: inSubView,
-                                   attribute: .centerY,
-                                   relatedBy: .equal,
-                                   toItem: inPrevious,
-                                   attribute: .centerY,
-                                   multiplier: 1.0,
-                                   constant: 0),
-                NSLayoutConstraint(item: inSubView,
-                                   attribute: .left,
-                                   relatedBy: .equal,
-                                   toItem: inPrevious,
-                                   attribute: .right,
-                                   multiplier: 1.0,
-                                   constant: 4)])
-            
-            NSLayoutConstraint.activate(inToView.constraints)
+            inSubView.heightAnchor.constraint(equalTo: inPrevious.heightAnchor).isActive = true
+            inSubView.leadingAnchor.constraint(equalTo: inPrevious.trailingAnchor, constant: 4).isActive = true
+            inSubView.trailingAnchor.constraint(equalTo: guide.trailingAnchor).isActive = true
+            inSubView.centerYAnchor.constraint(equalTo: inPrevious.centerYAnchor).isActive = true
         }
 
         if let resourcePath = Bundle.main.resourcePath {
