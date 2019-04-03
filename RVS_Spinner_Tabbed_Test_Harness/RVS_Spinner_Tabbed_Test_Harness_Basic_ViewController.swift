@@ -55,19 +55,16 @@ class RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController: UIViewController, RV
     
     /* ################################################################################################################################## */
     /// This is a segmented switch, displayed along the bottom, that allows the user to choose an image set.
-    var _imageSelectorChoices: [String: [RVS_SpinnerDataItem]] = [:]
+    var _imageSelectorChoices: [[RVS_SpinnerDataItem]] = []
     
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      */
     @objc func segmentedImageSelectorHit(_ inSegmentedSwitch: UISegmentedControl) {
-        if let title = inSegmentedSwitch.titleForSegment(at: inSegmentedSwitch.selectedSegmentIndex) {
-            if let images = _imageSelectorChoices[title] {
-                spinnerObject?.values = images
-                spinnerObject.selectedIndex = images.count / 2
-            }
-        }
+        let images = _imageSelectorChoices[inSegmentedSwitch.selectedSegmentIndex]
+        spinnerObject?.values = images
+        spinnerObject?.selectedIndex = images.count / 2
     }
     
     /* ################################################################## */
@@ -80,9 +77,12 @@ class RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController: UIViewController, RV
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     Set up a secmented switch and a switch at the bottom.
+     
+     The segmented switch selects the dataset to use, and the switch goes between two exclusive modes (both is not supported by this app).
      */
     func setUpImageSelectorSwitch() {
-        // Yeah, all these functions are clunky, but this is a damn test harness. Not worth tweaking them to be suer-optimal. Copy-Pasta FTW.
+        // Yeah, all these functions are clunky, but this is a damn test harness. Not worth tweaking them to be super-optimal. Copy-Pasta FTW.
         /* ################################################################## */
         /**
          */
@@ -143,6 +143,7 @@ class RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController: UIViewController, RV
             
             let rootPath =  "\(resourcePath)/DisplayImages"
             
+            // What we do here, is load in the image directories, and assign each one to a switch segment.
             do {
                 let dirPaths = try FileManager.default.contentsOfDirectory(atPath: rootPath).sorted()
 
@@ -168,19 +169,20 @@ class RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController: UIViewController, RV
                 }
                 
                 directories.forEach {
-                    _imageSelectorChoices[$0.name] = $0.items
+                    _imageSelectorChoices.append($0.items)
                 }
             } catch let error {
                 print(error)
             }
             
-            spinnerObject.delegate = self
+            spinnerObject?.delegate = self
             
-            let segmentNames = directories.compactMap { $0.name }
+            let segmentNames = directories.compactMap { $0.name + " (" + String($0.items.count) + ")" }
             let imageSetSelectorSegmentedSwitch = UISegmentedControl(items: segmentNames)
             imageSetSelectorSegmentedSwitch.tintColor = UIColor.white
             imageSetSelectorSegmentedSwitch.backgroundColor = UIColor.clear
             imageSetSelectorSegmentedSwitch.selectedSegmentIndex = segmentNames.count / 2
+            imageSetSelectorSegmentedSwitch.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 9)], for: .normal)
             segmentedImageSelectorHit(imageSetSelectorSegmentedSwitch)
             imageSetSelectorSegmentedSwitch.addTarget(self, action: #selector(segmentedImageSelectorHit), for: .valueChanged)
             addSegmentedView(imageSetSelectorSegmentedSwitch, to: self.view)
@@ -188,16 +190,19 @@ class RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController: UIViewController, RV
             let modeSwitch = UISwitch()
             modeSwitch.isOn = false
             modeSwitch.tintColor = UIColor.white
+            modeSwitchHit(modeSwitch)
             modeSwitch.addTarget(self, action: #selector(modeSwitchHit), for: .touchUpInside)
             addSwitch(modeSwitch, to: self.view, previous: imageSetSelectorSegmentedSwitch)
             
             let spinnerLabel = UILabel()
             spinnerLabel.text = "Spinner"
+            spinnerLabel.isUserInteractionEnabled = false
             spinnerLabel.textColor = UIColor.white
             spinnerLabel.textAlignment = .right
             addSpinnerLabel(spinnerLabel, to: self.view, previous: modeSwitch)
             
             let pickerLabel = UILabel()
+            pickerLabel.isUserInteractionEnabled = false
             pickerLabel.text = "Picker"
             pickerLabel.textColor = UIColor.white
             pickerLabel.textAlignment = .left

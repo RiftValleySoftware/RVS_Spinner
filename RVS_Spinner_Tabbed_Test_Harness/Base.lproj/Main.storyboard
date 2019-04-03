@@ -100,28 +100,65 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZmX-OO-ZP2" userLabel="Working Area">
-                                <rect key="frame" x="20" y="44" width="374" height="699"/>
+                                <rect key="frame" x="20" y="44" width="394" height="735"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ipj-JQ-b3O">
+                                        <rect key="frame" x="44" y="385" width="550" height="550"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X6L-tu-6O5" customClass="RVS_Spinner" customModule="RVS_Spinner">
+                                                <rect key="frame" x="243" y="243" width="64" height="64"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="64" id="7qR-Fd-R1P"/>
+                                                    <constraint firstAttribute="width" secondItem="X6L-tu-6O5" secondAttribute="height" multiplier="1:1" id="fke-bk-l3T"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="openBackgroundColor">
+                                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="X6L-tu-6O5" firstAttribute="centerY" secondItem="Ipj-JQ-b3O" secondAttribute="centerY" id="1yd-5O-qx1"/>
+                                            <constraint firstAttribute="width" secondItem="Ipj-JQ-b3O" secondAttribute="height" multiplier="1:1" id="RO2-rb-kuV"/>
+                                            <constraint firstAttribute="width" constant="550" id="YR7-b5-Yc5"/>
+                                            <constraint firstItem="X6L-tu-6O5" firstAttribute="centerX" secondItem="Ipj-JQ-b3O" secondAttribute="centerX" id="yvc-qu-9nw"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Ipj-JQ-b3O" firstAttribute="top" secondItem="ZmX-OO-ZP2" secondAttribute="bottom" constant="-350" id="UnX-nA-idZ"/>
+                                    <constraint firstItem="Ipj-JQ-b3O" firstAttribute="leading" secondItem="ZmX-OO-ZP2" secondAttribute="trailing" constant="-350" id="u9F-wa-FZm"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="ZmX-OO-ZP2" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" constant="20" id="C27-YI-QXd"/>
+                            <constraint firstItem="ZmX-OO-ZP2" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" id="D9o-Aw-Xkv"/>
                             <constraint firstItem="ZmX-OO-ZP2" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" id="M7r-7V-TSd"/>
                             <constraint firstItem="jmB-Ba-9bH" firstAttribute="top" secondItem="QS5-Rx-YEW" secondAttribute="top" id="Pv3-NI-nyf"/>
                             <constraint firstItem="jmB-Ba-9bH" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="WXp-8a-gzj"/>
-                            <constraint firstItem="O1u-W8-tvY" firstAttribute="trailing" secondItem="ZmX-OO-ZP2" secondAttribute="trailing" constant="20" id="gwq-26-d97"/>
+                            <constraint firstItem="O1u-W8-tvY" firstAttribute="trailing" secondItem="ZmX-OO-ZP2" secondAttribute="trailing" id="gwq-26-d97"/>
                             <constraint firstItem="jmB-Ba-9bH" firstAttribute="bottom" secondItem="QS5-Rx-YEW" secondAttribute="bottom" id="lie-Pv-q2i"/>
-                            <constraint firstItem="O1u-W8-tvY" firstAttribute="bottom" secondItem="ZmX-OO-ZP2" secondAttribute="bottom" constant="70" id="n4h-LX-TVz"/>
+                            <constraint firstItem="O1u-W8-tvY" firstAttribute="bottom" secondItem="ZmX-OO-ZP2" secondAttribute="bottom" constant="34" id="n4h-LX-TVz"/>
                             <constraint firstItem="jmB-Ba-9bH" firstAttribute="trailing" secondItem="QS5-Rx-YEW" secondAttribute="trailing" id="qun-mf-iby"/>
                             <constraint firstItem="ZmX-OO-ZP2" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" constant="20" id="roe-CL-Rkt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Bottom Right" id="cPa-gy-q4n"/>
+                    <connections>
+                        <outlet property="spinnerObject" destination="X6L-tu-6O5" id="Til-WH-qOa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="360"/>
+            <point key="canvasLocation" x="749.27536231884062" y="359.59821428571428"/>
         </scene>
         <!--Spinner Tabbed Test Harness Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
