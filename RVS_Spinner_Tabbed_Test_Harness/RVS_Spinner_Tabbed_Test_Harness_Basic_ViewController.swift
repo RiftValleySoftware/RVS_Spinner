@@ -24,35 +24,13 @@
 import UIKit
 import RVS_Spinner
 
-/* ################################################################################################################################## */
-/// This is a simple tuple that we use to hold an iterated value.
-typealias ShapeValueTuple = (name: String, image: UIImage)
-
-struct RVS_Spinner_Tabbed_Test_Harness_DirElement: Comparable, Equatable {
-    static func < (lhs: RVS_Spinner_Tabbed_Test_Harness_DirElement, rhs: RVS_Spinner_Tabbed_Test_Harness_DirElement) -> Bool {
-        return lhs.path < rhs.path
-    }
-    
-    static func == (lhs: RVS_Spinner_Tabbed_Test_Harness_DirElement, rhs: RVS_Spinner_Tabbed_Test_Harness_DirElement) -> Bool {
-        return lhs.path == rhs.path
-    }
-    
-    var name: String = ""
-    var path: String = ""
-    var items: [RVS_SpinnerDataItem] = []
-}
-
 /* ###################################################################################################################################### */
 // MARK: - The Main View Controller Class
 /* ###################################################################################################################################### */
 /**
  This is actually an Abstract Base Class for the tab handlers.
  */
-class RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController: UIViewController, RVS_SpinnerDelegate {
-    /* ################################################################################################################################## */
-    /// This is the actual spinner instance for this tab.
-    @IBOutlet weak var spinnerObject: RVS_Spinner!
-    
+class RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController: RVS_Spinner_Tabbed_Test_Harness_Spinner_ViewController {
     /* ################################################################################################################################## */
     /// This is a segmented switch, displayed along the bottom, that allows the user to choose an image set.
     var _imageSelector: UISegmentedControl!
@@ -198,11 +176,6 @@ class RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController: UIViewController, RV
     override func viewDidLoad() {
         super.viewDidLoad()
         _setUpImageSelectorSwitch()
-        
-        // Set up our delegate and observer calls.
-        spinnerObject?.delegate = self
-        spinnerObject?.addTarget(self, action: #selector(touchUpInSpinner), for: .touchUpInside)
-        spinnerObject?.addTarget(self, action: #selector(valueChangedInSpinner), for: .valueChanged)
     }
     
     /* ################################################################################################################################## */
@@ -220,71 +193,5 @@ class RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController: UIViewController, RV
      */
     @objc func modeSwitchHit(_ inSwitch: UISwitch) {
         spinnerObject?.spinnerMode = inSwitch.isOn ? 1 : -1
-    }
-
-    /* ################################################################################################################################## */
-    /**
-     These methods can be overridden to do your own thing.
-     
-     These are the standard observer calls from the control.
-     */
-    /* ################################################################## */
-    /**
-     */
-    @objc func valueChangedInSpinner(_ inSpinner: RVS_Spinner) {
-        #if DEBUG
-            print("spinner(:, valueChangedInSpinner:) called in default.")
-        #endif
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    @objc func touchUpInSpinner(_ inSpinner: RVS_Spinner) {
-        #if DEBUG
-            print("spinner(:, touchUpInSpinner:) called in default.")
-        #endif
-    }
-    
-    /* ################################################################################################################################## */
-    /**
-     These methods can be overridden to do your own thing.
-     
-     These are the RVS_SpinnerDelegate methods.
-     */
-    /* ################################################################## */
-    /**
-     */
-    func spinner(_: RVS_Spinner, singleValueSelected: RVS_SpinnerDataItem?) {
-        #if DEBUG
-            print("spinner(:, singleValueSelected:) called in default.")
-        #endif
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func spinner(_: RVS_Spinner, hasSelectedTheValue: RVS_SpinnerDataItem?) {
-        #if DEBUG
-            print("spinner(:, hasSelectedTheValue:) called in default.")
-        #endif
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func spinner(_: RVS_Spinner, hasOpenedWithTheValue: RVS_SpinnerDataItem?) {
-        #if DEBUG
-            print("spinner(:, hasOpenedWithTheValue:) called in default.")
-        #endif
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func spinner(_: RVS_Spinner, hasClosedWithTheValue: RVS_SpinnerDataItem?) {
-        #if DEBUG
-            print("spinner(:, hasClosedWithTheValue:) called in default.")
-        #endif
     }
 }
