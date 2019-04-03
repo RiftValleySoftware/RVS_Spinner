@@ -621,6 +621,13 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             // This is how we track clicks and long-presses in the center.
             let isDimmed = !isEnabled || (isTracking && isTouchInside && !_doneTracking)
             let imageLayer = _createIconDisplay(centerImage, inFrame: bounds, isDimmed: isDimmed)
+            if isCompensatingForContainerRotation {
+                if let superTransform = superview?.transform {
+                    let rotationInRadians = -CGFloat(atan2(Double(superTransform.b), Double(superTransform.a)))
+                    imageLayer.transform = CATransform3DRotate(imageLayer.transform, rotationInRadians, 0.0, 0.0, 1.0)
+                }
+            }
+            
             centerLayer.addSublayer(imageLayer)
         }
         
@@ -1316,7 +1323,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
 
     /* ################################################################## */
     /**
-     If this is true, then the spinner is open. Setting this will open or close the control.
+     If this is true, then the spinner is open. Setting this will open or close the control. Default is false.
      */
     public var isOpen: Bool = false {
         didSet {    // This is the way we open and close the control.
@@ -1335,6 +1342,18 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         }
     }
 
+    /* ################################################################## */
+    /**
+     If this is true, then center of the spinner will rotate against any rotation applied to its container, making it "straight up." Default is true.
+     */
+    public var isCompensatingForContainerRotation: Bool = true {
+        didSet {
+            DispatchQueue.main.async {
+                self.setNeedsDisplay()
+            }
+        }
+    }
+    
     /* ################################################################################################################################## */
     // MARK: - Public Calculated Propeties
     /* ################################################################################################################################## */

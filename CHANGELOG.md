@@ -4,6 +4,7 @@
 - Changed the background in the basic test harness app.
 - Changed the basic test harness app icon.
 - Changed the icon source file to PDF -that's a better format.
+- Added a "compensate for rotation" property. This allows the center to remain vertical, while the main control os rotated (via the superview).
 
 *Version 2.0.3* **April 2, 2019**
 - Fixed a bug, in which the transparency overlay was off-kilter for odd-numbered datasets.

@@ -55,33 +55,18 @@ class RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController: UIViewController, RV
     
     /* ################################################################################################################################## */
     /// This is a segmented switch, displayed along the bottom, that allows the user to choose an image set.
+    var _imageSelector: UISegmentedControl!
+    /// These are the values that correspond to the selector choices.
     var _imageSelectorChoices: [[RVS_SpinnerDataItem]] = []
-    
-    /* ################################################################################################################################## */
-    /* ################################################################## */
-    /**
-     */
-    @objc func segmentedImageSelectorHit(_ inSegmentedSwitch: UISegmentedControl) {
-        let images = _imageSelectorChoices[inSegmentedSwitch.selectedSegmentIndex]
-        spinnerObject?.values = images
-        spinnerObject?.selectedIndex = images.count / 2
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    @objc func modeSwitchHit(_ inSwitch: UISwitch) {
-        spinnerObject?.spinnerMode = inSwitch.isOn ? 1 : -1
-    }
 
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      Set up a secmented switch and a switch at the bottom.
      
-     The segmented switch selects the dataset to use, and the switch goes between two exclusive modes (both is not supported by this app).
+     The segmented switch selects the dataset to use, and the switch goes between two exclusive modes (.both is not supported by this app).
      */
-    func setUpImageSelectorSwitch() {
+    func _setUpImageSelectorSwitch() {
         // Yeah, all these functions are clunky, but this is a damn test harness. Not worth tweaking them to be super-optimal. Copy-Pasta FTW.
         /* ################################################################## */
         /**
@@ -174,35 +159,31 @@ class RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController: UIViewController, RV
             } catch let error {
                 print(error)
             }
-            
-            spinnerObject?.delegate = self
-            
+
             let segmentNames = directories.compactMap { $0.name + " (" + String($0.items.count) + ")" }
-            let imageSetSelectorSegmentedSwitch = UISegmentedControl(items: segmentNames)
-            imageSetSelectorSegmentedSwitch.tintColor = UIColor.white
-            imageSetSelectorSegmentedSwitch.backgroundColor = UIColor.clear
-            imageSetSelectorSegmentedSwitch.selectedSegmentIndex = segmentNames.count / 2
-            imageSetSelectorSegmentedSwitch.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 9)], for: .normal)
-            segmentedImageSelectorHit(imageSetSelectorSegmentedSwitch)
-            imageSetSelectorSegmentedSwitch.addTarget(self, action: #selector(segmentedImageSelectorHit), for: .valueChanged)
-            addSegmentedView(imageSetSelectorSegmentedSwitch, to: self.view)
+            _imageSelector = UISegmentedControl(items: segmentNames)
+            _imageSelector.tintColor = UIColor.white
+            _imageSelector.backgroundColor = UIColor.clear
+            _imageSelector.selectedSegmentIndex = segmentNames.count / 2
+            _imageSelector.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 10)], for: .normal)
+            segmentedImageSelectorHit(_imageSelector)
+            _imageSelector.addTarget(self, action: #selector(segmentedImageSelectorHit), for: .valueChanged)
+            addSegmentedView(_imageSelector, to: self.view)
             
             let modeSwitch = UISwitch()
             modeSwitch.isOn = false
             modeSwitch.tintColor = UIColor.white
             modeSwitchHit(modeSwitch)
             modeSwitch.addTarget(self, action: #selector(modeSwitchHit), for: .touchUpInside)
-            addSwitch(modeSwitch, to: self.view, previous: imageSetSelectorSegmentedSwitch)
+            addSwitch(modeSwitch, to: self.view, previous: _imageSelector)
             
             let spinnerLabel = UILabel()
             spinnerLabel.text = "Spinner"
-            spinnerLabel.isUserInteractionEnabled = false
             spinnerLabel.textColor = UIColor.white
             spinnerLabel.textAlignment = .right
             addSpinnerLabel(spinnerLabel, to: self.view, previous: modeSwitch)
             
             let pickerLabel = UILabel()
-            pickerLabel.isUserInteractionEnabled = false
             pickerLabel.text = "Picker"
             pickerLabel.textColor = UIColor.white
             pickerLabel.textAlignment = .left
@@ -216,17 +197,67 @@ class RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController: UIViewController, RV
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        _setUpImageSelectorSwitch()
+        
+        // Set up our delegate and observer calls.
         spinnerObject?.delegate = self
-        setUpImageSelectorSwitch()
+        spinnerObject?.addTarget(self, action: #selector(touchUpInSpinner), for: .touchUpInside)
+        spinnerObject?.addTarget(self, action: #selector(valueChangedInSpinner), for: .valueChanged)
+    }
+    
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     */
+    @objc func segmentedImageSelectorHit(_ inSegmentedSwitch: UISegmentedControl) {
+        let images = _imageSelectorChoices[inSegmentedSwitch.selectedSegmentIndex]
+        spinnerObject?.values = images
+        spinnerObject?.selectedIndex = images.count / 2
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @objc func modeSwitchHit(_ inSwitch: UISwitch) {
+        spinnerObject?.spinnerMode = inSwitch.isOn ? 1 : -1
     }
 
     /* ################################################################################################################################## */
+    /**
+     These methods can be overridden to do your own thing.
+     
+     These are the standard observer calls from the control.
+     */
+    /* ################################################################## */
+    /**
+     */
+    @objc func valueChangedInSpinner(_ inSpinner: RVS_Spinner) {
+        #if DEBUG
+            print("spinner(:, valueChangedInSpinner:) called in default.")
+        #endif
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @objc func touchUpInSpinner(_ inSpinner: RVS_Spinner) {
+        #if DEBUG
+            print("spinner(:, touchUpInSpinner:) called in default.")
+        #endif
+    }
+    
+    /* ################################################################################################################################## */
+    /**
+     These methods can be overridden to do your own thing.
+     
+     These are the RVS_SpinnerDelegate methods.
+     */
     /* ################################################################## */
     /**
      */
     func spinner(_: RVS_Spinner, singleValueSelected: RVS_SpinnerDataItem?) {
         #if DEBUG
-        print("spinner(:, singleValueSelected:) called in default.")
+            print("spinner(:, singleValueSelected:) called in default.")
         #endif
     }
     
@@ -235,7 +266,7 @@ class RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController: UIViewController, RV
      */
     func spinner(_: RVS_Spinner, hasSelectedTheValue: RVS_SpinnerDataItem?) {
         #if DEBUG
-        print("spinner(:, hasSelectedTheValue:) called in default.")
+            print("spinner(:, hasSelectedTheValue:) called in default.")
         #endif
     }
     
@@ -244,7 +275,7 @@ class RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController: UIViewController, RV
      */
     func spinner(_: RVS_Spinner, hasOpenedWithTheValue: RVS_SpinnerDataItem?) {
         #if DEBUG
-        print("spinner(:, hasOpenedWithTheValue:) called in default.")
+            print("spinner(:, hasOpenedWithTheValue:) called in default.")
         #endif
     }
     
@@ -253,7 +284,7 @@ class RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController: UIViewController, RV
      */
     func spinner(_: RVS_Spinner, hasClosedWithTheValue: RVS_SpinnerDataItem?) {
         #if DEBUG
-        print("spinner(:, hasClosedWithTheValue:) called in default.")
+            print("spinner(:, hasClosedWithTheValue:) called in default.")
         #endif
     }
 }
