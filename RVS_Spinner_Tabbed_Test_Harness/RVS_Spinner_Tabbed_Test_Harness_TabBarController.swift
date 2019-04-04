@@ -22,6 +22,21 @@
  */
 
 import UIKit
+import RVS_Spinner
+
+struct RVS_Spinner_Tabbed_Test_Harness_DirElement: Comparable, Equatable {
+    static func < (lhs: RVS_Spinner_Tabbed_Test_Harness_DirElement, rhs: RVS_Spinner_Tabbed_Test_Harness_DirElement) -> Bool {
+        return lhs.path < rhs.path
+    }
+    
+    static func == (lhs: RVS_Spinner_Tabbed_Test_Harness_DirElement, rhs: RVS_Spinner_Tabbed_Test_Harness_DirElement) -> Bool {
+        return lhs.path == rhs.path
+    }
+    
+    var name: String = ""
+    var path: String = ""
+    var items: [RVS_SpinnerDataItem] = []
+}
 
 /* ###################################################################################################################################### */
 // MARK: - The Main Tab Bar Controller Class
@@ -29,4 +44,51 @@ import UIKit
 /**
  */
 class RVS_Spinner_Tabbed_Test_Harness_TabBarController: UITabBarController {
+    /* ################################################################## */
+    var directories: [RVS_Spinner_Tabbed_Test_Harness_DirElement] = []
+    
+    /* ################################################################## */
+    /**
+     */
+    func readImages() {
+        if let resourcePath = Bundle.main.resourcePath {
+            let rootPath =  "\(resourcePath)/DisplayImages"
+            
+            // What we do here, is load in the image directories, and assign each one to a switch segment.
+            do {
+                let dirPaths = try FileManager.default.contentsOfDirectory(atPath: rootPath).sorted()
+                
+                dirPaths.forEach {
+                    let path = rootPath + "/" + $0
+                    let name = String($0[$0.index($0.startIndex, offsetBy: 3)...])
+                    directories.append(RVS_Spinner_Tabbed_Test_Harness_DirElement(name: name, path: path, items: []))
+                }
+                
+                directories = directories.sorted()
+                
+                for i in directories.enumerated() {
+                    let imagePaths = try FileManager.default.contentsOfDirectory(atPath: i.element.path).sorted()
+                    
+                    imagePaths.forEach {
+                        if let imageFile = FileManager.default.contents(atPath: "\(i.element.path)/\($0)"), let image = UIImage(data: imageFile) {
+                            // The name is the filename, minus the file extension.
+                            let imageName = String($0.prefix($0.count - 4))
+                            let item = RVS_SpinnerDataItem(title: imageName, icon: image)
+                            directories[i.offset].items.append(item)
+                        }
+                    }
+                }
+            } catch let error {
+                print(error)
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        readImages()
+    }
 }

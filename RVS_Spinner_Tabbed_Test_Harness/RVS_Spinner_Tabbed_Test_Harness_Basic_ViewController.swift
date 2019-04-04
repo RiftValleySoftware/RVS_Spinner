@@ -100,45 +100,14 @@ class RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController: RVS_Spinner_Tabbed_T
             inSubView.trailingAnchor.constraint(equalTo: guide.trailingAnchor).isActive = true
             inSubView.centerYAnchor.constraint(equalTo: inPrevious.centerYAnchor).isActive = true
         }
-
-        if let resourcePath = Bundle.main.resourcePath {
-            var directories: [RVS_Spinner_Tabbed_Test_Harness_DirElement] = []
-            
-            let rootPath =  "\(resourcePath)/DisplayImages"
-            
-            // What we do here, is load in the image directories, and assign each one to a switch segment.
-            do {
-                let dirPaths = try FileManager.default.contentsOfDirectory(atPath: rootPath).sorted()
-
-                dirPaths.forEach {
-                    let path = rootPath + "/" + $0
-                    let name = String($0[$0.index($0.startIndex, offsetBy: 3)...])
-                    directories.append(RVS_Spinner_Tabbed_Test_Harness_DirElement(name: name, path: path, items: []))
-                }
-                
-                directories = directories.sorted()
-                
-                for i in directories.enumerated() {
-                    let imagePaths = try FileManager.default.contentsOfDirectory(atPath: i.element.path).sorted()
-                    
-                    imagePaths.forEach {
-                        if let imageFile = FileManager.default.contents(atPath: "\(i.element.path)/\($0)"), let image = UIImage(data: imageFile) {
-                            // The name is the filename, minus the file extension.
-                            let imageName = String($0.prefix($0.count - 4))
-                            let item = RVS_SpinnerDataItem(title: imageName, icon: image)
-                            directories[i.offset].items.append(item)
-                        }
-                    }
-                }
-                
-                directories.forEach {
-                    _imageSelectorChoices.append($0.items)
-                }
-            } catch let error {
-                print(error)
+        
+        if let tabController = tabBarController as? RVS_Spinner_Tabbed_Test_Harness_TabBarController {
+            tabController.directories.forEach {
+                _imageSelectorChoices.append($0.items)
             }
-
-            let segmentNames = directories.compactMap { $0.name + " (" + String($0.items.count) + ")" }
+            
+            let segmentNames = tabController.directories.compactMap { $0.name + " (" + String($0.items.count) + ")" }
+            
             _imageSelector = UISegmentedControl(items: segmentNames)
             _imageSelector.tintColor = UIColor.white
             _imageSelector.backgroundColor = UIColor.clear
@@ -168,7 +137,7 @@ class RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController: RVS_Spinner_Tabbed_T
             addPickerLabel(pickerLabel, to: self.view, previous: modeSwitch)
         }
     }
-
+    
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**

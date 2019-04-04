@@ -43,6 +43,7 @@
 		D49B3726224D1A850049EEDE /* RVS_Spinner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D428DB292169391D004B130B /* RVS_Spinner.framework */; };
 		D49B3729224D646F0049EEDE /* RVS_Spinner.framework in Copy Embedded Frameworks */ = {isa = PBXBuildFile; fileRef = D428DB292169391D004B130B /* RVS_Spinner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D4BC35D42255682A00D1646C /* RVS_Spinner_Tabbed_Test_Harness_Spinner_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BC35D32255682A00D1646C /* RVS_Spinner_Tabbed_Test_Harness_Spinner_ViewController.swift */; };
+		D4BF0FF0225610FE0056F533 /* RVS_Spinner_Tabbed_Test_Harness_FourPart_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BF0FEF225610FE0056F533 /* RVS_Spinner_Tabbed_Test_Harness_FourPart_ViewController.swift */; };
 		D4D7E69F224D800B00613FB8 /* RVS_Spinner_Basic_Test_Harness_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40705E2224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness_AppDelegate.swift */; };
 		D4E7592B2253B42C00A88091 /* RVS_Spinner_Tabbed_Test_Harness_NavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E7592A2253B42C00A88091 /* RVS_Spinner_Tabbed_Test_Harness_NavController.swift */; };
 		D4E7592F2253B47000A88091 /* RVS_Spinner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D428DB292169391D004B130B /* RVS_Spinner.framework */; };
@@ -379,6 +380,7 @@
 		D4BEEDC32250F486007BA3AD /* SpinnerOptions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpinnerOptions.png; sourceTree = "<group>"; };
 		D4BEEDC42250F486007BA3AD /* OpenSpinner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OpenSpinner.png; sourceTree = "<group>"; };
 		D4BEEDC62250F486007BA3AD /* OpenPicker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OpenPicker.png; sourceTree = "<group>"; };
+		D4BF0FEF225610FE0056F533 /* RVS_Spinner_Tabbed_Test_Harness_FourPart_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_Spinner_Tabbed_Test_Harness_FourPart_ViewController.swift; sourceTree = "<group>"; };
 		D4C0D2B72252A2C100D69C46 /* TestHarnessScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TestHarnessScreen.png; sourceTree = "<group>"; };
 		D4E7592A2253B42C00A88091 /* RVS_Spinner_Tabbed_Test_Harness_NavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_Spinner_Tabbed_Test_Harness_NavController.swift; sourceTree = "<group>"; };
 		D4E759332253B68D00A88091 /* RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController.swift; sourceTree = "<group>"; };
@@ -573,6 +575,7 @@
 				D4E759332253B68D00A88091 /* RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController.swift */,
 				D44CE79E22537BF800B8AB51 /* RVS_Spinner_Tabbed_Test_Harness_Basic_Centered_ViewController.swift */,
 				D445CA672254FAFD008751F6 /* RVS_Spinner_Tabbed_Test_Harness_Rotator_ViewController.swift */,
+				D4BF0FEF225610FE0056F533 /* RVS_Spinner_Tabbed_Test_Harness_FourPart_ViewController.swift */,
 				D44CE7A022537BF800B8AB51 /* RVS_Spinner_Tabbed_Test_Harness_Bottom_Right_ViewController.swift */,
 				D44CE7A222537BF800B8AB51 /* Main.storyboard */,
 				D4E759362253CAD900A88091 /* DisplayImages */,
@@ -953,6 +956,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4BF0FF0225610FE0056F533 /* RVS_Spinner_Tabbed_Test_Harness_FourPart_ViewController.swift in Sources */,
 				D4E759342253B68D00A88091 /* RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController.swift in Sources */,
 				D44CE7AF2253894200B8AB51 /* RVS_Spinner_Tabbed_Test_Harness_TabBarController.swift in Sources */,
 				D44CE7A122537BF800B8AB51 /* RVS_Spinner_Tabbed_Test_Harness_Bottom_Right_ViewController.swift in Sources */,

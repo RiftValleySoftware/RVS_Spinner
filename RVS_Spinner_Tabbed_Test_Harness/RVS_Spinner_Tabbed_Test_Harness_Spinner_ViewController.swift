@@ -28,20 +28,6 @@ import RVS_Spinner
 /// This is a simple tuple that we use to hold an iterated value.
 typealias ShapeValueTuple = (name: String, image: UIImage)
 
-struct RVS_Spinner_Tabbed_Test_Harness_DirElement: Comparable, Equatable {
-    static func < (lhs: RVS_Spinner_Tabbed_Test_Harness_DirElement, rhs: RVS_Spinner_Tabbed_Test_Harness_DirElement) -> Bool {
-        return lhs.path < rhs.path
-    }
-    
-    static func == (lhs: RVS_Spinner_Tabbed_Test_Harness_DirElement, rhs: RVS_Spinner_Tabbed_Test_Harness_DirElement) -> Bool {
-        return lhs.path == rhs.path
-    }
-    
-    var name: String = ""
-    var path: String = ""
-    var items: [RVS_SpinnerDataItem] = []
-}
-
 /* ###################################################################################################################################### */
 // MARK: - The Main View Controller Class
 /* ###################################################################################################################################### */
