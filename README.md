@@ -90,7 +90,7 @@ INTERFACE BUILDER/STORYBOARD EDITOR OPTIONS
 -
 Once you assign the [`RVS_Spinner`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html) class to the [`UIView`](https://developer.apple.com/documentation/uikit/uiview), a number of options will appear in the Attributes Inspector for the Spinner:
 
-![The Spinner Attributes Inspector Options](https://riftvalleysoftware.com/RVS_Spinner/img/SpinnerOptions.png)
+![The Spinner Attributes Inspector Options](https://riftvalleysoftware.com/RVS_Spinner/img/IBOptions.png)
 
 1. **Open Background Color**
 This is a color to display behind the open radial spinner or picker. By default, it is clear.

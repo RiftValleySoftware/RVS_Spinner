@@ -479,18 +479,18 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="yyb-hL-mhs" firstAttribute="centerX" secondItem="jkV-hd-0li" secondAttribute="centerX" multiplier="0.5" id="0i5-C4-jp7"/>
                                     <constraint firstItem="lQi-5f-Qhp" firstAttribute="width" secondItem="lQi-5f-Qhp" secondAttribute="height" multiplier="1:1" id="6A4-NQ-1dD"/>
                                     <constraint firstItem="lQi-5f-Qhp" firstAttribute="height" secondItem="yyb-hL-mhs" secondAttribute="height" id="6Ae-7Y-OP2"/>
                                     <constraint firstItem="ee1-jC-tdc" firstAttribute="height" secondItem="yyb-hL-mhs" secondAttribute="height" id="8V4-uW-PAf"/>
+                                    <constraint firstItem="yyb-hL-mhs" firstAttribute="leading" secondItem="jkV-hd-0li" secondAttribute="leading" id="H2u-38-2j9"/>
                                     <constraint firstItem="yyb-hL-mhs" firstAttribute="height" relation="lessThanOrEqual" secondItem="jkV-hd-0li" secondAttribute="height" multiplier="0.5" id="Ik1-gY-9uq"/>
                                     <constraint firstAttribute="width" secondItem="jkV-hd-0li" secondAttribute="height" multiplier="1:1" id="J6r-Sl-NV6"/>
                                     <constraint firstItem="ee1-jC-tdc" firstAttribute="trailing" secondItem="yyb-hL-mhs" secondAttribute="trailing" id="KJX-tv-wdd"/>
                                     <constraint firstItem="ee1-jC-tdc" firstAttribute="top" secondItem="yyb-hL-mhs" secondAttribute="bottom" id="MeB-Fu-f6C"/>
                                     <constraint firstItem="BSi-Hk-Btp" firstAttribute="leading" secondItem="yyb-hL-mhs" secondAttribute="trailing" id="RKG-eD-X8n"/>
                                     <constraint firstItem="lQi-5f-Qhp" firstAttribute="leading" secondItem="ee1-jC-tdc" secondAttribute="trailing" id="TNT-63-Ihd"/>
+                                    <constraint firstItem="yyb-hL-mhs" firstAttribute="top" secondItem="jkV-hd-0li" secondAttribute="top" id="TgI-Lp-vVd"/>
                                     <constraint firstItem="BSi-Hk-Btp" firstAttribute="width" secondItem="BSi-Hk-Btp" secondAttribute="height" multiplier="1:1" id="Zmm-In-5Zk"/>
-                                    <constraint firstItem="yyb-hL-mhs" firstAttribute="centerY" secondItem="jkV-hd-0li" secondAttribute="centerY" multiplier="0.5" id="ZnY-TD-iAO"/>
                                     <constraint firstItem="BSi-Hk-Btp" firstAttribute="width" secondItem="yyb-hL-mhs" secondAttribute="width" id="aR9-OK-k3r"/>
                                     <constraint firstItem="ee1-jC-tdc" firstAttribute="width" secondItem="ee1-jC-tdc" secondAttribute="height" multiplier="1:1" id="crp-dV-O5J"/>
                                     <constraint firstItem="lQi-5f-Qhp" firstAttribute="top" secondItem="BSi-Hk-Btp" secondAttribute="bottom" id="fVg-74-nO8"/>
