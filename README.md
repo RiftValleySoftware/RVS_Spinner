@@ -194,11 +194,11 @@ The basic test harness target imports the compiled framework, so it does provide
 
 It is a simple 1-view app, with a single window:
 
-![The Test Harness Screen](https://riftvalleysoftware.com/RVS_Spinner/img/TestHarnessScreen.png)
+![The Test Harness Screen](https://riftvalleysoftware.com/RVS_Spinner/img/NewTestHarnessScreen.png)
 
 The controls operate in real time on the instance of [`RVS_Spinner`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html), displayed above the control panel:
 
-The red "**Associated Text #*XX***" is a label that displays test data that was associated with each of 20 data items used for testing. The `value` property of each item was set to a [`String`](https://developer.apple.com/documentation/swift/string), which is displayed as that item is selected.
+The white "**Associated Text #*XX* (*XXXXX*)***" is a label that displays test data that was associated with each of 20 data items used for testing. The `value` property of each item was set to a [`String`](https://developer.apple.com/documentation/swift/string), which is displayed as that item is selected.
 
 The "**Spinner/Picker Threshold**" Segmented Switch will affect the "**Spinner Threshold**" property, described above. It is only enabled for the "**Both**" Spinner Mode (discussed below)
 
@@ -233,6 +233,21 @@ These links will download .zip files, which expand into small project directorie
 TABBED TEST HARNESS APP
 =
 There is another test harness app that uses a tabbed layout to show the control in a few different scenarios, using tricky auto-layout techniques.
+
+![The First Tab](https://riftvalleysoftware.com/RVS_Spinner/img/Tab0.png)
+The first tab is a simple centered control. You can choose the dataset to use, and whether or not it is forced as a spinner or picker.
+
+![The Second Tab](https://riftvalleysoftware.com/RVS_Spinner/img/Tab1.png)
+The second tab is a control that is crammed all the way into the bottom right corner, and is rotated 45 degrees counter-clockwise.
+
+![The Third Tab](https://riftvalleysoftware.com/RVS_Spinner/img/Tab2-Comp.png)
+The third tab is demonstrates rotation. This image shows rotation compensation on. The slider controls the rotation, and the enclosing view is shown as a slightly darker square.
+
+![The Third Tab](https://riftvalleysoftware.com/RVS_Spinner/img/Tab2-Uncomp.png)
+This image shows rotation compensation off.
+
+![The Fourth Tab](https://riftvalleysoftware.com/RVS_Spinner/img/Tab3.png)
+The fourth tab is a bit crazy. It's four independent controls, broken into quarters of the screen, and each rotated 45 degrees off the plane, but mortised together in the middle.
 
 DEPENDENCIES
 =

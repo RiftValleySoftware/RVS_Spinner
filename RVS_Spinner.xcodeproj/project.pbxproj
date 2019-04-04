@@ -339,6 +339,18 @@
 		D40705E9224A9FC700F1E8A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D40705EC224A9FC700F1E8A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D40705EE224A9FC700F1E8A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D41D944822569DD600BDB082 /* NewTestHarnessScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NewTestHarnessScreen.png; sourceTree = "<group>"; };
+		D41D944922569DD600BDB082 /* Tab2-Uncomp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tab2-Uncomp.png"; sourceTree = "<group>"; };
+		D41D944A22569DD600BDB082 /* Tab0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tab0.png; sourceTree = "<group>"; };
+		D41D944B22569DD600BDB082 /* Tab1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tab1.png; sourceTree = "<group>"; };
+		D41D944C22569DD600BDB082 /* Tab2-Comp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tab2-Comp.png"; sourceTree = "<group>"; };
+		D41D944D22569DD600BDB082 /* Tab3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tab3.png; sourceTree = "<group>"; };
+		D41E48B522569AC600505C49 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D41E48B722569AC600505C49 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D41E48BA22569AC600505C49 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D41E48BC22569AC700505C49 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D41E48BF22569AC700505C49 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D41E48C122569AC700505C49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D428DB292169391D004B130B /* RVS_Spinner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RVS_Spinner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D428DB2D2169391D004B130B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D428DB43216939A9004B130B /* RVS_Spinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_Spinner.swift; sourceTree = "<group>"; };
@@ -497,12 +509,26 @@
 			path = RVS_Spinner_Basic_Test_Harness;
 			sourceTree = "<group>";
 		};
+		D41E48B422569AC600505C49 /* ShouldntLeak */ = {
+			isa = PBXGroup;
+			children = (
+				D41E48B522569AC600505C49 /* AppDelegate.swift */,
+				D41E48B722569AC600505C49 /* ViewController.swift */,
+				D41E48B922569AC600505C49 /* Main.storyboard */,
+				D41E48BC22569AC700505C49 /* Assets.xcassets */,
+				D41E48BE22569AC700505C49 /* LaunchScreen.storyboard */,
+				D41E48C122569AC700505C49 /* Info.plist */,
+			);
+			path = ShouldntLeak;
+			sourceTree = "<group>";
+		};
 		D428DB1F2169391D004B130B = {
 			isa = PBXGroup;
 			children = (
 				D428DB2B2169391D004B130B /* RVS_Spinner */,
 				D40705E1224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness */,
 				D44CE79B22537BF800B8AB51 /* RVS_Spinner_Tabbed_Test_Harness */,
+				D41E48B422569AC600505C49 /* ShouldntLeak */,
 				D428DB2A2169391D004B130B /* Products */,
 				D44B3102224AAE9300BFE4AE /* spec */,
 				D4BEEDC02250F486007BA3AD /* img */,
@@ -594,6 +620,12 @@
 				D4BEEDC32250F486007BA3AD /* SpinnerOptions.png */,
 				D4BEEDC42250F486007BA3AD /* OpenSpinner.png */,
 				D4BEEDC62250F486007BA3AD /* OpenPicker.png */,
+				D41D944822569DD600BDB082 /* NewTestHarnessScreen.png */,
+				D41D944A22569DD600BDB082 /* Tab0.png */,
+				D41D944B22569DD600BDB082 /* Tab1.png */,
+				D41D944C22569DD600BDB082 /* Tab2-Comp.png */,
+				D41D944922569DD600BDB082 /* Tab2-Uncomp.png */,
+				D41D944D22569DD600BDB082 /* Tab3.png */,
 				D4C0D2B72252A2C100D69C46 /* TestHarnessScreen.png */,
 			);
 			path = img;
@@ -996,6 +1028,22 @@
 			isa = PBXVariantGroup;
 			children = (
 				D40705EC224A9FC700F1E8A2 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D41E48B922569AC600505C49 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D41E48BA22569AC600505C49 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D41E48BE22569AC700505C49 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D41E48BF22569AC700505C49 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
