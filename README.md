@@ -130,6 +130,14 @@ You can also attach any arbitrary data item to an instance of [`RVS_SpinnerDataI
 
 You need to provide this array programmatically. You assign it to the [`RVS_Spinner.values`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html) property, and the data will be immediately available to use.
 
+ROTATION
+-
+You can rotate the control, and the center can compensate. There is a property, called "`isCompensatingForContainerRotation`," that will force the icon in the center to always be vertical, despite the rotation of the control. By default, this is true. Setting it to false will cause the center icon to rotate to match the control rotation.
+
+You should not rotate the control. Instead, you should rotate the enclosing view (the one that constrains and defines the open spinner and picker). This ensures that all gestures are also rotated properly.
+
+Rotation should be done programmatically, by setting the [`transform` property](https://developer.apple.com/documentation/uikit/uiview/1622459-transform) of the spinners' superview.
+
 Here is an example code snippet (from the Test Harness app):
 
 First, we set up the data array to be set to the control:
@@ -180,9 +188,9 @@ USAGE
 -
 A lot has already been covered, here, and the test harness app will help to show some real-world implementation, but you change the selected index (which item is selected as the current value) by altering the 0-based index in [`RVS_Spinner.selectedIndex`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html). [`RVS_Spinner.value`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html) cannot be set. It is a read-only property.
 
-TEST HARNESS APP
+BASIC TEST HARNESS APP
 =
-The test harness target imports the compiled framework, so it does provide a real-world application of [`RVS_Spinner`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html).
+The basic test harness target imports the compiled framework, so it does provide a real-world application of [`RVS_Spinner`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html).
 
 It is a simple 1-view app, with a single window:
 
@@ -221,6 +229,10 @@ There are two simple examples, featuring the test harness app, that show how to 
 - [Here is an example, where we directly import the source file](https://riftvalleysoftware.com/RVS_Spinner/RVS_Spinner-Standalone-Demo.zip)
 
 These links will download .zip files, which expand into small project directories.
+
+TABBED TEST HARNESS APP
+=
+There is another test harness app that uses a tabbed layout to show the control in a few different scenarios, using tricky auto-layout techniques.
 
 DEPENDENCIES
 =

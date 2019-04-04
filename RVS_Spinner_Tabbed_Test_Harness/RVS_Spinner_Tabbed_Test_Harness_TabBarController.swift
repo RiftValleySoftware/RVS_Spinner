@@ -71,8 +71,8 @@ class RVS_Spinner_Tabbed_Test_Harness_TabBarController: UITabBarController {
                     
                     imagePaths.forEach {
                         if let imageFile = FileManager.default.contents(atPath: "\(i.element.path)/\($0)"), let image = UIImage(data: imageFile) {
-                            // The name is the filename, minus the file extension.
-                            let imageName = String($0.prefix($0.count - 4))
+                            // The name is the filename, minus the file extension, and minus the numbers in front.
+                            let imageName = String($0.prefix($0.count - 4)[$0.index($0.startIndex, offsetBy: 3)...])
                             let item = RVS_SpinnerDataItem(title: imageName, icon: image)
                             directories[i.offset].items.append(item)
                         }
