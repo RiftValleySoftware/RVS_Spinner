@@ -237,18 +237,25 @@ TABBED TEST HARNESS APP
 There is another test harness app that uses a tabbed layout to show the control in a few different scenarios, using tricky auto-layout techniques.
 
 ![The First Tab](https://riftvalleysoftware.com/RVS_Spinner/img/Tab0.png)
+
 The first tab is a simple centered control. You can choose the dataset to use, and whether or not it is forced as a spinner or picker.
 
 ![The Second Tab](https://riftvalleysoftware.com/RVS_Spinner/img/Tab1.png)
+
 The second tab is a control that is crammed all the way into the bottom right corner, and is rotated 45 degrees counter-clockwise.
 
-![The Third Tab](https://riftvalleysoftware.com/RVS_Spinner/img/Tab2-Comp.png)
-The third tab is demonstrates rotation. This image shows rotation compensation on. The slider controls the rotation, and the enclosing view is shown as a slightly darker square.
+![The Third Tab with Rotation Compensation On](https://riftvalleysoftware.com/RVS_Spinner/img/Tab2-Comp.png)
 
-![The Third Tab](https://riftvalleysoftware.com/RVS_Spinner/img/Tab2-Uncomp.png)
-This image shows rotation compensation off.
+The third tab is demonstrates rotation. The slider controls the rotation, and the enclosing view is shown as a slightly darker square.
+
+ The above image shows rotation compensation on. Note that the center icon is vertical, despite the fact that the control is rotated.
+
+![The Third Tab with Rotation Compensation Off](https://riftvalleysoftware.com/RVS_Spinner/img/Tab2-Uncomp.png)
+
+This image shows rotation compensation off. Note that the icon in the middle is now tilted.
 
 ![The Fourth Tab](https://riftvalleysoftware.com/RVS_Spinner/img/Tab3.png)
+
 The fourth tab is a bit crazy. It's four independent controls, broken into quarters of the screen, and each rotated 45 degrees off the plane, but mortised together in the middle.
 
 DEPENDENCIES
