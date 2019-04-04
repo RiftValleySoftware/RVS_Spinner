@@ -192,6 +192,8 @@ BASIC TEST HARNESS APP
 =
 The basic test harness target imports the compiled framework, so it does provide a real-world application of [`RVS_Spinner`](https://riftvalleysoftware.com/RVS_Spinner/Classes/RVS_Spinner.html).
 
+This application gives access to a lot of the "knobs and buttons" for the spinner.
+
 It is a simple 1-view app, with a single window:
 
 ![The Test Harness Screen](https://riftvalleysoftware.com/RVS_Spinner/img/NewTestHarnessScreen.png)

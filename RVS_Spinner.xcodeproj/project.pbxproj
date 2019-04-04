@@ -512,7 +512,6 @@
 				D428DB2A2169391D004B130B /* Products */,
 				D44B3102224AAE9300BFE4AE /* spec */,
 				D4BEEDC02250F486007BA3AD /* img */,
-				D4E7592E2253B47000A88091 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -609,13 +608,6 @@
 				D4C0D2B72252A2C100D69C46 /* TestHarnessScreen.png */,
 			);
 			path = img;
-			sourceTree = "<group>";
-		};
-		D4E7592E2253B47000A88091 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D4E759362253CAD900A88091 /* DisplayImages */ = {
