@@ -138,6 +138,9 @@ You should not rotate the control. Instead, you should rotate the enclosing view
 
 Rotation should be done programmatically, by setting the [`transform` property](https://developer.apple.com/documentation/uikit/uiview/1622459-transform) of the spinners' superview.
 
+CODE SAMPLE
+-
+
 Here is an example code snippet (from the Test Harness app):
 
 First, we set up the data array to be set to the control:
