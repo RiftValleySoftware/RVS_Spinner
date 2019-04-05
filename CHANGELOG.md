@@ -1,3 +1,6 @@
+*Version 2.1.1* **TBD**
+- Added a "Leak Test" test harness app, for testing for memory leaks.
+
 *Version 2.1.0* **April 4, 2019**
 - Adding the tabbed test harness app (tries the control in multiple scenarios).
 - Added a real purdy splash screen.

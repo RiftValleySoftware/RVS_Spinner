@@ -42,8 +42,15 @@
 		D44CE7AF2253894200B8AB51 /* RVS_Spinner_Tabbed_Test_Harness_TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44CE7AE2253894200B8AB51 /* RVS_Spinner_Tabbed_Test_Harness_TabBarController.swift */; };
 		D49B3726224D1A850049EEDE /* RVS_Spinner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D428DB292169391D004B130B /* RVS_Spinner.framework */; };
 		D49B3729224D646F0049EEDE /* RVS_Spinner.framework in Copy Embedded Frameworks */ = {isa = PBXBuildFile; fileRef = D428DB292169391D004B130B /* RVS_Spinner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D4B039A522576DBD004031FF /* RVS_Spinner_Leak_Test_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B039A422576DBD004031FF /* RVS_Spinner_Leak_Test_AppDelegate.swift */; };
+		D4B039A722576DBD004031FF /* RVS_Spinner_Leak_Test_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B039A622576DBD004031FF /* RVS_Spinner_Leak_Test_ViewController.swift */; };
+		D4B039AA22576DBD004031FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4B039A822576DBD004031FF /* Main.storyboard */; };
+		D4B039AC22576DBD004031FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4B039AB22576DBD004031FF /* Assets.xcassets */; };
+		D4B039AF22576DBD004031FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4B039AD22576DBD004031FF /* LaunchScreen.storyboard */; };
 		D4BC35D42255682A00D1646C /* RVS_Spinner_Tabbed_Test_Harness_Spinner_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BC35D32255682A00D1646C /* RVS_Spinner_Tabbed_Test_Harness_Spinner_ViewController.swift */; };
 		D4BF0FF0225610FE0056F533 /* RVS_Spinner_Tabbed_Test_Harness_FourPart_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BF0FEF225610FE0056F533 /* RVS_Spinner_Tabbed_Test_Harness_FourPart_ViewController.swift */; };
+		D4CC804722576F3B00873FA6 /* RVS_Spinner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D428DB292169391D004B130B /* RVS_Spinner.framework */; };
+		D4CC804922576F5500873FA6 /* RVS_Spinner.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D428DB292169391D004B130B /* RVS_Spinner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D4D7E69F224D800B00613FB8 /* RVS_Spinner_Basic_Test_Harness_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40705E2224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness_AppDelegate.swift */; };
 		D4E7592B2253B42C00A88091 /* RVS_Spinner_Tabbed_Test_Harness_NavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E7592A2253B42C00A88091 /* RVS_Spinner_Tabbed_Test_Harness_NavController.swift */; };
 		D4E7592F2253B47000A88091 /* RVS_Spinner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D428DB292169391D004B130B /* RVS_Spinner.framework */; };
@@ -136,6 +143,13 @@
 			remoteGlobalIDString = D428DB282169391D004B130B;
 			remoteInfo = RVS_Spinner;
 		};
+		D4CC804422576F3100873FA6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D428DB202169391D004B130B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D428DB282169391D004B130B;
+			remoteInfo = RVS_Spinner;
+		};
 		D4E7592C2253B46400A88091 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D428DB202169391D004B130B /* Project object */;
@@ -185,6 +199,17 @@
 				D49B3729224D646F0049EEDE /* RVS_Spinner.framework in Copy Embedded Frameworks */,
 			);
 			name = "Copy Embedded Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4CC804822576F3F00873FA6 /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D4CC804922576F5500873FA6 /* RVS_Spinner.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4E759302253B48500A88091 /* Copy Embedded Frameworks */ = {
@@ -380,6 +405,13 @@
 		D44CE7AA22537BF900B8AB51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D44CE7AE2253894200B8AB51 /* RVS_Spinner_Tabbed_Test_Harness_TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_Spinner_Tabbed_Test_Harness_TabBarController.swift; sourceTree = "<group>"; };
 		D45621F62253E19B001CD2A0 /* icon.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = icon.pdf; sourceTree = "<group>"; };
+		D4B039A222576DBD004031FF /* RVS_Spinner_Leak_Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RVS_Spinner_Leak_Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4B039A422576DBD004031FF /* RVS_Spinner_Leak_Test_AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_Spinner_Leak_Test_AppDelegate.swift; sourceTree = "<group>"; };
+		D4B039A622576DBD004031FF /* RVS_Spinner_Leak_Test_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_Spinner_Leak_Test_ViewController.swift; sourceTree = "<group>"; };
+		D4B039A922576DBD004031FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D4B039AB22576DBD004031FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D4B039AE22576DBD004031FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D4B039B022576DBD004031FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4BC35D32255682A00D1646C /* RVS_Spinner_Tabbed_Test_Harness_Spinner_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_Spinner_Tabbed_Test_Harness_Spinner_ViewController.swift; sourceTree = "<group>"; };
 		D4BEEDC12250F486007BA3AD /* PickerPopup.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = PickerPopup.gif; sourceTree = "<group>"; };
 		D4BEEDC22250F486007BA3AD /* SpinnerPopup.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = SpinnerPopup.gif; sourceTree = "<group>"; };
@@ -486,6 +518,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D4B0399F22576DBD004031FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4CC804722576F3B00873FA6 /* RVS_Spinner.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -511,6 +551,7 @@
 				D428DB2A2169391D004B130B /* Products */,
 				D44B3102224AAE9300BFE4AE /* spec */,
 				D4BEEDC02250F486007BA3AD /* img */,
+				D4CC804622576F3B00873FA6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -520,6 +561,7 @@
 				D428DB292169391D004B130B /* RVS_Spinner.framework */,
 				D40705E0224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness.app */,
 				D44CE79A22537BF800B8AB51 /* RVS_Spinner_Tabbed_Test_Harness.app */,
+				D4B039A222576DBD004031FF /* RVS_Spinner_Leak_Test.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -563,6 +605,7 @@
 		D446FBF52256D79900839304 /* Test Apps */ = {
 			isa = PBXGroup;
 			children = (
+				D4B039A322576DBD004031FF /* RVS_Spinner_Leak_Test */,
 				D40705E1224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness */,
 				D44CE79B22537BF800B8AB51 /* RVS_Spinner_Tabbed_Test_Harness */,
 			);
@@ -599,6 +642,19 @@
 			path = RVS_Spinner_Tabbed_Test_Harness;
 			sourceTree = "<group>";
 		};
+		D4B039A322576DBD004031FF /* RVS_Spinner_Leak_Test */ = {
+			isa = PBXGroup;
+			children = (
+				D4B039A422576DBD004031FF /* RVS_Spinner_Leak_Test_AppDelegate.swift */,
+				D4B039A622576DBD004031FF /* RVS_Spinner_Leak_Test_ViewController.swift */,
+				D4B039A822576DBD004031FF /* Main.storyboard */,
+				D4B039AB22576DBD004031FF /* Assets.xcassets */,
+				D4B039AD22576DBD004031FF /* LaunchScreen.storyboard */,
+				D4B039B022576DBD004031FF /* Info.plist */,
+			);
+			path = RVS_Spinner_Leak_Test;
+			sourceTree = "<group>";
+		};
 		D4BEEDC02250F486007BA3AD /* img */ = {
 			isa = PBXGroup;
 			children = (
@@ -616,6 +672,13 @@
 				D4C0D2B72252A2C100D69C46 /* TestHarnessScreen.png */,
 			);
 			path = img;
+			sourceTree = "<group>";
+		};
+		D4CC804622576F3B00873FA6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D4E759362253CAD900A88091 /* DisplayImages */ = {
@@ -817,6 +880,26 @@
 			productReference = D44CE79A22537BF800B8AB51 /* RVS_Spinner_Tabbed_Test_Harness.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D4B039A122576DBD004031FF /* RVS_Spinner_Leak_Test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4B039B322576DBD004031FF /* Build configuration list for PBXNativeTarget "RVS_Spinner_Leak_Test" */;
+			buildPhases = (
+				D4CC804322576F0F00873FA6 /* SwiftLINT */,
+				D4B0399E22576DBD004031FF /* Sources */,
+				D4CC804822576F3F00873FA6 /* Copy Frameworks */,
+				D4B0399F22576DBD004031FF /* Frameworks */,
+				D4B039A022576DBD004031FF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D4CC804522576F3100873FA6 /* PBXTargetDependency */,
+			);
+			name = RVS_Spinner_Leak_Test;
+			productName = RVS_Spinner_Leak_Test;
+			productReference = D4B039A222576DBD004031FF /* RVS_Spinner_Leak_Test.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -837,6 +920,9 @@
 					D44CE79922537BF800B8AB51 = {
 						CreatedOnToolsVersion = 10.2;
 					};
+					D4B039A122576DBD004031FF = {
+						CreatedOnToolsVersion = 10.2;
+					};
 				};
 			};
 			buildConfigurationList = D428DB232169391D004B130B /* Build configuration list for PBXProject "RVS_Spinner" */;
@@ -855,6 +941,7 @@
 				D428DB282169391D004B130B /* RVS_Spinner */,
 				D40705DF224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness */,
 				D44CE79922537BF800B8AB51 /* RVS_Spinner_Tabbed_Test_Harness */,
+				D4B039A122576DBD004031FF /* RVS_Spinner_Leak_Test */,
 			);
 		};
 /* End PBXProject section */
@@ -884,6 +971,16 @@
 				D44CE7A922537BF900B8AB51 /* LaunchScreen.storyboard in Resources */,
 				D44CE7A622537BF900B8AB51 /* Assets.xcassets in Resources */,
 				D44CE7A422537BF800B8AB51 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4B039A022576DBD004031FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4B039AF22576DBD004031FF /* LaunchScreen.storyboard in Resources */,
+				D4B039AC22576DBD004031FF /* Assets.xcassets in Resources */,
+				D4B039AA22576DBD004031FF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -926,6 +1023,24 @@
 			shellPath = /bin/sh;
 			shellScript = "if test -f \"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"\nfi\n";
 		};
+		D4CC804322576F0F00873FA6 /* SwiftLINT */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLINT;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if test -f \"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"\nfi\n";
+		};
 		D4E759322253B4B900A88091 /* SwiftLINT */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -942,7 +1057,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if test -f \"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"; then\n\"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"\nfi\n    \n";
+			shellScript = "if test -f \"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"\nfi\n    \n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -980,6 +1095,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D4B0399E22576DBD004031FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4B039A722576DBD004031FF /* RVS_Spinner_Leak_Test_ViewController.swift in Sources */,
+				D4B039A522576DBD004031FF /* RVS_Spinner_Leak_Test_AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -987,6 +1111,11 @@
 			isa = PBXTargetDependency;
 			target = D428DB282169391D004B130B /* RVS_Spinner */;
 			targetProxy = D49B3723224D1A690049EEDE /* PBXContainerItemProxy */;
+		};
+		D4CC804522576F3100873FA6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D428DB282169391D004B130B /* RVS_Spinner */;
+			targetProxy = D4CC804422576F3100873FA6 /* PBXContainerItemProxy */;
 		};
 		D4E7592D2253B46400A88091 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1024,6 +1153,22 @@
 			isa = PBXVariantGroup;
 			children = (
 				D44CE7A822537BF900B8AB51 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D4B039A822576DBD004031FF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4B039A922576DBD004031FF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D4B039AD22576DBD004031FF /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4B039AE22576DBD004031FF /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1291,6 +1436,44 @@
 			};
 			name = Release;
 		};
+		D4B039B122576DBD004031FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KSAUGZFWP2;
+				INFOPLIST_FILE = RVS_Spinner_Leak_Test/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-Spinner-Leak-Test";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D4B039B222576DBD004031FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KSAUGZFWP2;
+				INFOPLIST_FILE = RVS_Spinner_Leak_Test/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-Spinner-Leak-Test";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1326,6 +1509,15 @@
 			buildConfigurations = (
 				D44CE7AC22537BF900B8AB51 /* Debug */,
 				D44CE7AD22537BF900B8AB51 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D4B039B322576DBD004031FF /* Build configuration list for PBXNativeTarget "RVS_Spinner_Leak_Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4B039B122576DBD004031FF /* Debug */,
+				D4B039B222576DBD004031FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Spinner Leak Test View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="RVS_Spinner_Leak_Test_ViewController" customModule="RVS_Spinner_Leak_Test" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="PAw-EA-txT">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="01g-cu-PCY" customClass="RVS_Spinner" customModule="RVS_Spinner">
+                                <rect key="frame" x="175" y="416" width="64" height="64"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="SYm-Kg-FD9"/>
+                                    <constraint firstAttribute="width" secondItem="01g-cu-PCY" secondAttribute="height" multiplier="1:1" id="WK1-Lh-aDC"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="openBackgroundColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="01g-cu-PCY" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="1Xr-im-3cj"/>
+                            <constraint firstAttribute="bottom" secondItem="PAw-EA-txT" secondAttribute="bottom" id="3QL-7x-Fc7"/>
+                            <constraint firstItem="PAw-EA-txT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="91j-8j-qFZ"/>
+                            <constraint firstItem="PAw-EA-txT" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="W8g-pt-vym"/>
+                            <constraint firstItem="01g-cu-PCY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fMn-0u-6IC"/>
+                            <constraint firstItem="PAw-EA-txT" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="t2a-gq-5X6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="spinner" destination="01g-cu-PCY" id="KGt-tg-jW2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="131.8840579710145" y="138.61607142857142"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="background-gradient" width="1" height="1000"/>
+    </resources>
+</document>
