@@ -34,6 +34,10 @@
                                         <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="spinnerEvent:" destination="BYZ-38-t0r" eventType="valueChanged" id="Fnh-7j-hN3"/>
+                                    <action selector="spinnerEvent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fTj-p6-lUA"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
