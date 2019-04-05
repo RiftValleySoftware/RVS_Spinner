@@ -1,5 +1,6 @@
-*Version 2.1.1* **TBD**
+*Version 2.1.1* **April 5, 2019**
 - Added a "Leak Test" test harness app, for testing for memory leaks.
+- There was no change to the framework, but I need to increase the version for CocoaPods.
 
 *Version 2.1.0* **April 4, 2019**
 - Adding the tabbed test harness app (tries the control in multiple scenarios).
