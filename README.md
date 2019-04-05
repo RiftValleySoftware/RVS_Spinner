@@ -246,7 +246,7 @@ The second tab is a control that is crammed all the way into the bottom right co
 
 ![The Third Tab with Rotation Compensation On](https://riftvalleysoftware.com/RVS_Spinner/img/Tab2-Comp.png)
 
-The third tab is demonstrates rotation. The slider controls the rotation, and the enclosing view is shown as a slightly darker square.
+The third tab demonstrates rotation. The slider controls the rotation, and the enclosing view is shown as a slightly darker square.
 
  The above image shows rotation compensation on. Note that the center icon is vertical, despite the fact that the control is rotated.
 
