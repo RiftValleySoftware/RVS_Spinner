@@ -9,8 +9,15 @@
 import UIKit
 import RVS_Spinner
 
+/* ###################################################################################################################################### */
+// This is a completely simple app that is only meant to be used in "Profile" mode, for testing fundamental characteristics, like memory leaks.
+/* ###################################################################################################################################### */
 class RVS_Spinner_Leak_Test_ViewController: UIViewController, RVS_SpinnerDelegate {
+    /* ################################################################################################################################## */
     @IBOutlet var spinner: RVS_Spinner!
+
+    /* ################################################################################################################################## */
+    var spinnerValueItems: [RVS_SpinnerDataItem] = []
     
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -18,6 +25,25 @@ class RVS_Spinner_Leak_Test_ViewController: UIViewController, RVS_SpinnerDelegat
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        spinner.delegate = self
+        for index in 0..<10 {
+            let imageName = "0" + String(index)
+            if let image = UIImage(named: imageName) {
+                let dataItem = RVS_SpinnerDataItem(title: imageName, icon: image)
+                spinnerValueItems.append(dataItem)
+            }
+        }
+        
+        spinner.values = spinnerValueItems
+        spinner.selectedIndex = spinnerValueItems.count / 2
+    }
+    
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func switchHit(_ inSwitch: UISegmentedControl) {
+        spinner.spinnerMode = inSwitch.selectedSegmentIndex - 1
     }
     
     /* ################################################################################################################################## */

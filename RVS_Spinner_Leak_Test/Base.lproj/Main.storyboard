@@ -39,13 +39,31 @@
                                     <action selector="spinnerEvent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fTj-p6-lUA"/>
                                 </connections>
                             </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="2UV-UQ-jEh">
+                                <rect key="frame" x="20" y="834" width="374" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="qgD-fi-Awo"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Spinner"/>
+                                    <segment title="Both"/>
+                                    <segment title="Picker"/>
+                                </segments>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="switchHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="goh-dW-1rR"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="01g-cu-PCY" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="1Xr-im-3cj"/>
+                            <constraint firstItem="2UV-UQ-jEh" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="3Kl-lg-uyE"/>
                             <constraint firstAttribute="bottom" secondItem="PAw-EA-txT" secondAttribute="bottom" id="3QL-7x-Fc7"/>
                             <constraint firstItem="PAw-EA-txT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="91j-8j-qFZ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2UV-UQ-jEh" secondAttribute="trailing" constant="20" id="CWw-Wd-jNr"/>
                             <constraint firstItem="PAw-EA-txT" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="W8g-pt-vym"/>
+                            <constraint firstItem="2UV-UQ-jEh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="WxE-MZ-fTu"/>
                             <constraint firstItem="01g-cu-PCY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fMn-0u-6IC"/>
                             <constraint firstItem="PAw-EA-txT" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="t2a-gq-5X6"/>
                         </constraints>

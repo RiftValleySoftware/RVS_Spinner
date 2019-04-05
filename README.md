@@ -258,6 +258,14 @@ This image shows rotation compensation off. Note that the icon in the middle is 
 
 The fourth tab is a bit crazy. It's four independent controls, broken into quarters of the screen, and each rotated 45 degrees off the plane, but mortised together in the middle.
 
+LEAK TEST HARNESS APP
+=
+There is a small, simple app that lives for only one thing: to be run in "Profile" mode, and let the framework be examined for things like memory leaks.
+
+**NOTE:** In iOS 12.2/Xcode 10.2, there is a bug, where you get "false positive" leaks reported if running a 12.2 target. You should run this tester on targets of iOS 12.1 or lower. The harness will support down to iOS 11.0.
+
+![The Leak Test Tab](https://riftvalleysoftware.com/RVS_Spinner/img/LeakTestApp.png)
+
 DEPENDENCIES
 =
 
