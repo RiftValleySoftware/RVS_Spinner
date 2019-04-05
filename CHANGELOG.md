@@ -1,8 +1,10 @@
-*Version 2.1.0* **TBD**
+*Version 2.1.0* **April 4, 2019**
 - Adding the tabbed test harness app (tries the control in multiple scenarios).
 - Added a real purdy splash screen.
 - Changed the background in the basic test harness app.
 - Changed the basic test harness app icon.
+- Refactoring to make the project structure a bit more comprehensible.
+- Continuing improvements on the documentation.
 - Changed the icon source file to PDF -that's a better format.
 - Added a "compensate for rotation" property. This allows the center to remain vertical, while the main control os rotated (via the superview).
 
