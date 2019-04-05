@@ -507,8 +507,7 @@
 			isa = PBXGroup;
 			children = (
 				D428DB2B2169391D004B130B /* RVS_Spinner */,
-				D40705E1224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness */,
-				D44CE79B22537BF800B8AB51 /* RVS_Spinner_Tabbed_Test_Harness */,
+				D446FBF52256D79900839304 /* Test Apps */,
 				D428DB2A2169391D004B130B /* Products */,
 				D44B3102224AAE9300BFE4AE /* spec */,
 				D4BEEDC02250F486007BA3AD /* img */,
@@ -559,6 +558,15 @@
 				D442069D224BBDBE008038A9 /* X.png */,
 			);
 			path = SpinnerIcons;
+			sourceTree = "<group>";
+		};
+		D446FBF52256D79900839304 /* Test Apps */ = {
+			isa = PBXGroup;
+			children = (
+				D40705E1224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness */,
+				D44CE79B22537BF800B8AB51 /* RVS_Spinner_Tabbed_Test_Harness */,
+			);
+			name = "Test Apps";
 			sourceTree = "<group>";
 		};
 		D44B3102224AAE9300BFE4AE /* spec */ = {
