@@ -1,3 +1,8 @@
+*Version 2.1.2* **April 10, 2019**
+- Made the String argument to the data item struct optional. It isn't really necessary, so we shouldn't require it.
+- Code documentation improvements.
+- Some basic improvements to the way some stuff works in the spinner. Should be no visible changes.
+
 *Version 2.1.1* **April 5, 2019**
 - Added a "Leak Test" test harness app, for testing for memory leaks.
 - There was no change to the framework, but I need to increase the version for CocoaPods.

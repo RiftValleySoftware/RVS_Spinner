@@ -20,7 +20,7 @@
  
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  
- - version: 2.1.0
+ - version: 2.1.2
  */
 
 import UIKit
@@ -56,12 +56,10 @@ fileprivate extension UIColor {
 /**
  This struct is used to represent one value of the spinner.
  
- You need to watch out when comparing instances of this class, because we don't take the value into account.
- We compare the title, icon and description.
- The value is only tested for nil/not-nil. This is because it is an "Any", and we want to be able to jam whatever we want in there.
+ It has only one required value: an icon, represented by a UIImage. It can be any size, but you shouldn't need anything bigger than about 100 display units square.
  */
 public struct RVS_SpinnerDataItem {
-    /** This is the required title for the data item. */
+    /** This is the optional title for the data item. */
     public let title: String
     /** This is the required image to be displayed for the data item. This is what is most prominently displayed. */
     public let icon: UIImage
@@ -74,12 +72,12 @@ public struct RVS_SpinnerDataItem {
     /**
      The default initializer. The only required parameters are the title and icon.
      
-     - parameter inTitle: A String, with the title of this value.
-     - parameter icon: An image to be displayed for the value.
+     - parameter inTitle: A String, with the title of this value. This is optional. Default is a blank String.
+     - parameter icon: An image to be displayed for the value. This is the only required argument.
      - parameter description: An optional String (default is nil), with a description of the value.
      - parameter value: An optional value (default is nil) to be associated with this value item.
      */
-    public init(title inTitle: String, icon inIcon: UIImage, description inDescription: String? = nil, value inValue: Any? = nil) {
+    public init(title inTitle: String = "", icon inIcon: UIImage, description inDescription: String? = nil, value inValue: Any? = nil) {
         title = inTitle
         icon = inIcon
         description = inDescription
@@ -208,6 +206,8 @@ public extension RVS_SpinnerDelegate {
  
  It can switch between the circular spinner, and a standard UIPickerView, if there are too many items to handle efficiently in a spinner. You can choose to either
  always use the picker, or never use the picker.
+ 
+ There is a delegate protocol, and the control will also emit "valueChanged" messages (the selected item changed), and "touchUpInside" messages (the center was tapped).
  */
 @IBDesignable
 public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource {
@@ -234,9 +234,9 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
 
     /* ################################################################## */
     /**
-     This is the width of the lines in the control.
+     This is the width of the lines in the control, in display units.
      */
-    static let _kBorderWidth: CGFloat = 1.0
+    static let _kBorderWidthInDisplayUnits: CGFloat = 1.0
     
     /* ################################################################## */
     /**
@@ -258,13 +258,13 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     
     /* ################################################################## */
     /**
-     This is the minimum velocity for the "flywheel." Below this, "clicks" in a value.
+     This is the minimum velocity for the "flywheel." Below this, the spinner "clicks" in a value.
      */
     static let _kMinFlywheelVelocity: CGFloat = 0.8
     
     /* ################################################################## */
     /**
-     This is the deceleration constant for the "flywheel."
+     This is the deceleration constant for the "flywheel." It is reduced to this amount, each iteration.
      */
     static let _kFlywheelVelocityDecelerationMultiplier: CGFloat = 0.994
     
@@ -323,7 +323,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      This is the background color associated with the "closed" control.
      
-     This is set from the view background color.
+     This is set from the view background color. When we set it, we set the UIView background color to clear.
      */
     var _closedBackgroundColor: UIColor? {
         didSet {
@@ -366,7 +366,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     
     /* ################################################################## */
     /**
-     This accumulates "bumps" to "nudge the value as we decelerate.
+     This accumulates "bumps" to "nudge" the value as we decelerate.
      */
     var _decelerationAccumulator: CGFloat = 0
     
@@ -384,14 +384,14 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     
     /* ################################################################## */
     /**
-     This is an invisible view that we instantiate over the control to catch gestures.
-     It is only available when the control is open.
+     This is an invisible view that we instantiate over the control to catch gestures and display the open control.
+     It is only available when the control is open, and it is the spinner variant.
      */
     var _openSpinnerView: UIView!
 
     /* ################################################################## */
     /**
-     This is the gesture recognizer we will use to determine if the control is being fiddled with.
+     This is the gesture recognizer we will use to determine if the control is being spun/panned.
      */
     var _rotateGestureRecognizer: UIPanGestureRecognizer!
 
@@ -409,7 +409,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     
     /* ################################################################## */
     /**
-     This is a UIView that will hold the picker.
+     This is a UIView that will hold the picker. It is only available for the picker variant.
      */
     var _openPickerContainerView: UIView!
     
@@ -440,6 +440,8 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /* ################################################################## */
     /**
      This stupid flag will be set the first time we open, so we do the animation.
+     
+     Semaphores are a bad idea, in general. I used to love them, but they don't play well with asynchronous environments.
      */
     var _iHateSemaphores: Bool = false
     
@@ -575,6 +577,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         // This just gives a slightly smoother round.
         let stepsToRotate = Int(round(_decelerationAccumulator * 10) / 10)
 
+        // If we have exceeded 1, then we need to adjust the value.
         if 0 != stepsToRotate {
             _decelerationAccumulator = 0
             let currentIndex = selectedIndex
@@ -613,7 +616,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         centerLayer.path = centerShape.cgPath   // By default, the center is an oval/circle. You can override this to change the shape.
         centerLayer.fillColor = _closedBackgroundColor?.cgColor
         centerLayer.strokeColor = tintColor?.cgColor
-        centerLayer.lineWidth = type(of: self)._kBorderWidth
+        centerLayer.lineWidth = type(of: self)._kBorderWidthInDisplayUnits
 
         if 0 < values.count {   // Have to have values to draw anything more.
             // Get the image to be displayed over the oval.
@@ -621,7 +624,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             // This is how we track clicks and long-presses in the center.
             let isDimmed = !isEnabled || (isTracking && isTouchInside && !_doneTracking)
             let imageLayer = _makeIconDisplay(centerImage, inFrame: bounds, isDimmed: isDimmed)
-            if isCompensatingForContainerRotation {
+            if isCompensatingForContainerRotation { // If we are compensating for container rotation, we null out that rotation for the center icon.
                 if let superTransform = superview?.transform {
                     let rotationInRadians = -CGFloat(atan2(Double(superTransform.b), Double(superTransform.a)))
                     imageLayer.transform = CATransform3DRotate(imageLayer.transform, rotationInRadians, 0.0, 0.0, 1.0)
@@ -694,7 +697,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             var rotationAngleInRadians = CGFloat.pi - (CGFloat(inIndex) * _arclengthInRadians)
 
             if !inIsTransparencyMask {    // We only do this is we are drawing the icon layer.
-                ret.fillColor = openBackgroundColor.cgColor
+                ret.fillColor = openBackgroundColor.cgColor // We will always have a transparent background for this layer.
                 
                 // This is how big each icon will be, in our rendered spoke.
                 let iconSize = CGSize(width: Swift.min(maxIconSize.width, oppositeLength), height: Swift.min(maxIconSize.height, oppositeLength))
@@ -711,11 +714,12 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 
                 let newFrame = displayLayer.frame
                 
+                // Calculate the frame for the rendered icon image. It is centered, at the end of the wedge.
                 displayLayer.frame = CGRect(x: centerPointInDisplayUnits.x - (newFrame.size.width / 2), y: -(radiusInDisplayUnits - (_openSpinnerView.bounds.size.height / 2) - type(of: self)._kOpenPaddingInDisplayUnits), width: newFrame.size.width, height: newFrame.size.height)
 
                 ret.path = path.cgPath
                 ret.addSublayer(displayLayer)
-            } else {    // Otherwise, this is the transparency mask.
+            } else {    // Otherwise, this is the transparency mask. No icon. We use white as our background color. It really doesn't matter what color, as long as it isn't clear.
                 ret.path = path.cgPath
                 ret.fillColor = UIColor.white.cgColor
 
@@ -766,9 +770,10 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             frameCircleLayer.frame = circleFrame
             frameCircleLayer.path = UIBezierPath(arcCenter: CGPoint(x: circleFrame.midX, y: circleFrame.midY), radius: circleFrame.size.height / 2, startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true).cgPath
             frameCircleLayer.strokeColor = tintColor.cgColor
-            frameCircleLayer.lineWidth = type(of: self)._kBorderWidth
+            frameCircleLayer.lineWidth = type(of: self)._kBorderWidthInDisplayUnits
             frameCircleLayer.fillColor = _closedBackgroundColor?.cgColor
             
+            // Shrinking by 1/6 seems to do it.
             let inset = Swift.max(iconDisplayLayer.frame.size.width, iconDisplayLayer.frame.size.height) / 6
             iconDisplayLayer.frame = iconDisplayLayer.frame.insetBy(dx: inset, dy: inset)
             
@@ -782,9 +787,9 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     
     /* ################################################################## */
     /**
-     This draws the control in an "open" state.
+     This draws the control in an "open" state. It does not include the center.
      
-     It will always be a filled circle outline.
+     This only draws the spinner variant.
      
      - parameter inRect: The drawing rectangle
      */
@@ -844,6 +849,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 // This is how much we should be rotated.
                 let rotationAngleInRadians = (CGFloat.pi - (CGFloat(selectedIndex) * _arclengthInRadians))
 
+                // We animate the rotation, so we get the spinning effect.
                 let transform = CATransform3DRotate(CATransform3DIdentity, rotationAngleInRadians, 0.0, 0.0, -1.0)
                 if nil == _spinnerAnimation {
                     CATransaction.begin()
@@ -883,9 +889,9 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 let center = CGRect(origin: CGPoint(x: inView.bounds.midX - (bounds.size.width / 2), y: inView.bounds.midY - (bounds.size.height / 2)), size: CGSize(width: bounds.size.width, height: bounds.size.height))
                 let leftSide = CGRect(origin: CGPoint(x: inView.bounds.origin.x, y: inView.bounds.origin.y), size: CGSize(width: inView.bounds.size.width / 2, height: inView.bounds.size.height))
             
-                if center.contains(inPointInLocalCoordinates) {
+                if center.contains(inPointInLocalCoordinates) { // Simply close the control.
                     isOpen = false
-                } else {
+                } else {    // Increment or decrement by 1.
                     var newValue = selectedIndex
 
                     if leftSide.contains(inPointInLocalCoordinates) {
@@ -914,6 +920,8 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      */
     func _openControl() {
         if !isEmpty {  // Only if we have something to display.
+            _iHateSemaphores = true // Make sure the opening is animated.
+            
             if isHapticsOn {
                 _selectionFeedbackGenerator = UISelectionFeedbackGenerator()
                 _selectionFeedbackGenerator?.prepare()
@@ -1057,6 +1065,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 }
                 
                 self._openSpinnerView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                
                 // We animate the closing of the spinner.
                 UIView.animate( withDuration: 0.25,
                                 delay: 0,
@@ -1077,30 +1086,30 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 )
             } else if nil != self._openPickerContainerView {
                 self._openPickerContainerView?.transform = .identity
+                
+                // We animate the closing of the picker.
+                UIView.animate(withDuration: 0.3,
+                               delay: 0,
+                               usingSpringWithDamping: 1,
+                               initialSpringVelocity: 7.0,
+                               options: .allowUserInteraction,
+                               animations: { [unowned self] in
+                                self.transform = .identity
+                                if nil != self._openPickerContainerView {
+                                    self._openPickerContainerView?.transform =  CGAffineTransform(scaleX: 0.001, y: 0.001).concatenating(CGAffineTransform(translationX: 0, y: self._openPickerContainerView.bounds.size.height / 2))
+                                }
+                    },
+                               completion: { [unowned self] (_: Bool) in
+                                self.transform = .identity
+                                if nil != self._openPickerContainerView {
+                                    self._openPickerContainerView?.removeFromSuperview()
+                                    self._openPickerContainerView = nil
+                                    self.setNeedsLayout()
+                                    self._clearDisplayCaches()
+                                }
+                    }
+                )
             }
-        
-            // We animate the closing of the picker, but not the spinner.
-            UIView.animate(withDuration: 0.3,
-                           delay: 0,
-                           usingSpringWithDamping: 1,
-                           initialSpringVelocity: 7.0,
-                           options: .allowUserInteraction,
-                           animations: { [unowned self] in
-                            self.transform = .identity
-                            if nil != self._openPickerContainerView {
-                                self._openPickerContainerView?.transform =  CGAffineTransform(scaleX: 0.001, y: 0.001).concatenating(CGAffineTransform(translationX: 0, y: self._openPickerContainerView.bounds.size.height / 2))
-                            }
-                },
-                           completion: { [unowned self] (_: Bool) in
-                            self.transform = .identity
-                            if nil != self._openPickerContainerView {
-                                self._openPickerContainerView?.removeFromSuperview()
-                                self._openPickerContainerView = nil
-                                self.setNeedsLayout()
-                                self._clearDisplayCaches()
-                            }
-                }
-            )
         }
     }
     
@@ -1126,7 +1135,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      - parameter notification: The notification object (ignored).
      */
-    @objc func _orientationChanged(notification inNotification: Notification) {
+    @objc func _orientationChanged(notification: Notification) {
         _correctRadius()    // Make sure we stay in our lane.
     }
     
@@ -1259,13 +1268,13 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      */
     public var centerShape: UIBezierPath {
         // We shrink by one border width, because the shape is stroked halfway through the border.
-        let inset = type(of: self)._kBorderWidth / 2.0
+        let inset = type(of: self)._kBorderWidthInDisplayUnits / 2.0
         return UIBezierPath(ovalIn: bounds.inset(by: UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)))
     }
     
     /* ################################################################## */
     /**
-     This is the display font that we'll use in the picker. Default is system bold 20.
+     This is the display font that we'll use in the picker. Default is system bold 20. It can be overridden.
      */
     public var displayFont: UIFont! = UIFont.boldSystemFont(ofSize: 20) {
         didSet {
@@ -1300,8 +1309,8 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /* ################################################################## */
      /**
      This property represents the values to be selected and displayed by the spinner. Instead of a datasource, we use an instance property. This can be overloaded to make it dynamic.
-     At minimum, each value needs a "title," which is a String, and an icon to be displayed.
-     Optionally, it can have a description, with more information, and associated data.
+     At minimum, each value needs an icon to be displayed.
+     Optionally, it can have a title String, a description String, with more information, and abritrary associated data.
      The associated data is an "Any?" item. It can be anything (or nothing). It is up to the implementor to cast and manage this. This is just a "context hook."
      The order is not changed by the spinner. Values are displayed in the order they are set in this Array, clockwise.
      */
@@ -1329,7 +1338,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     public var isOpen: Bool = false {
         didSet {    // This is the way we open and close the control.
             if isOpen && isOpen != oldValue, 1 < count {
-                _iHateSemaphores = true // Ick. Tell the control to sproing.
                 _openControl()
                 self.setNeedsLayout()
                 self._clearDisplayCaches()
@@ -1373,7 +1381,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /* ################################################################## */
     /**
      If we have either a border color (tint), or a background color, then we display the icons enclosed in a frame.
-     If that is the case, then the icon is displayed slightly smaller.
+     If that is the case, then the icon is displayed slightly smaller. READ-ONLY
      
      - returns: True, if the images should be framed.
      */
@@ -1383,7 +1391,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     
     /* ################################################################## */
     /**
-     - returns: True, if the control will open as a spinner (as opposed to a picker).
+     - returns: True, if the control will open as a spinner (as opposed to a picker). READ-ONLY
      */
     public var opensAsSpinner: Bool {
         return SpinnerMode.spinnerOnly.rawValue == spinnerMode || ((SpinnerMode.both.rawValue == spinnerMode) && spinnerThreshold > count)
@@ -1391,7 +1399,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     
     /* ################################################################## */
     /**
-     - returns: The number of values.
+     - returns: The number of values. READ-ONLY
      */
     public var count: Int {
         return values.count
@@ -1399,7 +1407,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     
     /* ################################################################## */
     /**
-     - returns: Yes, we have no bananas.
+     - returns: Yes, we have no bananas. READ-ONLY
      */
     public var isEmpty: Bool {
         return values.isEmpty
@@ -1685,6 +1693,12 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /* ################################################################## */
     /**
      A convenience init with a preset values array and value.
+     
+     - parameter values: The values to be associated with the control. It is optional, and default is nil.
+     - parameter selectedIndex: An initial selected index for the control. It is 0-based, and optional. Default is 0.
+     - parameter frame: Any initial frame for the control. It is optional, and default is an empty frame.
+     - parameter spinnerMode: An integer, eith -1 (Spinner only), 0 (Both), or 1 (Picker only). It is optional, and default is 0 (Both).
+     - parameter delegate: A delegate instance for the spinner. It is optional, and default is nil.
      */
     public convenience init(values inValuesArray: [RVS_SpinnerDataItem]? = nil, selectedIndex inSelectedIndex: Int = 0, frame inFrame: CGRect = CGRect.zero, spinnerMode inSpinnerMode: SpinnerMode = .both, delegate inDelegate: RVS_SpinnerDelegate? = nil) {
         self.init(frame: inFrame)
@@ -1706,7 +1720,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     
     /* ################################################################## */
     /**
-     We cancel any decelerator display link from here.
+     We cancel any decelerator display link from here, as well as our orientation notification.
      */
     deinit {
         NotificationCenter.default.removeObserver(self)
