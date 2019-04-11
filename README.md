@@ -102,7 +102,7 @@ This is an integer, with 3 values:
     - **1**  Use only the picker (ignore the **Spinner Threshold** value).
 
 3. **Spinner Threshold**
-This is an integer, from 0 to whatever value you wish, that represents the point at which an [`Array`](https://developer.apple.com/documentation/swift/array) of values switches from the radial spinner to the picker. This only applies when the **Spinner Mode** option is set o 0 (*both*).
+This is an integer, from 0 to whatever value you wish, that represents the point at which an [`Array`](https://developer.apple.com/documentation/swift/array) of values switches from the radial spinner to the picker. This only applies when the **Spinner Mode** option is set to 0 (*both*).
 
 4. **Is Sound On**
 This specifies whether or not to use audible feedback. Sound will be disabled when the Alerts (ringer) setting is off.
