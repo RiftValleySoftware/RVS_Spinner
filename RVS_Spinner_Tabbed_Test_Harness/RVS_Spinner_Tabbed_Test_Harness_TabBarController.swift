@@ -24,6 +24,12 @@
 import UIKit
 import RVS_Spinner
 
+/* ###################################################################################################################################### */
+// MARK: - The Directory List Container Struct
+/* ###################################################################################################################################### */
+/**
+ This is a custom struct that holds a list of image/text objects (spinner value elements).
+ */
 struct RVS_Spinner_Tabbed_Test_Harness_DirElement: Comparable, Equatable {
     static func < (lhs: RVS_Spinner_Tabbed_Test_Harness_DirElement, rhs: RVS_Spinner_Tabbed_Test_Harness_DirElement) -> Bool {
         return lhs.path < rhs.path
@@ -45,10 +51,12 @@ struct RVS_Spinner_Tabbed_Test_Harness_DirElement: Comparable, Equatable {
  */
 class RVS_Spinner_Tabbed_Test_Harness_TabBarController: UITabBarController {
     /* ################################################################## */
+    // This holds the names of the directories (used for the list)
     var directories: [RVS_Spinner_Tabbed_Test_Harness_DirElement] = []
     
     /* ################################################################## */
     /**
+     Read all the images from the bundle, segrgated by directory.
      */
     func readImages() {
         if let resourcePath = Bundle.main.resourcePath {
@@ -60,7 +68,7 @@ class RVS_Spinner_Tabbed_Test_Harness_TabBarController: UITabBarController {
                 
                 dirPaths.forEach {
                     let path = rootPath + "/" + $0
-                    let name = String($0[$0.index($0.startIndex, offsetBy: 3)...])
+                    let name = String($0[$0.index($0.startIndex, offsetBy: 3)...])  // Strip off the number in front (used to sort).
                     directories.append(RVS_Spinner_Tabbed_Test_Harness_DirElement(name: name, path: path, items: []))
                 }
                 
@@ -72,12 +80,13 @@ class RVS_Spinner_Tabbed_Test_Harness_TabBarController: UITabBarController {
                     imagePaths.forEach {
                         if let imageFile = FileManager.default.contents(atPath: "\(i.element.path)/\($0)"), let image = UIImage(data: imageFile) {
                             // The name is the filename, minus the file extension, and minus the numbers in front.
-                            let imageName = String($0.prefix($0.count - 4)[$0.index($0.startIndex, offsetBy: 3)...])
+                            let imageName = String($0.prefix($0.count - 4)[$0.index($0.startIndex, offsetBy: 3)...])    // Strip off the sorting number (front), and the file extension.
                             let item = RVS_SpinnerDataItem(title: imageName, icon: image)
                             directories[i.offset].items.append(item)
                         }
                     }
                 }
+                // At this point, our directories property is populated with our special directory type; each, containing an array of image objects.
             } catch let error {
                 print(error)
             }

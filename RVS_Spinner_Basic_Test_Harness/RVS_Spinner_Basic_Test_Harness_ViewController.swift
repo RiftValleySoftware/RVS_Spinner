@@ -312,7 +312,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
      This is called when the popup opens.
      */
     func spinner(_ inSpinnerObject: RVS_Spinner, hasOpenedWithTheValue: RVS_SpinnerDataItem?) {
-        let spinnerPicker = (0 == inSpinnerObject.spinnerMode && inSpinnerObject.count < inSpinnerObject.spinnerThreshold) || -1 == inSpinnerObject.spinnerMode ? "spinner" : "picker"
+        let spinnerPicker = inSpinnerObject.opensAsSpinner ? "spinner" : "picker"
         associatedTextLabel?.text = "The user opened the \(spinnerPicker)."
         associatedTextLabel?.textColor = UIColor.black
         _ = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(updateAssociatedText), userInfo: nil, repeats: false)
@@ -323,7 +323,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
      This is called when the popup closes.
      */
     func spinner(_ inSpinnerObject: RVS_Spinner, hasClosedWithTheValue: RVS_SpinnerDataItem?) {
-        let spinnerPicker = (0 == inSpinnerObject.spinnerMode && inSpinnerObject.count < inSpinnerObject.spinnerThreshold) || -1 == inSpinnerObject.spinnerMode ? "spinner" : "picker"
+        let spinnerPicker = inSpinnerObject.opensAsSpinner ? "spinner" : "picker"
         associatedTextLabel?.text = "The user closed the \(spinnerPicker)."
         associatedTextLabel?.textColor = UIColor.black
         _ = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(updateAssociatedText), userInfo: nil, repeats: false)

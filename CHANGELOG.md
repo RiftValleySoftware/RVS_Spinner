@@ -1,4 +1,4 @@
-*Version 2.1.2* **April 10, 2019**
+*Version 2.1.2* **April 12, 2019**
 - Made the String argument to the data item struct optional. It isn't really necessary, so we shouldn't require it.
 - Code documentation improvements.
 - Some basic improvements to the way some stuff works in the spinner. Should be no visible changes.

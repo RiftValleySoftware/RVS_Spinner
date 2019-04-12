@@ -32,6 +32,7 @@ class RVS_Spinner_Tabbed_Test_Harness_Bottom_Right_ViewController: RVS_Spinner_T
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     We set the rotation programmatically. All the rest happens in the IB file.
      */
     override func viewDidLoad() {
         super.viewDidLoad()

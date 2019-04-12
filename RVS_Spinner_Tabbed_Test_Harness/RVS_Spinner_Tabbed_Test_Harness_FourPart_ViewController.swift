@@ -28,7 +28,7 @@ import RVS_Spinner
 // MARK: - The Main View Controller Class
 /* ###################################################################################################################################### */
 /**
- This class presents a simple controller in the middle of an otherwise empty tab.
+ Most of the magic here happens in the IB file. We simply set the rotation angles programmatically.
  */
 class RVS_Spinner_Tabbed_Test_Harness_FourPart_ViewController: UIViewController, RVS_SpinnerDelegate {
     @IBOutlet var quadrantNWSpinner: RVS_Spinner!

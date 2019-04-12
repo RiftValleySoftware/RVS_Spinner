@@ -40,6 +40,7 @@ class RVS_Spinner_Tabbed_Test_Harness_Rotator_ViewController: RVS_Spinner_Tabbed
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+      When we change our image set, we reset the rotation.
      */
     @objc override func segmentedImageSelectorHit(_ inSegmentedSwitch: UISegmentedControl) {
         super.segmentedImageSelectorHit(inSegmentedSwitch)
@@ -51,7 +52,7 @@ class RVS_Spinner_Tabbed_Test_Harness_Rotator_ViewController: RVS_Spinner_Tabbed
         rotationSlider.minimumValue = min
         rotationSlider.maximumValue = max
         rotationSlider.value = median
-        spinnerContainer?.transform = CGAffineTransform(rotationAngle: 0)
+        spinnerContainer?.transform = CGAffineTransform(rotationAngle: 0)   // Snap to attention.
     }
     
     /* ################################################################## */
@@ -63,6 +64,7 @@ class RVS_Spinner_Tabbed_Test_Harness_Rotator_ViewController: RVS_Spinner_Tabbed
     
     /* ################################################################## */
     /**
+     We rotate the enclosing UIView; not just the control.
      */
     @IBAction func sliderChanged(_ inSlider: UISlider) {
         let nearestStep = round(inSlider.value)
@@ -79,6 +81,7 @@ class RVS_Spinner_Tabbed_Test_Harness_Rotator_ViewController: RVS_Spinner_Tabbed
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     Can't have just one.
      */
     override func viewDidLoad() {
         super.viewDidLoad()

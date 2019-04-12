@@ -51,7 +51,6 @@ class RVS_Spinner_Leak_Test_ViewController: UIViewController, RVS_SpinnerDelegat
     /**
      */
     @IBAction func spinnerEvent(_: RVS_Spinner) {
-        
     }
     
     /* ################################################################################################################################## */

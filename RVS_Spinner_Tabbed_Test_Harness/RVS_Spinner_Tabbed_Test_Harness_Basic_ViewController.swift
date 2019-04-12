@@ -40,7 +40,7 @@ class RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController: RVS_Spinner_Tabbed_T
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
-     Set up a secmented switch and a switch at the bottom.
+     Set up a segmented switch and a switch at the bottom.
      
      The segmented switch selects the dataset to use, and the switch goes between two exclusive modes (.both is not supported by this app).
      */
@@ -101,6 +101,7 @@ class RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController: RVS_Spinner_Tabbed_T
             inSubView.centerYAnchor.constraint(equalTo: inPrevious.centerYAnchor).isActive = true
         }
         
+        // We create the controls programmatically, and use AutoLayout for their positioning.
         if let tabController = tabBarController as? RVS_Spinner_Tabbed_Test_Harness_TabBarController {
             tabController.directories.forEach {
                 _imageSelectorChoices.append($0.items)
