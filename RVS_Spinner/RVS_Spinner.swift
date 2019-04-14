@@ -70,7 +70,7 @@ public struct RVS_SpinnerDataItem {
     
     /* ################################################################## */
     /**
-     The default initializer. The only required parameters are the title and icon.
+     The default initializer. The only required argument is the icon.
      
      - parameter inTitle: A String, with the title of this value. This is optional. Default is a blank String.
      - parameter icon: An image to be displayed for the value. This is the only required argument.
