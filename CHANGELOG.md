@@ -1,5 +1,6 @@
 *Version 2.1.3* **TBD**
 - Corrected errant code comments.
+- Tweaked the README to use the new images.
 
 *Version 2.1.2* **April 12, 2019**
 - Made the String argument to the data item struct optional. It isn't really necessary, so we shouldn't require it.
