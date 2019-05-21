@@ -62,7 +62,7 @@ The way it works, is that the "quiescent" control is small. By default, it is an
 
 Tapping on the circle "pops up" a surrounding ring of images, which can be rotated about the center, like a prize wheel or a knob.
 
-![Prize Wheel Display](https://riftvalleysoftware.com/RVS_Spinner/img/SpinnerStill.png)
+![Prize Wheel Display](https://riftvalleysoftware.com/RVS_Spinner/img/SpinnerOpenStill.png)
 
 This popup is a [`UIControl`](https://developer.apple.com/documentation/uikit/uicontrol) that is opened in the superview of the center, so the superview must be able to support having a larger view added.
 
@@ -74,7 +74,7 @@ PICKER VIEW VARIANT
 -
 You can also have a standard [`UIPickerView`](https://developer.apple.com/documentation/uikit/uipickerview) come up, which may be better for larger numbers of values, or for developers that prefer a more standard Apple User Experience.
 
-![UIPickerView Wheel Display](https://riftvalleysoftware.com/RVS_Spinner/img/PickerStill.png)
+![UIPickerView Wheel Display](https://riftvalleysoftware.com/RVS_Spinner/img/PickerOpenStill.png)
 
 IMPLEMENTATION
 =
