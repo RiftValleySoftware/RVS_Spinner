@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Classes  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Section/Classes" class="dashAnchor"></a>
+
+    <a title="Classes  Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="index.html">
+          RVS_Spinner Docs
+        </a>
+         (100% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/RiftValleySoftware/RVS_Spinner">
+            <img class="header-icon" src="img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="index.html">RVS_Spinner Reference</a>
+      <img class="carat" src="img/carat.png" />
+      Classes  Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/RVS_Spinner.html">RVS_Spinner</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/RVS_Spinner/SpinnerMode.html">– SpinnerMode</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/RVS_SpinnerDelegate.html">RVS_SpinnerDelegate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/RVS_SpinnerDataItem.html">RVS_SpinnerDataItem</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            <h1>Classes</h1>
+            <p>The following classes are available globally.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public%20Main%20Class"></a>
+                <a name="//apple_ref/swift/Section/Public Main Class" class="dashAnchor"></a>
+                <a href="#/Public%20Main%20Class">
+                  <h3 class="section-name">Public Main Class</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@RVS_Spinner@objc(cs)RVS_Spinner"></a>
+                    <a name="//apple_ref/swift/Class/RVS_Spinner" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@RVS_Spinner@objc(cs)RVS_Spinner">RVS_Spinner</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is a <q>spinner</q> control, which acts a bit like a circular UIPickerView.</p>
+
+<p>However, instead of having the values provided by a delegate/datasource, the values are associated directly with the control in an Array.</p>
+
+<p>This control has a lot of <q>little things</q> to make it usable and intuitive. It has <q>inertia,</q> where you can start it spinning, it has <q>one-tap increment/decrement,</q>
+and it has haptic and audio feedback.</p>
+
+<p>It can switch between the circular spinner, and a standard UIPickerView, if there are too many items to handle efficiently in a spinner. You can choose to either
+always use the picker, or never use the picker.</p>
+
+<p>There is a delegate protocol, and the control will also emit <q>valueChanged</q> messages (the selected item changed), and <q>touchUpInside</q> messages (the center was tapped).</p>
+
+                        <a href="Classes/RVS_Spinner.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBDesignable</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">RVS_Spinner</span> <span class="p">:</span> <span class="kt">UIControl</span><span class="p">,</span> <span class="kt">UIPickerViewDelegate</span><span class="p">,</span> <span class="kt">UIPickerViewDataSource</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p><a class="link" href="https://riftvalleysoftware.com" target="_blank" rel="external">©2019 The Great Rift Valley Software Company</a></p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

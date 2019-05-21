@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>RVS_SpinnerDelegate Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Protocol/RVS_SpinnerDelegate" class="dashAnchor"></a>
+
+    <a title="RVS_SpinnerDelegate Protocol Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          RVS_Spinner Docs
+        </a>
+         (100% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/RiftValleySoftware/RVS_Spinner">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">RVS_Spinner Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      RVS_SpinnerDelegate Protocol Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RVS_Spinner.html">RVS_Spinner</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RVS_Spinner/SpinnerMode.html">– SpinnerMode</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/RVS_SpinnerDelegate.html">RVS_SpinnerDelegate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/RVS_SpinnerDataItem.html">RVS_SpinnerDataItem</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            <h1>RVS_SpinnerDelegate</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">RVS_SpinnerDelegate</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
+
+                </div>
+              </div>
+            <p>This is the delegate protocol for the Spinner. It is a Swift class protocol, because it provides the delegate with a Swift object, and is weakly referenced by the Spinner.</p>
+
+<p>Its methods are all <q>optional</q> (they have default implementations that do nothing), but the control works best if you use them.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11RVS_Spinner0a1_B8DelegateP7spinner_19singleValueSelectedyA2AC_AA0a1_B8DataItemVSgtF"></a>
+                    <a name="//apple_ref/swift/Method/spinner(_:singleValueSelected:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11RVS_Spinner0a1_B8DelegateP7spinner_19singleValueSelectedyA2AC_AA0a1_B8DataItemVSgtF">spinner(_:singleValueSelected:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is called if there was only one value, and the user selected the central button.
+In this case, the control will not open, but we will send a message.</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>This is an optional method.</p>
+
+<p>This is called if there was only one value, and the user selected the central button.
+In this case, the control will not open, but we will send a message.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">spinner</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt"><a href="../Classes/RVS_Spinner.html">RVS_Spinner</a></span><span class="p">,</span> <span class="nv">singleValueSelected</span><span class="p">:</span> <span class="kt"><a href="../Structs/RVS_SpinnerDataItem.html">RVS_SpinnerDataItem</a></span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>spinner</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The RVS_Spinner instance.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>singleValueSelected</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The value that was just selected. This is optional.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11RVS_Spinner0a1_B8DelegateP7spinner_19hasSelectedTheValueyA2AC_AA0a1_B8DataItemVSgtF"></a>
+                    <a name="//apple_ref/swift/Method/spinner(_:hasSelectedTheValue:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11RVS_Spinner0a1_B8DelegateP7spinner_19hasSelectedTheValueyA2AC_AA0a1_B8DataItemVSgtF">spinner(_:hasSelectedTheValue:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is called after the user has used the Spinner to select a value.</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>This is called after the user has used the Spinner to select a value.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">spinner</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt"><a href="../Classes/RVS_Spinner.html">RVS_Spinner</a></span><span class="p">,</span> <span class="nv">hasSelectedTheValue</span><span class="p">:</span> <span class="kt"><a href="../Structs/RVS_SpinnerDataItem.html">RVS_SpinnerDataItem</a></span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>spinner</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The RVS_Spinner instance.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>hasSelectedTheValue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The value that was just selected. This is optional.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11RVS_Spinner0a1_B8DelegateP7spinner_21hasOpenedWithTheValueyA2AC_AA0a1_B8DataItemVSgtF"></a>
+                    <a name="//apple_ref/swift/Method/spinner(_:hasOpenedWithTheValue:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11RVS_Spinner0a1_B8DelegateP7spinner_21hasOpenedWithTheValueyA2AC_AA0a1_B8DataItemVSgtF">spinner(_:hasOpenedWithTheValue:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is called after the user has <q>opened</q> the Spinner.</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>This is called after the user has <q>opened</q> the Spinner.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">spinner</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt"><a href="../Classes/RVS_Spinner.html">RVS_Spinner</a></span><span class="p">,</span> <span class="nv">hasOpenedWithTheValue</span><span class="p">:</span> <span class="kt"><a href="../Structs/RVS_SpinnerDataItem.html">RVS_SpinnerDataItem</a></span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>spinner</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The RVS_Spinner instance.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>hasOpenedWithTheValue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The value that was selected when the control opened. This is optional.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11RVS_Spinner0a1_B8DelegateP7spinner_21hasClosedWithTheValueyA2AC_AA0a1_B8DataItemVSgtF"></a>
+                    <a name="//apple_ref/swift/Method/spinner(_:hasClosedWithTheValue:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11RVS_Spinner0a1_B8DelegateP7spinner_21hasClosedWithTheValueyA2AC_AA0a1_B8DataItemVSgtF">spinner(_:hasClosedWithTheValue:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is called after the user has <q>closed</q> the Spinner.</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>This is called after the user has <q>closed</q> the Spinner.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">spinner</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt"><a href="../Classes/RVS_Spinner.html">RVS_Spinner</a></span><span class="p">,</span> <span class="nv">hasClosedWithTheValue</span><span class="p">:</span> <span class="kt"><a href="../Structs/RVS_SpinnerDataItem.html">RVS_SpinnerDataItem</a></span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>spinner</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The RVS_Spinner instance.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>hasClosedWithTheValue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The value that was selected when the control closed. This is optional.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p><a class="link" href="https://riftvalleysoftware.com" target="_blank" rel="external">©2019 The Great Rift Valley Software Company</a></p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>
