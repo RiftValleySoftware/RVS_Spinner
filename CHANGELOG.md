@@ -1,4 +1,4 @@
-*Version 2.1.3* **TBD**
+*Version 2.1.3* **May 27, 2019**
 - Corrected errant code comments.
 - Tweaked the README to use the new images.
 
