@@ -62,7 +62,7 @@ The way it works, is that the "quiescent" control is small. By default, it is an
 
 Tapping on the circle "pops up" a surrounding ring of images, which can be rotated about the center, like a prize wheel or a knob.
 
-![Prize Wheel Display](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/img/SpinnerOpenStill.png)
+![Prize Wheel Display](https://riftvalleysoftware.com/RVS_Spinner/SpinnerOpenStill.png)
 
 This popup is a [`UIControl`](https://developer.apple.com/documentation/uikit/uicontrol) that is opened in the superview of the center, so the superview must be able to support having a larger view added.
 
@@ -74,7 +74,7 @@ PICKER VIEW VARIANT
 -
 You can also have a standard [`UIPickerView`](https://developer.apple.com/documentation/uikit/uipickerview) come up, which may be better for larger numbers of values, or for developers that prefer a more standard Apple User Experience.
 
-![UIPickerView Wheel Display](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/img/PickerOpenStill.png)
+![UIPickerView Wheel Display](https://riftvalleysoftware.com/RVS_Spinner/PickerOpenStill.png)
 
 IMPLEMENTATION
 =
@@ -90,7 +90,7 @@ INTERFACE BUILDER/STORYBOARD EDITOR OPTIONS
 -
 Once you assign the [`RVS_Spinner`](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html) class to the [`UIView`](https://developer.apple.com/documentation/uikit/uiview), a number of options will appear in the Attributes Inspector for the Spinner:
 
-![The Spinner Attributes Inspector Options](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/img/IBOptions.png)
+![The Spinner Attributes Inspector Options](https://riftvalleysoftware.com/RVS_Spinner/IBOptions.png)
 
 1. **Open Background Color**
 This is a color to display behind the open radial spinner or picker. By default, it is clear.
@@ -112,7 +112,7 @@ This specifies whether or not to use [haptic feedback](https://developer.apple.c
 
 Additionally, the View **[Background Color](https://developer.apple.com/documentation/uikit/uiview/1622591-backgroundcolor)** color is used to establish the color surrounding icons, and the **[Tint](https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor)** color is used to set the color of the borders around icons, and displayed text in the picker.
 
-![How the Options Affect the Spinner](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/img/OpenSpinner.png) ![How the Options Affect the Picker](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/img/OpenPicker.png)
+![How the Options Affect the Spinner](https://riftvalleysoftware.com/RVS_Spinner/OpenSpinner.png) ![How the Options Affect the Picker](https://riftvalleysoftware.com/RVS_Spinner/OpenPicker.png)
 
 If the [`UIView`](https://developer.apple.com/documentation/uikit/uiview) [Background Color](https://developer.apple.com/documentation/uikit/uiview/1622591-backgroundcolor) is clear, and the [`UIView`](https://developer.apple.com/documentation/uikit/uiview) [Tint](https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor) is clear, the icons will be displayed slightly larger, with no surrounding ring (BTW: You can change the shape of the ring programatically. Circle/Oval is default).
 
@@ -199,7 +199,7 @@ This application gives access to a lot of the "knobs and buttons" for the spinne
 
 It is a simple 1-view app, with a single window:
 
-![The Test Harness Screen](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/img/NewTestHarnessScreen.png)
+![The Test Harness Screen](https://riftvalleysoftware.com/RVS_Spinner/NewTestHarnessScreen.png)
 
 The controls operate in real time on the instance of [`RVS_Spinner`](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html), displayed above the control panel:
 
@@ -239,25 +239,25 @@ TABBED TEST HARNESS APP
 =
 There is another test harness app that uses a tabbed layout to show the control in a few different scenarios, using tricky auto-layout techniques.
 
-![The First Tab](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/img/Tab0.png)
+![The First Tab](https://riftvalleysoftware.com/RVS_Spinner/Tab0.png)
 
 The first tab is a simple centered control. You can choose the dataset to use, and whether or not it is forced as a spinner or picker.
 
-![The Second Tab](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/img/Tab1.png)
+![The Second Tab](https://riftvalleysoftware.com/RVS_Spinner/Tab1.png)
 
 The second tab is a control that is crammed all the way into the bottom right corner, and is rotated 45 degrees counter-clockwise.
 
-![The Third Tab with Rotation Compensation On](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/img/Tab2-Comp.png)
+![The Third Tab with Rotation Compensation On](https://riftvalleysoftware.com/RVS_Spinner/Tab2-Comp.png)
 
 The third tab demonstrates rotation. The slider controls the rotation, and the enclosing view is shown as a slightly darker square.
 
  The above image shows rotation compensation on. Note that the center icon is vertical, despite the fact that the control is rotated.
 
-![The Third Tab with Rotation Compensation Off](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/img/Tab2-Uncomp.png)
+![The Third Tab with Rotation Compensation Off](https://riftvalleysoftware.com/RVS_Spinner/Tab2-Uncomp.png)
 
 This image shows rotation compensation off. Note that the icon in the middle is now tilted.
 
-![The Fourth Tab](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/img/Tab3.png)
+![The Fourth Tab](https://riftvalleysoftware.com/RVS_Spinner/Tab3.png)
 
 The fourth tab is a bit crazy. It's four independent controls, broken into quarters of the screen, and each rotated 45 degrees off the plane, but mortised together in the middle.
 
@@ -267,7 +267,7 @@ There is a small, simple app that lives for only one thing: to be run in "Profil
 
 **NOTE:** In iOS 12.2/Xcode 10.2, there is a bug, where you get "false positive" leaks reported if running a 12.2 target. You should run this tester on targets of iOS 12.1 or lower. The harness will support down to iOS 11.0.
 
-![The Leak Test Tab](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/img/LeakTestApp.png)
+![The Leak Test Tab](https://riftvalleysoftware.com/RVS_Spinner/LeakTestApp.png)
 
 DEPENDENCIES
 =
