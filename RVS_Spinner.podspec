@@ -7,7 +7,7 @@ Pod::Spec.new do |spec|
     spec.platform                   = :ios, '11.0'
     spec.homepage                   = 'https://riftvalleysoftware.com/work/open-source-projects/#RVS_Spinner'
     spec.author                     = { 'The Great Rift Valley Software Company' => 'chris@riftvalleysoftware.com' }
-    spec.documentation_url          = 'https://riftvalleysoftware.com/RVS_Spinner'
+    spec.documentation_url          = 'https://riftvalleysoftware.github.io/RVS_Spinner/'
     spec.license                    = { :type => 'MIT', :file => 'LICENSE' }
     spec.source                     = { :git => 'https://github.com/RiftValleySoftware/RVS_Spinner.git', :tag => spec.version.to_s }
     spec.ios.framework              = 'UIKit'
