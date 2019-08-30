@@ -109,6 +109,7 @@
 
 <p>It also uses a fairly simple <a href="https://developer.apple.com/documentation/swift/array"><code>Array</code></a> data provider. Simply associate an <a href="https://developer.apple.com/documentation/swift/array"><code>Array</code></a> of structs to the control, and it&rsquo;s sorted.</p>
 <h1 id='where-to-get' class='heading'>WHERE TO GET</h1>
+<h2 id='as-a-a-href-https-cocoapods-org-cocoapod-a' class='heading'>As A <a href="https://cocoapods.org">CocoaPod</a></h2>
 
 <p><a href="https://cocoapods.org/pods/RVS_Spinner">This is available here, as a CocoaPod.</a></p>
 
@@ -121,6 +122,24 @@
 <p>You will then need to import the module, by adding the following to the source files that will be accessing the spinner:</p>
 <pre class="highlight plaintext"><code>import RVS_Spinner
 </code></pre>
+<h2 id='using-a-href-https-github-com-carthage-carthage-carthage-a' class='heading'>Using <a href="https://github.com/Carthage/Carthage">Carthage</a></h2>
+
+<p>You can install it, using Carthage as your dependency manager.</p>
+
+<p>Simply add the following to your <a href="https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md#cartfile">Cartfile</a>:</p>
+<pre class="highlight plaintext"><code>github "RiftValleySoftware/RVS_Spinner"
+</code></pre>
+
+<p>That will bring the project into a <q>Carthage</q> directory.</p>
+
+<p>You should probably add the single file from the project (as opposed to the product). That can be found in <q>Checkins</q>.</p>
+
+<p>If you do that, then no need to import.</p>
+
+<p>If you include the product (in the <q>Build</q> sibdirectory), you will need to import the module, by adding the following to the source files that will be accessing the spinner:</p>
+<pre class="highlight plaintext"><code>import RVS_Spinner
+</code></pre>
+<h2 id='directly-from-github' class='heading'>Directly From GitHub</h2>
 
 <p><a href="https://github.com/RiftValleySoftware/RVS_Spinner">Here is the GitHub Repo for This Project.</a></p>
 

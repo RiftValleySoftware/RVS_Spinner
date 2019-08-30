@@ -1,3 +1,6 @@
+*Version 2.1.4* **August 30, 2019**
+- No operational change. Merely updated the docs to include Carthage.
+
 *Version 2.1.3* **May 27, 2019**
 - Corrected errant code comments.
 - Tweaked the README to use the new images.

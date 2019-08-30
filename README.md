@@ -28,6 +28,9 @@ It also uses a fairly simple [`Array`](https://developer.apple.com/documentation
 
 WHERE TO GET
 =
+As A [CocoaPod](https://cocoapods.org)
+-
+
 [This is available here, as a CocoaPod.](https://cocoapods.org/pods/RVS_Spinner)
 
 Just put:
@@ -39,7 +42,27 @@ In your [podfile](https://guides.cocoapods.org/using/the-podfile.html), then run
 You will then need to import the module, by adding the following to the source files that will be accessing the spinner:
 
     import RVS_Spinner
+    
+Using [Carthage](https://github.com/Carthage/Carthage)
+-
+You can install it, using Carthage as your dependency manager.
 
+Simply add the following to your [Cartfile](https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md#cartfile):
+
+    github "RiftValleySoftware/RVS_Spinner"
+
+That will bring the project into a "Carthage" directory.
+
+You should probably add the single file from the project (as opposed to the product). That can be found in "Checkins".
+
+If you do that, then no need to import.
+
+If you include the product (in the "Build" sibdirectory), you will need to import the module, by adding the following to the source files that will be accessing the spinner:
+
+    import RVS_Spinner
+
+Directly From GitHub
+-
 [Here is the GitHub Repo for This Project.](https://github.com/RiftValleySoftware/RVS_Spinner)
 
 Since the entire control is contained in only one file, you also have the option of simply grabbing that source file ([the RVS_Spinner/RVS_Spinner.swift file](https://github.com/RiftValleySoftware/RVS_Spinner/blob/master/RVS_Spinner/RVS_Spinner.swift)), and just including that in your project; in which case, you won't need to `import` the module.
