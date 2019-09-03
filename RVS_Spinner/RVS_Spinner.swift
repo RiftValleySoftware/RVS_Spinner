@@ -20,7 +20,7 @@
  
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  
- - version: 2.1.2
+ - version: 2.1.5
  */
 
 import UIKit
@@ -944,27 +944,33 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                     holderView.insertSubview(_openSpinnerView, belowSubview: self)
                 }
                 
-                // Add our tap gesture recognizer.
-                if nil == _tapGestureRecognizer {   // Just to be absolutely sure...
-                    _tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(type(of: self)._handleOpenTapGesture(_:)))
-                    _openSpinnerView.addGestureRecognizer(_tapGestureRecognizer)
+                // Add our tap gesture recognizer. Make sure to scrub any existing one, first (fast open/close can do that).
+                if nil != self._tapGestureRecognizer {
+                    self._tapGestureRecognizer?.removeTarget(self, action: #selector(type(of: self)._handleOpenTapGesture(_:)))
+                    self._openSpinnerView.removeGestureRecognizer(self._tapGestureRecognizer)
                 }
+                _tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(type(of: self)._handleOpenTapGesture(_:)))
+                _openSpinnerView.addGestureRecognizer(_tapGestureRecognizer)
                 
                 // Add our long press gesture recognizer.
-                if nil == _longPressGestureRecognizer {   // Just to be absolutely sure...
-                    _longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(type(of: self)._handleOpenLongPressGesture(_:)))
-                    _longPressGestureRecognizer.require(toFail: _tapGestureRecognizer)
-                    _openSpinnerView.addGestureRecognizer(_longPressGestureRecognizer)
+                if nil != self._longPressGestureRecognizer {
+                    self._longPressGestureRecognizer?.removeTarget(self, action: #selector(type(of: self)._handleOpenLongPressGesture(_:)))
+                    self._openSpinnerView.removeGestureRecognizer(self._longPressGestureRecognizer)
                 }
+                _longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(type(of: self)._handleOpenLongPressGesture(_:)))
+                _longPressGestureRecognizer.require(toFail: _tapGestureRecognizer)
+                _openSpinnerView.addGestureRecognizer(_longPressGestureRecognizer)
                 
                 // Add our rotation pan tracker gesture recognizer.
-                if nil == _rotateGestureRecognizer {   // Just to be absolutely sure...
-                    _rotateGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(type(of: self)._handleOpenPanGesture(_:)))
-                    _rotateGestureRecognizer.require(toFail: _tapGestureRecognizer)
-                    _rotateGestureRecognizer.require(toFail: _longPressGestureRecognizer)
-                    _openSpinnerView.addGestureRecognizer(_rotateGestureRecognizer)
-                    _rotateGestureRecognizer.delaysTouchesBegan = false
+                if nil != self._rotateGestureRecognizer {
+                    self._rotateGestureRecognizer?.removeTarget(self, action: #selector(type(of: self)._handleOpenPanGesture(_:)))
+                    self._openSpinnerView.removeGestureRecognizer(self._rotateGestureRecognizer)
                 }
+                _rotateGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(type(of: self)._handleOpenPanGesture(_:)))
+                _rotateGestureRecognizer.require(toFail: _tapGestureRecognizer)
+                _rotateGestureRecognizer.require(toFail: _longPressGestureRecognizer)
+                _openSpinnerView.addGestureRecognizer(_rotateGestureRecognizer)
+                _rotateGestureRecognizer.delaysTouchesBegan = false
             } else {    // Otherwise, we are using the picker.
                 _openPickerContainerView = UIView(frame: openPickerFrame)
                 if let pickerContainer = _openPickerContainerView {    // Just to be sure, but what the heck...
@@ -1631,7 +1637,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 _decelerationDisplayLink?.invalidate()
                 _decelerationDisplayLink = nil
                 DispatchQueue.main.async {
-                    self._doneTracking = true
                     self.setNeedsDisplay()
                 }
             } else {

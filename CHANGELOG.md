@@ -1,3 +1,6 @@
+*Version 2.1.5* **September 3, 2019**
+- Fixed a bug, where the spinner gesture recognizers could get deactivated if you opened and closed the control very quickly.
+
 *Version 2.1.4* **August 30, 2019**
 - No operational change. Merely updated the docs to include Carthage.
 
