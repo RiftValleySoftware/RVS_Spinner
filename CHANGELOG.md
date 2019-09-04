@@ -1,23 +1,49 @@
-*Version 2.1.5* **September 3, 2019**
+# RVS_Spinner Change Log
+
+## 2.1.6
+
+- **September 3, 2019**
+
+- No operational changes. Simply made some tweaks to the podspec and the CHANGELOG, in the hopes that it will make CocoaPods happier.
+
+## 2.1.5
+
+- **September 3, 2019**
+
 - Fixed a bug, where the spinner gesture recognizers could get deactivated if you opened and closed the control very quickly.
 
-*Version 2.1.4* **August 30, 2019**
+## 2.1.4
+
+- **August 30, 2019**
+
 - No operational change. Merely updated the docs to include Carthage.
 
-*Version 2.1.3* **May 27, 2019**
+## 2.1.3
+
+- **May 27, 2019**
+
 - Corrected errant code comments.
 - Tweaked the README to use the new images.
 
-*Version 2.1.2* **April 12, 2019**
+## 2.1.2
+
+- **April 12, 2019**
+
 - Made the String argument to the data item struct optional. It isn't really necessary, so we shouldn't require it.
 - Code documentation improvements.
 - Some basic improvements to the way some stuff works in the spinner. Should be no visible changes.
 
-*Version 2.1.1* **April 5, 2019**
+## 2.1.1
+
+- **April 5, 2019**
+
 - Added a "Leak Test" test harness app, for testing for memory leaks.
 - There was no change to the framework, but I need to increase the version for CocoaPods.
 
-*Version 2.1.0* **April 4, 2019**
+## 2.1.0
+
+- **April 4, 2019**
+
 - Adding the tabbed test harness app (tries the control in multiple scenarios).
 - Added a real purdy splash screen.
 - Changed the background in the basic test harness app.
@@ -27,18 +53,30 @@
 - Changed the icon source file to PDF -that's a better format.
 - Added a "compensate for rotation" property. This allows the center to remain vertical, while the main control os rotated (via the superview).
 
-*Version 2.0.3* **April 2, 2019**
+## 2.0.3
+
+- **April 2, 2019**
+
 - Fixed a bug, in which the transparency overlay was off-kilter for odd-numbered datasets.
 
-*Version 2.0.2* **April 1, 2019**
+## 2.0.2
+
+- **April 1, 2019**
+
 - The data item struct is no longer Equatable. It didn't need to be, and the protocol conformance sucked.
 - I'm ruthlessly going through the code, looking for weak spots and unnecessary cruft. There will be blood.
 
-*Version 2.0.1* **April 1, 2019**
+## 2.0.1
+
+- **April 1, 2019**
+
 - The pickerView wasn't reorganizing itself properly after a rotation.
 - Raised the max flywheel velocity, and made the speed "cumulative," so it behaves a lot more like a normal flywheel.
 
-*Version 2.0.0* **April 1, 2019**
+## 2.0.0
+
+- **April 1, 2019**
+
 - Fixed an annoying auto-layout bug in the test harness that made the SE unusable.
 - Improved the spinning animation.
 - Removed the rotation feature. It was a nice idea, but was actually a lot more complicated than initially envisioned, and definitely not worth the agita and quality hit.
@@ -47,28 +85,46 @@
 - Had to reimplement the darn rotate notification, because of the new way I'm drawing stuff.
 - Improved the openinng and closing animations.
 
-*Version 1.0.7* **March 31, 2019**
+## 1.0.7
+
+- **March 31, 2019**
+
 - Almost exclusively documentation changes.
 - Added a couple of xcodeproj files for the two demo apps.
 - This is the first "official" release of the pod.
 
-*Version 1.0.6* **March 31, 2019**
+## 1.0.6
+
+- **March 31, 2019**
+
 - Made the animations smoother.
 - Removed the cache stuff. It is no longer necessary.
 - Updated the documentation.
 - Added the demo projects.
 
-*Version 1.0.5* **March 30, 2019**
+## 1.0.5
+
+- **March 30, 2019**
+
 - Rearranged the way the CALayers were being done to get rid of a "false positive" leak that happens when you keep a CALayer as an instance property.
 - Removed the SwiftLint dependency, as it really isn't one.
 - Made some of the code in the test harness app "swiftier," and improved code documentation.
 - Added the ability to switch off the cache. This can reduce drawing artifacts, but makes the spinner look less "spinny."
 
-*Version 1.0.4* **March 30, 2019**
+## 1.0.4
+
+- **March 30, 2019**
+
 - Found a place where a notifier could get accidentally created (and not deactivated -bad), and made drastic improvements to the documentation.
 
-*Version 1.0.3* **March 30, 2019**
+## 1.0.3
+
+- **March 30, 2019**
+
 - A few minor display issues covered, and greatly enhanced support documentation.
 
-*Version 1.0.0* **March 29, 2019**
+## 1.0.0
+
+- **March 29, 2019**
+
 - Initial version.
