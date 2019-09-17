@@ -5,7 +5,7 @@ Pod::Spec.new do |spec|
     spec.version            = '2.1.7'
     spec.platform           = :ios, '11.0'
     spec.homepage           = 'https://riftvalleysoftware.com/work/open-source-projects/'
-    spec.social_media_url   = 'https://twitter.com/valley_rift'
+    spec.social_media_url   = 'https://twitter.com/GrtRiftValley'
     spec.author             = { 'The Great Rift Valley Software Company' => 'chris@riftvalleysoftware.com' }
     spec.documentation_url  = 'https://riftvalleysoftware.github.io/RVS_Spinner/'
     spec.license            = { :type => 'MIT', :file => 'LICENSE' }
