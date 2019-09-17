@@ -14,10 +14,10 @@
       location = "group:jazzy.sh">
    </FileRef>
    <FileRef
-      location = "group:/Users/cmarshall/Documents/Development/RiftValley/RVS_Spinner/LICENSE">
+      location = "group:Podfile">
    </FileRef>
    <FileRef
-      location = "group:Podfile">
+      location = "group:LICENSE">
    </FileRef>
    <FileRef
       location = "group:RVS_Spinner.podspec">

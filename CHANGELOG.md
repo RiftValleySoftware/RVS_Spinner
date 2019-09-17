@@ -1,5 +1,12 @@
 # RVS_Spinner Change Log
 
+## 2.1.7
+
+- **September 17, 2019**
+
+- Updated the Xcode version. Apple recommends that we use RC2 of Xcode 11. Might not make any difference, as this is a "build it on the spot" project.
+- Fixed a minor typo in the README.
+
 ## 2.1.6
 
 - **September 3, 2019**

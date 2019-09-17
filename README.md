@@ -57,7 +57,7 @@ You should probably add the single file from the project (as opposed to the prod
 
 If you do that, then no need to import.
 
-If you include the product (in the "Build" sibdirectory), you will need to import the module, by adding the following to the source files that will be accessing the spinner:
+If you include the product (in the "Build" subdirectory), you will need to import the module, by adding the following to the source files that will be accessing the spinner:
 
     import RVS_Spinner
 
