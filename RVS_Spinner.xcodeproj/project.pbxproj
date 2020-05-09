@@ -1362,7 +1362,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.7;
+				MARKETING_VERSION = 2.1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-Spinner";
 				PRODUCT_MODULE_NAME = "${TARGET_NAME}";
 				PRODUCT_NAME = "${TARGET_NAME}";
@@ -1392,7 +1392,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.7;
+				MARKETING_VERSION = 2.1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-Spinner";
 				PRODUCT_MODULE_NAME = "${TARGET_NAME}";
 				PRODUCT_NAME = "${TARGET_NAME}";

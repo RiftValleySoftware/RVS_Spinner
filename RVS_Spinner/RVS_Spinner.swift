@@ -20,7 +20,7 @@
  
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  
- - version: 2.1.6
+ - version: 2.1.8
  */
 
 import UIKit
@@ -32,7 +32,7 @@ import AudioToolbox
 /**
  This allows us to see if a color is clear.
  */
-fileprivate extension UIColor {
+private extension UIColor {
     /* ################################################################## */
     /**
      - returns true, if the color is clear.
@@ -212,82 +212,82 @@ public extension RVS_SpinnerDelegate {
 @IBDesignable
 public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource {
     /* ################################################################################################################################## */
-    // MARK: - Internal Static Properties
+    // MARK: - Private Static Properties
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      This is the "opening" system sound.
      */
-    static let _kOpenSystemSoundID: UInt32 = 1104
+    private static let _kOpenSystemSoundID: UInt32 = 1104
     
     /* ################################################################## */
     /**
      This is the "setting" system sound.
      */
-    static let _kSelectSystemSoundID: UInt32 = 1103
+    private static let _kSelectSystemSoundID: UInt32 = 1103
     
     /* ################################################################## */
     /**
      This is the "closing" system sound.
      */
-    static let _kCloseSystemSoundID: UInt32 = 1105
+    private static let _kCloseSystemSoundID: UInt32 = 1105
 
     /* ################################################################## */
     /**
      This is the width of the lines in the control, in display units.
      */
-    static let _kBorderWidthInDisplayUnits: CGFloat = 1.0
+    private static let _kBorderWidthInDisplayUnits: CGFloat = 1.0
     
     /* ################################################################## */
     /**
      This is the padding in the open control "pie slices.".
      */
-    static let _kOpenPaddingInDisplayUnits: CGFloat = 8.0
+    private static let _kOpenPaddingInDisplayUnits: CGFloat = 8.0
     
     /* ################################################################## */
     /**
      This is the largest square image we allow in the pickerview.
      */
-    static let _kMaxOpenPickerViewImageSizeInDisplayUnits: CGFloat = 40.0
+    private static let _kMaxOpenPickerViewImageSizeInDisplayUnits: CGFloat = 40.0
     
     /* ################################################################## */
     /**
      This is the maximum velocity for the "flywheel."
      */
-    static let _kMaxFlywheelVelocity: CGFloat = 100
+    private static let _kMaxFlywheelVelocity: CGFloat = 100
     
     /* ################################################################## */
     /**
      This is the minimum velocity for the "flywheel." Below this, the spinner "clicks" in a value.
      */
-    static let _kMinFlywheelVelocity: CGFloat = 0.8
+    private static let _kMinFlywheelVelocity: CGFloat = 0.8
     
     /* ################################################################## */
     /**
      This is the deceleration constant for the "flywheel." It is reduced to this amount, each iteration.
      */
-    static let _kFlywheelVelocityDecelerationMultiplier: CGFloat = 0.994
+    private static let _kFlywheelVelocityDecelerationMultiplier: CGFloat = 0.994
     
     /* ################################################################## */
     /**
      This is a constant for the "accumulator" of the "flywheel."
      */
-    static let _kFlywheelVelocityDecelerationNudgeMultiplier: CGFloat = 0.1
+    private static let _kFlywheelVelocityDecelerationNudgeMultiplier: CGFloat = 0.1
     
     /* ################################################################## */
     /**
      This is the preferred frames per second for our decelerator.
      */
-    static let _kFlywheelPreferredFramesPerSecond: Int = 60
+    private static let _kFlywheelPreferredFramesPerSecond: Int = 60
     
     /* ################################################################## */
     /**
      This is used to derive the velocity from the pan.
      */
-    static let _kFlywheelVelocityDivisor: CGFloat = 600
+    private static let _kFlywheelVelocityDivisor: CGFloat = 600
 
     /* ################################################################################################################################## */
-    // MARK: - Internal Instance Properties
+    // MARK: - Private Instance Properties
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
@@ -295,7 +295,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      It's a weak reference to avoid memory leaks.
      */
-    weak var _centerImageLayer: CALayer!
+    private weak var _centerImageLayer: CALayer!
     
     /* ################################################################## */
     /**
@@ -303,13 +303,13 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      It's a weak reference to avoid memory leaks.
      */
-    weak var _animatedIconLayer: CALayer!
+    private weak var _animatedIconLayer: CALayer!
     
     /* ################################################################## */
     /**
      This is used to animate the spin.
      */
-    var _spinnerAnimation: CABasicAnimation!
+    private var _spinnerAnimation: CABasicAnimation!
     
     /* ################################################################## */
     /**
@@ -317,7 +317,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      It's a weak reference to avoid memory leaks.
      */
-    weak var _spinnerTransparencyMask: CALayer!
+    private weak var _spinnerTransparencyMask: CALayer!
 
     /* ################################################################## */
     /**
@@ -325,7 +325,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      This is set from the view background color. When we set it, we set the UIView background color to clear.
      */
-    var _closedBackgroundColor: UIColor? {
+    private var _closedBackgroundColor: UIColor? {
         didSet {
             DispatchQueue.main.async {
                 super.backgroundColor = UIColor.clear
@@ -338,104 +338,104 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      This is the radius of the open control "pie slices.".
      */
-    var _radiusOfOpenControlInDisplayUnits: Double = 0.0
+    private var _radiusOfOpenControlInDisplayUnits: Double = 0.0
     
     /* ################################################################## */
     /**
      This is the circumferential length of one "spoke" arc.
      */
-    var _arclengthInRadians: CGFloat = 0.0
+    private var _arclengthInRadians: CGFloat = 0.0
 
     /* ################################################################## */
     /**
      This is used to track the velocity for "flywheel" behavior.
      */
-    var _flywheelVelocity: CGFloat = 0
+    private var _flywheelVelocity: CGFloat = 0
     
     /* ################################################################## */
     /**
      This is also used to track the velocity for "flywheel" behavior during deceleration.
      */
-    var _currentFlywheelVelocity: CGFloat = 0
+    private var _currentFlywheelVelocity: CGFloat = 0
     
     /* ################################################################## */
     /**
      This is a Core Animation Display Link pointer that we use for the decelerator.
      */
-    var _decelerationDisplayLink: CADisplayLink?
+    private var _decelerationDisplayLink: CADisplayLink?
     
     /* ################################################################## */
     /**
      This accumulates "bumps" to "nudge" the value as we decelerate.
      */
-    var _decelerationAccumulator: CGFloat = 0
+    private var _decelerationAccumulator: CGFloat = 0
     
     /* ################################################################## */
     /**
      This is the first angle for a pan. We use this to track the delta.
      */
-    var _initialAngleForPan: CGFloat = 0
+    private var _initialAngleForPan: CGFloat = 0
     
     /* ################################################################## */
     /**
      This is the item that was selected when we started the pan.
      */
-    var _initialSelectionForPan: Int = 0
+    private var _initialSelectionForPan: Int = 0
     
     /* ################################################################## */
     /**
      This is an invisible view that we instantiate over the control to catch gestures and display the open control.
      It is only available when the control is open, and it is the spinner variant.
      */
-    var _openSpinnerView: UIView!
+    private var _openSpinnerView: UIView!
 
     /* ################################################################## */
     /**
      This is the gesture recognizer we will use to determine if the control is being spun/panned.
      */
-    var _rotateGestureRecognizer: UIPanGestureRecognizer!
+    private var _rotateGestureRecognizer: UIPanGestureRecognizer!
 
     /* ################################################################## */
     /**
      This is the gesture recognizer we will use to determine if the control is being tapped.
      */
-    var _tapGestureRecognizer: UITapGestureRecognizer!
+    private var _tapGestureRecognizer: UITapGestureRecognizer!
 
     /* ################################################################## */
     /**
      This is the gesture recognizer we will use to determine if the control is being tapped, but in a long, lingering, kinda creepy way.
      */
-    var _longPressGestureRecognizer: UILongPressGestureRecognizer!
+    private var _longPressGestureRecognizer: UILongPressGestureRecognizer!
     
     /* ################################################################## */
     /**
      This is a UIView that will hold the picker. It is only available for the picker variant.
      */
-    var _openPickerContainerView: UIView!
+    private var _openPickerContainerView: UIView!
     
     /* ################################################################## */
     /**
      This is standard UIPickerView, for when we have too much.
      */
-    var _openPickerView: UIPickerView!
+    private var _openPickerView: UIPickerView!
 
     /* ################################################################## */
     /**
      This is a semaphore to indicate that we are done tracking the control.
      */
-    var _doneTracking: Bool = true
+    private var _doneTracking: Bool = true
     
     /* ################################################################## */
     /**
      This will provide haptic/audio feedback for opening and closing the control.
      */
-    var _impactFeedbackGenerator: UIImpactFeedbackGenerator?
+    private var _impactFeedbackGenerator: UIImpactFeedbackGenerator?
     
     /* ################################################################## */
     /**
      This will provide haptic/audio feedback for selection "ticks."
      */
-    var _selectionFeedbackGenerator: UISelectionFeedbackGenerator?
+    private var _selectionFeedbackGenerator: UISelectionFeedbackGenerator?
     
     /* ################################################################## */
     /**
@@ -443,41 +443,25 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      Semaphores are a bad idea, in general. I used to love them, but they don't play well with asynchronous environments.
      */
-    var _iHateSemaphores: Bool = false
+    private var _stupidAnimationFlag: Bool = false
     
     /* ################################################################################################################################## */
-    // MARK: - Internal Instance Calculated Properties
+    // MARK: - Private Instance Calculated Properties
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      This is the frame for the open spinner.
      */
-    var openSpinnerFrame: CGRect {
-        var ret = CGRect.zero
-        
-        ret.origin.x = frame.midX - CGFloat(_radiusOfOpenControlInDisplayUnits)
-        ret.origin.y = frame.midY - CGFloat(_radiusOfOpenControlInDisplayUnits)
-        ret.size.width = CGFloat(_radiusOfOpenControlInDisplayUnits) * 2
-        ret.size.height = CGFloat(_radiusOfOpenControlInDisplayUnits) * 2
-
-        return ret
-    }
+    private var _openSpinnerFrame: CGRect { CGRect(x: frame.midX - CGFloat(_radiusOfOpenControlInDisplayUnits), y: frame.midY - CGFloat(_radiusOfOpenControlInDisplayUnits), width: CGFloat(_radiusOfOpenControlInDisplayUnits) * 2, height: CGFloat(_radiusOfOpenControlInDisplayUnits) * 2) }
     
     /* ################################################################## */
     /**
-     This is the frame for the open picker.
+     This is the frame for the open picker. It starts at a place just above the vertical center.
      */
-    var openPickerFrame: CGRect {
-        var ret = openSpinnerFrame
-        
-        ret.size.height /= 2    // Start at the midpoint.
-        ret.size.height -= (bounds.size.height / 2)    // And just above the center.
-        
-        return ret
-    }
+    private var _openPickerFrame: CGRect { CGRect(x: _openSpinnerFrame.origin.x, y: _openSpinnerFrame.origin.x, width: _openSpinnerFrame.size.width, height: (_openSpinnerFrame.size.height / 2) - (bounds.size.height / 2)) }
 
     /* ################################################################################################################################## */
-    // MARK: - Internal Instance Methods
+    // MARK: - Private Instance Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
@@ -485,7 +469,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      - parameter inVelocity: The initial velocity. Negative is clockwise, positive, widdershins.
      */
-    func _startYourEngines(_ inVelocity: CGFloat) {
+    private func _startYourEngines(_ inVelocity: CGFloat) {
         _flywheelVelocity = inVelocity
         _currentFlywheelVelocity = _flywheelVelocity
         _decelerationAccumulator = 0
@@ -496,10 +480,11 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      This plays a sound (and gives haptic feedback) for the "opening" animation.
      */
-    func _playOpenSound() {
+    private func _playOpenSound() {
         if isSoundOn {
-            AudioServicesPlaySystemSound(type(of: self)._kOpenSystemSoundID)
+            AudioServicesPlaySystemSound(Self._kOpenSystemSoundID)
         }
+        
         if isHapticsOn {
             _impactFeedbackGenerator?.impactOccurred()
             _impactFeedbackGenerator?.prepare()
@@ -510,15 +495,16 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      This plays the faint "tink" sound when a new value is selected.
      */
-    func _playSelectionTink() {
-        if isOpen {
-            if isSoundOn {
-                AudioServicesPlaySystemSound(type(of: self)._kSelectSystemSoundID)
-            }
-            if isHapticsOn {
-                _selectionFeedbackGenerator?.selectionChanged()
-                _selectionFeedbackGenerator?.prepare()
-            }
+    private func _playSelectionTink() {
+        guard isOpen else { return }
+        
+        if isSoundOn {
+            AudioServicesPlaySystemSound(Self._kSelectSystemSoundID)
+        }
+        
+        if isHapticsOn {
+            _selectionFeedbackGenerator?.selectionChanged()
+            _selectionFeedbackGenerator?.prepare()
         }
     }
 
@@ -526,10 +512,11 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      This plays a sound for the control closing.
      */
-    func _playCloseSound() {
+    private func _playCloseSound() {
         if isSoundOn {
-            AudioServicesPlaySystemSound(type(of: self)._kCloseSystemSoundID)
+            AudioServicesPlaySystemSound(Self._kCloseSystemSoundID)
         }
+        
         if isHapticsOn {
             _impactFeedbackGenerator?.impactOccurred()
             _impactFeedbackGenerator?.prepare()
@@ -540,14 +527,14 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      This continues the deceleration/flywheel.
      */
-    func _decelerate() {
+    private func _decelerate() {
         if nil != _openSpinnerView && isOpen {
-            _currentFlywheelVelocity = Swift.min(abs(_currentFlywheelVelocity), type(of: self)._kMaxFlywheelVelocity) * (0 > _currentFlywheelVelocity ? -1 : 1)
-            if Swift.abs(_currentFlywheelVelocity) >= type(of: self)._kMinFlywheelVelocity {
+            _currentFlywheelVelocity = Swift.min(abs(_currentFlywheelVelocity), Self._kMaxFlywheelVelocity) * (0 > _currentFlywheelVelocity ? -1 : 1)
+            if Swift.abs(_currentFlywheelVelocity) >= Self._kMinFlywheelVelocity {
                 _decelerationDisplayLink?.invalidate()
                 // The displaylink will keep "poking," until we are done.
-                _decelerationDisplayLink = CADisplayLink(target: self, selector: #selector(type(of: self)._decelerationStep))
-                _decelerationDisplayLink?.preferredFramesPerSecond = type(of: self)._kFlywheelPreferredFramesPerSecond
+                _decelerationDisplayLink = CADisplayLink(target: self, selector: #selector(Self._decelerationStep))
+                _decelerationDisplayLink?.preferredFramesPerSecond = Self._kFlywheelPreferredFramesPerSecond
                 _decelerationDisplayLink?.add(to: RunLoop.main, forMode: RunLoop.Mode.common)  // In the main loop, so we can tweak UI.
             } else {
                 _decelerationDisplayLink?.invalidate()
@@ -568,10 +555,10 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      translate that to a "detented" set of integer values.
      This way does that, and gives a fairly realistic logarithmic response.
      */
-    @objc func _decelerationStep() {
-        let newVelocity = _currentFlywheelVelocity * type(of: self)._kFlywheelVelocityDecelerationMultiplier
+    @objc private func _decelerationStep() {
+        let newVelocity = _currentFlywheelVelocity * Self._kFlywheelVelocityDecelerationMultiplier
         _currentFlywheelVelocity = newVelocity
-        let nudge = type(of: self)._kFlywheelVelocityDecelerationNudgeMultiplier * newVelocity
+        let nudge = Self._kFlywheelVelocityDecelerationNudgeMultiplier * newVelocity
         _decelerationAccumulator += nudge
 
         // This just gives a slightly smoother round.
@@ -607,7 +594,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      - parameter inRect: The drawing rectangle
      */
-    func _drawControlCenter(_ inRect: CGRect) {
+    private func _drawControlCenter(_ inRect: CGRect) {
         _centerImageLayer?.removeFromSuperlayer()   // Get rid of any previous center layer.
         
         // We stroke and fill the basic shape with the colors we have set up.
@@ -616,7 +603,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         centerLayer.path = centerShape.cgPath   // By default, the center is an oval/circle. You can override this to change the shape.
         centerLayer.fillColor = _closedBackgroundColor?.cgColor
         centerLayer.strokeColor = tintColor?.cgColor
-        centerLayer.lineWidth = type(of: self)._kBorderWidthInDisplayUnits
+        centerLayer.lineWidth = Self._kBorderWidthInDisplayUnits
 
         if 0 < values.count {   // Have to have values to draw anything more.
             // Get the image to be displayed over the oval.
@@ -647,97 +634,96 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      - parameter inIndex: The 0-based index of the value to be used.
      - parameter isTransparencyMask: true, if this is only a transparency mask. In this case, no icons will be drawn.
      */
-    func _drawOneValueRadius(_ inIndex: Int, isTransparencyMask inIsTransparencyMask: Bool) -> CALayer! {
-        var ret: CAShapeLayer! = nil
-
-        if !values.isEmpty {    // If we don't have any values, then this is for naught.
-            let value = values[inIndex]
+    private func _drawOneValueRadius(_ inIndex: Int, isTransparencyMask inIsTransparencyMask: Bool) -> CALayer! {
+        guard !values.isEmpty else { return nil }
         
-            // This is the center of the control. All spokes start here.
-            let centerPointInDisplayUnits = CGPoint(x: _openSpinnerView.bounds.size.width / 2, y: _openSpinnerView.bounds.size.height / 2)
+        let value = values[inIndex]
+    
+        // This is the center of the control. All spokes start here.
+        let centerPointInDisplayUnits = CGPoint(x: _openSpinnerView.bounds.size.width / 2, y: _openSpinnerView.bounds.size.height / 2)
+        
+        // This is the circumference of the entire open spinner.
+        let circumferenceInDisplayUnits = CGFloat(Double.pi * 2 * _radiusOfOpenControlInDisplayUnits)
+        
+        // This is the length (circular) of the arc segment that caps each spoke.
+        let arcCircumferenceInDisplayUnits = circumferenceInDisplayUnits / CGFloat(values.count)
+
+        // This is the radius we have available. It will be calculated dynamically to fit in our allotted space.
+        let radiusInDisplayUnits = CGFloat(_radiusOfOpenControlInDisplayUnits)
+    
+        // This is the angle at which this spoke will be shown (Right up and down).
+        let centerAngleInRadians = (3 * CGFloat.pi) / 2
+    
+        // This is what we'll be changing and returning.
+        let ret = CAShapeLayer()
+        
+        ret.frame = _openSpinnerView.bounds
+
+        // This is how much padding we'll want around the image.
+        let paddingWidth = Self._kOpenPaddingInDisplayUnits * 2
+
+        // This is the distance between our circumference, and the outside of the center circle, and adding some padding on either end.
+        let workingLength = (CGFloat(_radiusOfOpenControlInDisplayUnits) - bounds.size.height) - paddingWidth
+    
+        // This is all pretty rough, but it will get us there. We use some basic trig to get a rough idea of how much room we have, if we need to shrink.
+        let radiansPerValue = (2 * CGFloat.pi) / CGFloat(count) // This is how many radians in our 2π circle it takes to account for one value.
+    
+        // This is the width of the end of our little "measuring triangle." It is the distance in a straight line from the center of the spoke to the edge.
+        // The workingLength is our adjacent side, and we know the angle, which is a spoke angle, divided by 2.
+        let oppositeLength = Swift.min(workingLength, abs((workingLength * tan(radiansPerValue / 2)) * 2))
+    
+        let maxIconSize = value.icon.size   // We can't have icons bigger than the images provided.
+    
+        // Draw the spoke.
+        let path = UIBezierPath()
+        path.move(to: centerPointInDisplayUnits)
+        path.addArc(withCenter: centerPointInDisplayUnits, radius: radiusInDisplayUnits, startAngle: centerAngleInRadians - (_arclengthInRadians / 2), endAngle: centerAngleInRadians + (_arclengthInRadians / 2), clockwise: true)
+        path.move(to: centerPointInDisplayUnits)
+        
+        // This is the angle we need to rotate by to fit the spoke in the wheel.
+        var rotationAngleInRadians = CGFloat.pi - (CGFloat(inIndex) * _arclengthInRadians)
+
+        if !inIsTransparencyMask {    // We only do this is we are drawing the icon layer.
+            ret.fillColor = openBackgroundColor.cgColor // We will always have a transparent background for this layer.
             
-            // This is the circumference of the entire open spinner.
-            let circumferenceInDisplayUnits = CGFloat(Double.pi * 2 * _radiusOfOpenControlInDisplayUnits)
+            // This is how big each icon will be, in our rendered spoke.
+            let iconSize = CGSize(width: Swift.min(maxIconSize.width, oppositeLength), height: Swift.min(maxIconSize.height, oppositeLength))
             
-            // This is the length (circular) of the arc segment that caps each spoke.
-            let arcCircumferenceInDisplayUnits = circumferenceInDisplayUnits / CGFloat(values.count)
-
-            // This is the radius we have available. It will be calculated dynamically to fit in our allotted space.
-            let radiusInDisplayUnits = CGFloat(_radiusOfOpenControlInDisplayUnits)
-        
-            // This is the angle at which this spoke will be shown (Right up and down).
-            let centerAngleInRadians = (3 * CGFloat.pi) / 2
-        
-            ret = CAShapeLayer()
+            // We like to have a fixed size, but if the image is smaller, or we are packed in too tight, we may need to go smaller.
+            let maxWidth = Swift.min(iconSize.width, oppositeLength)  // This is how wide the displayed icon will be.
             
-            ret.frame = _openSpinnerView.bounds
-
-            // This is how much padding we'll want around the image.
-            let paddingWidth = type(of: self)._kOpenPaddingInDisplayUnits * 2
-
-            // This is the distance between our circumference, and the outside of the center circle, and adding some padding on either end.
-            let workingLength = (CGFloat(_radiusOfOpenControlInDisplayUnits) - bounds.size.height) - paddingWidth
-        
-            // This is all pretty rough, but it will get us there. We use some basic trig to get a rough idea of how much room we have, if we need to shrink.
-            let radiansPerValue = (2 * CGFloat.pi) / CGFloat(count) // This is how many radians in our 2π circle it takes to account for one value.
-        
-            // This is the width of the end of our little "measuring triangle." It is the distance in a straight line from the center of the spoke to the edge.
-            // The workingLength is our adjacent side, and we know the angle, which is a spoke angle, divided by 2.
-            let oppositeLength = Swift.min(workingLength, abs((workingLength * tan(radiansPerValue / 2)) * 2))
-        
-            let maxIconSize = value.icon.size   // We can't have icons bigger than the images provided.
-        
-            // Draw the spoke.
-            let path = UIBezierPath()
-            path.move(to: centerPointInDisplayUnits)
-            path.addArc(withCenter: centerPointInDisplayUnits, radius: radiusInDisplayUnits, startAngle: centerAngleInRadians - (_arclengthInRadians / 2), endAngle: centerAngleInRadians + (_arclengthInRadians / 2), clockwise: true)
-            path.move(to: centerPointInDisplayUnits)
+            let imageSquareSize = Swift.min(maxWidth, arcCircumferenceInDisplayUnits / 2)  // The image is displayed in a square.
             
-            // This is the angle we need to rotate by to fit the spoke in the wheel.
-            var rotationAngleInRadians = CGFloat.pi - (CGFloat(inIndex) * _arclengthInRadians)
+            let imageFrame = CGRect(x: centerPointInDisplayUnits.x - (imageSquareSize / 2), y: -(radiusInDisplayUnits - (_openSpinnerView.bounds.size.height / 2) - Self._kOpenPaddingInDisplayUnits), width: imageSquareSize, height: imageSquareSize)
+            
+            // Each image is the same as the center.
+            let displayLayer = _makeIconDisplay(value.icon, inFrame: imageFrame)
+            
+            let newFrame = displayLayer.frame
+            
+            // Calculate the frame for the rendered icon image. It is centered, at the end of the wedge.
+            displayLayer.frame = CGRect(x: centerPointInDisplayUnits.x - (newFrame.size.width / 2), y: -(radiusInDisplayUnits - (_openSpinnerView.bounds.size.height / 2) - Self._kOpenPaddingInDisplayUnits), width: newFrame.size.width, height: newFrame.size.height)
 
-            if !inIsTransparencyMask {    // We only do this is we are drawing the icon layer.
-                ret.fillColor = openBackgroundColor.cgColor // We will always have a transparent background for this layer.
-                
-                // This is how big each icon will be, in our rendered spoke.
-                let iconSize = CGSize(width: Swift.min(maxIconSize.width, oppositeLength), height: Swift.min(maxIconSize.height, oppositeLength))
-                
-                // We like to have a fixed size, but if the image is smaller, or we are packed in too tight, we may need to go smaller.
-                let maxWidth = Swift.min(iconSize.width, oppositeLength)  // This is how wide the displayed icon will be.
-                
-                let imageSquareSize = Swift.min(maxWidth, arcCircumferenceInDisplayUnits / 2)  // The image is displayed in a square.
-                
-                let imageFrame = CGRect(x: centerPointInDisplayUnits.x - (imageSquareSize / 2), y: -(radiusInDisplayUnits - (_openSpinnerView.bounds.size.height / 2) - type(of: self)._kOpenPaddingInDisplayUnits), width: imageSquareSize, height: imageSquareSize)
-                
-                // Each image is the same as the center.
-                let displayLayer = _makeIconDisplay(value.icon, inFrame: imageFrame)
-                
-                let newFrame = displayLayer.frame
-                
-                // Calculate the frame for the rendered icon image. It is centered, at the end of the wedge.
-                displayLayer.frame = CGRect(x: centerPointInDisplayUnits.x - (newFrame.size.width / 2), y: -(radiusInDisplayUnits - (_openSpinnerView.bounds.size.height / 2) - type(of: self)._kOpenPaddingInDisplayUnits), width: newFrame.size.width, height: newFrame.size.height)
+            ret.path = path.cgPath
+            ret.addSublayer(displayLayer)
+        } else {    // Otherwise, this is the transparency mask. No icon. We use white as our background color. It really doesn't matter what color, as long as it isn't clear.
+            ret.path = path.cgPath
+            ret.fillColor = UIColor.white.cgColor
 
-                ret.path = path.cgPath
-                ret.addSublayer(displayLayer)
-            } else {    // Otherwise, this is the transparency mask. No icon. We use white as our background color. It really doesn't matter what color, as long as it isn't clear.
-                ret.path = path.cgPath
-                ret.fillColor = UIColor.white.cgColor
+            // We use this to reduce the opacity of the values that are not actually on top.
+            let indexDistance = abs(inIndex - (count / 2))
+            
+            // The selected value is always full visibility, but it dimms drastically, the further we are from it.
+            ret.opacity = (0 == indexDistance) ? 1.0 : 0.25 / Float(indexDistance)
 
-                // We use this to reduce the opacity of the values that are not actually on top.
-                let indexDistance = abs(inIndex - (count / 2))
-                
-                // The selected value is always full visibility, but it dimms drastically, the further we are from it.
-                ret.opacity = (0 == indexDistance) ? 1.0 : 0.25 / Float(indexDistance)
-
-                // When doing the mask, we need to back up one-half spoke for odd-numbered counts.
-                if 0 != (count % 2) {
-                    rotationAngleInRadians -= (_arclengthInRadians / 2)
-                }
+            // When doing the mask, we need to back up one-half spoke for odd-numbered counts.
+            if 0 != (count % 2) {
+                rotationAngleInRadians -= (_arclengthInRadians / 2)
             }
-            
-            // Apply the rotation.
-            ret.transform = CATransform3DMakeRotation(rotationAngleInRadians, 0, 0, 1.0)
         }
+        
+        // Apply the rotation.
+        ret.transform = CATransform3DMakeRotation(rotationAngleInRadians, 0, 0, 1.0)
 
         return ret
     }
@@ -752,7 +738,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      - returns a new CALayer, with the display-ready icon.
      */
-    func _makeIconDisplay(_ inIcon: UIImage, inFrame: CGRect, isDimmed inIsDimmed: Bool = false) -> CALayer {
+    private func _makeIconDisplay(_ inIcon: UIImage, inFrame: CGRect, isDimmed inIsDimmed: Bool = false) -> CALayer {
         let iconDisplayLayer = CALayer()
         iconDisplayLayer.backgroundColor = UIColor.clear.cgColor
         iconDisplayLayer.frame = inFrame
@@ -763,24 +749,25 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
 
         var displayLayer = iconDisplayLayer
         
-        if framedIcons { // If we are displaying framed icons, then we need to surround the icon with a circle, and shrink it.
-            let frameCircleLayer = CAShapeLayer() // This is the circle "frame."
-            let circleFrame = iconDisplayLayer.frame
-            frameCircleLayer.frame.origin = CGPoint.zero
-            frameCircleLayer.frame = circleFrame
-            frameCircleLayer.path = UIBezierPath(arcCenter: CGPoint(x: circleFrame.midX, y: circleFrame.midY), radius: circleFrame.size.height / 2, startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true).cgPath
-            frameCircleLayer.strokeColor = tintColor.cgColor
-            frameCircleLayer.lineWidth = type(of: self)._kBorderWidthInDisplayUnits
-            frameCircleLayer.fillColor = _closedBackgroundColor?.cgColor
-            
-            // Shrinking by 1/6 seems to do it.
-            let inset = Swift.max(iconDisplayLayer.frame.size.width, iconDisplayLayer.frame.size.height) / 6
-            iconDisplayLayer.frame = iconDisplayLayer.frame.insetBy(dx: inset, dy: inset)
-            
-            frameCircleLayer.addSublayer(iconDisplayLayer)
-            
-            displayLayer = frameCircleLayer
-        }
+        // If we are displaying framed icons, then we need to surround the icon with a circle, and shrink it.
+        guard framedIcons else { return displayLayer }
+        
+        let frameCircleLayer = CAShapeLayer() // This is the circle "frame."
+        let circleFrame = iconDisplayLayer.frame
+        frameCircleLayer.frame.origin = CGPoint.zero
+        frameCircleLayer.frame = circleFrame
+        frameCircleLayer.path = UIBezierPath(arcCenter: CGPoint(x: circleFrame.midX, y: circleFrame.midY), radius: circleFrame.size.height / 2, startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true).cgPath
+        frameCircleLayer.strokeColor = tintColor.cgColor
+        frameCircleLayer.lineWidth = Self._kBorderWidthInDisplayUnits
+        frameCircleLayer.fillColor = _closedBackgroundColor?.cgColor
+        
+        // Shrinking by 1/6 seems to do it.
+        let inset = Swift.max(iconDisplayLayer.frame.size.width, iconDisplayLayer.frame.size.height) / 6
+        iconDisplayLayer.frame = iconDisplayLayer.frame.insetBy(dx: inset, dy: inset)
+        
+        frameCircleLayer.addSublayer(iconDisplayLayer)
+        
+        displayLayer = frameCircleLayer
 
         return displayLayer
     }
@@ -793,81 +780,81 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      - parameter inRect: The drawing rectangle
      */
-    func _drawOpenControl(_ inRect: CGRect) {
-        if isOpen { // Only counts if we're open.
-            if nil != _openSpinnerView {
-                if nil == _spinnerTransparencyMask {
-                    let transMask = CALayer()
-                    transMask.frame = _openSpinnerView.bounds
-                    
-                    for index in 0..<count {
-                        if let subLayer = _drawOneValueRadius(index, isTransparencyMask: true) {
-                            transMask.insertSublayer(subLayer, at: 0)
-                        }
+    private func _drawOpenControl(_ inRect: CGRect) {
+        guard isOpen else { return }
+        
+        if nil != _openSpinnerView {
+            if nil == _spinnerTransparencyMask {
+                let transMask = CALayer()
+                transMask.frame = _openSpinnerView.bounds
+                
+                for index in 0..<count {
+                    if let subLayer = _drawOneValueRadius(index, isTransparencyMask: true) {
+                        transMask.insertSublayer(subLayer, at: 0)
                     }
-                    
-                    _spinnerTransparencyMask = transMask
-                    
-                    _openSpinnerView.layer.mask = _spinnerTransparencyMask
                 }
                 
-                if nil == _animatedIconLayer {
-                    let iconLayer = CALayer()
-                    iconLayer.frame = _openSpinnerView.bounds
-
-                    for index in 0..<count {
-                        if let subLayer = _drawOneValueRadius(index, isTransparencyMask: false) {
-                            iconLayer.insertSublayer(subLayer, at: 0)
-                        }
-                    }
-                    
-                    _animatedIconLayer = iconLayer
-                    _openSpinnerView.layer.addSublayer(_animatedIconLayer)
-                }
+                _spinnerTransparencyMask = transMask
                 
-                // We use a...gag...retch...semaphore to flag that we just opened a new bar, and are looking for a bouncer.
-                if _iHateSemaphores {
-                    _openSpinnerView.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
-                    // We animate the opening of the spinner, making it "bounce."
-                    UIView.animate(withDuration: 0.25,
-                                   delay: 0,
-                                   usingSpringWithDamping: 0.8,
-                                   initialSpringVelocity: 25.0,
-                                   options: .allowUserInteraction,
-                                   animations: { [unowned self] in
-                                    self._openSpinnerView.transform = .identity
-                        },
-                                   completion: { [unowned self] (_: Bool) -> Void in
-                                    DispatchQueue.main.async {
-                                        self._iHateSemaphores = false
-                                        self.setNeedsDisplay()
-                                    }
-                        }
-                    )
-                }
-                
-                // This is how much we should be rotated.
-                let rotationAngleInRadians = (CGFloat.pi - (CGFloat(selectedIndex) * _arclengthInRadians))
-
-                // We animate the rotation, so we get the spinning effect.
-                let transform = CATransform3DRotate(CATransform3DIdentity, rotationAngleInRadians, 0.0, 0.0, -1.0)
-                if nil == _spinnerAnimation {
-                    CATransaction.begin()
-                    CATransaction.setAnimationDuration(0.2)
-                    CATransaction.setCompletionBlock { [unowned self] in
-                        DispatchQueue.main.async {
-                            self._spinnerAnimation = nil
-                            self._animatedIconLayer?.transform = transform
-                        }
-                   }
-                    
-                    _animatedIconLayer?.transform = transform
-                    
-                    CATransaction.commit()
-               }
-            } else {
-                self._clearDisplayCaches()  // Make sure we don't leave any dingleberries...
+                _openSpinnerView.layer.mask = _spinnerTransparencyMask
             }
+            
+            if nil == _animatedIconLayer {
+                let iconLayer = CALayer()
+                iconLayer.frame = _openSpinnerView.bounds
+
+                for index in 0..<count {
+                    if let subLayer = _drawOneValueRadius(index, isTransparencyMask: false) {
+                        iconLayer.insertSublayer(subLayer, at: 0)
+                    }
+                }
+                
+                _animatedIconLayer = iconLayer
+                _openSpinnerView.layer.addSublayer(_animatedIconLayer)
+            }
+            
+            // We use a...gag...retch...semaphore to flag that we just opened a new bar, and are looking for a bouncer.
+            if _stupidAnimationFlag {
+                _openSpinnerView.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
+                // We animate the opening of the spinner, making it "bounce."
+                UIView.animate(withDuration: 0.25,
+                               delay: 0,
+                               usingSpringWithDamping: 0.8,
+                               initialSpringVelocity: 25.0,
+                               options: .allowUserInteraction,
+                               animations: { [unowned self] in
+                                self._openSpinnerView.transform = .identity
+                    },
+                               completion: { [unowned self] (_: Bool) -> Void in
+                                DispatchQueue.main.async {
+                                    self._stupidAnimationFlag = false
+                                    self.setNeedsDisplay()
+                                }
+                    }
+                )
+            }
+            
+            // This is how much we should be rotated.
+            let rotationAngleInRadians = (CGFloat.pi - (CGFloat(selectedIndex) * _arclengthInRadians))
+
+            // We animate the rotation, so we get the spinning effect.
+            let transform = CATransform3DRotate(CATransform3DIdentity, rotationAngleInRadians, 0.0, 0.0, -1.0)
+            if nil == _spinnerAnimation {
+                CATransaction.begin()
+                CATransaction.setAnimationDuration(0.2)
+                CATransaction.setCompletionBlock { [unowned self] in
+                    DispatchQueue.main.async {
+                        self._spinnerAnimation = nil
+                        self._animatedIconLayer?.transform = transform
+                    }
+               }
+                
+                _animatedIconLayer?.transform = transform
+                
+                CATransaction.commit()
+           }
+        } else {
+            _clearDisplayCaches()  // Make sure we don't leave any dingleberries...
         }
     }
     
@@ -878,38 +865,38 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      - parameter inPointInLocalCoordinates: This is a point, in the coordinate system of the given view, to test.
      - parameter forView: The view in which we will test.
      */
-    func _handleOpenTouchEvent(_ inPointInLocalCoordinates: CGPoint, forView inView: UIView) {
-        if isOpen && nil != _openSpinnerView { // Only counts if we're open.
-            if nil != _decelerationDisplayLink {   // If we are spinning, a tap in the control will stop the spin.
-                _decelerationDisplayLink?.invalidate()
-                _decelerationDisplayLink = nil
-                setNeedsDisplay()
-            } else {
-                // We will hit test in the center (selects the current value and closes the control), the right side (decrements the value), or the left side (increments the value).
-                let center = CGRect(origin: CGPoint(x: inView.bounds.midX - (bounds.size.width / 2), y: inView.bounds.midY - (bounds.size.height / 2)), size: CGSize(width: bounds.size.width, height: bounds.size.height))
-                let leftSide = CGRect(origin: CGPoint(x: inView.bounds.origin.x, y: inView.bounds.origin.y), size: CGSize(width: inView.bounds.size.width / 2, height: inView.bounds.size.height))
-            
-                if center.contains(inPointInLocalCoordinates) { // Simply close the control.
-                    isOpen = false
-                } else {    // Increment or decrement by 1.
-                    var newValue = selectedIndex
+    private func _handleOpenTouchEvent(_ inPointInLocalCoordinates: CGPoint, forView inView: UIView) {
+        guard isOpen, nil != _openSpinnerView else { return }
+        
+        if nil != _decelerationDisplayLink {   // If we are spinning, a tap in the control will stop the spin.
+            _decelerationDisplayLink?.invalidate()
+            _decelerationDisplayLink = nil
+            setNeedsDisplay()
+        } else {
+            // We will hit test in the center (selects the current value and closes the control), the right side (decrements the value), or the left side (increments the value).
+            let center = CGRect(origin: CGPoint(x: inView.bounds.midX - (bounds.size.width / 2), y: inView.bounds.midY - (bounds.size.height / 2)), size: CGSize(width: bounds.size.width, height: bounds.size.height))
+            let leftSide = CGRect(origin: CGPoint(x: inView.bounds.origin.x, y: inView.bounds.origin.y), size: CGSize(width: inView.bounds.size.width / 2, height: inView.bounds.size.height))
+        
+            if center.contains(inPointInLocalCoordinates) { // Simply close the control.
+                isOpen = false
+            } else {    // Increment or decrement by 1.
+                var newValue = selectedIndex
 
-                    if leftSide.contains(inPointInLocalCoordinates) {
-                        newValue -= 1
-                        if 0 > newValue {
-                            newValue = count - 1
-                        }
-                    } else {
-                        newValue += 1
-                        if count == newValue {
-                            newValue = 0
-                        }
+                if leftSide.contains(inPointInLocalCoordinates) {
+                    newValue -= 1
+                    if 0 > newValue {
+                        newValue = count - 1
                     }
-                    
-                    selectedIndex = newValue
-                    
-                    setNeedsDisplay()
+                } else {
+                    newValue += 1
+                    if count == newValue {
+                        newValue = 0
+                    }
                 }
+                
+                selectedIndex = newValue
+                
+                setNeedsDisplay()
             }
         }
     }
@@ -918,91 +905,91 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      Handle the control opening.
      */
-    func _openControl() {
-        if !isEmpty {  // Only if we have something to display.
-            _iHateSemaphores = true // Make sure the opening is animated.
-            
-            if isHapticsOn {
-                _selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-                _selectionFeedbackGenerator?.prepare()
-                _impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
-                _impactFeedbackGenerator?.prepare()
-            }
-            
-            // We play our sounds in the main queue.
-            DispatchQueue.main.async {
-                self._playOpenSound()
-            }
+    private func _openControl() {
+        guard !isEmpty else { return }
 
-            if opensAsSpinner { // Only if we are opening the radial spinner.
-                // We will add our big ol' getsure recognizer view.
-                _openSpinnerView = UIView(frame: openSpinnerFrame)
-                _openSpinnerView.backgroundColor = UIColor.clear
+        _stupidAnimationFlag = true // Make sure the opening is animated.
+        
+        if isHapticsOn {
+            _selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+            _selectionFeedbackGenerator?.prepare()
+            _impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+            _impactFeedbackGenerator?.prepare()
+        }
+        
+        // We play our sounds in the main queue.
+        DispatchQueue.main.async {
+            self._playOpenSound()
+        }
 
-                // We will add our view to the superview of the control, just under the center.
-                if let holderView = superview {
-                    holderView.insertSubview(_openSpinnerView, belowSubview: self)
-                }
-                
-                // Add our tap gesture recognizer. Make sure to scrub any existing one, first (fast open/close can do that).
-                if nil != self._tapGestureRecognizer {
-                    self._tapGestureRecognizer?.removeTarget(self, action: #selector(type(of: self)._handleOpenTapGesture(_:)))
-                    self._openSpinnerView.removeGestureRecognizer(self._tapGestureRecognizer)
-                }
-                _tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(type(of: self)._handleOpenTapGesture(_:)))
-                _openSpinnerView.addGestureRecognizer(_tapGestureRecognizer)
-                
-                // Add our long press gesture recognizer.
-                if nil != self._longPressGestureRecognizer {
-                    self._longPressGestureRecognizer?.removeTarget(self, action: #selector(type(of: self)._handleOpenLongPressGesture(_:)))
-                    self._openSpinnerView.removeGestureRecognizer(self._longPressGestureRecognizer)
-                }
-                _longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(type(of: self)._handleOpenLongPressGesture(_:)))
-                _longPressGestureRecognizer.require(toFail: _tapGestureRecognizer)
-                _openSpinnerView.addGestureRecognizer(_longPressGestureRecognizer)
-                
-                // Add our rotation pan tracker gesture recognizer.
-                if nil != self._rotateGestureRecognizer {
-                    self._rotateGestureRecognizer?.removeTarget(self, action: #selector(type(of: self)._handleOpenPanGesture(_:)))
-                    self._openSpinnerView.removeGestureRecognizer(self._rotateGestureRecognizer)
-                }
-                _rotateGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(type(of: self)._handleOpenPanGesture(_:)))
-                _rotateGestureRecognizer.require(toFail: _tapGestureRecognizer)
-                _rotateGestureRecognizer.require(toFail: _longPressGestureRecognizer)
-                _openSpinnerView.addGestureRecognizer(_rotateGestureRecognizer)
-                _rotateGestureRecognizer.delaysTouchesBegan = false
-            } else {    // Otherwise, we are using the picker.
-                _openPickerContainerView = UIView(frame: openPickerFrame)
-                if let pickerContainer = _openPickerContainerView {    // Just to be sure, but what the heck...
-                    pickerContainer.backgroundColor = UIColor.clear
-                    _openPickerView = UIPickerView(frame: pickerContainer.bounds)
-                    _openPickerView.dataSource = self
-                    _openPickerView.delegate = self
-                    _openPickerView.showsSelectionIndicator = true
-                    pickerContainer.addSubview(_openPickerView!)
-                }
-                
-                if let holderView = superview {
-                    holderView.insertSubview(_openPickerContainerView!, belowSubview: self)
-                }
-                
-                _openPickerView.selectRow(selectedIndex, inComponent: 0, animated: true)
-                _openPickerContainerView?.transform =  CGAffineTransform(scaleX: 0.001, y: 0.001).concatenating(CGAffineTransform(translationX: 0, y: _openPickerContainerView.bounds.size.height / 2))
-                
-                // We animate the opening of the picker.
-                UIView.animate(withDuration: 0.25,
-                               delay: 0,
-                               usingSpringWithDamping: 0.8,
-                               initialSpringVelocity: 25.0,
-                               options: .allowUserInteraction,
-                               animations: { [unowned self] in
-                                if nil != self._openPickerContainerView {
-                                    self._openPickerContainerView?.transform = .identity
-                                }
-                    },
-                               completion: nil
-                )
+        if opensAsSpinner { // Only if we are opening the radial spinner.
+            // We will add our big ol' getsure recognizer view.
+            _openSpinnerView = UIView(frame: _openSpinnerFrame)
+            _openSpinnerView.backgroundColor = UIColor.clear
+
+            // We will add our view to the superview of the control, just under the center.
+            if let holderView = superview {
+                holderView.insertSubview(_openSpinnerView, belowSubview: self)
             }
+            
+            // Add our tap gesture recognizer. Make sure to scrub any existing one, first (fast open/close can do that).
+            if nil != _tapGestureRecognizer {
+                _tapGestureRecognizer?.removeTarget(self, action: #selector(Self._handleOpenTapGesture(_:)))
+                _openSpinnerView.removeGestureRecognizer(_tapGestureRecognizer)
+            }
+            _tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(Self._handleOpenTapGesture(_:)))
+            _openSpinnerView.addGestureRecognizer(_tapGestureRecognizer)
+            
+            // Add our long press gesture recognizer.
+            if nil != _longPressGestureRecognizer {
+                _longPressGestureRecognizer?.removeTarget(self, action: #selector(Self._handleOpenLongPressGesture(_:)))
+                _openSpinnerView.removeGestureRecognizer(_longPressGestureRecognizer)
+            }
+            _longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(Self._handleOpenLongPressGesture(_:)))
+            _longPressGestureRecognizer.require(toFail: _tapGestureRecognizer)
+            _openSpinnerView.addGestureRecognizer(_longPressGestureRecognizer)
+            
+            // Add our rotation pan tracker gesture recognizer.
+            if nil != _rotateGestureRecognizer {
+                _rotateGestureRecognizer?.removeTarget(self, action: #selector(Self._handleOpenPanGesture(_:)))
+                _openSpinnerView.removeGestureRecognizer(_rotateGestureRecognizer)
+            }
+            _rotateGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(Self._handleOpenPanGesture(_:)))
+            _rotateGestureRecognizer.require(toFail: _tapGestureRecognizer)
+            _rotateGestureRecognizer.require(toFail: _longPressGestureRecognizer)
+            _openSpinnerView.addGestureRecognizer(_rotateGestureRecognizer)
+            _rotateGestureRecognizer.delaysTouchesBegan = false
+        } else {    // Otherwise, we are using the picker.
+            _openPickerContainerView = UIView(frame: _openPickerFrame)
+            if let pickerContainer = _openPickerContainerView {    // Just to be sure, but what the heck...
+                pickerContainer.backgroundColor = UIColor.clear
+                _openPickerView = UIPickerView(frame: pickerContainer.bounds)
+                _openPickerView.dataSource = self
+                _openPickerView.delegate = self
+                _openPickerView.showsSelectionIndicator = true
+                pickerContainer.addSubview(_openPickerView!)
+            }
+            
+            if let holderView = superview {
+                holderView.insertSubview(_openPickerContainerView!, belowSubview: self)
+            }
+            
+            _openPickerView.selectRow(selectedIndex, inComponent: 0, animated: true)
+            _openPickerContainerView?.transform =  CGAffineTransform(scaleX: 0.001, y: 0.001).concatenating(CGAffineTransform(translationX: 0, y: _openPickerContainerView.bounds.size.height / 2))
+            
+            // We animate the opening of the picker.
+            UIView.animate(withDuration: 0.25,
+                           delay: 0,
+                           usingSpringWithDamping: 0.8,
+                           initialSpringVelocity: 25.0,
+                           options: .allowUserInteraction,
+                           animations: { [unowned self] in
+                            if nil != self._openPickerContainerView {
+                                self._openPickerContainerView?.transform = .identity
+                            }
+                },
+                           completion: nil
+            )
         }
     }
     
@@ -1010,18 +997,18 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      This ensures that we don't get bigger than our container.
      */
-    func _correctRadius() {
+    private func _correctRadius() {
         DispatchQueue.main.async {
             let oldRadius = self._radiusOfOpenControlInDisplayUnits
 
             // We make sure that our frames are correct, if we rotated.
             if let openView = self._openSpinnerView {
-                if openView.frame != self.openSpinnerFrame {
-                    openView.frame = self.openSpinnerFrame
+                if openView.frame != self._openSpinnerFrame {
+                    openView.frame = self._openSpinnerFrame
                     self._clearDisplayCaches()
                 }
             } else if let openView = self._openPickerContainerView {
-                openView.frame = self.openPickerFrame
+                openView.frame = self._openPickerFrame
             }
 
             let myCenter = CGPoint(x: self.frame.midX, y: self.frame.midY)
@@ -1038,7 +1025,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             if self._radiusOfOpenControlInDisplayUnits != oldRadius {   // Only if we changed.
                 self.setNeedsDisplay()
             }
-            self._openPickerContainerView?.frame = self.openPickerFrame
+            self._openPickerContainerView?.frame = self._openPickerFrame
             self._openPickerView?.frame = self._openPickerContainerView?.bounds ?? CGRect.zero
             self._openPickerView?.reloadAllComponents()
         }
@@ -1048,7 +1035,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      Handle the control closing.
      */
-    func _closeControl() {
+    private func _closeControl() {
         _decelerationDisplayLink?.invalidate() // Stop any spinning.
         _decelerationDisplayLink = nil
 
@@ -1059,13 +1046,13 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
 
             if nil != self._openSpinnerView {
                 if nil != self._rotateGestureRecognizer {
-                    self._rotateGestureRecognizer.removeTarget(self, action: #selector(type(of: self)._handleOpenPanGesture(_:)))
+                    self._rotateGestureRecognizer.removeTarget(self, action: #selector(Self._handleOpenPanGesture(_:)))
                     self._openSpinnerView.removeGestureRecognizer(self._rotateGestureRecognizer)
                     self._rotateGestureRecognizer = nil
                 }
                 
                 if nil != self._tapGestureRecognizer {
-                    self._tapGestureRecognizer.removeTarget(self, action: #selector(type(of: self)._handleOpenTapGesture(_:)))
+                    self._tapGestureRecognizer.removeTarget(self, action: #selector(Self._handleOpenTapGesture(_:)))
                     self._openSpinnerView.removeGestureRecognizer(self._tapGestureRecognizer)
                     self._tapGestureRecognizer = nil
                 }
@@ -1123,7 +1110,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      We call this to clear the display caches, and tell the control to redraw.
      */
-    func _clearDisplayCaches() {
+    private func _clearDisplayCaches() {
         _animatedIconLayer?.removeFromSuperlayer()
         _animatedIconLayer = nil
         _centerImageLayer?.removeFromSuperlayer()
@@ -1134,14 +1121,14 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     }
     
     /* ################################################################## */
-    // MARK: - Internal Selector Methods
+    // MARK: - Private Selector Methods
     /* ################################################################## */
     /**
      This is called when the orientation of the device has changed.
      
      - parameter notification: The notification object (ignored).
      */
-    @objc func _orientationChanged(notification: Notification) {
+    @objc private func _orientationChanged(notification: Notification) {
         _correctRadius()    // Make sure we stay in our lane.
     }
     
@@ -1151,13 +1138,11 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      - parameter inGesture: The tap gesture recognizer.
      */
-    @objc func _handleOpenTapGesture(_ inGesture: UITapGestureRecognizer) {
-        if isOpen, nil != _openSpinnerView { // Only counts if we're open.
-            if let view = inGesture.view {
-                _doneTracking = true
-                _handleOpenTouchEvent(inGesture.location(in: view), forView: view)
-            }
-        }
+    @objc private func _handleOpenTapGesture(_ inGesture: UITapGestureRecognizer) {
+        guard isOpen, nil != _openSpinnerView, let view = inGesture.view else { return }
+        
+        _doneTracking = true
+        _handleOpenTouchEvent(inGesture.location(in: view), forView: view)
     }
 
     /* ################################################################## */
@@ -1166,13 +1151,11 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      - parameter inGesture: The tap gesture recognizer.
      */
-    @objc func _handleOpenLongPressGesture(_ inGesture: UILongPressGestureRecognizer) {
-        if isOpen, nil != _openSpinnerView { // Only counts if we're open.
-            if let view = inGesture.view {
-                _doneTracking = true
-                _handleOpenTouchEvent(inGesture.location(in: view), forView: view)
-            }
-        }
+    @objc private func _handleOpenLongPressGesture(_ inGesture: UILongPressGestureRecognizer) {
+        guard isOpen, nil != _openSpinnerView, let view = inGesture.view else { return }
+        
+        _doneTracking = true
+        _handleOpenTouchEvent(inGesture.location(in: view), forView: view)
     }
 
     /* ################################################################## */
@@ -1181,78 +1164,78 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      - parameter inGesture: The specialized pan gesture recognizer.
      */
-    @objc func _handleOpenPanGesture(_ inGesture: UIPanGestureRecognizer) {
-        if isOpen, nil != _openSpinnerView { // Only counts if we're open.
-            _doneTracking = true
-            if .began == inGesture.state || .changed == inGesture.state || .ended == inGesture.state {  // Make sure we're in the correct state.
-                if let view = inGesture.view {  // ...and the correct view.
-                    let center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
-                    let gestureLocation = inGesture.location(in: view)
-                    let touchAngle = atan2(gestureLocation.y - center.y, gestureLocation.x - center.x)  // Calculate the angle from the gesture's relationship to the control center.
-                    var newSelection = 0
-                    
-                    if .began == inGesture.state {  // If we are just starting, we prime the haptic engine, and record the starting angle.
-                        _initialAngleForPan = touchAngle
-                        _initialSelectionForPan = selectedIndex
-                        // We also increment or decrement by one to get started. This will not always jive with the ultimate pan direction, but it avoids any hesitation.
-                        newSelection = selectedIndex
-                        let leftSide = CGRect(origin: CGPoint(x: view.bounds.origin.x, y: view.bounds.origin.y), size: CGSize(width: view.bounds.size.width / 2, height: view.bounds.size.height))
-                        if leftSide.contains(gestureLocation) { // Left side increment. Right side decrement.
-                            newSelection -= 1
-                        } else {
-                            newSelection += 1
-                        }
-                    } else {    // If this is not the initial call, then we simply determine a delta from the start.
-                        let delta = (_initialAngleForPan - touchAngle)
-                        let radiansPerValue = -(2 * CGFloat.pi) / CGFloat(count) // This is how many radians in our 2π circle it takes to account for one value.
-                        // What happens here, is that we slow the scrolling down a bit if we have "stuffed" the spinner.
-                        let dampenedRadiansPerValue = radiansPerValue * Swift.max(1.0, Swift.min(0.1, CGFloat(spinnerThreshold) / CGFloat(count)))
-                        let changedItems = Int(round(delta / dampenedRadiansPerValue))
-                        newSelection = _initialSelectionForPan + changedItems
-                    }
-                    
-                    // Yeah, we could do this with math, but this works fine. We simply make sure that we are within bounds.
-                    while newSelection >= count {
-                        newSelection -= count
-                    }
-                    
-                    while newSelection < 0 {
-                        newSelection += count
-                    }
-                    
-                    selectedIndex = newSelection
+    @objc private func _handleOpenPanGesture(_ inGesture: UIPanGestureRecognizer) {
+        guard isOpen, nil != _openSpinnerView else { return }
 
-                    if .ended == inGesture.state {
-                        let rawVelocity = inGesture.velocity(in: inGesture.view)
-                        
-                        var linearVelocity: CGFloat = 0
-                        
-                        switch touchAngle {
-                        case -(CGFloat.pi / 2)..<0:
-                            linearVelocity =  -(rawVelocity.y + rawVelocity.x)
-
-                        case 0..<(CGFloat.pi / 2):
-                            linearVelocity = rawVelocity.x - rawVelocity.y
-
-                        case (CGFloat.pi / 2)..<CGFloat.pi:
-                            linearVelocity = rawVelocity.x + rawVelocity.y
-                            
-                        default:
-                            linearVelocity =  rawVelocity.y - rawVelocity.x
-                        }
-                        
-                        linearVelocity = -linearVelocity
-                        _flywheelVelocity += linearVelocity
-                        
-                        // See if we will be giving this a spin.
-                        let finalVelocity = Swift.min(type(of: self)._kMaxFlywheelVelocity, Swift.abs(linearVelocity / type(of: self)._kFlywheelVelocityDivisor)) * ((0 > linearVelocity) ? -1 : 1)
-                        if type(of: self)._kMinFlywheelVelocity < Swift.abs(finalVelocity) {
-                            _startYourEngines(finalVelocity)
-                        }
+        _doneTracking = true
+        if .began == inGesture.state || .changed == inGesture.state || .ended == inGesture.state {  // Make sure we're in the correct state.
+            if let view = inGesture.view {  // ...and the correct view.
+                let center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
+                let gestureLocation = inGesture.location(in: view)
+                let touchAngle = atan2(gestureLocation.y - center.y, gestureLocation.x - center.x)  // Calculate the angle from the gesture's relationship to the control center.
+                var newSelection = 0
+                
+                if .began == inGesture.state {  // If we are just starting, we prime the haptic engine, and record the starting angle.
+                    _initialAngleForPan = touchAngle
+                    _initialSelectionForPan = selectedIndex
+                    // We also increment or decrement by one to get started. This will not always jive with the ultimate pan direction, but it avoids any hesitation.
+                    newSelection = selectedIndex
+                    let leftSide = CGRect(origin: CGPoint(x: view.bounds.origin.x, y: view.bounds.origin.y), size: CGSize(width: view.bounds.size.width / 2, height: view.bounds.size.height))
+                    if leftSide.contains(gestureLocation) { // Left side increment. Right side decrement.
+                        newSelection -= 1
+                    } else {
+                        newSelection += 1
                     }
-                    
-                    setNeedsDisplay()
+                } else {    // If this is not the initial call, then we simply determine a delta from the start.
+                    let delta = (_initialAngleForPan - touchAngle)
+                    let radiansPerValue = -(2 * CGFloat.pi) / CGFloat(count) // This is how many radians in our 2π circle it takes to account for one value.
+                    // What happens here, is that we slow the scrolling down a bit if we have "stuffed" the spinner.
+                    let dampenedRadiansPerValue = radiansPerValue * Swift.max(1.0, Swift.min(0.1, CGFloat(spinnerThreshold) / CGFloat(count)))
+                    let changedItems = Int(round(delta / dampenedRadiansPerValue))
+                    newSelection = _initialSelectionForPan + changedItems
                 }
+                
+                // Yeah, we could do this with math, but this works fine. We simply make sure that we are within bounds.
+                while newSelection >= count {
+                    newSelection -= count
+                }
+                
+                while newSelection < 0 {
+                    newSelection += count
+                }
+                
+                selectedIndex = newSelection
+
+                if .ended == inGesture.state {
+                    let rawVelocity = inGesture.velocity(in: inGesture.view)
+                    
+                    var linearVelocity: CGFloat = 0
+                    
+                    switch touchAngle {
+                    case -(CGFloat.pi / 2)..<0:
+                        linearVelocity =  -(rawVelocity.y + rawVelocity.x)
+
+                    case 0..<(CGFloat.pi / 2):
+                        linearVelocity = rawVelocity.x - rawVelocity.y
+
+                    case (CGFloat.pi / 2)..<CGFloat.pi:
+                        linearVelocity = rawVelocity.x + rawVelocity.y
+                        
+                    default:
+                        linearVelocity =  rawVelocity.y - rawVelocity.x
+                    }
+                    
+                    linearVelocity = -linearVelocity
+                    _flywheelVelocity += linearVelocity
+                    
+                    // See if we will be giving this a spin.
+                    let finalVelocity = Swift.min(Self._kMaxFlywheelVelocity, Swift.abs(linearVelocity / Self._kFlywheelVelocityDivisor)) * ((0 > linearVelocity) ? -1 : 1)
+                    if Self._kMinFlywheelVelocity < Swift.abs(finalVelocity) {
+                        _startYourEngines(finalVelocity)
+                    }
+                }
+                
+                setNeedsDisplay()
             }
         }
     }
@@ -1274,7 +1257,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      */
     public var centerShape: UIBezierPath {
         // We shrink by one border width, because the shape is stroked halfway through the border.
-        let inset = type(of: self)._kBorderWidthInDisplayUnits / 2.0
+        let inset = Self._kBorderWidthInDisplayUnits / 2.0
         return UIBezierPath(ovalIn: bounds.inset(by: UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)))
     }
     
@@ -1300,7 +1283,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             // Make sure we are in range.
             selectedIndex = Swift.max(0, Swift.min(values.count - 1, selectedIndex))
             // We will want to update our layout and tell the delegate we changed. Do it in the main thread, just in case.
-            if self.selectedIndex != oldValue {
+            if selectedIndex != oldValue {
                 DispatchQueue.main.async {
                     self._playSelectionTink()
                     // Let any delegate know that we have a new selected item.
@@ -1345,8 +1328,8 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         didSet {    // This is the way we open and close the control.
             if isOpen && isOpen != oldValue, 1 < count {
                 _openControl()
-                self.setNeedsLayout()
-                self._clearDisplayCaches()
+                setNeedsLayout()
+                _clearDisplayCaches()
                 // Let any delegate know that we have opened with a selected item.
                 delegate?.spinner(self, hasOpenedWithTheValue: value)
             } else if !isOpen && isOpen != oldValue {
@@ -1376,13 +1359,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      This calculated property will return either the currently selected item, or nil. READ-ONLY
      */
-    public var value: RVS_SpinnerDataItem? {
-        if !values.isEmpty, (0..<values.count).contains(selectedIndex) {
-            return values[selectedIndex]
-        }
-        
-        return nil
-    }
+    public var value: RVS_SpinnerDataItem? { (0..<count).contains(selectedIndex) ? values[selectedIndex] : nil }
 
     /* ################################################################## */
     /**
@@ -1391,33 +1368,25 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      - returns: True, if the images should be framed.
      */
-    public var framedIcons: Bool {
-        return !(_closedBackgroundColor?.isClear ?? true) || !(tintColor?.isClear ?? true)
-    }
+    public var framedIcons: Bool { !(_closedBackgroundColor?.isClear ?? true) || !(tintColor?.isClear ?? true) }
     
     /* ################################################################## */
     /**
      - returns: True, if the control will open as a spinner (as opposed to a picker). READ-ONLY
      */
-    public var opensAsSpinner: Bool {
-        return SpinnerMode.spinnerOnly.rawValue == spinnerMode || ((SpinnerMode.both.rawValue == spinnerMode) && spinnerThreshold > count)
-    }
+    public var opensAsSpinner: Bool { SpinnerMode.spinnerOnly.rawValue == spinnerMode || ((SpinnerMode.both.rawValue == spinnerMode) && spinnerThreshold > count) }
     
     /* ################################################################## */
     /**
      - returns: The number of values. READ-ONLY
      */
-    public var count: Int {
-        return values.count
-    }
+    public var count: Int { values.count }
     
     /* ################################################################## */
     /**
      - returns: Yes, we have no bananas. READ-ONLY
      */
-    public var isEmpty: Bool {
-        return values.isEmpty
-    }
+    public var isEmpty: Bool { values.isEmpty }
 
     /* ################################################################################################################################## */
     // MARK: - Public Enums
@@ -1446,7 +1415,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      */
     public override var backgroundColor: UIColor? {
         didSet {
-            self._closedBackgroundColor = self.backgroundColor
+            _closedBackgroundColor = backgroundColor
         }
     }
     
@@ -1545,8 +1514,8 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      */
     override public func draw(_ inRect: CGRect) {
         // See if we need to switch out the background color.
-        if nil == self._closedBackgroundColor {
-            self._closedBackgroundColor = self.backgroundColor
+        if nil == _closedBackgroundColor {
+            _closedBackgroundColor = backgroundColor
         }
         
         super.backgroundColor = UIColor.clear   // The main background is always clear.
@@ -1571,7 +1540,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         super.init(frame: inRect)
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(type(of: self)._orientationChanged(notification:)),
+            selector: #selector(Self._orientationChanged(notification:)),
             name: UIApplication.didChangeStatusBarOrientationNotification,
             object: nil
         )
@@ -1587,7 +1556,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         super.init(coder: inDecoder)
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(type(of: self)._orientationChanged(notification:)),
+            selector: #selector(Self._orientationChanged(notification:)),
             name: UIApplication.didChangeStatusBarOrientationNotification,
             object: nil
         )
@@ -1768,7 +1737,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      - returns: float, with the row height for that component.
      */
     public func pickerView(_ inPickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return Swift.min(type(of: self)._kMaxOpenPickerViewImageSizeInDisplayUnits, inPickerView.bounds.height)
+        return Swift.min(Self._kMaxOpenPickerViewImageSizeInDisplayUnits, inPickerView.bounds.height)
     }
     
     /* ################################################################## */
@@ -1793,14 +1762,14 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         myFrame.size.height = size.height
         myFrame.origin = CGPoint.zero
         // We create a frame for the image and the label, giving them a bit of "breathing room."
-        let imageFrame = CGRect(origin: CGPoint(x: type(of: self)._kOpenPaddingInDisplayUnits / 2,
-                                                y: type(of: self)._kOpenPaddingInDisplayUnits / 2),
-                                size: CGSize(width: myFrame.size.height - type(of: self)._kOpenPaddingInDisplayUnits,
-                                             height: myFrame.size.height - type(of: self)._kOpenPaddingInDisplayUnits))
-        let labelFrame = CGRect(origin: CGPoint(x: myFrame.size.height + type(of: self)._kOpenPaddingInDisplayUnits,
-                                                y: type(of: self)._kOpenPaddingInDisplayUnits / 2),
-                                size: CGSize(width: myFrame.size.width - (type(of: self)._kOpenPaddingInDisplayUnits + myFrame.size.height),
-                                             height: myFrame.size.height - type(of: self)._kOpenPaddingInDisplayUnits))
+        let imageFrame = CGRect(origin: CGPoint(x: Self._kOpenPaddingInDisplayUnits / 2,
+                                                y: Self._kOpenPaddingInDisplayUnits / 2),
+                                size: CGSize(width: myFrame.size.height - Self._kOpenPaddingInDisplayUnits,
+                                             height: myFrame.size.height - Self._kOpenPaddingInDisplayUnits))
+        let labelFrame = CGRect(origin: CGPoint(x: myFrame.size.height + Self._kOpenPaddingInDisplayUnits,
+                                                y: Self._kOpenPaddingInDisplayUnits / 2),
+                                size: CGSize(width: myFrame.size.width - (Self._kOpenPaddingInDisplayUnits + myFrame.size.height),
+                                             height: myFrame.size.height - Self._kOpenPaddingInDisplayUnits))
 
         let ret: UIView = UIView(frame: myFrame)
         
@@ -1824,9 +1793,9 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             enclosingRect = label.text?.boundingRect(with: ret.bounds.size, context: nil) ?? CGRect.zero
         }
         
-        let containerRect = CGRect(x: ret.bounds.midX - (enclosingRect.size.width + myFrame.size.height + type(of: self)._kOpenPaddingInDisplayUnits) / 2,
+        let containerRect = CGRect(x: ret.bounds.midX - (enclosingRect.size.width + myFrame.size.height + Self._kOpenPaddingInDisplayUnits) / 2,
                                    y: 0,
-                                   width: (enclosingRect.size.width + myFrame.size.height + type(of: self)._kOpenPaddingInDisplayUnits),
+                                   width: (enclosingRect.size.width + myFrame.size.height + Self._kOpenPaddingInDisplayUnits),
                                    height: myFrame.size.height)
         
         containerView.frame = containerRect

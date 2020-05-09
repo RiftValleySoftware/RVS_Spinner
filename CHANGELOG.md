@@ -1,5 +1,11 @@
 # RVS_Spinner Change Log
 
+## 2.1.8
+
+- **May 8, 2020**
+
+- Code refactoring to "modernize" the Swift, and control the scope. No operational changes.
+
 ## 2.1.7
 
 - **September 17, 2019**
