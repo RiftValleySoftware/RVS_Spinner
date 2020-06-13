@@ -20,7 +20,7 @@
  
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  
- - version: 2.1.8
+ - version: 2.2.0
  */
 
 import UIKit
@@ -481,6 +481,8 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      This plays a sound (and gives haptic feedback) for the "opening" animation.
      */
     private func _playOpenSound() {
+        guard !isOpen else { return }
+        
         if isSoundOn {
             AudioServicesPlaySystemSound(Self._kOpenSystemSoundID)
         }
@@ -513,6 +515,8 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      This plays a sound for the control closing.
      */
     private func _playCloseSound() {
+        guard isOpen else { return }
+        
         if isSoundOn {
             AudioServicesPlaySystemSound(Self._kCloseSystemSoundID)
         }

@@ -40,6 +40,10 @@
 		D44CE7A622537BF900B8AB51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D44CE7A522537BF900B8AB51 /* Assets.xcassets */; };
 		D44CE7A922537BF900B8AB51 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D44CE7A722537BF900B8AB51 /* LaunchScreen.storyboard */; };
 		D44CE7AF2253894200B8AB51 /* RVS_Spinner_Tabbed_Test_Harness_TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44CE7AE2253894200B8AB51 /* RVS_Spinner_Tabbed_Test_Harness_TabBarController.swift */; };
+		D49214A724956D8B0047968F /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D49214A624956D8B0047968F /* Warnings.xcconfig */; };
+		D49214A824956D8B0047968F /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D49214A624956D8B0047968F /* Warnings.xcconfig */; };
+		D49214A924956D8B0047968F /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D49214A624956D8B0047968F /* Warnings.xcconfig */; };
+		D49214AA24956D8B0047968F /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D49214A624956D8B0047968F /* Warnings.xcconfig */; };
 		D49B3726224D1A850049EEDE /* RVS_Spinner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D428DB292169391D004B130B /* RVS_Spinner.framework */; };
 		D49B3729224D646F0049EEDE /* RVS_Spinner.framework in Copy Embedded Frameworks */ = {isa = PBXBuildFile; fileRef = D428DB292169391D004B130B /* RVS_Spinner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D4B039A522576DBD004031FF /* RVS_Spinner_Leak_Test_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B039A422576DBD004031FF /* RVS_Spinner_Leak_Test_AppDelegate.swift */; };
@@ -364,12 +368,6 @@
 		D40705E9224A9FC700F1E8A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D40705EC224A9FC700F1E8A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D40705EE224A9FC700F1E8A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D41D944822569DD600BDB082 /* NewTestHarnessScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NewTestHarnessScreen.png; sourceTree = "<group>"; };
-		D41D944922569DD600BDB082 /* Tab2-Uncomp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tab2-Uncomp.png"; sourceTree = "<group>"; };
-		D41D944A22569DD600BDB082 /* Tab0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tab0.png; sourceTree = "<group>"; };
-		D41D944B22569DD600BDB082 /* Tab1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tab1.png; sourceTree = "<group>"; };
-		D41D944C22569DD600BDB082 /* Tab2-Comp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tab2-Comp.png"; sourceTree = "<group>"; };
-		D41D944D22569DD600BDB082 /* Tab3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tab3.png; sourceTree = "<group>"; };
 		D428DB292169391D004B130B /* RVS_Spinner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RVS_Spinner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D428DB2D2169391D004B130B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D428DB43216939A9004B130B /* RVS_Spinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_Spinner.swift; sourceTree = "<group>"; };
@@ -405,6 +403,7 @@
 		D44CE7AA22537BF900B8AB51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D44CE7AE2253894200B8AB51 /* RVS_Spinner_Tabbed_Test_Harness_TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_Spinner_Tabbed_Test_Harness_TabBarController.swift; sourceTree = "<group>"; };
 		D45621F62253E19B001CD2A0 /* icon.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = icon.pdf; sourceTree = "<group>"; };
+		D49214A624956D8B0047968F /* Warnings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Warnings.xcconfig; path = "Project-Meta/Warnings.xcconfig"; sourceTree = "<group>"; };
 		D4B039A222576DBD004031FF /* RVS_Spinner_Leak_Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RVS_Spinner_Leak_Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4B039A422576DBD004031FF /* RVS_Spinner_Leak_Test_AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_Spinner_Leak_Test_AppDelegate.swift; sourceTree = "<group>"; };
 		D4B039A622576DBD004031FF /* RVS_Spinner_Leak_Test_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_Spinner_Leak_Test_ViewController.swift; sourceTree = "<group>"; };
@@ -413,13 +412,7 @@
 		D4B039AE22576DBD004031FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D4B039B022576DBD004031FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4BC35D32255682A00D1646C /* RVS_Spinner_Tabbed_Test_Harness_Spinner_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_Spinner_Tabbed_Test_Harness_Spinner_ViewController.swift; sourceTree = "<group>"; };
-		D4BEEDC12250F486007BA3AD /* PickerPopup.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = PickerPopup.gif; sourceTree = "<group>"; };
-		D4BEEDC22250F486007BA3AD /* SpinnerPopup.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = SpinnerPopup.gif; sourceTree = "<group>"; };
-		D4BEEDC32250F486007BA3AD /* SpinnerOptions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpinnerOptions.png; sourceTree = "<group>"; };
-		D4BEEDC42250F486007BA3AD /* OpenSpinner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OpenSpinner.png; sourceTree = "<group>"; };
-		D4BEEDC62250F486007BA3AD /* OpenPicker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OpenPicker.png; sourceTree = "<group>"; };
 		D4BF0FEF225610FE0056F533 /* RVS_Spinner_Tabbed_Test_Harness_FourPart_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_Spinner_Tabbed_Test_Harness_FourPart_ViewController.swift; sourceTree = "<group>"; };
-		D4C0D2B72252A2C100D69C46 /* TestHarnessScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TestHarnessScreen.png; sourceTree = "<group>"; };
 		D4E7592A2253B42C00A88091 /* RVS_Spinner_Tabbed_Test_Harness_NavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_Spinner_Tabbed_Test_Harness_NavController.swift; sourceTree = "<group>"; };
 		D4E759332253B68D00A88091 /* RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_Spinner_Tabbed_Test_Harness_Basic_ViewController.swift; sourceTree = "<group>"; };
 		D4E759382253CAD900A88091 /* 01 See No Evil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "01 See No Evil.png"; sourceTree = "<group>"; };
@@ -548,10 +541,8 @@
 			children = (
 				D428DB2B2169391D004B130B /* RVS_Spinner */,
 				D446FBF52256D79900839304 /* Test Apps */,
+				D49214A524956D330047968F /* Project-Meta */,
 				D428DB2A2169391D004B130B /* Products */,
-				D44B3102224AAE9300BFE4AE /* spec */,
-				D4BEEDC02250F486007BA3AD /* img */,
-				D4CC804622576F3B00873FA6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -642,6 +633,15 @@
 			path = RVS_Spinner_Tabbed_Test_Harness;
 			sourceTree = "<group>";
 		};
+		D49214A524956D330047968F /* Project-Meta */ = {
+			isa = PBXGroup;
+			children = (
+				D49214A624956D8B0047968F /* Warnings.xcconfig */,
+				D44B3102224AAE9300BFE4AE /* spec */,
+			);
+			name = "Project-Meta";
+			sourceTree = "<group>";
+		};
 		D4B039A322576DBD004031FF /* RVS_Spinner_Leak_Test */ = {
 			isa = PBXGroup;
 			children = (
@@ -653,32 +653,6 @@
 				D4B039B022576DBD004031FF /* Info.plist */,
 			);
 			path = RVS_Spinner_Leak_Test;
-			sourceTree = "<group>";
-		};
-		D4BEEDC02250F486007BA3AD /* img */ = {
-			isa = PBXGroup;
-			children = (
-				D4BEEDC12250F486007BA3AD /* PickerPopup.gif */,
-				D4BEEDC22250F486007BA3AD /* SpinnerPopup.gif */,
-				D4BEEDC32250F486007BA3AD /* SpinnerOptions.png */,
-				D4BEEDC42250F486007BA3AD /* OpenSpinner.png */,
-				D4BEEDC62250F486007BA3AD /* OpenPicker.png */,
-				D41D944822569DD600BDB082 /* NewTestHarnessScreen.png */,
-				D41D944A22569DD600BDB082 /* Tab0.png */,
-				D41D944B22569DD600BDB082 /* Tab1.png */,
-				D41D944C22569DD600BDB082 /* Tab2-Comp.png */,
-				D41D944922569DD600BDB082 /* Tab2-Uncomp.png */,
-				D41D944D22569DD600BDB082 /* Tab3.png */,
-				D4C0D2B72252A2C100D69C46 /* TestHarnessScreen.png */,
-			);
-			path = img;
-			sourceTree = "<group>";
-		};
-		D4CC804622576F3B00873FA6 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D4E759362253CAD900A88091 /* DisplayImages */ = {
@@ -952,6 +926,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D40705ED224A9FC700F1E8A2 /* LaunchScreen.storyboard in Resources */,
+				D49214A824956D8B0047968F /* Warnings.xcconfig in Resources */,
 				D40705EA224A9FC700F1E8A2 /* Assets.xcassets in Resources */,
 				D40705E8224A9FC500F1E8A2 /* Main.storyboard in Resources */,
 			);
@@ -961,6 +936,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D49214A724956D8B0047968F /* Warnings.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -969,6 +945,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D44CE7A922537BF900B8AB51 /* LaunchScreen.storyboard in Resources */,
+				D49214A924956D8B0047968F /* Warnings.xcconfig in Resources */,
 				D44CE7A622537BF900B8AB51 /* Assets.xcassets in Resources */,
 				D44CE7A422537BF800B8AB51 /* Main.storyboard in Resources */,
 			);
@@ -979,6 +956,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4B039AF22576DBD004031FF /* LaunchScreen.storyboard in Resources */,
+				D49214AA24956D8B0047968F /* Warnings.xcconfig in Resources */,
 				D4B039AC22576DBD004031FF /* Assets.xcassets in Resources */,
 				D4B039AA22576DBD004031FF /* Main.storyboard in Resources */,
 			);
@@ -1003,7 +981,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if test -f \"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"\nfi\n";
+			shellScript = "if test -f \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"\nfi\n";
 		};
 		D4B6B468224AB2DF00B1F336 /* SwiftLINT */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1021,7 +999,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if test -f \"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"\nfi\n";
+			shellScript = "if test -f \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"\nfi\n";
 		};
 		D4CC804322576F0F00873FA6 /* SwiftLINT */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1039,7 +1017,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if test -f \"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"\nfi\n";
+			shellScript = "if test -f \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"\nfi\n";
 		};
 		D4E759322253B4B900A88091 /* SwiftLINT */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1057,7 +1035,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if test -f \"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"\nfi\n    \n";
+			shellScript = "if test -f \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1217,6 +1195,7 @@
 		};
 		D428DB3B2169391D004B130B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D49214A624956D8B0047968F /* Warnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1284,6 +1263,7 @@
 		};
 		D428DB3C2169391D004B130B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D49214A624956D8B0047968F /* Warnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;

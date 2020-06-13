@@ -23,11 +23,11 @@
 
 import UIKit
 
-@UIApplicationMain
 /* ###################################################################################################################################### */
 /**
  Not much to see here...
  */
+@UIApplicationMain
 class RVS_Spinner_Basic_Test_Harness_AppDelegate: UIResponder, UIApplicationDelegate {
     /* ################################################################################################################################## */
     var window: UIWindow?

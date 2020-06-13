@@ -1,5 +1,9 @@
 # RVS_Spinner Change Log
 
+## 2.2.0
+
+- **TBD**
+
 ## 2.1.8
 
 - **May 8, 2020**
