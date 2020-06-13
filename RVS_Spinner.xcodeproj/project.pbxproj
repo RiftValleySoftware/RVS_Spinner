@@ -40,10 +40,6 @@
 		D44CE7A622537BF900B8AB51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D44CE7A522537BF900B8AB51 /* Assets.xcassets */; };
 		D44CE7A922537BF900B8AB51 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D44CE7A722537BF900B8AB51 /* LaunchScreen.storyboard */; };
 		D44CE7AF2253894200B8AB51 /* RVS_Spinner_Tabbed_Test_Harness_TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44CE7AE2253894200B8AB51 /* RVS_Spinner_Tabbed_Test_Harness_TabBarController.swift */; };
-		D49214A724956D8B0047968F /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D49214A624956D8B0047968F /* Warnings.xcconfig */; };
-		D49214A824956D8B0047968F /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D49214A624956D8B0047968F /* Warnings.xcconfig */; };
-		D49214A924956D8B0047968F /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D49214A624956D8B0047968F /* Warnings.xcconfig */; };
-		D49214AA24956D8B0047968F /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D49214A624956D8B0047968F /* Warnings.xcconfig */; };
 		D49B3726224D1A850049EEDE /* RVS_Spinner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D428DB292169391D004B130B /* RVS_Spinner.framework */; };
 		D49B3729224D646F0049EEDE /* RVS_Spinner.framework in Copy Embedded Frameworks */ = {isa = PBXBuildFile; fileRef = D428DB292169391D004B130B /* RVS_Spinner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D4B039A522576DBD004031FF /* RVS_Spinner_Leak_Test_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B039A422576DBD004031FF /* RVS_Spinner_Leak_Test_AppDelegate.swift */; };
@@ -881,7 +877,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1020;
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = "Little Green Viper Software Development LLC";
 				TargetAttributes = {
 					D40705DF224A9FC500F1E8A2 = {
@@ -926,7 +922,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D40705ED224A9FC700F1E8A2 /* LaunchScreen.storyboard in Resources */,
-				D49214A824956D8B0047968F /* Warnings.xcconfig in Resources */,
 				D40705EA224A9FC700F1E8A2 /* Assets.xcassets in Resources */,
 				D40705E8224A9FC500F1E8A2 /* Main.storyboard in Resources */,
 			);
@@ -936,7 +931,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D49214A724956D8B0047968F /* Warnings.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -945,7 +939,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D44CE7A922537BF900B8AB51 /* LaunchScreen.storyboard in Resources */,
-				D49214A924956D8B0047968F /* Warnings.xcconfig in Resources */,
 				D44CE7A622537BF900B8AB51 /* Assets.xcassets in Resources */,
 				D44CE7A422537BF800B8AB51 /* Main.storyboard in Resources */,
 			);
@@ -956,7 +949,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4B039AF22576DBD004031FF /* LaunchScreen.storyboard in Resources */,
-				D49214AA24956D8B0047968F /* Warnings.xcconfig in Resources */,
 				D4B039AC22576DBD004031FF /* Assets.xcassets in Resources */,
 				D4B039AA22576DBD004031FF /* Main.storyboard in Resources */,
 			);
