@@ -5,6 +5,7 @@
 - **June 14, 2020**
 
 - Fixed a small bug that could cause nasty problems. If the pickerview mode was selected, the picker could overflow the container, vertically.
+- Integrated the two demo projects into the workspace.
 
 ## 2.1.8
 
