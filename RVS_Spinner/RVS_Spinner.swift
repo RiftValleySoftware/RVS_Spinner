@@ -458,7 +458,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      This is the frame for the open picker. It starts at a place just above the vertical center.
      */
-    private var _openPickerFrame: CGRect { CGRect(x: _openSpinnerFrame.origin.x, y: _openSpinnerFrame.origin.x, width: _openSpinnerFrame.size.width, height: (_openSpinnerFrame.size.height / 2) - (bounds.size.height / 2)) }
+    private var _openPickerFrame: CGRect { CGRect(x: _openSpinnerFrame.origin.x, y: _openSpinnerFrame.origin.y, width: _openSpinnerFrame.size.width, height: (_openSpinnerFrame.size.height / 2) - (bounds.size.height / 2)) }
 
     /* ################################################################################################################################## */
     // MARK: - Private Instance Methods
