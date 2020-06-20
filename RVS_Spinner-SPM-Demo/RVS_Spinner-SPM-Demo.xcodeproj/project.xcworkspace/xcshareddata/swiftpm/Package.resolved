@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "RVS_Spinner",
+        "repositoryURL": "git@github.com:RiftValleySoftware/RVS_Spinner.git",
+        "state": {
+          "branch": "master",
+          "revision": "8e690f932fc45a8e0df45bd53cc1279addf76968",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

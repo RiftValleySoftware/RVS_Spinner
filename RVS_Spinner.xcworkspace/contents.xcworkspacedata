@@ -29,6 +29,9 @@
       location = "group:RVS_Spinner-Pod-Demo/RVS_Spinner_Pod_Demo.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:RVS_Spinner-SPM-Demo/RVS_Spinner-SPM-Demo.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:RVS_Spinner-Standalone-Demo/RVS_Spinner_Standalone_Demo.xcodeproj">
    </FileRef>
 </Workspace>
