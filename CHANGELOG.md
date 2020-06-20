@@ -1,5 +1,11 @@
 # RVS_Spinner Change Log
 
+## 2.2.1
+
+- **June 20, 2020**
+
+- Added SPM support.
+
 ## 2.2.0
 
 - **June 14, 2020**

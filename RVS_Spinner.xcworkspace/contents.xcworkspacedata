@@ -20,6 +20,9 @@
       location = "group:README.md">
    </FileRef>
    <FileRef
+      location = "group:Package.swift">
+   </FileRef>
+   <FileRef
       location = "group:RVS_Spinner.xcodeproj">
    </FileRef>
    <FileRef
