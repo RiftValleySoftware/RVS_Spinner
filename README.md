@@ -43,6 +43,11 @@ You will then need to import the module, by adding the following to the source f
 
     import RVS_Spinner
     
+As A [Swift Package](https://swift.org/package-manager/)
+-
+
+You can include the Spinner, using the Swift Package Manager, simply by referring to [its GitHub Repository URI](https://github.com/RiftValleySoftware/RVS_Spinner) (git@github.com:RiftValleySoftware/RVS_Spinner.git).
+    
 Using [Carthage](https://github.com/Carthage/Carthage)
 -
 You can install it, using Carthage as your dependency manager.
