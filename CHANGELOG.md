@@ -1,10 +1,11 @@
 # RVS_Spinner Change Log
 
-## 2.2.1
+## 2.2.2
 
 - **June 20, 2020**
 
 - Added SPM support.
+- Removed the demo projects from the workspace. They should not be there.
 
 ## 2.2.0
 
