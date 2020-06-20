@@ -4,6 +4,9 @@ import PackageDescription
 
 let package = Package(
     name: "RVS_Spinner",
+    platforms: [
+        .iOS(.v11)
+    ],
     products: [
         .library(
             name: "RVS-Spinner",
