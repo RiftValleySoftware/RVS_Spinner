@@ -31,8 +31,8 @@
 		D44206CF224BBE6E008038A9 /* Cabuchon.png in Copy Extra Resource Files */ = {isa = PBXBuildFile; fileRef = D44206AA224BBDBE008038A9 /* Cabuchon.png */; };
 		D44206D4224BBF6D008038A9 /* 9-PointStar.png in Copy Extra Resource Files */ = {isa = PBXBuildFile; fileRef = D44206D0224BBF58008038A9 /* 9-PointStar.png */; };
 		D44206D5224BBF6D008038A9 /* Parallelogram.png in Copy Extra Resource Files */ = {isa = PBXBuildFile; fileRef = D44206D1224BBF58008038A9 /* Parallelogram.png */; };
-		D47C65A5249E532C009C954E /* RVS-Spinner in Frameworks */ = {isa = PBXBuildFile; productRef = D47C65A4249E532C009C954E /* RVS-Spinner */; };
-		D47C65A6249E532C009C954E /* RVS-Spinner in Copy Embedded Frameworks */ = {isa = PBXBuildFile; productRef = D47C65A4249E532C009C954E /* RVS-Spinner */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		D4C0CE12249E85AF00F20B3B /* RVS-Spinner in Frameworks */ = {isa = PBXBuildFile; productRef = D4C0CE11249E85AF00F20B3B /* RVS-Spinner */; };
+		D4C0CE13249E85AF00F20B3B /* RVS-Spinner in Copy Embedded Frameworks */ = {isa = PBXBuildFile; productRef = D4C0CE11249E85AF00F20B3B /* RVS-Spinner */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D4D7E69F224D800B00613FB8 /* RVS_Spinner_Basic_Test_Harness_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40705E2224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness_AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -73,7 +73,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D47C65A6249E532C009C954E /* RVS-Spinner in Copy Embedded Frameworks */,
+				D4C0CE13249E85AF00F20B3B /* RVS-Spinner in Copy Embedded Frameworks */,
 			);
 			name = "Copy Embedded Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,7 +87,6 @@
 		D40705E9224A9FC700F1E8A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D40705EC224A9FC700F1E8A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D40705EE224A9FC700F1E8A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D40D7EB0249E52B500E66EE2 /* RVS_Spinner_Basic_Test_Harness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = RVS_Spinner_Basic_Test_Harness.app; path = "/Volumes/Development/RiftValley/RVS_Spinner/RVS_Spinner-SPM-Demo/build/Debug-iphoneos/RVS_Spinner_Basic_Test_Harness.app"; sourceTree = "<absolute>"; };
 		D4420699224BBDBE008038A9 /* 5-PointStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "5-PointStar.png"; sourceTree = "<group>"; };
 		D442069A224BBDBE008038A9 /* Oblong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Oblong.png; sourceTree = "<group>"; };
 		D442069B224BBDBE008038A9 /* 4-PointStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "4-PointStar.png"; sourceTree = "<group>"; };
@@ -108,6 +107,7 @@
 		D44206AA224BBDBE008038A9 /* Cabuchon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cabuchon.png; sourceTree = "<group>"; };
 		D44206D0224BBF58008038A9 /* 9-PointStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "9-PointStar.png"; sourceTree = "<group>"; };
 		D44206D1224BBF58008038A9 /* Parallelogram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Parallelogram.png; sourceTree = "<group>"; };
+		D4C0CE0F249E859100F20B3B /* RVS_Spinner_Basic_Test_Harness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RVS_Spinner_Basic_Test_Harness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,7 +115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D47C65A5249E532C009C954E /* RVS-Spinner in Frameworks */,
+				D4C0CE12249E85AF00F20B3B /* RVS-Spinner in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				D40705E1224A9FC500F1E8A2 /* RVS_Spinner_Basic_Test_Harness */,
+				D4C0CE0F249E859100F20B3B /* RVS_Spinner_Basic_Test_Harness.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -190,10 +191,10 @@
 			);
 			name = RVS_Spinner_Basic_Test_Harness;
 			packageProductDependencies = (
-				D47C65A4249E532C009C954E /* RVS-Spinner */,
+				D4C0CE11249E85AF00F20B3B /* RVS-Spinner */,
 			);
 			productName = RVS_Spinner_Basic_Test_Harness;
-			productReference = D40D7EB0249E52B500E66EE2 /* RVS_Spinner_Basic_Test_Harness.app */;
+			productReference = D4C0CE0F249E859100F20B3B /* RVS_Spinner_Basic_Test_Harness.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -221,7 +222,7 @@
 			);
 			mainGroup = D428DB1F2169391D004B130B;
 			packageReferences = (
-				D47C65A3249E532C009C954E /* XCRemoteSwiftPackageReference "RVS_Spinner" */,
+				D4C0CE10249E85AF00F20B3B /* XCRemoteSwiftPackageReference "RVS_Spinner" */,
 			);
 			productRefGroup = D428DB1F2169391D004B130B;
 			projectDirPath = "";
@@ -491,7 +492,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D47C65A3249E532C009C954E /* XCRemoteSwiftPackageReference "RVS_Spinner" */ = {
+		D4C0CE10249E85AF00F20B3B /* XCRemoteSwiftPackageReference "RVS_Spinner" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:RiftValleySoftware/RVS_Spinner.git";
 			requirement = {
@@ -502,9 +503,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D47C65A4249E532C009C954E /* RVS-Spinner */ = {
+		D4C0CE11249E85AF00F20B3B /* RVS-Spinner */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D47C65A3249E532C009C954E /* XCRemoteSwiftPackageReference "RVS_Spinner" */;
+			package = D4C0CE10249E85AF00F20B3B /* XCRemoteSwiftPackageReference "RVS_Spinner" */;
 			productName = "RVS-Spinner";
 		};
 /* End XCSwiftPackageProductDependency section */

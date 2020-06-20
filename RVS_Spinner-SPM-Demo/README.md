@@ -1,21 +1,12 @@
 INTRODUCTION
 =
-This project is an ultra-simple demonstration of using [RVS_Spinner](https://riftvalleysoftware.com/work/open-source-projects/#RVS_Spinner) as a standalone project, where we simply include the `RVS_Spinner.swift` file as a project file.
+This project is an ultra-simple demonstration of using [RVS_Spinner](https://riftvalleysoftware.com/work/open-source-projects/#RVS_Spinner) as a [Swift Package Manager](https://swift.org/package-manager/) project, where we simply include the `RVS_Spinner.swift` file as a Package.
 
 USAGE
 =
-The project is already set up. We have imported the [`RVS_Spinner.swift`]() file directly from the GitHub repo, and have added it to the `RVS_Spinner_Basic_Test_Harness` target.
+The project is already set up. The Spinner has been added to the project as an SPM module.
 
-We need to do a couple of things before running the target, however:
-
-- We need to comment out the `import RVS_Spinner` in the main source file, because we are no longer using a sepatrate module:
-
-    import UIKit
-    // import RVS_Spinner
-
-- We need to change the module for the spinner object in the Storyboard Editor file, by checking `Inherit Module From Target` in the Attributes Inspector. This is for the same reason as before.
- 
-Then build and run the `RVS_Spinner_Basic_Test_Harness` target.
+***NOTE:*** *This requires that the build be done with Xcode version 11.5, or greater.*
 
 LICENSE
 =
