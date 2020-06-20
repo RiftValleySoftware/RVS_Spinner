@@ -256,9 +256,10 @@ The test harness app is deliberately simple, and should provide an excellent "st
 SIMPLE EXAMPLES
 =
 
-There are two simple examples, featuring the test harness app, that show how to implement the [`RVS_Spinner`](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html) into your project:
+There are three simple examples, featuring the test harness app, that show how to implement the [`RVS_Spinner`](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html) into your project:
 
-- [Here is an example using CocoaPods](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/RVS_Spinner-Pod-Demo.zip)
+- [Here is an example using CocoaPods](https://github.com/RiftValleySoftware/RVS_Spinner/blob/master/RVS_Spinner-Pod-Demo.zip)
+- [Here is an example using Swift Package Manager](https://github.com/RiftValleySoftware/RVS_Spinner/blob/master/RVS_Spinner-SPM-Demo.zip)
 - [Here is an example, where we directly import the source file](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/RVS_Spinner-Standalone-Demo.zip)
 
 These links will download .zip files, which expand into small project directories.
