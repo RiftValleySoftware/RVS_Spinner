@@ -1,5 +1,11 @@
 # RVS_Spinner Change Log
 
+## 2.2.3
+
+- **June 26, 2020**
+
+- No operational changes. Mostly documentation changes.
+
 ## 2.2.2
 
 - **June 20, 2020**

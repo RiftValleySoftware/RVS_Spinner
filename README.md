@@ -46,8 +46,12 @@ You will then need to import the module, by adding the following to the source f
 As A [Swift Package](https://swift.org/package-manager/)
 -
 
-You can include the Spinner, using the Swift Package Manager, simply by referring to [its GitHub Repository URI](https://github.com/RiftValleySoftware/RVS_Spinner) (git@github.com:RiftValleySoftware/RVS_Spinner.git).
-    
+You can include the Spinner, using the Swift Package Manager, simply by referring to [its GitHub Repository](https://github.com/RiftValleySoftware/RVS_Spinner) URI (SSH: [git@github.com:RiftValleySoftware/RVS_Spinner.git](git@github.com:RiftValleySoftware/RVS_Spinner.git) or HTTPS: [https://github.com/RiftValleySoftware/RVS_Spinner.git](https://github.com/RiftValleySoftware/RVS_Spinner.git)).
+
+You will then need to import the module, by adding the following to the source files that will be accessing the spinner:
+
+    import RVS_Spinner
+
 Using [Carthage](https://github.com/Carthage/Carthage)
 -
 You can install it, using Carthage as your dependency manager.
@@ -65,6 +69,8 @@ If you do that, then no need to import.
 If you include the product (in the "Build" subdirectory), you will need to import the module, by adding the following to the source files that will be accessing the spinner:
 
     import RVS_Spinner
+    
+Note that Carthage may not sign the module, and you may have issues submitting it.
 
 Directly From GitHub
 -
