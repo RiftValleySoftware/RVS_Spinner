@@ -124,7 +124,11 @@
 </code></pre>
 <h2 id='as-a-a-href-https-swift-org-package-manager-swift-package-a' class='heading'>As A <a href="https://swift.org/package-manager/">Swift Package</a></h2>
 
-<p>You can include the Spinner, using the Swift Package Manager, simply by referring to <a href="https://github.com/RiftValleySoftware/RVS_Spinner">its GitHub Repository URI</a> (<a href="mailto:git@github.com">git@github.com</a>:RiftValleySoftware/RVS_Spinner.git).</p>
+<p>You can include the Spinner, using the Swift Package Manager, simply by referring to <a href="https://github.com/RiftValleySoftware/RVS_Spinner">its GitHub Repository</a> URI (SSH: <a href="git@github.com:RiftValleySoftware/RVS_Spinner.git">git@github.com:RiftValleySoftware/RVS_Spinner.git</a> or HTTPS: <a href="https://github.com/RiftValleySoftware/RVS_Spinner.git">https://github.com/RiftValleySoftware/RVS_Spinner.git</a>).</p>
+
+<p>You will then need to import the module, by adding the following to the source files that will be accessing the spinner:</p>
+<pre class="highlight plaintext"><code>import RVS_Spinner
+</code></pre>
 <h2 id='using-a-href-https-github-com-carthage-carthage-carthage-a' class='heading'>Using <a href="https://github.com/Carthage/Carthage">Carthage</a></h2>
 
 <p>You can install it, using Carthage as your dependency manager.</p>
@@ -142,6 +146,8 @@
 <p>If you include the product (in the &ldquo;Build&rdquo; subdirectory), you will need to import the module, by adding the following to the source files that will be accessing the spinner:</p>
 <pre class="highlight plaintext"><code>import RVS_Spinner
 </code></pre>
+
+<p>Note that Carthage may not sign the module, and you may have issues submitting it.</p>
 <h2 id='directly-from-github' class='heading'>Directly From GitHub</h2>
 
 <p><a href="https://github.com/RiftValleySoftware/RVS_Spinner">Here is the GitHub Repo for This Project.</a></p>
@@ -360,7 +366,7 @@ This specifies whether or not to use <a href="https://developer.apple.com/docume
 <p><img src="https://riftvalleysoftware.com/RVS_Spinner/LeakTestApp.png" alt="The Leak Test Tab"></p>
 <h1 id='dependencies' class='heading'>DEPENDENCIES</h1>
 
-<p>There are no dependencies to use this class in your project. In order to test it and run it in the module project, you should use <a href="https://cocoapods.org">CocoaPods</a> to install <a href="https://cocoapods.org/pods/SwiftLint">SwiftLint</a>, although that is not required. It&rsquo;s <a href="https://littlegreenviper.com/series/swiftwater/swiftlint/">just good practice</a>.</p>
+<p>There are no dependencies to use this class in your project. It can be included as a single source file (no build or library linking required).</p>
 <h1 id='license' class='heading'>LICENSE</h1>
 
 <p>MIT License</p>

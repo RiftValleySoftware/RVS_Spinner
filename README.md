@@ -307,7 +307,7 @@ There is a small, simple app that lives for only one thing: to be run in "Profil
 DEPENDENCIES
 =
 
-There are no dependencies to use this class in your project. In order to test it and run it in the module project, you can use [CocoaPods](https://cocoapods.org) to install [SwiftLint](https://cocoapods.org/pods/SwiftLint), although that is not required. It's [just good practice](https://littlegreenviper.com/series/swiftwater/swiftlint/).
+There are no dependencies to use this class in your project. It can be included as a single source file (no build or library linking required).
 
 LICENSE
 =
