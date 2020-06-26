@@ -20,6 +20,9 @@
       location = "group:Package.swift">
    </FileRef>
    <FileRef
+      location = "group:jazzy.command">
+   </FileRef>
+   <FileRef
       location = "group:RVS_Spinner.xcodeproj">
    </FileRef>
 </Workspace>
