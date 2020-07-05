@@ -1,5 +1,12 @@
 # RVS_Spinner Change Log
 
+## 2.3.0
+
+- **July 5, 2020**
+
+- Switched SPM output to static.
+- Removed one deprecated method call.
+
 ## 2.2.3
 
 - **June 26, 2020**

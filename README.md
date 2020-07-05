@@ -309,6 +309,12 @@ DEPENDENCIES
 
 There are no dependencies to use this class in your project. It can be included as a single source file (no build or library linking required).
 
+
+TODO
+=
+There is a deprecated callback: the orientation callback (observer) It is on line 1536. We need to address this, but it isn't a showstopper (yet).
+
+
 LICENSE
 =
 MIT License

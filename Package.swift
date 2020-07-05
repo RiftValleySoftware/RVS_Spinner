@@ -1,6 +1,6 @@
 // swift-tools-version:5.2
 
-/**
+/*
 © Copyright 2019-2020, The Great Rift Valley Software Company
 
 LICENSE:
@@ -32,12 +32,11 @@ let package = Package(
     products: [
         .library(
             name: "RVS-Spinner",
-            type: .dynamic,
             targets: ["RVS_Spinner"])
     ],
     targets: [
         .target(
             name: "RVS_Spinner",
-            path: "./src")
+            path: "src")
     ]
 )

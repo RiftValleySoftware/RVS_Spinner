@@ -20,7 +20,7 @@
  
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  
- - version: 2.2.3
+ - version: 2.3.0
  */
 
 import UIKit
@@ -970,7 +970,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 _openPickerView = UIPickerView(frame: pickerContainer.bounds)
                 _openPickerView.dataSource = self
                 _openPickerView.delegate = self
-                _openPickerView.showsSelectionIndicator = true
                 pickerContainer.addSubview(_openPickerView!)
             }
             
