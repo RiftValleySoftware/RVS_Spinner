@@ -84,7 +84,7 @@ In fact, I'd actually suggest doing this. I'm not a huge fan of "live" dependenc
 
 REQUIREMENTS
 =
-The Spinner is provided as a [Swift](https://developer.apple.com/swift/)-only shared dynamic [framework](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Frameworks.html), supporting [iOS](https://www.apple.com/ios/) 11.0 and above.
+The Spinner is provided as a [Swift](https://developer.apple.com/swift/)-only static library (or [dynamic framework](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Frameworks.html)), supporting [iOS](https://www.apple.com/ios/) 11.0 and above.
 
 This is meant for [iOS](https://www.apple.com/ios/) ([UIKit](https://developer.apple.com/documentation/uikit)) only.
 
