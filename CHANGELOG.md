@@ -1,5 +1,11 @@
 # RVS_Spinner Change Log
 
+## 2.3.1
+
+- **August 1, 2020**
+
+- Rearranged for GitHub Swift action.
+
 ## 2.3.0
 
 - **July 5, 2020**
