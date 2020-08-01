@@ -35,8 +35,6 @@ let package = Package(
             targets: ["RVS_Spinner"])
     ],
     targets: [
-        .target(
-            name: "RVS_Spinner",
-            path: "src")
+        .target(name: "RVS_Spinner")
     ]
 )

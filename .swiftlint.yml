@@ -17,7 +17,7 @@ opt_in_rules:
 - comma
 
 excluded:
-- Pods
+- Tests
 
 line_length:
 - 400 # warning
