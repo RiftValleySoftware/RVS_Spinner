@@ -1,5 +1,11 @@
 # RVS_Spinner Change Log
 
+## 2.3.2
+
+- **September 18, 2020**
+
+- Added the ability to disable individual items (not just the whole control).
+
 ## 2.3.1
 
 - **August 1, 2020**

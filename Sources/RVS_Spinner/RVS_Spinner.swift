@@ -67,6 +67,8 @@ public struct RVS_SpinnerDataItem {
     public let description: String?
     /** This is any associated data value. It is an optional "Any," and needs to be cast. */
     public let value: Any?
+    /** This is the enabled flag for the item. It is defaulted to true. */
+    public let isEnabled: Bool
     
     /* ################################################################## */
     /**
@@ -76,12 +78,14 @@ public struct RVS_SpinnerDataItem {
      - parameter icon: An image to be displayed for the value. This is the only required argument.
      - parameter description: An optional String (default is nil), with a description of the value.
      - parameter value: An optional value (default is nil) to be associated with this value item.
+     - parameter isEnabled: An optional value (default is true). If false, the item is disabled.
      */
-    public init(title inTitle: String = "", icon inIcon: UIImage, description inDescription: String? = nil, value inValue: Any? = nil) {
+    public init(title inTitle: String = "", icon inIcon: UIImage, description inDescription: String? = nil, value inValue: Any? = nil, isEnabled inIsEnabled: Bool = true) {
         title = inTitle
         icon = inIcon
         description = inDescription
         value = inValue
+        isEnabled = inIsEnabled
     }
 }
 
@@ -583,7 +587,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             }
             
             selectedIndex = newSelection
-
             _selectionFeedbackGenerator?.prepare()
             setNeedsDisplay()
             _decelerate()
@@ -613,7 +616,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             // Get the image to be displayed over the oval.
             let centerImage = values[selectedIndex].icon
             // This is how we track clicks and long-presses in the center.
-            let isDimmed = !isEnabled || (isTracking && isTouchInside && !_doneTracking)
+            let isDimmed = !values[selectedIndex].isEnabled || !isEnabled || (isTracking && isTouchInside && !_doneTracking)
             let imageLayer = _makeIconDisplay(centerImage, inFrame: bounds, isDimmed: isDimmed)
             if isCompensatingForContainerRotation { // If we are compensating for container rotation, we null out that rotation for the center icon.
                 if let superTransform = superview?.transform {
@@ -701,7 +704,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             let imageFrame = CGRect(x: centerPointInDisplayUnits.x - (imageSquareSize / 2), y: -(radiusInDisplayUnits - (_openSpinnerView.bounds.size.height / 2) - Self._kOpenPaddingInDisplayUnits), width: imageSquareSize, height: imageSquareSize)
             
             // Each image is the same as the center.
-            let displayLayer = _makeIconDisplay(value.icon, inFrame: imageFrame)
+            let displayLayer = _makeIconDisplay(value.icon, inFrame: imageFrame, isDimmed: !value.isEnabled)
             
             let newFrame = displayLayer.frame
             
@@ -749,7 +752,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         iconDisplayLayer.frame.origin = CGPoint.zero
         iconDisplayLayer.contents = inIcon.cgImage
         iconDisplayLayer.contentsGravity = .resizeAspect  // We will always display the icon accurately, as large as possible to fill the rectangle. Keep this in mind, when designing icons.
-        iconDisplayLayer.opacity = inIsDimmed ? 0.75 : 1.0
+        iconDisplayLayer.opacity = inIsDimmed ? 0.25 : 1.0
 
         var displayLayer = iconDisplayLayer
         

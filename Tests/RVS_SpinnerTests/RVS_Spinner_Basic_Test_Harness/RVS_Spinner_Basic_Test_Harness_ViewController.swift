@@ -89,8 +89,19 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     @IBOutlet weak var soundsSwitch: UISwitch!
     /// This is the label under the spinner that displays the associated strings (in red text).
     @IBOutlet weak var associatedTextLabel: UILabel!
-
+    /// This segmented control determines whether or not items are disabled.
+    @IBOutlet weak var disabledItemsSegmentedControl: UISegmentedControl!
+    
     /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     This is called when the disabled segmented control changes.
+     */
+   @IBAction func disabledSegmentedControlChanged(_ inSegmentedControl: UISegmentedControl) {
+        setUpDataItemsArray()
+        setUpSpinnerControl()
+    }
+    
     /* ################################################################## */
     /**
      This is called when the "Sounds" switch changes.
@@ -134,6 +145,9 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         if let numberOfItems = Int(inSegmentedSwitch.titleForSegment(at: inSegmentedSwitch.selectedSegmentIndex) ?? "") {
             setUpDataItemsArray(numberOfItems)
         }
+        setUpDisabledSegmentedControl()
+        disabledItemsSegmentedControl.selectedSegmentIndex = 0
+        setUpDataItemsArray()
         updateAssociatedText()
     }
 
@@ -223,6 +237,18 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     
     /* ################################################################## */
     /**
+     This sets up the segmented switch for disabling.
+     */
+    func setUpDisabledSegmentedControl() {
+        // The two endpoints are always enabled.
+        disabledItemsSegmentedControl.setEnabled(true, forSegmentAt: 0)
+        disabledItemsSegmentedControl.setEnabled(true, forSegmentAt: 3)
+        disabledItemsSegmentedControl.setEnabled(_dataItems.count > 6, forSegmentAt: 1)
+        disabledItemsSegmentedControl.setEnabled(_dataItems.count > 3, forSegmentAt: 2)
+    }
+    
+    /* ################################################################## */
+    /**
      This sets up the spinner view to reflect the condition of the controls.
      */
     func setUpSpinnerControl() {
@@ -232,8 +258,9 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         spinnerView.tintColor = _darkColorList[borderColorSegmentedControl.selectedSegmentIndex]
         spinnerView.openBackgroundColor = _colorList[radialColorSegmentedControl.selectedSegmentIndex]
         spinnerView.delegate = self
+        setUpDisabledSegmentedControl()
     }
-    
+
     /* ################################################################## */
     /**
      This sets up the "Number of Values" switch, selecting the center one.
@@ -253,10 +280,27 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     /**
      This sets up the data items array to reflect the number of values selected by the "Number of Values" switch.
      */
-    func setUpDataItemsArray(_ inNumberOfItems: Int) {
+    func setUpDataItemsArray(_ inNumberOfItems: Int = 0) {
+        let numberOfItems = 0 == inNumberOfItems ? _dataItems.count : inNumberOfItems
         _dataItems = []
-        subsetOfShapes(inNumberOfItems).forEach {
-            _dataItems.append(RVS_SpinnerDataItem(title: $0.name, icon: $0.image, value: String(format: "Associated Text #%02d (\($0.name))", $0.index + 1)))
+        for shape in subsetOfShapes(numberOfItems).enumerated() {
+            var isEnabled = true
+            switch disabledItemsSegmentedControl.selectedSegmentIndex {
+                case 1:
+                    isEnabled = !(0 == shape.offset % 3)
+                    
+                case 2:
+                    isEnabled = !(0 == shape.offset % 2 || 0 == shape.offset % 3)
+
+                case 3:
+                    isEnabled = false
+
+                default:
+                    isEnabled = true
+            }
+        
+
+            _dataItems.append(RVS_SpinnerDataItem(title: shape.element.name, icon: shape.element.image, value: String(format: "Associated Text #%02d (\(shape.element.name))", shape.element.index + 1), isEnabled: isEnabled))
         }
         setUpSpinnerControl()
     }

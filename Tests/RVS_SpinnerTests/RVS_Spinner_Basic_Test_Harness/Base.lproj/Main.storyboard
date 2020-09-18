@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,11 +19,11 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="NcB-qC-Kbn">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aOJ-Ve-Ptm">
-                                <rect key="frame" x="0.0" y="44" width="414" height="438"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aOJ-Ve-Ptm" userLabel="Demo Container">
+                                <rect key="frame" x="0.0" y="44" width="414" height="421"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s8R-RL-1KT" customClass="RVS_Spinner" customModule="RVS_Spinner">
-                                        <rect key="frame" x="187" y="199" width="40" height="40"/>
+                                        <rect key="frame" x="187" y="190.5" width="40" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" placeholder="YES" id="7SN-3F-rve"/>
@@ -45,123 +43,35 @@
                                     <constraint firstItem="s8R-RL-1KT" firstAttribute="centerY" secondItem="aOJ-Ve-Ptm" secondAttribute="centerY" id="wgy-fS-toE"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZJy-Ra-OKA">
-                                <rect key="frame" x="0.0" y="482" width="414" height="380"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZJy-Ra-OKA" userLabel="Controls Container">
+                                <rect key="frame" x="0.0" y="465" width="414" height="397"/>
                                 <subviews>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ULW-5M-ytO">
-                                        <rect key="frame" x="8" y="345" width="398" height="28"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="7RP-dK-nM0">
+                                        <rect key="frame" x="8" y="0.0" width="398" height="20"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="27" id="xub-Li-hnH"/>
+                                            <constraint firstAttribute="height" constant="20" id="6Kv-8R-4Il"/>
                                         </constraints>
-                                        <segments>
-                                            <segment title=""/>
-                                            <segment title=""/>
-                                            <segment title=""/>
-                                            <segment title=""/>
-                                            <segment title=""/>
-                                            <segment title=""/>
-                                            <segment title=""/>
-                                        </segments>
-                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <connections>
-                                            <action selector="numberSegSwitchHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="tX6-Qt-vG5"/>
-                                        </connections>
-                                    </segmentedControl>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="dtF-8E-DOT">
-                                        <rect key="frame" x="8" y="290" width="398" height="28"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="27" id="C7e-2C-B27"/>
-                                        </constraints>
-                                        <segments>
-                                            <segment title="Clear"/>
-                                            <segment title="White"/>
-                                            <segment title="Black"/>
-                                            <segment title="Gray"/>
-                                            <segment title="Yellow"/>
-                                            <segment title="Purple"/>
-                                            <segment title="Cyan"/>
-                                        </segments>
-                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <connections>
-                                            <action selector="colorSegSwitchHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="UTo-EN-Pr7"/>
-                                        </connections>
-                                    </segmentedControl>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="4" translatesAutoresizingMaskIntoConstraints="NO" id="SxO-Dy-D3I">
-                                        <rect key="frame" x="8" y="235" width="398" height="28"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="27" id="TWd-Sw-CAk"/>
-                                        </constraints>
-                                        <segments>
-                                            <segment title="Clear"/>
-                                            <segment title="White"/>
-                                            <segment title="Black"/>
-                                            <segment title="Gray"/>
-                                            <segment title="Yellow"/>
-                                            <segment title="Purple"/>
-                                            <segment title="Cyan"/>
-                                        </segments>
-                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <connections>
-                                            <action selector="colorSegSwitchHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="S8L-xF-Yix"/>
-                                        </connections>
-                                    </segmentedControl>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="2" translatesAutoresizingMaskIntoConstraints="NO" id="InS-fb-PTe">
-                                        <rect key="frame" x="8" y="180" width="398" height="28"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="27" id="wyb-LW-4J6"/>
-                                        </constraints>
-                                        <segments>
-                                            <segment title="Clear"/>
-                                            <segment title="White"/>
-                                            <segment title="Black"/>
-                                            <segment title="Gray"/>
-                                            <segment title="Yellow"/>
-                                            <segment title="Purple"/>
-                                            <segment title="Cyan"/>
-                                        </segments>
-                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <connections>
-                                            <action selector="colorSegSwitchHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="jfG-LR-riN"/>
-                                        </connections>
-                                    </segmentedControl>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of Values:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IqS-tl-N7P">
-                                        <rect key="frame" x="8" y="321" width="398" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="NyS-RA-6aK"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Center Background Color:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lvl-Vk-YmE">
-                                        <rect key="frame" x="8" y="266" width="398" height="20"/>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="YAm-YP-3nu" userLabel="Disable Segmented Control">
+                                        <rect key="frame" x="8" y="20" width="398" height="31"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="V09-bq-UTg"/>
+                                            <constraint firstAttribute="height" constant="30" id="J6W-Rd-VmX"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Open Control Background Color:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9CD-G3-UMl">
-                                        <rect key="frame" x="8" y="211" width="398" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="cDP-qk-Lfv"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Border and Text Color:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SP5-o6-oED">
-                                        <rect key="frame" x="8" y="156" width="398" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="swV-Is-dN8"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                        <segments>
+                                            <segment title="None Disabled"/>
+                                            <segment title="Some Disabled"/>
+                                            <segment title="More Disabled"/>
+                                            <segment title="All Disabled"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="disabledSegmentedControlChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="oSz-Se-dhs"/>
+                                        </connections>
+                                    </segmentedControl>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spinner/Picker Threshold:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJ6-d8-dFj">
-                                        <rect key="frame" x="8" y="33" width="398" height="20"/>
+                                        <rect key="frame" x="8" y="50" width="398" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="piv-J3-sO1"/>
                                         </constraints>
@@ -169,23 +79,8 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="763-Wk-g9a">
-                                        <rect key="frame" x="8" y="125" width="398" height="28"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="27" id="DOh-UB-OFi"/>
-                                        </constraints>
-                                        <segments>
-                                            <segment title="Spinner-Only"/>
-                                            <segment title="Both"/>
-                                            <segment title="Picker-Only"/>
-                                        </segments>
-                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <connections>
-                                            <action selector="spinnerModeSegSwitchHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="Xie-Lh-U8C"/>
-                                        </connections>
-                                    </segmentedControl>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="7" translatesAutoresizingMaskIntoConstraints="NO" id="pYr-fG-VZH">
-                                        <rect key="frame" x="8" y="57" width="398" height="29"/>
+                                        <rect key="frame" x="8" y="74" width="398" height="29"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="NdK-LP-eLf"/>
                                         </constraints>
@@ -207,14 +102,8 @@
                                             <action selector="thresholdSegmentedControlHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="V7b-ev-Y2G"/>
                                         </connections>
                                     </segmentedControl>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="7RP-dK-nM0">
-                                        <rect key="frame" x="8" y="0.0" width="398" height="33"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Te-W0-hPK">
-                                        <rect key="frame" x="8" y="85" width="398" height="40"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Te-W0-hPK" userLabel="Haptics Container">
+                                        <rect key="frame" x="8" y="102" width="398" height="40"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QDT-1n-Ep5">
                                                 <rect key="frame" x="0.0" y="4.5" width="49" height="31"/>
@@ -269,6 +158,133 @@
                                             <constraint firstItem="KxJ-hx-5B6" firstAttribute="centerY" secondItem="6Te-W0-hPK" secondAttribute="centerY" id="w8t-Xw-3e7"/>
                                         </constraints>
                                     </view>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="763-Wk-g9a">
+                                        <rect key="frame" x="8" y="142" width="398" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="27" id="DOh-UB-OFi"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="Spinner-Only"/>
+                                            <segment title="Both"/>
+                                            <segment title="Picker-Only"/>
+                                        </segments>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <action selector="spinnerModeSegSwitchHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="Xie-Lh-U8C"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Border and Text Color:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SP5-o6-oED">
+                                        <rect key="frame" x="8" y="173" width="398" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="swV-Is-dN8"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="2" translatesAutoresizingMaskIntoConstraints="NO" id="InS-fb-PTe">
+                                        <rect key="frame" x="8" y="197" width="398" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="27" id="wyb-LW-4J6"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="Clear"/>
+                                            <segment title="White"/>
+                                            <segment title="Black"/>
+                                            <segment title="Gray"/>
+                                            <segment title="Yellow"/>
+                                            <segment title="Purple"/>
+                                            <segment title="Cyan"/>
+                                        </segments>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <action selector="colorSegSwitchHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="jfG-LR-riN"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Open Control Background Color:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9CD-G3-UMl">
+                                        <rect key="frame" x="8" y="228" width="398" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="cDP-qk-Lfv"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="4" translatesAutoresizingMaskIntoConstraints="NO" id="SxO-Dy-D3I">
+                                        <rect key="frame" x="8" y="252" width="398" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="27" id="TWd-Sw-CAk"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="Clear"/>
+                                            <segment title="White"/>
+                                            <segment title="Black"/>
+                                            <segment title="Gray"/>
+                                            <segment title="Yellow"/>
+                                            <segment title="Purple"/>
+                                            <segment title="Cyan"/>
+                                        </segments>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <action selector="colorSegSwitchHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="S8L-xF-Yix"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Center Background Color:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lvl-Vk-YmE">
+                                        <rect key="frame" x="8" y="283" width="398" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="V09-bq-UTg"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="dtF-8E-DOT">
+                                        <rect key="frame" x="8" y="307" width="398" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="27" id="C7e-2C-B27"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="Clear"/>
+                                            <segment title="White"/>
+                                            <segment title="Black"/>
+                                            <segment title="Gray"/>
+                                            <segment title="Yellow"/>
+                                            <segment title="Purple"/>
+                                            <segment title="Cyan"/>
+                                        </segments>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <action selector="colorSegSwitchHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="UTo-EN-Pr7"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of Values:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IqS-tl-N7P">
+                                        <rect key="frame" x="8" y="338" width="398" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="NyS-RA-6aK"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ULW-5M-ytO">
+                                        <rect key="frame" x="8" y="362" width="398" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="27" id="xub-Li-hnH"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title=""/>
+                                            <segment title=""/>
+                                            <segment title=""/>
+                                            <segment title=""/>
+                                            <segment title=""/>
+                                            <segment title=""/>
+                                            <segment title=""/>
+                                        </segments>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <action selector="numberSegSwitchHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="tX6-Qt-vG5"/>
+                                        </connections>
+                                    </segmentedControl>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -286,6 +302,7 @@
                                     <constraint firstAttribute="trailing" secondItem="SP5-o6-oED" secondAttribute="trailing" constant="8" id="DD4-0P-dvr"/>
                                     <constraint firstAttribute="trailing" secondItem="IqS-tl-N7P" secondAttribute="trailing" constant="8" id="ERf-8t-2mA"/>
                                     <constraint firstItem="7RP-dK-nM0" firstAttribute="leading" secondItem="ZJy-Ra-OKA" secondAttribute="leading" constant="8" id="FmU-mu-vZz"/>
+                                    <constraint firstItem="YAm-YP-3nu" firstAttribute="top" secondItem="7RP-dK-nM0" secondAttribute="bottom" id="HG8-P3-HCq"/>
                                     <constraint firstItem="6Te-W0-hPK" firstAttribute="top" secondItem="pYr-fG-VZH" secondAttribute="bottom" id="I82-bh-YdQ"/>
                                     <constraint firstAttribute="trailing" secondItem="6Te-W0-hPK" secondAttribute="trailing" constant="8" id="IaO-Md-YPz"/>
                                     <constraint firstItem="ULW-5M-ytO" firstAttribute="leading" secondItem="ZJy-Ra-OKA" secondAttribute="leadingMargin" id="JtV-JL-oVZ"/>
@@ -293,17 +310,18 @@
                                     <constraint firstItem="Lvl-Vk-YmE" firstAttribute="top" secondItem="SxO-Dy-D3I" secondAttribute="bottom" constant="4" id="Lck-Dy-Gge"/>
                                     <constraint firstItem="IqS-tl-N7P" firstAttribute="top" secondItem="dtF-8E-DOT" secondAttribute="bottom" constant="4" id="Lho-SI-61P"/>
                                     <constraint firstItem="KJ6-d8-dFj" firstAttribute="leading" secondItem="ZJy-Ra-OKA" secondAttribute="leading" constant="8" id="M05-Dw-Lbv"/>
+                                    <constraint firstItem="KJ6-d8-dFj" firstAttribute="top" secondItem="YAm-YP-3nu" secondAttribute="bottom" id="MsH-eE-sbV"/>
                                     <constraint firstAttribute="trailing" secondItem="9CD-G3-UMl" secondAttribute="trailing" constant="8" id="OWG-IM-BXc"/>
                                     <constraint firstItem="6Te-W0-hPK" firstAttribute="leading" secondItem="ZJy-Ra-OKA" secondAttribute="leading" constant="8" id="PGr-ED-dFe"/>
                                     <constraint firstItem="InS-fb-PTe" firstAttribute="top" secondItem="SP5-o6-oED" secondAttribute="bottom" constant="4" id="UFM-Zu-dFH"/>
+                                    <constraint firstItem="YAm-YP-3nu" firstAttribute="leading" secondItem="ZJy-Ra-OKA" secondAttribute="leading" constant="8" id="V2c-ey-fmp"/>
                                     <constraint firstItem="IqS-tl-N7P" firstAttribute="leading" secondItem="ZJy-Ra-OKA" secondAttribute="leading" constant="8" id="V8n-jl-PNn"/>
                                     <constraint firstItem="9CD-G3-UMl" firstAttribute="top" secondItem="InS-fb-PTe" secondAttribute="bottom" constant="4" id="aNJ-nM-I6o"/>
                                     <constraint firstItem="pYr-fG-VZH" firstAttribute="top" secondItem="KJ6-d8-dFj" secondAttribute="bottom" constant="4" id="b1e-9L-gGm"/>
                                     <constraint firstAttribute="trailing" secondItem="dtF-8E-DOT" secondAttribute="trailing" constant="8" id="bpe-SU-Vrr"/>
                                     <constraint firstAttribute="bottomMargin" secondItem="ULW-5M-ytO" secondAttribute="bottom" id="cD1-Kd-WIa"/>
-                                    <constraint firstItem="KJ6-d8-dFj" firstAttribute="top" secondItem="7RP-dK-nM0" secondAttribute="bottom" id="gSr-82-AqS"/>
                                     <constraint firstAttribute="trailing" secondItem="7RP-dK-nM0" secondAttribute="trailing" constant="8" id="iZp-hL-C1G"/>
-                                    <constraint firstAttribute="height" constant="380" id="ipt-uX-9ad"/>
+                                    <constraint firstAttribute="trailing" secondItem="YAm-YP-3nu" secondAttribute="trailing" constant="8" id="igp-b6-acX"/>
                                     <constraint firstAttribute="trailing" secondItem="InS-fb-PTe" secondAttribute="trailing" constant="8" id="j2g-YH-3y5"/>
                                     <constraint firstItem="ULW-5M-ytO" firstAttribute="top" secondItem="IqS-tl-N7P" secondAttribute="bottom" constant="4" id="jaC-ll-A3t"/>
                                     <constraint firstItem="763-Wk-g9a" firstAttribute="leading" secondItem="ZJy-Ra-OKA" secondAttribute="leading" constant="8" id="jgh-vi-goP"/>
@@ -318,6 +336,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ZJy-Ra-OKA" firstAttribute="top" secondItem="aOJ-Ve-Ptm" secondAttribute="bottom" id="0FY-RD-MIc"/>
@@ -332,11 +351,11 @@
                             <constraint firstItem="aOJ-Ve-Ptm" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="gSj-4U-Jwb"/>
                             <constraint firstItem="NcB-qC-Kbn" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="hJl-2U-bcc"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="associatedTextLabel" destination="7RP-dK-nM0" id="2us-op-AwO"/>
                         <outlet property="borderColorSegmentedControl" destination="InS-fb-PTe" id="Fid-dT-78A"/>
+                        <outlet property="disabledItemsSegmentedControl" destination="YAm-YP-3nu" id="6Pb-kk-iaV"/>
                         <outlet property="hapticsSwitch" destination="QDT-1n-Ep5" id="NQV-yV-5bM"/>
                         <outlet property="innerColorSegmentedControl" destination="dtF-8E-DOT" id="Vuv-L3-wIQ"/>
                         <outlet property="numberOfItemsSegmentedControl" destination="ULW-5M-ytO" id="CG4-c2-cTp"/>
