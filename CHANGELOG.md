@@ -1,5 +1,11 @@
 # RVS_Spinner Change Log
 
+## 2.3.3
+
+- **September 22, 2020**
+
+- Updated the project, and now require iOS 12.0 or above.
+
 ## 2.3.2
 
 - **September 18, 2020**

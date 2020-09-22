@@ -30,7 +30,6 @@ WHERE TO GET
 =
 As A [CocoaPod](https://cocoapods.org)
 -
-
 [This is available here, as a CocoaPod.](https://cocoapods.org/pods/RVS_Spinner)
 
 Just put:
@@ -45,7 +44,6 @@ You will then need to import the module, by adding the following to the source f
     
 As A [Swift Package](https://swift.org/package-manager/)
 -
-
 You can include the Spinner, using the Swift Package Manager, simply by referring to [its GitHub Repository](https://github.com/RiftValleySoftware/RVS_Spinner) URI (SSH: [git@github.com:RiftValleySoftware/RVS_Spinner.git](git@github.com:RiftValleySoftware/RVS_Spinner.git) or HTTPS: [https://github.com/RiftValleySoftware/RVS_Spinner.git](https://github.com/RiftValleySoftware/RVS_Spinner.git)).
 
 You will then need to import the module, by adding the following to the source files that will be accessing the spinner:
@@ -299,8 +297,6 @@ The fourth tab is a bit crazy. It's four independent controls, broken into quart
 LEAK TEST HARNESS APP
 =
 There is a small, simple app that lives for only one thing: to be run in "Profile" mode, and let the framework be examined for things like memory leaks.
-
-**NOTE:** In iOS 12.2/Xcode 10.2, there is a bug, where you get "false positive" leaks reported if running a 12.2 target. You should run this tester on targets of iOS 12.1 or lower. The harness will support down to iOS 11.0.
 
 ![The Leak Test Tab](https://riftvalleysoftware.com/RVS_Spinner/LeakTestApp.png)
 
