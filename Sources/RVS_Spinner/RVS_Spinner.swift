@@ -433,7 +433,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      This is the stored property for the isOpen computed property.
      */
-    private var _isOpen: Bool = false
+    private lazy var _isOpen: Bool = false
     
     /* ################################################################## */
     /**
@@ -1319,16 +1319,13 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         didSet {
             selectedIndex = Swift.max(0, Swift.min(values.count - 1, selectedIndex))
             _arclengthInRadians = (CGFloat.pi * 2) / CGFloat(values.count)
-           // We will want to update our layout. Do it in the main thread, just in case.
-            DispatchQueue.main.async {
-                if self.isOpen {
-                    self.isOpen = false // Close our picker/spinner, if open.
-                } else {
-                    self.setNeedsLayout()
-                    self._clearDisplayCaches()
-                }
-                self.sendActions(for: .valueChanged)
+            if self.isOpen {
+                self.isOpen = false // Close our picker/spinner, if open.
+            } else {
+                self.setNeedsLayout()
+                self._clearDisplayCaches()
             }
+            self.sendActions(for: .valueChanged)
         }
     }
 
