@@ -1,5 +1,11 @@
 # RVS_Spinner Change Log
 
+## 2.3.4
+
+- **September 23, 2020**
+
+- There was a bug, when immediately opening the control, programmatically.
+
 ## 2.3.3
 
 - **September 22, 2020**

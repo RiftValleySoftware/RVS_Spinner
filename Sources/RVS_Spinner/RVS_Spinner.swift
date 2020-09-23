@@ -431,6 +431,12 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     
     /* ################################################################## */
     /**
+     This is the stored property for the isOpen computed property.
+     */
+    private var _isOpen: Bool = false
+    
+    /* ################################################################## */
+    /**
      This will provide haptic/audio feedback for opening and closing the control.
      */
     private var _impactFeedbackGenerator: UIImpactFeedbackGenerator?
@@ -1330,18 +1336,21 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      If this is true, then the spinner is open. Setting this will open or close the control. Default is false.
      */
-    public var isOpen: Bool = false {
-        didSet {    // This is the way we open and close the control.
-            if isOpen && isOpen != oldValue, 1 < count {
+    public var isOpen: Bool {
+        get { _isOpen }
+        set {    // This is the way we open and close the control.
+            if !_isOpen && _isOpen != newValue, 1 < count {
                 _openControl()
                 setNeedsLayout()
                 _clearDisplayCaches()
                 // Let any delegate know that we have opened with a selected item.
                 delegate?.spinner(self, hasOpenedWithTheValue: value)
-            } else if !isOpen && isOpen != oldValue {
+                _isOpen = true
+            } else if _isOpen && _isOpen != newValue {
                 _closeControl()
                 // Let any delegate know that we have closed with a selected item.
                 delegate?.spinner(self, hasClosedWithTheValue: value)
+                _isOpen = false
             }
         }
     }
