@@ -125,7 +125,7 @@ public protocol RVS_SpinnerDelegate: class {
      - parameter hasOpenedWithTheValue: The value that was selected when the control opened. This is optional.
      */
     func spinner(_: RVS_Spinner, hasOpenedWithTheValue: RVS_SpinnerDataItem?)
-    
+
     /* ################################################################## */
     /**
      This is called after the user has "closed" the Spinner.
@@ -134,6 +134,16 @@ public protocol RVS_SpinnerDelegate: class {
      - parameter hasClosedWithTheValue: The value that was selected when the control closed. This is optional.
      */
     func spinner(_: RVS_Spinner, hasClosedWithTheValue: RVS_SpinnerDataItem?)
+    
+    /* ################################################################## */
+    /**
+     This is called before the user closes the spinner. It allows the delegate to interrupt the close process.
+     
+     - parameter spinner: The RVS_Spinner instance.
+     - parameter willCloseWithTheValue: The value that was selected when the control close was attempted. This is optional.
+     - returns: True, if the spinner is allowed to continue closing. False, to prevent the spinner from closing.
+     */
+    func spinner(_: RVS_Spinner, willCloseWithTheValue: RVS_SpinnerDataItem?) -> Bool
 }
 
 /* ###################################################################################################################################### */
@@ -194,6 +204,21 @@ public extension RVS_SpinnerDelegate {
         #if DEBUG
             print("spinner(:, hasClosedWithTheValue:) called in default.")
         #endif
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called before the user closes the spinner. It allows the delegate to interrupt the close process.
+     
+     - parameter spinner: The RVS_Spinner instance.
+     - parameter willCloseWithTheValue: The value that was selected when the control close was attempted. This is optional.
+     - returns: True, if the spinner is allowed to continue closing. False, to prevent the spinner from closing.
+     */
+    func spinner(_: RVS_Spinner, willCloseWithTheValue: RVS_SpinnerDataItem?) -> Bool {
+        #if DEBUG
+            print("spinner(:, willCloseWithTheValue:) called in default.")
+        #endif
+        return true
     }
 }
 
@@ -1343,7 +1368,8 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 // Let any delegate know that we have opened with a selected item.
                 delegate?.spinner(self, hasOpenedWithTheValue: value)
                 _isOpen = true
-            } else if _isOpen && _isOpen != newValue {
+            } else if _isOpen && _isOpen != newValue,
+                  delegate?.spinner(self, willCloseWithTheValue: value) ?? false {
                 _closeControl()
                 // Let any delegate know that we have closed with a selected item.
                 delegate?.spinner(self, hasClosedWithTheValue: value)

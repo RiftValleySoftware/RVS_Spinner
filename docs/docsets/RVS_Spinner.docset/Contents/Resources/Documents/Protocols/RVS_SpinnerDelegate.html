@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          RVS_Spinner 2.3.1 Docs
+          RVS_Spinner 2.3.5 Docs
         </a>
          (100% documented)
       </p>
@@ -366,6 +366,76 @@ In this case, the control will not open, but we will send a message.</p>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11RVS_Spinner0a1_B8DelegateP7spinner_21willCloseWithTheValueSbA2AC_AA0a1_B8DataItemVSgtF"></a>
+                    <a name="//apple_ref/swift/Method/spinner(_:willCloseWithTheValue:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11RVS_Spinner0a1_B8DelegateP7spinner_21willCloseWithTheValueSbA2AC_AA0a1_B8DataItemVSgtF">spinner(_:<wbr>willCloseWithTheValue:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is called before the user closes the spinner. It allows the delegate to interrupt the close process.</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>This is called before the user closes the spinner. It allows the delegate to interrupt the close process.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">spinner</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt"><a href="../Classes/RVS_Spinner.html">RVS_Spinner</a></span><span class="p">,</span> <span class="nv">willCloseWithTheValue</span><span class="p">:</span> <span class="kt"><a href="../Structs/RVS_SpinnerDataItem.html">RVS_SpinnerDataItem</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>spinner</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The RVS_Spinner instance.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>willCloseWithTheValue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The value that was selected when the control close was attempted. This is optional.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True, if the spinner is allowed to continue closing. False, to prevent the spinner from closing.</p>
                       </div>
                     </section>
                   </div>

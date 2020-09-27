@@ -1,5 +1,11 @@
 # RVS_Spinner Change Log
 
+## 2.3.5
+
+- **September 26, 2020**
+
+- Added the ability to evaluate whether or not to close the spinner.
+
 ## 2.3.4
 
 - **September 23, 2020**
