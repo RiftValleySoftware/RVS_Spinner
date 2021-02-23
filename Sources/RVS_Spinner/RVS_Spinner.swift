@@ -20,11 +20,13 @@
  
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  
- - version: 2.3.3
+ - version: 2.3.6
  */
 
-import UIKit
 import AudioToolbox
+
+#if os(iOS) // This prevents the IB errors from showing up, under SPM (From SO Answer: https://stackoverflow.com/a/66334661/879365).
+import UIKit
 
 /* ###################################################################################################################################### */
 // MARK: - Color Test Extension -
@@ -1856,3 +1858,4 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         setNeedsDisplay()
     }
 }
+#endif

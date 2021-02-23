@@ -1,5 +1,11 @@
 # RVS_Spinner Change Log
 
+## 2.3.6
+
+- **February 23, 2021**
+
+- Added some code to try to remove the IB build errors for non-iOS operating systems (when included by SPM).
+
 ## 2.3.5
 
 - **September 26, 2020**
