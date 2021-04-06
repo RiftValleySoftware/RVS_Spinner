@@ -127,7 +127,6 @@
 		D4508244249E49B8002E7A68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D45081B6249E452D002E7A68 /* LaunchScreen.storyboard */; };
 		D4508245249E49B8002E7A68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D45081B8249E452D002E7A68 /* Main.storyboard */; };
 		D4508246249E49BE002E7A68 /* RVS_Spinner_Leak_Test_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45081BA249E452D002E7A68 /* RVS_Spinner_Leak_Test_AppDelegate.swift */; };
-		D46F9951261C7F1600C3EA34 /* RVS_Spinner_HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46F9950261C7F1600C3EA34 /* RVS_Spinner_HUD.swift */; };
 		D46F997B261C815500C3EA34 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46F9972261C815500C3EA34 /* ViewController.swift */; };
 		D46F997C261C815500C3EA34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D46F9973261C815500C3EA34 /* Assets.xcassets */; };
 		D46F997D261C815500C3EA34 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D46F9974261C815500C3EA34 /* LaunchScreen.storyboard */; };
@@ -511,7 +510,6 @@
 		D45081B9249E452D002E7A68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D45081BA249E452D002E7A68 /* RVS_Spinner_Leak_Test_AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_Spinner_Leak_Test_AppDelegate.swift; sourceTree = "<group>"; };
 		D45081BB249E452D002E7A68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D46F9950261C7F1600C3EA34 /* RVS_Spinner_HUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_Spinner_HUD.swift; sourceTree = "<group>"; };
 		D46F9959261C812000C3EA34 /* RVS_SPinner_HUD_Test_Harness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RVS_SPinner_HUD_Test_Harness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D46F9972261C815500C3EA34 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D46F9973261C815500C3EA34 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -603,7 +601,6 @@
 			isa = PBXGroup;
 			children = (
 				D428DB43216939A9004B130B /* RVS_Spinner.swift */,
-				D46F9950261C7F1600C3EA34 /* RVS_Spinner_HUD.swift */,
 			);
 			path = RVS_Spinner;
 			sourceTree = "<group>";
@@ -1153,7 +1150,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D428DB44216939A9004B130B /* RVS_Spinner.swift in Sources */,
-				D46F9951261C7F1600C3EA34 /* RVS_Spinner_HUD.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1299,7 +1295,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-Spinner-Basic-Test-Harness";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1320,7 +1316,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-Spinner-Basic-Test-Harness";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1479,7 +1475,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-Spinner";
 				PRODUCT_MODULE_NAME = "${TARGET_NAME}";
 				PRODUCT_NAME = "${TARGET_NAME}";
@@ -1510,7 +1506,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-Spinner";
 				PRODUCT_MODULE_NAME = "${TARGET_NAME}";
 				PRODUCT_NAME = "${TARGET_NAME}";
@@ -1534,7 +1530,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-Spinner-Tabbed-Test-Harness";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1555,7 +1551,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-Spinner-Tabbed-Test-Harness";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1571,13 +1567,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2000;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
-				INFOPLIST_FILE = Tests/RVS_SPinner_HUD_Test_Harness/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Tests/RVS_SpinnerTests/RVS_SPinner_HUD_Test_Harness/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-SPinner-HUD-Test-Harness";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1593,13 +1589,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2000;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
-				INFOPLIST_FILE = Tests/RVS_SPinner_HUD_Test_Harness/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Tests/RVS_SpinnerTests/RVS_SPinner_HUD_Test_Harness/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-SPinner-HUD-Test-Harness";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1620,7 +1616,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-Spinner-Leak-Test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1641,7 +1637,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-Spinner-Leak-Test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

@@ -1,5 +1,9 @@
 # RVS_Spinner Change Log
 
+## 2.3.7
+
+- **TBD**
+
 ## 2.3.6
 
 - **February 23, 2021**
