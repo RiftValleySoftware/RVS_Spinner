@@ -127,14 +127,14 @@
 		D4508244249E49B8002E7A68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D45081B6249E452D002E7A68 /* LaunchScreen.storyboard */; };
 		D4508245249E49B8002E7A68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D45081B8249E452D002E7A68 /* Main.storyboard */; };
 		D4508246249E49BE002E7A68 /* RVS_Spinner_Leak_Test_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45081BA249E452D002E7A68 /* RVS_Spinner_Leak_Test_AppDelegate.swift */; };
-		D46F997B261C815500C3EA34 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46F9972261C815500C3EA34 /* ViewController.swift */; };
+		D46F997B261C815500C3EA34 /* RVS_SPinner_HUD_Test_Harness_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46F9972261C815500C3EA34 /* RVS_SPinner_HUD_Test_Harness_ViewController.swift */; };
 		D46F997C261C815500C3EA34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D46F9973261C815500C3EA34 /* Assets.xcassets */; };
 		D46F997D261C815500C3EA34 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D46F9974261C815500C3EA34 /* LaunchScreen.storyboard */; };
 		D46F997E261C815500C3EA34 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D46F9976261C815500C3EA34 /* Main.storyboard */; };
-		D46F997F261C815500C3EA34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46F9978261C815500C3EA34 /* AppDelegate.swift */; };
-		D46F9981261C815500C3EA34 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46F997A261C815500C3EA34 /* SceneDelegate.swift */; };
+		D46F997F261C815500C3EA34 /* RVS_SPinner_HUD_Test_Harness_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46F9978261C815500C3EA34 /* RVS_SPinner_HUD_Test_Harness_AppDelegate.swift */; };
 		D46F9989261C81F400C3EA34 /* RVS_Spinner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D428DB292169391D004B130B /* RVS_Spinner.framework */; };
 		D46F998A261C81F400C3EA34 /* RVS_Spinner.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D428DB292169391D004B130B /* RVS_Spinner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D495637B261CA59500267937 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4956379261CA59500267937 /* Localizable.strings */; };
 		D49B3726224D1A850049EEDE /* RVS_Spinner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D428DB292169391D004B130B /* RVS_Spinner.framework */; };
 		D49B3729224D646F0049EEDE /* RVS_Spinner.framework in Copy Embedded Frameworks */ = {isa = PBXBuildFile; fileRef = D428DB292169391D004B130B /* RVS_Spinner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D4CC804722576F3B00873FA6 /* RVS_Spinner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D428DB292169391D004B130B /* RVS_Spinner.framework */; };
@@ -511,14 +511,14 @@
 		D45081BA249E452D002E7A68 /* RVS_Spinner_Leak_Test_AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_Spinner_Leak_Test_AppDelegate.swift; sourceTree = "<group>"; };
 		D45081BB249E452D002E7A68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D46F9959261C812000C3EA34 /* RVS_SPinner_HUD_Test_Harness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RVS_SPinner_HUD_Test_Harness.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D46F9972261C815500C3EA34 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D46F9972261C815500C3EA34 /* RVS_SPinner_HUD_Test_Harness_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_SPinner_HUD_Test_Harness_ViewController.swift; sourceTree = "<group>"; };
 		D46F9973261C815500C3EA34 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D46F9975261C815500C3EA34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D46F9977261C815500C3EA34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D46F9978261C815500C3EA34 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D46F9978261C815500C3EA34 /* RVS_SPinner_HUD_Test_Harness_AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_SPinner_HUD_Test_Harness_AppDelegate.swift; sourceTree = "<group>"; };
 		D46F9979261C815500C3EA34 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D46F997A261C815500C3EA34 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D49214A624956D8B0047968F /* Warnings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Warnings.xcconfig; path = "Project-Meta/Warnings.xcconfig"; sourceTree = "<group>"; };
+		D495637A261CA59500267937 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4B039A222576DBD004031FF /* RVS_Spinner_Leak_Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RVS_Spinner_Leak_Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -572,6 +572,25 @@
 				D428DB2B2169391D004B130B /* RVS_Spinner */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		D41CDBE9261CA0D900C58FA9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D46F9976261C815500C3EA34 /* Main.storyboard */,
+				D46F9973261C815500C3EA34 /* Assets.xcassets */,
+				D4956379261CA59500267937 /* Localizable.strings */,
+				D46F9974261C815500C3EA34 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D41CDBEA261CA0E800C58FA9 /* Meta */ = {
+			isa = PBXGroup;
+			children = (
+				D46F9979261C815500C3EA34 /* Info.plist */,
+			);
+			path = Meta;
 			sourceTree = "<group>";
 		};
 		D428DB1F2169391D004B130B = {
@@ -826,13 +845,10 @@
 		D46F9971261C815500C3EA34 /* RVS_SPinner_HUD_Test_Harness */ = {
 			isa = PBXGroup;
 			children = (
-				D46F9972261C815500C3EA34 /* ViewController.swift */,
-				D46F9973261C815500C3EA34 /* Assets.xcassets */,
-				D46F9974261C815500C3EA34 /* LaunchScreen.storyboard */,
-				D46F9976261C815500C3EA34 /* Main.storyboard */,
-				D46F9978261C815500C3EA34 /* AppDelegate.swift */,
-				D46F9979261C815500C3EA34 /* Info.plist */,
-				D46F997A261C815500C3EA34 /* SceneDelegate.swift */,
+				D46F9978261C815500C3EA34 /* RVS_SPinner_HUD_Test_Harness_AppDelegate.swift */,
+				D46F9972261C815500C3EA34 /* RVS_SPinner_HUD_Test_Harness_ViewController.swift */,
+				D41CDBE9261CA0D900C58FA9 /* Resources */,
+				D41CDBEA261CA0E800C58FA9 /* Meta */,
 			);
 			path = RVS_SPinner_HUD_Test_Harness;
 			sourceTree = "<group>";
@@ -924,6 +940,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D46F996A261C812000C3EA34 /* Build configuration list for PBXNativeTarget "RVS_SPinner_HUD_Test_Harness" */;
 			buildPhases = (
+				D4956377261CA4D800267937 /* SwiftLint */,
 				D46F9955261C812000C3EA34 /* Sources */,
 				D46F9956261C812000C3EA34 /* Frameworks */,
 				D46F9957261C812000C3EA34 /* Resources */,
@@ -1043,6 +1060,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D46F997E261C815500C3EA34 /* Main.storyboard in Resources */,
+				D495637B261CA59500267937 /* Localizable.strings in Resources */,
 				D46F997C261C815500C3EA34 /* Assets.xcassets in Resources */,
 				D46F997D261C815500C3EA34 /* LaunchScreen.storyboard in Resources */,
 			);
@@ -1071,6 +1089,24 @@
 			inputPaths = (
 			);
 			name = SwiftLINT;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if test -f \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"\nfi\n";
+		};
+		D4956377261CA4D800267937 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -1173,9 +1209,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D46F997F261C815500C3EA34 /* AppDelegate.swift in Sources */,
-				D46F997B261C815500C3EA34 /* ViewController.swift in Sources */,
-				D46F9981261C815500C3EA34 /* SceneDelegate.swift in Sources */,
+				D46F997F261C815500C3EA34 /* RVS_SPinner_HUD_Test_Harness_AppDelegate.swift in Sources */,
+				D46F997B261C815500C3EA34 /* RVS_SPinner_HUD_Test_Harness_ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1276,6 +1311,14 @@
 				D46F9977261C815500C3EA34 /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D4956379261CA59500267937 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D495637A261CA59500267937 /* Base */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1567,7 +1610,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2000;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
-				INFOPLIST_FILE = "$(SRCROOT)/Tests/RVS_SpinnerTests/RVS_SPinner_HUD_Test_Harness/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Tests/RVS_SpinnerTests/RVS_SPinner_HUD_Test_Harness/Meta/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1589,7 +1632,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2000;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
-				INFOPLIST_FILE = "$(SRCROOT)/Tests/RVS_SpinnerTests/RVS_SPinner_HUD_Test_Harness/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Tests/RVS_SpinnerTests/RVS_SPinner_HUD_Test_Harness/Meta/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
