@@ -4,7 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,28 +17,61 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nqe-6w-3cS" customClass="RVS_Spinner" customModule="RVS_Spinner">
-                                <rect key="frame" x="143" y="832" width="128" height="128"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NASA-Image" translatesAutoresizingMaskIntoConstraints="NO" id="dEb-CG-SYO">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gxl-As-vp7">
+                                <rect key="frame" x="-577" y="112" width="1568" height="1568"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nqe-6w-3cS" customClass="RVS_Spinner" customModule="RVS_Spinner">
+                                        <rect key="frame" x="720" y="720" width="128" height="128"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="nqe-6w-3cS" secondAttribute="height" multiplier="1:1" id="IOS-uU-aIJ"/>
+                                            <constraint firstAttribute="width" constant="128" id="nyg-Wq-97D"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="openBackgroundColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="spinnerMode">
+                                                <integer key="value" value="-1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="centerImage">
+                                                <imageReference key="value" image="BlueMarble" symbolScale="large" renderingMode="template"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="hudMode" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="spinnerControlChangedValue:" destination="BYZ-38-t0r" eventType="valueChanged" id="FyD-Zp-Ngd"/>
+                                        </connections>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="tintColor" name="AccentColor"/>
+                                <color key="tintColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="nqe-6w-3cS" secondAttribute="height" multiplier="1:1" id="IOS-uU-aIJ"/>
-                                    <constraint firstAttribute="width" constant="128" id="nyg-Wq-97D"/>
+                                    <constraint firstAttribute="width" secondItem="gxl-As-vp7" secondAttribute="height" multiplier="1:1" id="2PD-Oc-yjz"/>
+                                    <constraint firstItem="nqe-6w-3cS" firstAttribute="centerX" secondItem="gxl-As-vp7" secondAttribute="centerX" id="WYe-4I-XVe"/>
+                                    <constraint firstItem="nqe-6w-3cS" firstAttribute="centerY" secondItem="gxl-As-vp7" secondAttribute="centerY" id="vok-Wd-n6t"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="openBackgroundColor">
-                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="nqe-6w-3cS" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="76w-0a-Rvb"/>
-                            <constraint firstItem="nqe-6w-3cS" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="2" id="To5-eD-8zg"/>
+                            <constraint firstAttribute="trailing" secondItem="dEb-CG-SYO" secondAttribute="trailing" id="482-JL-ntB"/>
+                            <constraint firstItem="gxl-As-vp7" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7CI-kR-CnJ"/>
+                            <constraint firstItem="dEb-CG-SYO" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="OTA-zM-F4n"/>
+                            <constraint firstItem="gxl-As-vp7" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="2" id="Zjh-1W-kmX"/>
+                            <constraint firstAttribute="bottom" secondItem="dEb-CG-SYO" secondAttribute="bottom" id="apm-y2-yRh"/>
+                            <constraint firstItem="dEb-CG-SYO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="xnk-eu-6au"/>
+                            <constraint firstItem="gxl-As-vp7" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1.75" id="y5g-td-JQ3"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="spinnerControl" destination="nqe-6w-3cS" id="2Zy-pr-Bvp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -46,8 +79,7 @@
         </scene>
     </scenes>
     <resources>
-        <namedColor name="AccentColor">
-            <color red="0.20399998128414154" green="0.77999997138977051" blue="0.34899997711181641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
+        <image name="BlueMarble" width="128" height="128"/>
+        <image name="NASA-Image" width="1500" height="983"/>
     </resources>
 </document>

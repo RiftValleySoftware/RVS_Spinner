@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "NASA-Image.jpg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

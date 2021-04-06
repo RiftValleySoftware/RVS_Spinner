@@ -4,6 +4,9 @@
 
 - **TBD**
 
+- Added support for alpha
+- Fixed an issue, where the control would not close, if no delegate was supplied.
+
 ## 2.3.6
 
 - **February 23, 2021**

@@ -271,6 +271,18 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     
     /* ################################################################## */
     /**
+     This is the opacity to apply to the images, when in HUD mode.
+     */
+    private static let _kHUDModeOpacityMultiplier: Float = 0.85
+    
+    /* ################################################################## */
+    /**
+     This is the opacity to use as a quotient, when calculating reduced opacity, away from the top.
+     */
+    private static let _kDistanceOpacityQuotient: Float = 0.25
+    
+    /* ################################################################## */
+    /**
      This is the padding in the open control "pie slices.".
      */
     private static let _kOpenPaddingInDisplayUnits: CGFloat = 8.0
@@ -640,17 +652,19 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         // We stroke and fill the basic shape with the colors we have set up.
         let centerLayer = CAShapeLayer()
         
-        centerLayer.path = centerShape.cgPath   // By default, the center is an oval/circle. You can override this to change the shape.
-        centerLayer.fillColor = _closedBackgroundColor?.cgColor
-        centerLayer.strokeColor = tintColor?.cgColor
-        centerLayer.lineWidth = Self._kBorderWidthInDisplayUnits
+        if !hudMode {
+            centerLayer.path = centerShape.cgPath   // By default, the center is an oval/circle. You can override this to change the shape.
+            centerLayer.fillColor = _closedBackgroundColor?.cgColor
+            centerLayer.strokeColor = tintColor?.cgColor
+            centerLayer.lineWidth = Self._kBorderWidthInDisplayUnits
+        }
 
         if 0 < values.count {   // Have to have values to draw anything more.
-            // Get the image to be displayed over the oval.
-            let centerImage = values[selectedIndex].icon
+            // Get the image to be displayed over the oval. We first see if one has been assigned.
+            let displayIcon =  centerImage ?? values[selectedIndex].icon
             // This is how we track clicks and long-presses in the center.
             let isDimmed = !values[selectedIndex].isEnabled || !isEnabled || (isTracking && isTouchInside && !_doneTracking)
-            let imageLayer = _makeIconDisplay(centerImage, inFrame: bounds, isDimmed: isDimmed)
+            let imageLayer = _makeIconDisplay(displayIcon, inFrame: bounds, isDimmed: isDimmed)
             if isCompensatingForContainerRotation { // If we are compensating for container rotation, we null out that rotation for the center icon.
                 if let superTransform = superview?.transform {
                     let rotationInRadians = -CGFloat(atan2(Double(superTransform.b), Double(superTransform.a)))
@@ -724,7 +738,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         var rotationAngleInRadians = CGFloat.pi - (CGFloat(inIndex) * _arclengthInRadians)
 
         if !inIsTransparencyMask {    // We only do this is we are drawing the icon layer.
-            ret.fillColor = openBackgroundColor.cgColor // We will always have a transparent background for this layer.
+            ret.fillColor = hudMode ? UIColor.clear.cgColor : openBackgroundColor.withAlphaComponent(alpha).cgColor
             
             // This is how big each icon will be, in our rendered spoke.
             let iconSize = CGSize(width: Swift.min(maxIconSize.width, oppositeLength), height: Swift.min(maxIconSize.height, oppositeLength))
@@ -744,7 +758,12 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             // Calculate the frame for the rendered icon image. It is centered, at the end of the wedge.
             displayLayer.frame = CGRect(x: centerPointInDisplayUnits.x - (newFrame.size.width / 2), y: -(radiusInDisplayUnits - (_openSpinnerView.bounds.size.height / 2) - Self._kOpenPaddingInDisplayUnits), width: newFrame.size.width, height: newFrame.size.height)
 
-            ret.path = path.cgPath
+            if !hudMode {
+                ret.path = path.cgPath
+            } else {
+                ret.opacity *= Self._kHUDModeOpacityMultiplier
+            }
+            
             ret.addSublayer(displayLayer)
         } else {    // Otherwise, this is the transparency mask. No icon. We use white as our background color. It really doesn't matter what color, as long as it isn't clear.
             ret.path = path.cgPath
@@ -754,7 +773,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             let indexDistance = abs(inIndex - (count / 2))
             
             // The selected value is always full visibility, but it dimms drastically, the further we are from it.
-            ret.opacity = (0 == indexDistance) ? 1.0 : 0.25 / Float(indexDistance)
+            ret.opacity = (0 == indexDistance) ? 1.0 : Self._kDistanceOpacityQuotient / Float(indexDistance)
 
             // When doing the mask, we need to back up one-half spoke for odd-numbered counts.
             if 0 != (count % 2) {
@@ -780,17 +799,19 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      */
     private func _makeIconDisplay(_ inIcon: UIImage, inFrame: CGRect, isDimmed inIsDimmed: Bool = false) -> CALayer {
         let iconDisplayLayer = CALayer()
+        
         iconDisplayLayer.backgroundColor = UIColor.clear.cgColor
         iconDisplayLayer.frame = inFrame
         iconDisplayLayer.frame.origin = CGPoint.zero
         iconDisplayLayer.contents = inIcon.cgImage
         iconDisplayLayer.contentsGravity = .resizeAspect  // We will always display the icon accurately, as large as possible to fill the rectangle. Keep this in mind, when designing icons.
-        iconDisplayLayer.opacity = inIsDimmed ? 0.25 : 1.0
+        iconDisplayLayer.opacity = (inIsDimmed ? 0.25 : 1.0) * Float(alpha)
 
         var displayLayer = iconDisplayLayer
         
         // If we are displaying framed icons, then we need to surround the icon with a circle, and shrink it.
-        guard framedIcons else { return displayLayer }
+        guard !hudMode,
+              framedIcons else { return displayLayer }
         
         let frameCircleLayer = CAShapeLayer() // This is the circle "frame."
         let circleFrame = iconDisplayLayer.frame
@@ -799,7 +820,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         frameCircleLayer.path = UIBezierPath(arcCenter: CGPoint(x: circleFrame.midX, y: circleFrame.midY), radius: circleFrame.size.height / 2, startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true).cgPath
         frameCircleLayer.strokeColor = tintColor.cgColor
         frameCircleLayer.lineWidth = Self._kBorderWidthInDisplayUnits
-        frameCircleLayer.fillColor = _closedBackgroundColor?.cgColor
+        frameCircleLayer.fillColor = _closedBackgroundColor?.withAlphaComponent(alpha).cgColor
         
         // Shrinking by 1/6 seems to do it.
         let inset = Swift.max(iconDisplayLayer.frame.size.width, iconDisplayLayer.frame.size.height) / 6
@@ -1371,7 +1392,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 delegate?.spinner(self, hasOpenedWithTheValue: value)
                 _isOpen = true
             } else if _isOpen && _isOpen != newValue,
-                  delegate?.spinner(self, willCloseWithTheValue: value) ?? false {
+                  delegate?.spinner(self, willCloseWithTheValue: value) ?? true {
                 _closeControl()
                 // Let any delegate know that we have closed with a selected item.
                 delegate?.spinner(self, hasClosedWithTheValue: value)
@@ -1543,6 +1564,30 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      */
     @IBInspectable public var isHapticsOn: Bool = true
     
+    /* ################################################################## */
+    /**
+     This is an alternative fixed center image. If left alone, the selected value image will be used. Default is nil (use selected value image).
+     */
+    @IBInspectable public var centerImage: UIImage? {
+        didSet {
+            DispatchQueue.main.async {
+                self.setNeedsDisplay()
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     If true, then the various options will be set to emulate a "HUD" display. Default is false.
+     */
+    @IBInspectable public var hudMode: Bool = false {
+        didSet {
+            DispatchQueue.main.async {
+                self.setNeedsDisplay()
+            }
+        }
+    }
+
     /* ################################################################################################################################## */
     // MARK: - Public Overrides
     /* ################################################################################################################################## */
@@ -1585,7 +1630,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             object: nil
         )
     }
-
+    
     /* ################################################################## */
     /**
      The NSCoder init.
