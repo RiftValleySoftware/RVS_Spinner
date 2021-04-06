@@ -1,10 +1,12 @@
 # RVS_Spinner Change Log
 
-## 2.3.7
+## 2.4.0
 
 - **TBD**
 
 - Added support for alpha
+- added support for a constant central image.
+- Added "HUD Mode.""
 - Fixed an issue, where the control would not close, if no delegate was supplied.
 
 ## 2.3.6

@@ -273,7 +273,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      This is the opacity to apply to the images, when in HUD mode.
      */
-    private static let _kHUDModeOpacityMultiplier: Float = 0.85
+    private static let _kHUDModeOpacityMultiplier: Float = 1.0
     
     /* ################################################################## */
     /**
@@ -846,17 +846,23 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         
         if nil != _openSpinnerView {
             if nil == _spinnerTransparencyMask {
-                let transMask = CALayer()
+                let transMask = CAGradientLayer()
                 transMask.frame = _openSpinnerView.bounds
-                
-                for index in 0..<count {
-                    if let subLayer = _drawOneValueRadius(index, isTransparencyMask: true) {
-                        transMask.insertSublayer(subLayer, at: 0)
-                    }
-                }
-                
+                transMask.type = .conic
+                transMask.startPoint = CGPoint(x: 0.5, y: 0.5)
+                transMask.endPoint = CGPoint(x: 0.5, y: 0)
+                transMask.colors = [UIColor.clear.cgColor, UIColor.white.cgColor, UIColor.white.cgColor, UIColor.white.cgColor, UIColor.clear.cgColor]
+//                let transMask = CALayer()
+//                transMask.frame = _openSpinnerView.bounds
+//
+//                for index in 0..<count {
+//                    if let subLayer = _drawOneValueRadius(index, isTransparencyMask: true) {
+//                        transMask.insertSublayer(subLayer, at: 0)
+//                    }
+//                }
+
                 _spinnerTransparencyMask = transMask
-                
+
                 _openSpinnerView.layer.mask = _spinnerTransparencyMask
             }
             
