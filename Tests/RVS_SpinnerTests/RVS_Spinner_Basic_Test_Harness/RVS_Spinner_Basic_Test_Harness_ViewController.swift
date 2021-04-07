@@ -377,7 +377,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     /**
      This is called before the user closes the spinner. It allows the delegate to interrupt the close process.
      */
-    func spinner(_: RVS_Spinner, willCloseWithTheValue: RVS_SpinnerDataItem?) -> Bool {
-        return willCloseWithTheValue?.isEnabled ?? false
+    func spinner(_ inSpinner: RVS_Spinner, willCloseWithTheValue: RVS_SpinnerDataItem?) -> Bool {
+        return inSpinner.isEnabled
     }
 }

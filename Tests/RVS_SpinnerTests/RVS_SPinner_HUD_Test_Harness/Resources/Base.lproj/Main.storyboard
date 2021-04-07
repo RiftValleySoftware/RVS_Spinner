@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Image references" minToolsVersion="12.0"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,11 +20,65 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NASA-Image" translatesAutoresizingMaskIntoConstraints="NO" id="dEb-CG-SYO">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
+                            <segmentedControl opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="oad-xM-CMR">
+                                <rect key="frame" x="20" y="44" width="374" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="5gZ-vE-2Bv"/>
+                                </constraints>
+                                <segments>
+                                    <segment title=""/>
+                                    <segment title="" image="BlueMarble"/>
+                                    <segment title="">
+                                        <imageReference key="image" image="globe" catalog="system" symbolScale="large" renderingMode="template"/>
+                                    </segment>
+                                    <segment title="">
+                                        <imageReference key="image" image="questionmark.circle.fill" catalog="system" symbolScale="large"/>
+                                    </segment>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentedSwitchChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="p4B-bN-XyU"/>
+                                </connections>
+                            </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="VHy-Eh-auO">
+                                <rect key="frame" x="20" y="78" width="374" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="AYi-Va-JWD"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="">
+                                        <imageReference key="image" image="square.fill" catalog="system" symbolScale="large" renderingMode="template"/>
+                                    </segment>
+                                    <segment title="">
+                                        <imageReference key="image" image="square.fill" catalog="system" symbolScale="large" renderingMode="template"/>
+                                    </segment>
+                                    <segment title="">
+                                        <imageReference key="image" image="square.fill" catalog="system" symbolScale="large" renderingMode="template"/>
+                                    </segment>
+                                    <segment title="">
+                                        <imageReference key="image" image="square.fill" catalog="system" symbolScale="large" renderingMode="template"/>
+                                    </segment>
+                                    <segment title="">
+                                        <imageReference key="image" image="square.fill" catalog="system" symbolScale="large" renderingMode="template"/>
+                                    </segment>
+                                    <segment title="">
+                                        <imageReference key="image" image="square.fill" catalog="system" symbolScale="large" renderingMode="template"/>
+                                    </segment>
+                                    <segment title="">
+                                        <imageReference key="image" image="square.fill" catalog="system" symbolScale="large" renderingMode="template"/>
+                                    </segment>
+                                    <segment title="">
+                                        <imageReference key="image" image="square.fill" catalog="system" symbolScale="large" renderingMode="template"/>
+                                    </segment>
+                                </segments>
+                                <connections>
+                                    <action selector="tintSelectorSegmentedSwitchChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="sbS-DF-xkh"/>
+                                </connections>
+                            </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gxl-As-vp7">
-                                <rect key="frame" x="-607" y="82" width="1628" height="1628"/>
+                                <rect key="frame" x="-581" y="108" width="1576" height="1576"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nqe-6w-3cS" customClass="RVS_Spinner" customModule="RVS_Spinner">
-                                        <rect key="frame" x="750" y="750" width="128" height="128"/>
+                                        <rect key="frame" x="724" y="724" width="128" height="128"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -35,12 +88,6 @@
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="openBackgroundColor">
                                                 <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="spinnerMode">
-                                                <integer key="value" value="-1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="image" keyPath="centerImage">
-                                                <imageReference key="value" image="BlueMarble" symbolScale="large" renderingMode="template"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="hudMode" value="YES"/>
                                         </userDefinedRuntimeAttributes>
@@ -57,23 +104,6 @@
                                     <constraint firstItem="nqe-6w-3cS" firstAttribute="centerY" secondItem="gxl-As-vp7" secondAttribute="centerY" id="vok-Wd-n6t"/>
                                 </constraints>
                             </view>
-                            <segmentedControl opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="oad-xM-CMR">
-                                <rect key="frame" x="20" y="44" width="374" height="31"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="5gZ-vE-2Bv"/>
-                                </constraints>
-                                <segments>
-                                    <segment title=""/>
-                                    <segment title="" image="BlueMarble"/>
-                                    <segment title="">
-                                        <imageReference key="image" image="globe" catalog="system" symbolScale="large" renderingMode="template"/>
-                                    </segment>
-                                </segments>
-                                <color key="selectedSegmentTintColor" name="AccentColor"/>
-                                <connections>
-                                    <action selector="segmentedSwitchChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="p4B-bN-XyU"/>
-                                </connections>
-                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -81,18 +111,22 @@
                             <constraint firstAttribute="trailing" secondItem="dEb-CG-SYO" secondAttribute="trailing" id="482-JL-ntB"/>
                             <constraint firstItem="gxl-As-vp7" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7CI-kR-CnJ"/>
                             <constraint firstItem="oad-xM-CMR" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="9s2-4K-PPl"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="VHy-Eh-auO" secondAttribute="trailing" constant="20" id="HHj-Cu-yqf"/>
                             <constraint firstItem="dEb-CG-SYO" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="OTA-zM-F4n"/>
-                            <constraint firstItem="gxl-As-vp7" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="2" id="Zjh-1W-kmX"/>
                             <constraint firstAttribute="bottom" secondItem="dEb-CG-SYO" secondAttribute="bottom" id="apm-y2-yRh"/>
-                            <constraint firstItem="gxl-As-vp7" firstAttribute="top" secondItem="oad-xM-CMR" secondAttribute="bottom" constant="8" symbolic="YES" id="rmU-KJ-Onb"/>
+                            <constraint firstItem="VHy-Eh-auO" firstAttribute="top" secondItem="oad-xM-CMR" secondAttribute="bottom" constant="4" id="bKO-Y1-mee"/>
+                            <constraint firstItem="gxl-As-vp7" firstAttribute="top" secondItem="VHy-Eh-auO" secondAttribute="bottom" id="rmU-KJ-Onb"/>
                             <constraint firstItem="oad-xM-CMR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="vYB-UN-Md1"/>
                             <constraint firstItem="dEb-CG-SYO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="xnk-eu-6au"/>
+                            <constraint firstItem="VHy-Eh-auO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="y4E-kB-DZt"/>
+                            <constraint firstItem="gxl-As-vp7" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="2" id="z0g-4a-rpR"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="oad-xM-CMR" secondAttribute="trailing" constant="20" id="z6d-OQ-4l2"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="segmentedSwitch" destination="oad-xM-CMR" id="B0E-jJ-whK"/>
                         <outlet property="spinnerControl" destination="nqe-6w-3cS" id="2Zy-pr-Bvp"/>
+                        <outlet property="tintSelectorSegmentedSwitch" destination="VHy-Eh-auO" id="IMz-Gm-mbn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -104,8 +138,7 @@
         <image name="BlueMarble" width="128" height="128"/>
         <image name="NASA-Image" width="1500" height="983"/>
         <image name="globe" catalog="system" width="128" height="121"/>
-        <namedColor name="AccentColor">
-            <color red="0.0" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
+        <image name="questionmark.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="square.fill" catalog="system" width="128" height="114"/>
     </resources>
 </document>

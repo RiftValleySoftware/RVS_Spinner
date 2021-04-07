@@ -112,6 +112,12 @@ class RVS_SPinner_HUD_Test_Harness_ViewController: UIViewController {
     /**
      */
     @IBOutlet weak var spinnerControl: RVS_Spinner!
+
+    /* ################################################################## */
+    /**
+     This switch selects the spinner tint color.
+     */
+    @IBOutlet weak var tintSelectorSegmentedSwitch: UISegmentedControl!
 }
 
 /* ###################################################################################################################################### */
@@ -126,6 +132,8 @@ extension RVS_SPinner_HUD_Test_Harness_ViewController {
             spinnerControl?.centerImage = Self.normalImage
         } else if 2 == inSwitch.selectedSegmentIndex {
             spinnerControl?.centerImage = Self.templateImage
+        } else if 3 == inSwitch.selectedSegmentIndex {
+            spinnerControl?.centerImage = UIImage(systemName: "questionmark.circle.fill")
         } else {
             spinnerControl?.centerImage = nil
         }
@@ -135,6 +143,35 @@ extension RVS_SPinner_HUD_Test_Harness_ViewController {
     /**
      */
     @IBAction func spinnerControlChangedValue(_ sender: RVS_Spinner) {
+    }
+
+    /* ################################################################## */
+    /**
+     Called when the tint is changed.
+     
+     - parameter: Ignored
+     */
+    @IBAction func tintSelectorSegmentedSwitchChanged(_: Any) {
+        setSelectedTint()
+    }
+
+    /* ################################################################## */
+    /**
+     This checks the `tintSelectorSegmentedSwitch`, and sets the appropriate color for the
+     control, based on its value.
+     */
+    func setSelectedTint() {
+        if let index = tintSelectorSegmentedSwitch?.selectedSegmentIndex,
+           let color = 0 == index ? UIColor(named: "AccentColor") : 1 == index ? .label : UIColor(named: "Tint-\(index)") {
+            spinnerItems = []
+            Self.imageNames.forEach {
+                if let icon = UIImage(systemName: $0)?.withRenderingMode(.alwaysTemplate).withTintColor(color).resized(toNewWidth: 320) {
+                    spinnerItems.append(RVS_SpinnerDataItem(title: $0, icon: icon))
+                }
+            }
+            spinnerControl?.tintColor = color
+            spinnerControl?.values = spinnerItems
+        }
     }
 }
 
@@ -147,13 +184,26 @@ extension RVS_SPinner_HUD_Test_Harness_ViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        spinnerItems = []
-        Self.imageNames.forEach {
-            if let icon = UIImage(systemName: $0)?.withRenderingMode(.alwaysTemplate).withTintColor(view?.tintColor ?? .white).resized(toNewWidth: 320) {
-                spinnerItems.append(RVS_SpinnerDataItem(title: $0, icon: icon))
+
+        // Set up the little tint squares for the tint selector control.
+        if let tintSelectorSegmentedSwitch = tintSelectorSegmentedSwitch {
+            if let color = UIColor(named: "AccentColor"),
+               let image = UIImage(systemName: "square.fill")?.withTintColor(color) {
+                tintSelectorSegmentedSwitch.setImage(image.withRenderingMode(.alwaysOriginal), forSegmentAt: 0)
             }
+            if let image = UIImage(systemName: "square.fill")?.withTintColor(.label) {
+                tintSelectorSegmentedSwitch.setImage(image.withRenderingMode(.alwaysOriginal), forSegmentAt: 1)
+            }
+            for index in 2..<tintSelectorSegmentedSwitch.numberOfSegments {
+                if let color = UIColor(named: "Tint-\(index)"),
+                   let image = UIImage(systemName: "square.fill")?.withTintColor(color) {
+                    tintSelectorSegmentedSwitch.setImage(image.withRenderingMode(.alwaysOriginal), forSegmentAt: index)
+                }
+            }
+            
+            // Select red, so it stands out.
+            tintSelectorSegmentedSwitch.selectedSegmentIndex = tintSelectorSegmentedSwitch.numberOfSegments - 2
+            setSelectedTint()
         }
-        
-        spinnerControl?.values = spinnerItems
     }
 }

@@ -277,6 +277,24 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     
     /* ################################################################## */
     /**
+     This is the opacity to use when dimmed.
+     */
+    private static let _kDimmedOpacity: Float = 0.25
+
+    /* ################################################################## */
+    /**
+     This is the duration for opening animations
+     */
+    private static let _kOpeningAnimationDurationInSeconds: TimeInterval = 0.25
+
+    /* ################################################################## */
+    /**
+     This is the duration for closing animations
+     */
+    private static let _kClosingAnimationDurationInSeconds: TimeInterval = 0.3
+
+    /* ################################################################## */
+    /**
      This is the padding in the open control "pie slices.".
      */
     private static let _kOpenPaddingInDisplayUnits: CGFloat = 8.0
@@ -328,27 +346,17 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      These denote the transparency mask that we use to fade unselected items.
      */
     private static let _kTransparencyGradientSteps = [UIColor.white.cgColor,
-                                                      UIColor.white.withAlphaComponent(0.70).cgColor,
-                                                      UIColor.white.withAlphaComponent(0.60).cgColor,
-                                                      UIColor.white.withAlphaComponent(0.50).cgColor,
+                                                      UIColor.white.withAlphaComponent(0.55).cgColor,
                                                       UIColor.white.withAlphaComponent(0.40).cgColor,
-                                                      UIColor.white.withAlphaComponent(0.30).cgColor,
-                                                      UIColor.white.withAlphaComponent(0.225).cgColor,
-                                                      UIColor.white.withAlphaComponent(0.15).cgColor,
-                                                      UIColor.white.withAlphaComponent(0.05).cgColor,
-                                                      UIColor.white.withAlphaComponent(0.01).cgColor,
-                                                      UIColor.white.withAlphaComponent(0.001).cgColor,
+                                                      UIColor.white.withAlphaComponent(0.25).cgColor,
+                                                      UIColor.white.withAlphaComponent(0.1).cgColor,
+                                                      UIColor.white.withAlphaComponent(0.03).cgColor,
                                                       UIColor.clear.cgColor,
-                                                      UIColor.white.withAlphaComponent(0.001).cgColor,
-                                                      UIColor.white.withAlphaComponent(0.01).cgColor,
-                                                      UIColor.white.withAlphaComponent(0.05).cgColor,
-                                                      UIColor.white.withAlphaComponent(0.15).cgColor,
-                                                      UIColor.white.withAlphaComponent(0.225).cgColor,
-                                                      UIColor.white.withAlphaComponent(0.30).cgColor,
+                                                      UIColor.white.withAlphaComponent(0.03).cgColor,
+                                                      UIColor.white.withAlphaComponent(0.1).cgColor,
+                                                      UIColor.white.withAlphaComponent(0.25).cgColor,
                                                       UIColor.white.withAlphaComponent(0.40).cgColor,
-                                                      UIColor.white.withAlphaComponent(0.50).cgColor,
-                                                      UIColor.white.withAlphaComponent(0.60).cgColor,
-                                                      UIColor.white.withAlphaComponent(0.70).cgColor,
+                                                      UIColor.white.withAlphaComponent(0.55).cgColor,
                                                       UIColor.white.cgColor
     ]
 
@@ -705,6 +713,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
 
                 let temp = UIView(frame: centerLayer.bounds)
                 temp.layer.addSublayer(centerLayer)
+                temp.tintColor = tintColor
                 addSubview(temp)
                 _centerImageView = temp
             }
@@ -717,9 +726,8 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      It calculates the size of the images to be drawn at the end of each spoke to fit in the space provided.
      
      - parameter inIndex: The 0-based index of the value to be used.
-     - parameter isTransparencyMask: true, if this is only a transparency mask. In this case, no icons will be drawn.
      */
-    private func _drawOneValueRadius(_ inIndex: Int, isTransparencyMask inIsTransparencyMask: Bool) -> CALayer! {
+    private func _drawOneValueRadius(_ inIndex: Int) -> CALayer! {
         guard !values.isEmpty else { return nil }
         
         let value = values[inIndex]
@@ -765,52 +773,33 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         path.addArc(withCenter: centerPointInDisplayUnits, radius: radiusInDisplayUnits, startAngle: centerAngleInRadians - (_arclengthInRadians / 2), endAngle: centerAngleInRadians + (_arclengthInRadians / 2), clockwise: true)
         path.move(to: centerPointInDisplayUnits)
         
-        // This is the angle we need to rotate by to fit the spoke in the wheel.
-        var rotationAngleInRadians = CGFloat.pi - (CGFloat(inIndex) * _arclengthInRadians)
-
-        if !inIsTransparencyMask {    // We only do this is we are drawing the icon layer.
-            ret.fillColor = hudMode ? UIColor.clear.cgColor : !openBackgroundColor.isClear ? openBackgroundColor.withAlphaComponent(alpha).cgColor : nil
-            
-            // This is how big each icon will be, in our rendered spoke.
-            let iconSize = CGSize(width: Swift.min(maxIconSize.width, oppositeLength), height: Swift.min(maxIconSize.height, oppositeLength))
-            
-            // We like to have a fixed size, but if the image is smaller, or we are packed in too tight, we may need to go smaller.
-            let maxWidth = Swift.min(iconSize.width, oppositeLength)  // This is how wide the displayed icon will be.
-            
-            let imageSquareSize = Swift.min(maxWidth, arcCircumferenceInDisplayUnits / 2)  // The image is displayed in a square.
-            
-            let imageFrame = CGRect(x: centerPointInDisplayUnits.x - (imageSquareSize / 2), y: -(radiusInDisplayUnits - (_openSpinnerView.bounds.size.height / 2) - Self._kOpenPaddingInDisplayUnits), width: imageSquareSize, height: imageSquareSize)
-            
-            // Each image is the same as the center.
-            let displayLayer = _makeIconDisplay(value.icon, inFrame: imageFrame, isDimmed: !value.isEnabled)
-            
-            let newFrame = displayLayer.frame
-            
-            // Calculate the frame for the rendered icon image. It is centered, at the end of the wedge.
-            displayLayer.frame = CGRect(x: centerPointInDisplayUnits.x - (newFrame.size.width / 2), y: -(radiusInDisplayUnits - (_openSpinnerView.bounds.size.height / 2) - Self._kOpenPaddingInDisplayUnits), width: newFrame.size.width, height: newFrame.size.height)
-
-            if !hudMode {
-                ret.path = path.cgPath
-            }
-            
-            ret.addSublayer(displayLayer)
-        } else {    // Otherwise, this is the transparency mask. No icon. We use white as our background color. It really doesn't matter what color, as long as it isn't clear.
-            ret.path = path.cgPath
-            ret.fillColor = UIColor.white.cgColor
-
-            // We use this to reduce the opacity of the values that are not actually on top.
-            let indexDistance = abs(inIndex - (count / 2))
-            
-            // The selected value is always full visibility, but it dimms drastically, the further we are from it.
-            ret.opacity = (0 == indexDistance) ? 1.0 : Self._kDistanceOpacityQuotient / Float(indexDistance)
-
-            // When doing the mask, we need to back up one-half spoke for odd-numbered counts.
-            if 0 != (count % 2) {
-                rotationAngleInRadians -= (_arclengthInRadians / 2)
-            }
-        }
+        ret.fillColor = hudMode ? UIColor.clear.cgColor : !openBackgroundColor.isClear ? openBackgroundColor.withAlphaComponent(alpha).cgColor : nil
         
-        // Apply the rotation.
+        // This is how big each icon will be, in our rendered spoke.
+        let iconSize = CGSize(width: Swift.min(maxIconSize.width, oppositeLength), height: Swift.min(maxIconSize.height, oppositeLength))
+        
+        // We like to have a fixed size, but if the image is smaller, or we are packed in too tight, we may need to go smaller.
+        let maxWidth = Swift.min(iconSize.width, oppositeLength)  // This is how wide the displayed icon will be.
+        
+        let imageSquareSize = Swift.min(maxWidth, arcCircumferenceInDisplayUnits / 2)  // The image is displayed in a square.
+        
+        let imageFrame = CGRect(x: centerPointInDisplayUnits.x - (imageSquareSize / 2), y: -(radiusInDisplayUnits - (_openSpinnerView.bounds.size.height / 2) - Self._kOpenPaddingInDisplayUnits), width: imageSquareSize, height: imageSquareSize)
+
+        // Each image is the same as the center.
+        let displayLayer = _makeIconDisplay(value.icon, inFrame: imageFrame, isDimmed: !value.isEnabled)
+        
+        let newFrame = displayLayer.frame
+        
+        // Calculate the frame for the rendered icon image. It is centered, at the end of the wedge.
+        displayLayer.frame = CGRect(x: centerPointInDisplayUnits.x - (newFrame.size.width / 2), y: -(radiusInDisplayUnits - (_openSpinnerView.bounds.size.height / 2) - Self._kOpenPaddingInDisplayUnits), width: newFrame.size.width, height: newFrame.size.height)
+
+        ret.path = path.cgPath
+        
+        ret.addSublayer(displayLayer)
+        
+        // Apply the rotation. This is the angle we need to rotate by to fit the spoke in the wheel.
+        let rotationAngleInRadians = CGFloat.pi - (CGFloat(inIndex) * _arclengthInRadians)
+
         ret.transform = CATransform3DMakeRotation(rotationAngleInRadians, 0, 0, 1.0)
 
         return ret
@@ -834,7 +823,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         iconDisplayLayer.frame.origin = CGPoint.zero
         iconDisplayLayer.contents = inIcon.cgImage
         iconDisplayLayer.contentsGravity = .resizeAspect  // We will always display the icon accurately, as large as possible to fill the rectangle. Keep this in mind, when designing icons.
-        iconDisplayLayer.opacity = (inIsDimmed ? 0.25 : 1.0) * Float(alpha)
+        iconDisplayLayer.opacity = (inIsDimmed ? Self._kDimmedOpacity : 1.0) * Float(alpha)
 
         var displayLayer = iconDisplayLayer
         
@@ -850,11 +839,12 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         frameCircleLayer.strokeColor = tintColor.cgColor
         frameCircleLayer.lineWidth = Self._kBorderWidthInDisplayUnits
         frameCircleLayer.fillColor = _closedBackgroundColor?.withAlphaComponent(alpha).cgColor
-        
+        frameCircleLayer.opacity = (inIsDimmed ? Self._kDimmedOpacity : 1.0) * Float(alpha)
+
         // Shrinking by 1/6 seems to do it.
         let inset = Swift.max(iconDisplayLayer.frame.size.width, iconDisplayLayer.frame.size.height) / 6
         iconDisplayLayer.frame = iconDisplayLayer.frame.insetBy(dx: inset, dy: inset)
-        
+
         frameCircleLayer.addSublayer(iconDisplayLayer)
         
         displayLayer = frameCircleLayer
@@ -890,7 +880,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 iconLayer.frame = _openSpinnerView.bounds
 
                 for index in 0..<count {
-                    if let subLayer = _drawOneValueRadius(index, isTransparencyMask: false) {
+                    if let subLayer = _drawOneValueRadius(index) {
                         iconLayer.insertSublayer(subLayer, at: 0)
                     }
                 }
@@ -903,7 +893,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             if _stupidAnimationFlag {
                 _openSpinnerView.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
                 // We animate the opening of the spinner, making it "bounce."
-                UIView.animate(withDuration: 0.25,
+                UIView.animate(withDuration: Self._kOpeningAnimationDurationInSeconds,
                                delay: 0,
                                usingSpringWithDamping: 0.8,
                                initialSpringVelocity: 25.0,
@@ -1063,7 +1053,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             _openPickerContainerView?.transform =  CGAffineTransform(scaleX: 0.001, y: 0.001).concatenating(CGAffineTransform(translationX: 0, y: _openPickerContainerView.bounds.size.height / 2))
             
             // We animate the opening of the picker.
-            UIView.animate(withDuration: 0.25,
+            UIView.animate(withDuration: Self._kOpeningAnimationDurationInSeconds,
                            delay: 0,
                            usingSpringWithDamping: 0.8,
                            initialSpringVelocity: 25.0,
@@ -1145,7 +1135,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 self._openSpinnerView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
                 
                 // We animate the closing of the spinner.
-                UIView.animate( withDuration: 0.25,
+                UIView.animate( withDuration: Self._kOpeningAnimationDurationInSeconds,
                                 delay: 0,
                                 usingSpringWithDamping: 1.0,
                                 initialSpringVelocity: 7.0,
@@ -1166,7 +1156,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 self._openPickerContainerView?.transform = .identity
                 
                 // We animate the closing of the picker.
-                UIView.animate(withDuration: 0.3,
+                UIView.animate(withDuration: Self._kClosingAnimationDurationInSeconds,
                                delay: 0,
                                usingSpringWithDamping: 1,
                                initialSpringVelocity: 7.0,
@@ -1517,6 +1507,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             DispatchQueue.main.async {
                 self._openPickerView?.reloadAllComponents()
                 self._clearDisplayCaches()
+                self.setNeedsDisplay()
             }
         }
     }
@@ -1614,6 +1605,25 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     }
 
     /* ################################################################################################################################## */
+    // MARK: - Required Init
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     The NSCoder init.
+     
+     - parameter coder: The decoder with the view state.
+     */
+    required init?(coder inDecoder: NSCoder) {
+        super.init(coder: inDecoder)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(Self._orientationChanged(notification:)),
+            name: UIApplication.didChangeStatusBarOrientationNotification,
+            object: nil
+        )
+    }
+
+    /* ################################################################################################################################## */
     // MARK: - Public Overrides
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -1648,22 +1658,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      */
     override public init(frame inRect: CGRect) {
         super.init(frame: inRect)
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(Self._orientationChanged(notification:)),
-            name: UIApplication.didChangeStatusBarOrientationNotification,
-            object: nil
-        )
-    }
-    
-    /* ################################################################## */
-    /**
-     The NSCoder init.
-     
-     - parameter coder: The decoder with the view state.
-     */
-    required init?(coder inDecoder: NSCoder) {
-        super.init(coder: inDecoder)
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(Self._orientationChanged(notification:)),
