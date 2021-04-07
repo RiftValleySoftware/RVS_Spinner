@@ -241,6 +241,7 @@ public extension RVS_SpinnerDelegate {
  There is a delegate protocol, and the control will also emit "valueChanged" messages (the selected item changed), and "touchUpInside" messages (the center was tapped).
  */
 @IBDesignable
+@available(iOS 12.0, *)
 public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource {
     /* ################################################################################################################################## */
     // MARK: - Private Static Properties
