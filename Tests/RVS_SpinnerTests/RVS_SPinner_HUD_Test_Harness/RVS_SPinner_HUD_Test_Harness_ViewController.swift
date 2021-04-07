@@ -88,7 +88,25 @@ class RVS_SPinner_HUD_Test_Harness_ViewController: UIViewController {
                                        
     ]
     
+    /* ################################################################## */
+    /**
+     */
+    static let templateImage = UIImage(named: "Globe")
+    
+    /* ################################################################## */
+    /**
+     */
+    static let normalImage = UIImage(named: "BlueMarble")
+
+    /* ################################################################## */
+    /**
+     */
     var spinnerItems: [RVS_SpinnerDataItem] = []
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var segmentedSwitch: UISegmentedControl!
     
     /* ################################################################## */
     /**
@@ -100,6 +118,12 @@ class RVS_SPinner_HUD_Test_Harness_ViewController: UIViewController {
 // MARK: - Callbacks -
 /* ###################################################################################################################################### */
 extension RVS_SPinner_HUD_Test_Harness_ViewController {
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func segmentedSwitchChanged(_ sender: UISegmentedControl) {
+    }
+
     /* ################################################################## */
     /**
      */

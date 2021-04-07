@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,10 +22,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gxl-As-vp7">
-                                <rect key="frame" x="-577" y="112" width="1568" height="1568"/>
+                                <rect key="frame" x="-607" y="82" width="1628" height="1628"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nqe-6w-3cS" customClass="RVS_Spinner" customModule="RVS_Spinner">
-                                        <rect key="frame" x="720" y="720" width="128" height="128"/>
+                                        <rect key="frame" x="750" y="750" width="128" height="128"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -56,20 +57,41 @@
                                     <constraint firstItem="nqe-6w-3cS" firstAttribute="centerY" secondItem="gxl-As-vp7" secondAttribute="centerY" id="vok-Wd-n6t"/>
                                 </constraints>
                             </view>
+                            <segmentedControl opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="oad-xM-CMR">
+                                <rect key="frame" x="20" y="44" width="374" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="5gZ-vE-2Bv"/>
+                                </constraints>
+                                <segments>
+                                    <segment title=""/>
+                                    <segment title="" image="BlueMarble"/>
+                                    <segment title="">
+                                        <imageReference key="image" image="globe" catalog="system" symbolScale="large" renderingMode="template"/>
+                                    </segment>
+                                </segments>
+                                <color key="selectedSegmentTintColor" name="AccentColor"/>
+                                <connections>
+                                    <action selector="segmentedSwitchChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="p4B-bN-XyU"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="dEb-CG-SYO" secondAttribute="trailing" id="482-JL-ntB"/>
                             <constraint firstItem="gxl-As-vp7" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7CI-kR-CnJ"/>
+                            <constraint firstItem="oad-xM-CMR" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="9s2-4K-PPl"/>
                             <constraint firstItem="dEb-CG-SYO" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="OTA-zM-F4n"/>
                             <constraint firstItem="gxl-As-vp7" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="2" id="Zjh-1W-kmX"/>
                             <constraint firstAttribute="bottom" secondItem="dEb-CG-SYO" secondAttribute="bottom" id="apm-y2-yRh"/>
+                            <constraint firstItem="gxl-As-vp7" firstAttribute="top" secondItem="oad-xM-CMR" secondAttribute="bottom" constant="8" symbolic="YES" id="rmU-KJ-Onb"/>
+                            <constraint firstItem="oad-xM-CMR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="vYB-UN-Md1"/>
                             <constraint firstItem="dEb-CG-SYO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="xnk-eu-6au"/>
-                            <constraint firstItem="gxl-As-vp7" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1.75" id="y5g-td-JQ3"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="oad-xM-CMR" secondAttribute="trailing" constant="20" id="z6d-OQ-4l2"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="segmentedSwitch" destination="oad-xM-CMR" id="B0E-jJ-whK"/>
                         <outlet property="spinnerControl" destination="nqe-6w-3cS" id="2Zy-pr-Bvp"/>
                     </connections>
                 </viewController>
@@ -81,5 +103,9 @@
     <resources>
         <image name="BlueMarble" width="128" height="128"/>
         <image name="NASA-Image" width="1500" height="983"/>
+        <image name="globe" catalog="system" width="128" height="121"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>
