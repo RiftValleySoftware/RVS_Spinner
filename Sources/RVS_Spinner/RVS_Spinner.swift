@@ -20,7 +20,7 @@
  
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  
- - version: 2.3.7
+ - version: 2.4.0
  */
 
 import AudioToolbox
@@ -271,12 +271,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     
     /* ################################################################## */
     /**
-     This is the opacity to apply to the images, when in HUD mode.
-     */
-    private static let _kHUDModeOpacityMultiplier: Float = 1.0
-    
-    /* ################################################################## */
-    /**
      This is the opacity to use as a quotient, when calculating reduced opacity, away from the top.
      */
     private static let _kDistanceOpacityQuotient: Float = 0.25
@@ -328,6 +322,33 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      This is used to derive the velocity from the pan.
      */
     private static let _kFlywheelVelocityDivisor: CGFloat = 600
+    
+    /* ################################################################## */
+    /**
+     These denote the transparency mask that we use to fade unselected items.
+     */
+    private static let _kTransparencyGradientSteps = [UIColor.white.cgColor,
+                                                      UIColor.white.withAlphaComponent(0.70).cgColor,
+                                                      UIColor.white.withAlphaComponent(0.60).cgColor,
+                                                      UIColor.white.withAlphaComponent(0.50).cgColor,
+                                                      UIColor.white.withAlphaComponent(0.40).cgColor,
+                                                      UIColor.white.withAlphaComponent(0.225).cgColor,
+                                                      UIColor.white.withAlphaComponent(0.15).cgColor,
+                                                      UIColor.white.withAlphaComponent(0.05).cgColor,
+                                                      UIColor.white.withAlphaComponent(0.01).cgColor,
+                                                      UIColor.white.withAlphaComponent(0.001).cgColor,
+                                                      UIColor.clear.cgColor,
+                                                      UIColor.white.withAlphaComponent(0.001).cgColor,
+                                                      UIColor.white.withAlphaComponent(0.01).cgColor,
+                                                      UIColor.white.withAlphaComponent(0.05).cgColor,
+                                                      UIColor.white.withAlphaComponent(0.15).cgColor,
+                                                      UIColor.white.withAlphaComponent(0.225).cgColor,
+                                                      UIColor.white.withAlphaComponent(0.40).cgColor,
+                                                      UIColor.white.withAlphaComponent(0.50).cgColor,
+                                                      UIColor.white.withAlphaComponent(0.60).cgColor,
+                                                      UIColor.white.withAlphaComponent(0.70).cgColor,
+                                                      UIColor.white.cgColor
+    ]
 
     /* ################################################################################################################################## */
     // MARK: - Private Instance Properties
@@ -357,10 +378,8 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /* ################################################################## */
     /**
      This is a layer that contains a transparency mask for the spinner. It is applied to the open spinner layer as a mask.
-     
-     It's a weak reference to avoid memory leaks.
      */
-    private weak var _spinnerTransparencyMask: CALayer!
+    private var _spinnerTransparencyMask: CAGradientLayer?
 
     /* ################################################################## */
     /**
@@ -738,7 +757,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         var rotationAngleInRadians = CGFloat.pi - (CGFloat(inIndex) * _arclengthInRadians)
 
         if !inIsTransparencyMask {    // We only do this is we are drawing the icon layer.
-            ret.fillColor = hudMode ? UIColor.clear.cgColor : openBackgroundColor.withAlphaComponent(alpha).cgColor
+            ret.fillColor = hudMode ? UIColor.clear.cgColor : !openBackgroundColor.isClear ? openBackgroundColor.withAlphaComponent(alpha).cgColor : nil
             
             // This is how big each icon will be, in our rendered spoke.
             let iconSize = CGSize(width: Swift.min(maxIconSize.width, oppositeLength), height: Swift.min(maxIconSize.height, oppositeLength))
@@ -760,8 +779,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
 
             if !hudMode {
                 ret.path = path.cgPath
-            } else {
-                ret.opacity *= Self._kHUDModeOpacityMultiplier
             }
             
             ret.addSublayer(displayLayer)
@@ -846,22 +863,12 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         
         if nil != _openSpinnerView {
             if nil == _spinnerTransparencyMask {
-                let transMask = CAGradientLayer()
-                transMask.frame = _openSpinnerView.bounds
-                transMask.type = .conic
-                transMask.startPoint = CGPoint(x: 0.5, y: 0.5)
-                transMask.endPoint = CGPoint(x: 0.5, y: 0)
-                transMask.colors = [UIColor.clear.cgColor, UIColor.white.cgColor, UIColor.white.cgColor, UIColor.white.cgColor, UIColor.clear.cgColor]
-//                let transMask = CALayer()
-//                transMask.frame = _openSpinnerView.bounds
-//
-//                for index in 0..<count {
-//                    if let subLayer = _drawOneValueRadius(index, isTransparencyMask: true) {
-//                        transMask.insertSublayer(subLayer, at: 0)
-//                    }
-//                }
-
-                _spinnerTransparencyMask = transMask
+                _spinnerTransparencyMask = CAGradientLayer()
+                _spinnerTransparencyMask?.frame = _openSpinnerView.bounds
+                _spinnerTransparencyMask?.type = .conic
+                _spinnerTransparencyMask?.startPoint = CGPoint(x: 0.5, y: 0.5)
+                _spinnerTransparencyMask?.endPoint = CGPoint(x: 0.5, y: 0)
+                _spinnerTransparencyMask?.colors = Self._kTransparencyGradientSteps
 
                 _openSpinnerView.layer.mask = _spinnerTransparencyMask
             }

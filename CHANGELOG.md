@@ -6,7 +6,7 @@
 
 - Added support for alpha
 - added support for a constant central image.
-- Added "HUD Mode.""
+- Added "HUD Mode."
 - Fixed an issue, where the control would not close, if no delegate was supplied.
 
 ## 2.3.6
