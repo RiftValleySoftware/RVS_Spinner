@@ -121,7 +121,14 @@ extension RVS_SPinner_HUD_Test_Harness_ViewController {
     /* ################################################################## */
     /**
      */
-    @IBAction func segmentedSwitchChanged(_ sender: UISegmentedControl) {
+    @IBAction func segmentedSwitchChanged(_ inSwitch: UISegmentedControl) {
+        if 1 == inSwitch.selectedSegmentIndex {
+            spinnerControl?.centerImage = Self.normalImage
+        } else if 2 == inSwitch.selectedSegmentIndex {
+            spinnerControl?.centerImage = Self.templateImage
+        } else {
+            spinnerControl?.centerImage = nil
+        }
     }
 
     /* ################################################################## */
