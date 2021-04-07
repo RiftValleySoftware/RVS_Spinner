@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D428DB282169391D004B130B"
-               BuildableName = "RVS_Spinner.framework"
+               BlueprintIdentifier = "D4350A12261E3F330057F9E6"
+               BuildableName = "libRVS_Spinner.a"
                BlueprintName = "RVS_Spinner"
                ReferencedContainer = "container:RVS_Spinner.xcodeproj">
             </BuildableReference>
@@ -43,8 +43,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D428DB282169391D004B130B"
-            BuildableName = "RVS_Spinner.framework"
+            BlueprintIdentifier = "D4350A12261E3F330057F9E6"
+            BuildableName = "libRVS_Spinner.a"
             BlueprintName = "RVS_Spinner"
             ReferencedContainer = "container:RVS_Spinner.xcodeproj">
          </BuildableReference>
@@ -59,8 +59,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D428DB282169391D004B130B"
-            BuildableName = "RVS_Spinner.framework"
+            BlueprintIdentifier = "D4350A12261E3F330057F9E6"
+            BuildableName = "libRVS_Spinner.a"
             BlueprintName = "RVS_Spinner"
             ReferencedContainer = "container:RVS_Spinner.xcodeproj">
          </BuildableReference>
