@@ -357,11 +357,11 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
-     This is the display layer for the center image.
+     This is the display view for the center image.
      
      It's a weak reference to avoid memory leaks.
      */
-    private weak var _centerImageLayer: CALayer!
+    private weak var _centerImageView: UIView!
     
     /* ################################################################## */
     /**
@@ -668,7 +668,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      - parameter inRect: The drawing rectangle
      */
     private func _drawControlCenter(_ inRect: CGRect) {
-        _centerImageLayer?.removeFromSuperlayer()   // Get rid of any previous center layer.
+        _centerImageView?.removeFromSuperview()
         
         // We stroke and fill the basic shape with the colors we have set up.
         let centerLayer = CAShapeLayer()
@@ -685,20 +685,30 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             let displayIcon =  centerImage ?? values[selectedIndex].icon
             // This is how we track clicks and long-presses in the center.
             let isDimmed = !values[selectedIndex].isEnabled || !isEnabled || (isTracking && isTouchInside && !_doneTracking)
-            let imageLayer = _makeIconDisplay(displayIcon, inFrame: bounds, isDimmed: isDimmed)
-            if isCompensatingForContainerRotation { // If we are compensating for container rotation, we null out that rotation for the center icon.
-                if let superTransform = superview?.transform {
-                    let rotationInRadians = -CGFloat(atan2(Double(superTransform.b), Double(superTransform.a)))
-                    imageLayer.transform = CATransform3DRotate(imageLayer.transform, rotationInRadians, 0.0, 0.0, 1.0)
+            if let image = centerImage {
+                let temp = UIImageView(frame: bounds)
+                temp.image = image
+                temp.tintColor = tintColor
+                temp.contentMode = .scaleAspectFit
+                _centerImageView = temp
+                addSubview(temp)
+            } else {
+                let imageLayer = _makeIconDisplay(displayIcon, inFrame: bounds, isDimmed: isDimmed)
+                if isCompensatingForContainerRotation { // If we are compensating for container rotation, we null out that rotation for the center icon.
+                    if let superTransform = superview?.transform {
+                        let rotationInRadians = -CGFloat(atan2(Double(superTransform.b), Double(superTransform.a)))
+                        imageLayer.transform = CATransform3DRotate(imageLayer.transform, rotationInRadians, 0.0, 0.0, 1.0)
+                    }
                 }
+                
+                centerLayer.addSublayer(imageLayer)
+
+                let temp = UIView(frame: centerLayer.bounds)
+                temp.layer.addSublayer(centerLayer)
+                addSubview(temp)
+                _centerImageView = temp
             }
-            
-            centerLayer.addSublayer(imageLayer)
         }
-        
-        _centerImageLayer = centerLayer
-        
-        layer.addSublayer(centerLayer)
     }
     
     /* ################################################################## */
@@ -1188,8 +1198,8 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     private func _clearDisplayCaches() {
         _animatedIconLayer?.removeFromSuperlayer()
         _animatedIconLayer = nil
-        _centerImageLayer?.removeFromSuperlayer()
-        _centerImageLayer = nil
+        _centerImageView?.removeFromSuperview()
+        _centerImageView = nil
         _openSpinnerView?.layer.mask = nil
         _spinnerTransparencyMask = nil
         setNeedsDisplay()
