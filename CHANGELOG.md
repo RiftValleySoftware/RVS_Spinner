@@ -2,7 +2,7 @@
 
 ## 2.4.0
 
-- **TBD**
+- **April 7, 2021**
 
 - Added support for alpha
 - added support for a constant central image.

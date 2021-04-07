@@ -94,7 +94,7 @@ The way it works, is that the "quiescent" control is small. By default, it is an
 
 Tapping on the circle "pops up" a surrounding ring of images, which can be rotated about the center, like a prize wheel or a knob.
 
-![Prize Wheel Display](https://riftvalleysoftware.com/wp-content/uploads/2019/05/Spinner.gif)
+![Prize Wheel Display](img/SpinnerAnimation.gif)
 
 This popup is a [`UIControl`](https://developer.apple.com/documentation/uikit/uicontrol) that is opened in the superview of the center, so the superview must be able to support having a larger view added.
 
@@ -106,7 +106,7 @@ PICKER VIEW VARIANT
 -
 You can also have a standard [`UIPickerView`](https://developer.apple.com/documentation/uikit/uipickerview) come up, which may be better for larger numbers of values, or for developers that prefer a more standard Apple User Experience.
 
-![UIPickerView Wheel Display](https://riftvalleysoftware.com/wp-content/uploads/2019/05/Popup.gif)
+![UIPickerView Wheel Display](img/PickerAnimation.gif)
 
 IMPLEMENTATION
 =
@@ -122,7 +122,7 @@ INTERFACE BUILDER/STORYBOARD EDITOR OPTIONS
 -
 Once you assign the [`RVS_Spinner`](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html) class to the [`UIView`](https://developer.apple.com/documentation/uikit/uiview), a number of options will appear in the Attributes Inspector for the Spinner:
 
-![The Spinner Attributes Inspector Options](https://riftvalleysoftware.com/RVS_Spinner/IBOptions.png)
+![The Spinner Attributes Inspector Options](img/IBOptions.png)
 
 1. **Open Background Color**
 This is a color to display behind the open radial spinner or picker. By default, it is clear.
@@ -130,7 +130,7 @@ This is a color to display behind the open radial spinner or picker. By default,
 2. **Spinner Mode**
 This is an integer, with 3 values:
     - **-1** Use only the radial spinner (ignore the **Spinner Threshold** value).
-    - **0**  Switch between radial spinner and the picker (based on the **Spinner Threshold** value).
+    - **0**  Switch between radial spinner and the picker (based on the **Spinner Threshold** value). This is default.
     - **1**  Use only the picker (ignore the **Spinner Threshold** value).
 
 3. **Spinner Threshold**
@@ -142,9 +142,19 @@ This specifies whether or not to use audible feedback. Sound will be disabled wh
 5. **Is Haptics On**
 This specifies whether or not to use [haptic feedback](https://developer.apple.com/documentation/appkit/nshapticfeedbackmanager) (on devices that can play haptics).
 
-Additionally, the View **[Background Color](https://developer.apple.com/documentation/uikit/uiview/1622591-backgroundcolor)** color is used to establish the color surrounding icons, and the **[Tint](https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor)** color is used to set the color of the borders around icons, and displayed text in the picker.
+6. **Center Image**
+This allows you to specify a fixed image to be displayed in the center. If the image is template mode, it will be drawn with the [`UIView.tintColor`](https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor) property. Default means that the center image will use the image of the selected value.
 
-![How the Options Affect the Spinner](https://riftvalleysoftware.com/RVS_Spinner/OpenSpinner.png) ![How the Options Affect the Picker](https://riftvalleysoftware.com/RVS_Spinner/OpenPicker.png)
+7. **Hud Mode**
+If this is set to ON (default is OFF), then the control will render in "HUD Mode," where the backgrounds will be clear, and no borders will be drawn around the images.
+
+Additionally, the View **[Background Color](https://developer.apple.com/documentation/uikit/uiview/1622591-backgroundcolor)** color is used to establish the color surrounding icons, and the **[Tint](https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor)** color is used to set the color of the borders around icons, and displayed text in the picker. If the image is template mode, it will be drawn with this color.
+
+![How the Options Affect the Spinner](img/OpenSpinner.png)
+
+![How the Options Affect the Picker](img/OpenPicker.png)
+
+![How the Options Affect the HUD Center](img/HUDDesc.png)
 
 If the [`UIView`](https://developer.apple.com/documentation/uikit/uiview) [Background Color](https://developer.apple.com/documentation/uikit/uiview/1622591-backgroundcolor) is clear, and the [`UIView`](https://developer.apple.com/documentation/uikit/uiview) [Tint](https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor) is clear, the icons will be displayed slightly larger, with no surrounding ring (BTW: You can change the shape of the ring programatically. Circle/Oval is default).
 
@@ -231,11 +241,13 @@ This application gives access to a lot of the "knobs and buttons" for the spinne
 
 It is a simple 1-view app, with a single window:
 
-![The Test Harness Screen](https://riftvalleysoftware.com/RVS_Spinner/NewTestHarnessScreen.png)
+![The Test Harness Screen](img/NewTestHarnessScreen.png)
 
 The controls operate in real time on the instance of [`RVS_Spinner`](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html), displayed above the control panel:
 
 The white "**Associated Text #*XX* (*XXXXX*)***" is a label that displays test data that was associated with each of 20 data items used for testing. The `value` property of each item was set to a [`String`](https://developer.apple.com/documentation/swift/string), which is displayed as that item is selected.
+
+The "**Disabled Items**" Segmented Switch will affect the "**isEnabled**" property of individual items, at random.
 
 The "**Spinner/Picker Threshold**" Segmented Switch will affect the "**Spinner Threshold**" property, described above. It is only enabled for the "**Both**" Spinner Mode (discussed below)
 
@@ -272,25 +284,25 @@ TABBED TEST HARNESS APP
 =
 There is another test harness app that uses a tabbed layout to show the control in a few different scenarios, using tricky auto-layout techniques.
 
-![The First Tab](https://riftvalleysoftware.com/RVS_Spinner/Tab0.png)
+![The First Tab](img/Tab0.png)
 
 The first tab is a simple centered control. You can choose the dataset to use, and whether or not it is forced as a spinner or picker.
 
-![The Second Tab](https://riftvalleysoftware.com/RVS_Spinner/Tab1.png)
+![The Second Tab](img/Tab1.png)
 
 The second tab is a control that is crammed all the way into the bottom right corner, and is rotated 45 degrees counter-clockwise.
 
-![The Third Tab with Rotation Compensation On](https://riftvalleysoftware.com/RVS_Spinner/Tab2-Comp.png)
+![The Third Tab with Rotation Compensation On](img/Tab2-Comp.png)
 
 The third tab demonstrates rotation. The slider controls the rotation, and the enclosing view is shown as a slightly darker square.
 
  The above image shows rotation compensation on. Note that the center icon is vertical, despite the fact that the control is rotated.
 
-![The Third Tab with Rotation Compensation Off](https://riftvalleysoftware.com/RVS_Spinner/Tab2-Uncomp.png)
+![The Third Tab with Rotation Compensation Off](img/Tab2-Uncomp.png)
 
 This image shows rotation compensation off. Note that the icon in the middle is now tilted.
 
-![The Fourth Tab](https://riftvalleysoftware.com/RVS_Spinner/Tab3.png)
+![The Fourth Tab](img/Tab3.png)
 
 The fourth tab is a bit crazy. It's four independent controls, broken into quarters of the screen, and each rotated 45 degrees off the plane, but mortised together in the middle.
 
@@ -298,7 +310,31 @@ LEAK TEST HARNESS APP
 =
 There is a small, simple app that lives for only one thing: to be run in "Profile" mode, and let the framework be examined for things like memory leaks.
 
-![The Leak Test Tab](https://riftvalleysoftware.com/RVS_Spinner/LeakTestApp.png)
+![The Leak Test App](img/LeakTestApp.png)
+
+HUD MODE TEST HARNESS APP
+=
+This is a newer app that simply tests and demonstrates the new (since version 2.4.0) HUD Mode, and Center Image.
+
+![The HUD Mode Test App](img/HUD-Vertical.png)
+
+The "**Center Image**" Segmented Switch allows you to change the center image.
+
+The "blank" segment means that no center image is specified. That means that the center image is determined by the selected value. In this case, it will be displayed in template mode, so it will be colored by the [`UIView.tintColor`](https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor) property.
+
+The "Earth" segment will make the center image an "original mode" image (a photo of Earth from space).
+
+The "Globe" segment will make the center use a template mode image from the resources.
+
+The "Question Mark" segment will use an auto-generated image from the system's SF Symbols (template mode).
+
+The "**Highlight Colors**" Segmented Switch allows you to change the [`UIView.tintColor`](https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor) property.
+
+![The HUD Mode Test App (Original Image)](img/Hud-Blue-Earth.png)
+
+![The HUD Mode Test App (Template Resource Image)](img/Hud-Blue-Globe.png)
+
+![The HUD Mode Test App (Template SF Symbols Image)](img/HUD-Yellow-Question.png)
 
 DEPENDENCIES
 =
