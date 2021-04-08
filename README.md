@@ -330,9 +330,9 @@ The "Question Mark" segment will use an auto-generated image from the system's S
 
 The "**Highlight Colors**" Segmented Switch allows you to change the [`UIView.tintColor`](https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor) property.
 
-![The HUD Mode Test App (Original Image)](img/Hud-Blue-Earth.png)
+![The HUD Mode Test App (Original Image)](img/HUD-Blue-Earth.png)
 
-![The HUD Mode Test App (Template Resource Image)](img/Hud-Blue-Globe.png)
+![The HUD Mode Test App (Template Resource Image)](img/HUD-Blue-Globe.png)
 
 ![The HUD Mode Test App (Template SF Symbols Image)](img/HUD-Yellow-Question.png)
 
