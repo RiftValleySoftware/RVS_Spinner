@@ -1,10 +1,16 @@
 # RVS_Spinner Change Log
 
+## 2.4.1
+
+- **April 8, 2021**
+
+- Internal refactoring.
+
 ## 2.4.0
 
 - **April 7, 2021**
 
-- Added support for alpha
+- Cleaned up the transparency screen.
 - added support for a constant central image.
 - Added "HUD Mode."
 - Fixed an issue, where the control would not close, if no delegate was supplied.

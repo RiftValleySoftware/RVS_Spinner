@@ -293,6 +293,42 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      This is the duration for closing animations
      */
     private static let _kClosingAnimationDurationInSeconds: TimeInterval = 0.3
+    
+    /* ################################################################## */
+    /**
+     The damping coefficient for the closing animation.
+     */
+    private static let _kCloseDamping: CGFloat = 0.8
+    
+    /* ################################################################## */
+    /**
+     The damping coefficient for the opening animation.
+     */
+    private static let _kOpenDamping: CGFloat = 1.0
+    
+    /* ################################################################## */
+    /**
+     The damping coefficient for the opening animation (alternate).
+     */
+    private static let _kOpenDamping2: CGFloat = 0.8
+    
+    /* ################################################################## */
+    /**
+     The bounce scale coefficient for the opening animation.
+     */
+    private static let _kBounceScale: CGFloat = 0.001
+
+    /* ################################################################## */
+    /**
+     The initial velocity coefficient for the opening animation.
+     */
+    private static let _kOpenInitialVelocity: CGFloat = 7.0
+    
+    /* ################################################################## */
+    /**
+     The initial velocity coefficient for the opening animation (alternate).
+     */
+    private static let _kOpenInitialVelocity2: CGFloat = 25.0
 
     /* ################################################################## */
     /**
@@ -896,8 +932,8 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 // We animate the opening of the spinner, making it "bounce."
                 UIView.animate(withDuration: Self._kOpeningAnimationDurationInSeconds,
                                delay: 0,
-                               usingSpringWithDamping: 0.8,
-                               initialSpringVelocity: 25.0,
+                               usingSpringWithDamping: Self._kOpenDamping2,
+                               initialSpringVelocity: Self._kOpenInitialVelocity2,
                                options: .allowUserInteraction,
                                animations: { [unowned self] in
                                 self._openSpinnerView.transform = .identity
@@ -1051,12 +1087,12 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             }
             
             _openPickerView.selectRow(selectedIndex, inComponent: 0, animated: true)
-            _openPickerContainerView?.transform =  CGAffineTransform(scaleX: 0.001, y: 0.001).concatenating(CGAffineTransform(translationX: 0, y: _openPickerContainerView.bounds.size.height / 2))
+            _openPickerContainerView?.transform =  CGAffineTransform(scaleX: Self._kBounceScale, y: Self._kBounceScale).concatenating(CGAffineTransform(translationX: 0, y: _openPickerContainerView.bounds.size.height / 2))
             
             // We animate the opening of the picker.
             UIView.animate(withDuration: Self._kOpeningAnimationDurationInSeconds,
                            delay: 0,
-                           usingSpringWithDamping: 0.8,
+                           usingSpringWithDamping: Self._kCloseDamping,
                            initialSpringVelocity: 25.0,
                            options: .allowUserInteraction,
                            animations: { [unowned self] in
@@ -1138,11 +1174,11 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 // We animate the closing of the spinner.
                 UIView.animate( withDuration: Self._kOpeningAnimationDurationInSeconds,
                                 delay: 0,
-                                usingSpringWithDamping: 1.0,
-                                initialSpringVelocity: 7.0,
+                                usingSpringWithDamping: Self._kOpenDamping,
+                                initialSpringVelocity: Self._kOpenInitialVelocity,
                                 options: .allowUserInteraction,
                                 animations: { [unowned self] in
-                                    self._openSpinnerView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
+                                    self._openSpinnerView.transform = CGAffineTransform(scaleX: Self._kBounceScale, y: Self._kBounceScale)
                                 },
                                completion: { [unowned self] (_: Bool) -> Void in
                                 DispatchQueue.main.async {
@@ -1159,13 +1195,13 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 // We animate the closing of the picker.
                 UIView.animate(withDuration: Self._kClosingAnimationDurationInSeconds,
                                delay: 0,
-                               usingSpringWithDamping: 1,
-                               initialSpringVelocity: 7.0,
+                               usingSpringWithDamping: Self._kOpenDamping,
+                               initialSpringVelocity: Self._kOpenInitialVelocity,
                                options: .allowUserInteraction,
                                animations: { [unowned self] in
                                 self.transform = .identity
                                 if nil != self._openPickerContainerView {
-                                    self._openPickerContainerView?.transform =  CGAffineTransform(scaleX: 0.001, y: 0.001).concatenating(CGAffineTransform(translationX: 0, y: self._openPickerContainerView.bounds.size.height / 2))
+                                    self._openPickerContainerView?.transform =  CGAffineTransform(scaleX: Self._kBounceScale, y: Self._kBounceScale).concatenating(CGAffineTransform(translationX: 0, y: self._openPickerContainerView.bounds.size.height / 2))
                                 }
                     },
                                completion: { [unowned self] (_: Bool) in
