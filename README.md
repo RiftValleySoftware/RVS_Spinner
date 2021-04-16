@@ -344,7 +344,7 @@ There are no dependencies to use this class in your project. It can be included 
 
 TODO
 =
-There is a deprecated callback: the orientation callback (observer) It is on line 1655. We need to address this, but it isn't a showstopper (yet).
+There is a deprecated callback: the orientation callback (observer) It is on [line 1655](https://github.com/RiftValleySoftware/RVS_Spinner/blob/main/Sources/RVS_Spinner/RVS_Spinner.swift#L1655). We need to address this, but it isn't a showstopper (yet).
 
 
 LICENSE
