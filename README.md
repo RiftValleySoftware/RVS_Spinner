@@ -108,6 +108,11 @@ You can also have a standard [`UIPickerView`](https://developer.apple.com/docume
 
 ![UIPickerView Wheel Display](img/PickerAnimation.gif)
 
+DEPENDENCIES
+=
+
+There are no dependencies to use this class in your project. It can be included as a single source file (no build or library linking required).
+
 IMPLEMENTATION
 =
 To use [`RVS_Spinner`](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html) in your project, import the framework into your Swift 4.0 or above project. The main Spinner class is called "RVS_Spinner," and you can use this class in storyboards.
@@ -335,12 +340,6 @@ The "**Highlight Colors**" Segmented Switch allows you to change the [`UIView.ti
 ![The HUD Mode Test App (Template Resource Image)](img/HUD-Blue-Globe.png)
 
 ![The HUD Mode Test App (Template SF Symbols Image)](img/HUD-Yellow-Question.png)
-
-DEPENDENCIES
-=
-
-There are no dependencies to use this class in your project. It can be included as a single source file (no build or library linking required).
-
 
 TODO
 =
