@@ -86,6 +86,11 @@ The Spinner is provided as a [Swift](https://developer.apple.com/swift/)-only st
 
 This is meant for [iOS](https://www.apple.com/ios/) ([UIKit](https://developer.apple.com/documentation/uikit)) only.
 
+DEPENDENCIES
+=
+
+There are no dependencies to use this class in your project. It can be included as a single source file (no build or library linking required).
+
 OPERATION
 =
 RADIAL SPINNER
@@ -107,11 +112,6 @@ PICKER VIEW VARIANT
 You can also have a standard [`UIPickerView`](https://developer.apple.com/documentation/uikit/uipickerview) come up, which may be better for larger numbers of values, or for developers that prefer a more standard Apple User Experience.
 
 ![UIPickerView Wheel Display](img/PickerAnimation.gif)
-
-DEPENDENCIES
-=
-
-There are no dependencies to use this class in your project. It can be included as a single source file (no build or library linking required).
 
 IMPLEMENTATION
 =
