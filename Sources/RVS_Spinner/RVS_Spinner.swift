@@ -99,6 +99,7 @@ public struct RVS_SpinnerDataItem {
  
  Its methods are all "optional" (they have default implementations that do nothing), but the control works best if you use them.
  */
+@available(iOS 13.0, *)
 public protocol RVS_SpinnerDelegate: AnyObject {
     /* ################################################################## */
     /**
@@ -152,6 +153,7 @@ public protocol RVS_SpinnerDelegate: AnyObject {
 /**
  These empty methods allow the protocol methods to be "optional."
  */
+@available(iOS 13.0, *)
 public extension RVS_SpinnerDelegate {
     /* ################################################################## */
     /**

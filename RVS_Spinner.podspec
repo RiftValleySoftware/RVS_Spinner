@@ -2,7 +2,7 @@ Pod::Spec.new do |spec|
     spec.name               = 'RVS_Spinner'
     spec.summary            = 'An iOS Swift Framework that provides a powerful and usable "prize wheel" spinner control.'
     spec.description        = 'The RVS_Spinner is a Swift shared framework designed to allow easy implementation of a powerful, high-usability multi-value selector.'
-    spec.version            = '2.5.0'
+    spec.version            = '2.5.1'
     spec.platform           = :ios, '13.0'
     spec.homepage           = 'https://riftvalleysoftware.com/work/open-source-projects/'
     spec.social_media_url   = 'https://twitter.com/GrtRiftValley'

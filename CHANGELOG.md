@@ -1,5 +1,11 @@
 # RVS_Spinner Change Log
 
+## 2.5.1
+
+- **April 28, 2021**
+
+- Had to add @available to the protocol defs.
+
 ## 2.5.0
 
 - **April 28, 2021**
