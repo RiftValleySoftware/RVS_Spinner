@@ -130,10 +130,13 @@ extension RVS_SPinner_HUD_Test_Harness_ViewController {
     @IBAction func segmentedSwitchChanged(_ inSwitch: UISegmentedControl) {
         if 1 == inSwitch.selectedSegmentIndex {
             spinnerControl?.centerImage = Self.normalImage
+            spinnerControl?.replaceCenterImage = true
         } else if 2 == inSwitch.selectedSegmentIndex {
             spinnerControl?.centerImage = Self.templateImage
+            spinnerControl?.replaceCenterImage = false
         } else if 3 == inSwitch.selectedSegmentIndex {
             spinnerControl?.centerImage = UIImage(systemName: "questionmark.circle.fill")
+            spinnerControl?.replaceCenterImage = false
         } else {
             spinnerControl?.centerImage = nil
         }

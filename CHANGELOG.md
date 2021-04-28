@@ -1,5 +1,15 @@
 # RVS_Spinner Change Log
 
+## 2.5.0
+
+- **April 28, 2021**
+
+- Added the "Replace Center Image" option.
+- The control now requires iOS 13 and above.
+- Removed some redundant code.
+- Fixed a bug in the new center image replacement code that prevented dimming during open selection.
+- Made the "dimmed" alpha a bit heavier.
+
 ## 2.4.1
 
 - **April 8, 2021**

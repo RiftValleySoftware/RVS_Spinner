@@ -99,7 +99,7 @@ public struct RVS_SpinnerDataItem {
  
  Its methods are all "optional" (they have default implementations that do nothing), but the control works best if you use them.
  */
-public protocol RVS_SpinnerDelegate: class {
+public protocol RVS_SpinnerDelegate: AnyObject {
     /* ################################################################## */
     /**
      This is called if there was only one value, and the user selected the central button.
@@ -241,7 +241,7 @@ public extension RVS_SpinnerDelegate {
  There is a delegate protocol, and the control will also emit "valueChanged" messages (the selected item changed), and "touchUpInside" messages (the center was tapped).
  */
 @IBDesignable
-@available(iOS 12.0, *)
+@available(iOS 13.0, *)
 public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource {
     /* ################################################################################################################################## */
     // MARK: - Private Static Properties
@@ -280,7 +280,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     /**
      This is the opacity to use when dimmed.
      */
-    private static let _kDimmedOpacity: Float = 0.25
+    private static let _kDimmedOpacity: Float = 0.5
 
     /* ################################################################## */
     /**
@@ -536,10 +536,17 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     
     /* ################################################################## */
     /**
+     This is a flag (yuch) that we use when opening, so we know to replace the center (maybe).
+     It is only relevant during the opening phase of the control center.
+     */
+    private var _isOpening: Bool = false
+    
+    /* ################################################################## */
+    /**
      This is the stored property for the isOpen computed property.
      */
     private lazy var _isOpen: Bool = false
-    
+
     /* ################################################################## */
     /**
      This will provide haptic/audio feedback for opening and closing the control.
@@ -727,33 +734,24 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
 
         if 0 < values.count {   // Have to have values to draw anything more.
             // Get the image to be displayed over the oval. We first see if one has been assigned.
-            let displayIcon =  centerImage ?? values[selectedIndex].icon
+            let displayIcon =  ((!(replaceCenterImage && (_isOpening || isOpen)) ? centerImage : nil) ?? values[selectedIndex].icon).withTintColor(tintColor)
             // This is how we track clicks and long-presses in the center.
             let isDimmed = !values[selectedIndex].isEnabled || !isEnabled || (isTracking && isTouchInside && !_doneTracking)
-            if let image = centerImage {
-                let temp = UIImageView(frame: bounds)
-                temp.image = image
-                temp.tintColor = tintColor
-                temp.contentMode = .scaleAspectFit
-                _centerImageView = temp
-                addSubview(temp)
-            } else {
-                let imageLayer = _makeIconDisplay(displayIcon, inFrame: bounds, isDimmed: isDimmed)
-                if isCompensatingForContainerRotation { // If we are compensating for container rotation, we null out that rotation for the center icon.
-                    if let superTransform = superview?.transform {
-                        let rotationInRadians = -CGFloat(atan2(Double(superTransform.b), Double(superTransform.a)))
-                        imageLayer.transform = CATransform3DRotate(imageLayer.transform, rotationInRadians, 0.0, 0.0, 1.0)
-                    }
+            let imageLayer = _makeIconDisplay(displayIcon, inFrame: bounds, isDimmed: isDimmed)
+            if isCompensatingForContainerRotation { // If we are compensating for container rotation, we null out that rotation for the center icon.
+                if let superTransform = superview?.transform {
+                    let rotationInRadians = -CGFloat(atan2(Double(superTransform.b), Double(superTransform.a)))
+                    imageLayer.transform = CATransform3DRotate(imageLayer.transform, rotationInRadians, 0.0, 0.0, 1.0)
                 }
-                
-                centerLayer.addSublayer(imageLayer)
-
-                let temp = UIView(frame: centerLayer.bounds)
-                temp.layer.addSublayer(centerLayer)
-                temp.tintColor = tintColor
-                addSubview(temp)
-                _centerImageView = temp
             }
+            
+            centerLayer.addSublayer(imageLayer)
+
+            let temp = UIView(frame: centerLayer.bounds)
+            temp.layer.addSublayer(centerLayer)
+            temp.tintColor = tintColor
+            _centerImageView = temp
+            addSubview(temp)
         }
     }
     
@@ -1100,7 +1098,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                                 self._openPickerContainerView?.transform = .identity
                             }
                 },
-                           completion: nil
+                           completion: { [weak self] _ in self?._stupidAnimationFlag = false}
             )
         }
     }
@@ -1181,6 +1179,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                                     self._openSpinnerView.transform = CGAffineTransform(scaleX: Self._kBounceScale, y: Self._kBounceScale)
                                 },
                                completion: { [unowned self] (_: Bool) -> Void in
+                                self._stupidAnimationFlag = false
                                 DispatchQueue.main.async {
                                     self._clearDisplayCaches()
                                     self._openSpinnerView.removeFromSuperview()
@@ -1206,6 +1205,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                     },
                                completion: { [unowned self] (_: Bool) in
                                 self.transform = .identity
+                                self._stupidAnimationFlag = false
                                 if nil != self._openPickerContainerView {
                                     self._openPickerContainerView?.removeFromSuperview()
                                     self._openPickerContainerView = nil
@@ -1230,18 +1230,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         _openSpinnerView?.layer.mask = nil
         _spinnerTransparencyMask = nil
         setNeedsDisplay()
-    }
-    
-    /* ################################################################## */
-    // MARK: - Private Selector Methods
-    /* ################################################################## */
-    /**
-     This is called when the orientation of the device has changed.
-     
-     - parameter notification: The notification object (ignored).
-     */
-    @objc private func _orientationChanged(notification: Notification) {
-        _correctRadius()    // Make sure we stay in our lane.
     }
     
     /* ################################################################## */
@@ -1437,14 +1425,17 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         get { _isOpen }
         set {    // This is the way we open and close the control.
             if !_isOpen && _isOpen != newValue, 1 < count {
+                _isOpening = true
                 _openControl()
                 setNeedsLayout()
                 _clearDisplayCaches()
+                _isOpening = false
                 // Let any delegate know that we have opened with a selected item.
                 delegate?.spinner(self, hasOpenedWithTheValue: value)
                 _isOpen = true
             } else if _isOpen && _isOpen != newValue,
                   delegate?.spinner(self, willCloseWithTheValue: value) ?? true {
+                _isOpening = false  // Just to make sure...
                 _closeControl()
                 // Let any delegate know that we have closed with a selected item.
                 delegate?.spinner(self, hasClosedWithTheValue: value)
@@ -1544,7 +1535,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             DispatchQueue.main.async {
                 self._openPickerView?.reloadAllComponents()
                 self._clearDisplayCaches()
-                self.setNeedsDisplay()
             }
         }
     }
@@ -1582,7 +1572,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
                 } else {
                     self.setNeedsLayout()
                     self._clearDisplayCaches()
-                }
+                 }
             }
         }
     }
@@ -1640,6 +1630,19 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             }
         }
     }
+    
+    /* ################################################################## */
+    /**
+     If true, and an explicit image has been assigned to the center, when the cotrol is opened, the image will be replaced with the current selection.
+     This is ignored, if `centerImage` is nil. Default is false.
+     */
+    @IBInspectable public var replaceCenterImage: Bool = false {
+        didSet {
+            DispatchQueue.main.async {
+                self.setNeedsDisplay()
+            }
+        }
+    }
 
     /* ################################################################################################################################## */
     // MARK: - Required Init
@@ -1652,12 +1655,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      */
     required init?(coder inDecoder: NSCoder) {
         super.init(coder: inDecoder)
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(Self._orientationChanged(notification:)),
-            name: UIApplication.didChangeStatusBarOrientationNotification,
-            object: nil
-        )
     }
 
     /* ################################################################################################################################## */
@@ -1695,12 +1692,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      */
     override public init(frame inRect: CGRect) {
         super.init(frame: inRect)
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(Self._orientationChanged(notification:)),
-            name: UIApplication.didChangeStatusBarOrientationNotification,
-            object: nil
-        )
     }
 
     /* ################################################################## */
@@ -1715,6 +1706,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         DispatchQueue.main.async {
             self._clearDisplayCaches()
         }
+        
         return super.beginTracking(inTouch, with: inEvent)
     }
     

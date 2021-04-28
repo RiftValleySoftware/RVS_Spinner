@@ -159,9 +159,12 @@
 <p><a href="https://riftvalleysoftware.com/work/open-source-projects/#RVS_Spinner">Here is the online documentation page for this project.</a></p>
 <h1 id='requirements' class='heading'>REQUIREMENTS</h1>
 
-<p>The Spinner is provided as a <a href="https://developer.apple.com/swift/">Swift</a>-only static library (or <a href="https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Frameworks.html">dynamic framework</a>), supporting <a href="https://www.apple.com/ios/">iOS</a> 11.0 and above.</p>
+<p>The Spinner is provided as a <a href="https://developer.apple.com/swift/">Swift</a>-only static library (or <a href="https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Frameworks.html">dynamic framework</a>), supporting <a href="https://www.apple.com/ios/">iOS</a> 13.0 and above.</p>
 
 <p>This is meant for <a href="https://www.apple.com/ios/">iOS</a> (<a href="https://developer.apple.com/documentation/uikit">UIKit</a>) only.</p>
+<h1 id='dependencies' class='heading'>DEPENDENCIES</h1>
+
+<p>There are no dependencies to use this class in your project. It can be included as a single source file (no build or library linking required).</p>
 <h1 id='operation' class='heading'>OPERATION</h1>
 <h2 id='radial-spinner' class='heading'>RADIAL SPINNER</h2>
 
@@ -215,6 +218,9 @@ This specifies whether or not to use audible feedback. Sound will be disabled wh
 This specifies whether or not to use <a href="https://developer.apple.com/documentation/appkit/nshapticfeedbackmanager">haptic feedback</a> (on devices that can play haptics).</p></li>
 <li><p><strong>Center Image</strong>
 This allows you to specify a fixed image to be displayed in the center. If the image is template mode, it will be drawn with the <a href="https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor"><code>UIView.tintColor</code></a> property. Default means that the center image will use the image of the selected value.</p></li>
+<li><p><strong>Replace Center Image</strong>
+This is only effective if &ldquo;<code>centerImage</code>&rdquo; is applied.
+If set to True (ON), then, when the control is opened, the explicitly-assigned center image will be replaced by the current value icon. Closing the control will replace the icon with the assigned center image.</p></li>
 <li><p><strong>Hud Mode</strong>
 If this is set to ON (default is OFF), then the control will render in &ldquo;HUD Mode,&rdquo; where the backgrounds will be clear, and no borders will be drawn around the images.</p></li>
 </ol>
@@ -382,7 +388,7 @@ If this is set to ON (default is OFF), then the control will render in &ldquo;HU
 
 <p>The &ldquo;blank&rdquo; segment means that no center image is specified. That means that the center image is determined by the selected value. In this case, it will be displayed in template mode, so it will be colored by the <a href="https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor"><code>UIView.tintColor</code></a> property.</p>
 
-<p>The &ldquo;Earth&rdquo; segment will make the center image an &ldquo;original mode&rdquo; image (a photo of Earth from space).</p>
+<p>The &ldquo;Earth&rdquo; segment will make the center image an &ldquo;original mode&rdquo; image (a photo of Earth from space). This will also implement the &ldquo;Replace Center Image&rdquo; option.</p>
 
 <p>The &ldquo;Globe&rdquo; segment will make the center use a template mode image from the resources.</p>
 
@@ -395,12 +401,9 @@ If this is set to ON (default is OFF), then the control will render in &ldquo;HU
 <p><img src="img/HUD-Blue-Globe.png" alt="The HUD Mode Test App (Template Resource Image)"></p>
 
 <p><img src="img/HUD-Yellow-Question.png" alt="The HUD Mode Test App (Template SF Symbols Image)"></p>
-<h1 id='dependencies' class='heading'>DEPENDENCIES</h1>
-
-<p>There are no dependencies to use this class in your project. It can be included as a single source file (no build or library linking required).</p>
 <h1 id='todo' class='heading'>TODO</h1>
 
-<p>There is a deprecated callback: the orientation callback (observer) It is on line 1655. We need to address this, but it isn&rsquo;t a showstopper (yet).</p>
+<p>There is a deprecated callback: the orientation callback (observer) It is on <a href="https://github.com/RiftValleySoftware/RVS_Spinner/blob/main/Sources/RVS_Spinner/RVS_Spinner.swift#L1655">line 1655</a>. We need to address this, but it isn&rsquo;t a showstopper (yet).</p>
 <h1 id='license' class='heading'>LICENSE</h1>
 
 <p>MIT License</p>

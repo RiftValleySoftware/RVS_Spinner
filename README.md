@@ -82,7 +82,7 @@ In fact, I'd actually suggest doing this. I'm not a huge fan of "live" dependenc
 
 REQUIREMENTS
 =
-The Spinner is provided as a [Swift](https://developer.apple.com/swift/)-only static library (or [dynamic framework](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Frameworks.html)), supporting [iOS](https://www.apple.com/ios/) 11.0 and above.
+The Spinner is provided as a [Swift](https://developer.apple.com/swift/)-only static library (or [dynamic framework](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Frameworks.html)), supporting [iOS](https://www.apple.com/ios/) 13.0 and above.
 
 This is meant for [iOS](https://www.apple.com/ios/) ([UIKit](https://developer.apple.com/documentation/uikit)) only.
 
@@ -150,7 +150,11 @@ This specifies whether or not to use [haptic feedback](https://developer.apple.c
 6. **Center Image**
 This allows you to specify a fixed image to be displayed in the center. If the image is template mode, it will be drawn with the [`UIView.tintColor`](https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor) property. Default means that the center image will use the image of the selected value.
 
-7. **Hud Mode**
+7. **Replace Center Image**
+This is only effective if "`centerImage`" is applied.
+If set to True (ON), then, when the control is opened, the explicitly-assigned center image will be replaced by the current value icon. Closing the control will replace the icon with the assigned center image.
+
+8. **Hud Mode**
 If this is set to ON (default is OFF), then the control will render in "HUD Mode," where the backgrounds will be clear, and no borders will be drawn around the images.
 
 Additionally, the View **[Background Color](https://developer.apple.com/documentation/uikit/uiview/1622591-backgroundcolor)** color is used to establish the color surrounding icons, and the **[Tint](https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor)** color is used to set the color of the borders around icons, and displayed text in the picker. If the image is template mode, it will be drawn with this color.
@@ -327,7 +331,7 @@ The "**Center Image**" Segmented Switch allows you to change the center image.
 
 The "blank" segment means that no center image is specified. That means that the center image is determined by the selected value. In this case, it will be displayed in template mode, so it will be colored by the [`UIView.tintColor`](https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor) property.
 
-The "Earth" segment will make the center image an "original mode" image (a photo of Earth from space).
+The "Earth" segment will make the center image an "original mode" image (a photo of Earth from space). This will also implement the "Replace Center Image" option.
 
 The "Globe" segment will make the center use a template mode image from the resources.
 
