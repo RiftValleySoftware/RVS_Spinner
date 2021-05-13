@@ -179,12 +179,11 @@ extension RVS_SPinner_HUD_Test_Harness_ViewController {
            let color = 0 == index ? UIColor(named: "AccentColor") : 1 == index ? .label : UIColor(named: "Tint-\(index)") {
             spinnerItems = []
             Self.imageNames.forEach {
-                if let icon = UIImage(systemName: $0)?.withRenderingMode(.alwaysTemplate).withTintColor(color).resized(toNewWidth: Self.imageSize) {
+                if let icon = UIImage(systemName: $0)?.withRenderingMode(.alwaysTemplate).resized(toNewWidth: Self.imageSize) {
                     spinnerItems.append(RVS_SpinnerDataItem(title: $0, icon: icon))
                 }
             }
             spinnerControl?.tintColor = color
-            spinnerControl?.values = spinnerItems
         }
     }
 }
@@ -218,6 +217,7 @@ extension RVS_SPinner_HUD_Test_Harness_ViewController {
             // Select red, so it stands out.
             tintSelectorSegmentedSwitch.selectedSegmentIndex = tintSelectorSegmentedSwitch.numberOfSegments - 2
             setSelectedTint()
+            spinnerControl?.values = spinnerItems
         }
     }
 }
