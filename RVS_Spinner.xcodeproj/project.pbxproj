@@ -171,15 +171,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		D4350A11261E3F330057F9E6 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D44206BD224BBE3B008038A9 /* Copy Extra Resource Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -348,7 +339,6 @@
 		D428DB43216939A9004B130B /* RVS_Spinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_Spinner.swift; sourceTree = "<group>"; };
 		D4350A13261E3F330057F9E6 /* libRVS_Spinner.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRVS_Spinner.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D44CE79A22537BF800B8AB51 /* RVS_Spinner_Tabbed_Test_Harness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RVS_Spinner_Tabbed_Test_Harness.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D450812F249E44DB002E7A68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Project-Meta/Info.plist"; sourceTree = "<group>"; };
 		D4508133249E452D002E7A68 /* Oblong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Oblong.png; sourceTree = "<group>"; };
 		D4508134249E452D002E7A68 /* 4-PointStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "4-PointStar.png"; sourceTree = "<group>"; };
 		D4508135249E452D002E7A68 /* O.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = O.png; sourceTree = "<group>"; };
@@ -489,13 +479,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4350A1C261E3F460057F9E6 /* libRVS_Spinner.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D4350A10261E3F330057F9E6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -824,7 +807,6 @@
 			isa = PBXGroup;
 			children = (
 				D49214A624956D8B0047968F /* Warnings.xcconfig */,
-				D450812F249E44DB002E7A68 /* Info.plist */,
 			);
 			name = "Project-Meta";
 			sourceTree = "<group>";
@@ -856,9 +838,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4350A17261E3F330057F9E6 /* Build configuration list for PBXNativeTarget "RVS_Spinner" */;
 			buildPhases = (
+				D44FFEC5264D930F00520F80 /* SwiftLint */,
 				D4350A0F261E3F330057F9E6 /* Sources */,
-				D4350A10261E3F330057F9E6 /* Frameworks */,
-				D4350A11261E3F330057F9E6 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -1043,7 +1024,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if test -f \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"\nfi\n";
+			shellScript = "if command -v swiftlint\nthen\n    swiftlint\nfi\n";
+		};
+		D44FFEC5264D930F00520F80 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if command -v swiftlint\nthen\n    swiftlint\nfi\n";
 		};
 		D4956377261CA4D800267937 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1061,7 +1060,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if test -f \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"\nfi\n";
+			shellScript = "if command -v swiftlint\nthen\n    swiftlint\nfi\n";
 		};
 		D4CC804322576F0F00873FA6 /* SwiftLINT */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1079,7 +1078,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if test -f \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"\nfi\n";
+			shellScript = "if command -v swiftlint\nthen\n    swiftlint\nfi\n";
 		};
 		D4E759322253B4B900A88091 /* SwiftLINT */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1097,7 +1096,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if test -f \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"\nfi\n";
+			shellScript = "if command -v swiftlint\nthen\n    swiftlint\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1268,7 +1267,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5.1;
+				MARKETING_VERSION = 2.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-Spinner-Basic-Test-Harness";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1289,7 +1288,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5.1;
+				MARKETING_VERSION = 2.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-Spinner-Basic-Test-Harness";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1476,7 +1475,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5.1;
+				MARKETING_VERSION = 2.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-Spinner-Tabbed-Test-Harness";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1497,7 +1496,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5.1;
+				MARKETING_VERSION = 2.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-Spinner-Tabbed-Test-Harness";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1520,7 +1519,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5.1;
+				MARKETING_VERSION = 2.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.Spinner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1543,7 +1542,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5.1;
+				MARKETING_VERSION = 2.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.Spinner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1564,7 +1563,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5.1;
+				MARKETING_VERSION = 2.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-Spinner-Leak-Test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1585,7 +1584,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5.1;
+				MARKETING_VERSION = 2.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-Spinner-Leak-Test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

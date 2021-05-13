@@ -91,12 +91,17 @@ class RVS_SPinner_HUD_Test_Harness_ViewController: UIViewController {
     /* ################################################################## */
     /**
      */
+    static let normalImage = UIImage(named: "BlueMarble")
+
+    /* ################################################################## */
+    /**
+     */
     static let templateImage = UIImage(named: "Globe")
     
     /* ################################################################## */
     /**
      */
-    static let normalImage = UIImage(named: "BlueMarble")
+    static let sfSymbolImage = UIImage(systemName: "questionmark.circle.fill")
 
     /* ################################################################## */
     /**
@@ -106,7 +111,7 @@ class RVS_SPinner_HUD_Test_Harness_ViewController: UIViewController {
     /* ################################################################## */
     /**
      */
-    @IBOutlet weak var segmentedSwitch: UISegmentedControl!
+    @IBOutlet weak var centerImageSegmentedSwitch: UISegmentedControl!
     
     /* ################################################################## */
     /**
@@ -127,7 +132,7 @@ extension RVS_SPinner_HUD_Test_Harness_ViewController {
     /* ################################################################## */
     /**
      */
-    @IBAction func segmentedSwitchChanged(_ inSwitch: UISegmentedControl) {
+    @IBAction func centerImageSegmentedSwitchChanged(_ inSwitch: UISegmentedControl) {
         if 1 == inSwitch.selectedSegmentIndex {
             spinnerControl?.centerImage = Self.normalImage
             spinnerControl?.replaceCenterImage = true
@@ -135,10 +140,11 @@ extension RVS_SPinner_HUD_Test_Harness_ViewController {
             spinnerControl?.centerImage = Self.templateImage
             spinnerControl?.replaceCenterImage = false
         } else if 3 == inSwitch.selectedSegmentIndex {
-            spinnerControl?.centerImage = UIImage(systemName: "questionmark.circle.fill")
+            spinnerControl?.centerImage = Self.sfSymbolImage
             spinnerControl?.replaceCenterImage = false
         } else {
             spinnerControl?.centerImage = nil
+            spinnerControl?.replaceCenterImage = false
         }
     }
 

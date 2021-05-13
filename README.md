@@ -28,20 +28,6 @@ It also uses a fairly simple [`Array`](https://developer.apple.com/documentation
 
 WHERE TO GET
 =
-As A [CocoaPod](https://cocoapods.org)
--
-[This is available here, as a CocoaPod.](https://cocoapods.org/pods/RVS_Spinner)
-
-Just put:
-
-    pod 'RVS_Spinner'
-    
-In your [podfile](https://guides.cocoapods.org/using/the-podfile.html), then run `pod install`.
-
-You will then need to import the module, by adding the following to the source files that will be accessing the spinner:
-
-    import RVS_Spinner
-    
 As A [Swift Package](https://swift.org/package-manager/)
 -
 You can include the Spinner, using the Swift Package Manager, simply by referring to [its GitHub Repository](https://github.com/RiftValleySoftware/RVS_Spinner) URI (SSH: [git@github.com:RiftValleySoftware/RVS_Spinner.git](git@github.com:RiftValleySoftware/RVS_Spinner.git) or HTTPS: [https://github.com/RiftValleySoftware/RVS_Spinner.git](https://github.com/RiftValleySoftware/RVS_Spinner.git)).
@@ -121,7 +107,7 @@ Unlike the [`UIPickerView`](https://developer.apple.com/documentation/uikit/uipi
 
 The Spinner has a  `RVS_Spinner.selectedIndex` property that denotes which [`Array`](https://developer.apple.com/documentation/swift/array) element is the selected value.
 
-In order to use this in Interface Builder/Storyboard Editor, you need to drag in a [`UIView`](https://developer.apple.com/documentation/uikit/uiview), then make it an instance of [`RVS_Spinner`](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html). The module will be "RVS_Spinner" *(if you used CocoaPods or the framework)*.
+In order to use this in Interface Builder/Storyboard Editor, you need to drag in a [`UIView`](https://developer.apple.com/documentation/uikit/uiview), then make it an instance of [`RVS_Spinner`](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html). The module will be "RVS_Spinner" *(if you used the framework)*.
 
 INTERFACE BUILDER/STORYBOARD EDITOR OPTIONS
 -
@@ -283,7 +269,6 @@ SIMPLE EXAMPLES
 
 There are three simple examples, featuring the test harness app, that show how to implement the [`RVS_Spinner`](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html) into your project:
 
-- [Here is an example using CocoaPods](https://github.com/RiftValleySoftware/RVS_Spinner/blob/master/RVS_Spinner-Pod-Demo.zip)
 - [Here is an example using Swift Package Manager](https://github.com/RiftValleySoftware/RVS_Spinner/blob/master/RVS_Spinner-SPM-Demo.zip)
 - [Here is an example, where we directly import the source file](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/RVS_Spinner-Standalone-Demo.zip)
 

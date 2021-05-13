@@ -36,7 +36,7 @@
                                     </segment>
                                 </segments>
                                 <connections>
-                                    <action selector="segmentedSwitchChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="p4B-bN-XyU"/>
+                                    <action selector="centerImageSegmentedSwitchChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="p4B-bN-XyU"/>
                                 </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="VHy-Eh-auO">
@@ -124,7 +124,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="segmentedSwitch" destination="oad-xM-CMR" id="B0E-jJ-whK"/>
+                        <outlet property="centerImageSegmentedSwitch" destination="oad-xM-CMR" id="B0E-jJ-whK"/>
                         <outlet property="spinnerControl" destination="nqe-6w-3cS" id="2Zy-pr-Bvp"/>
                         <outlet property="tintSelectorSegmentedSwitch" destination="VHy-Eh-auO" id="IMz-Gm-mbn"/>
                     </connections>

@@ -1,5 +1,13 @@
 # RVS_Spinner Change Log
 
+## 2.5.2
+
+- **May 13, 2021**
+
+- Removed CocoaPods support.
+- Moved SwiftLint to use the system version.
+- Fixed an issue with the HUD demo, where the center image was not being displayed.
+
 ## 2.5.1
 
 - **April 28, 2021**

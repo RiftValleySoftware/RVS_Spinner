@@ -17,9 +17,6 @@
       location = "group:LICENSE">
    </FileRef>
    <FileRef
-      location = "group:RVS_Spinner.podspec">
-   </FileRef>
-   <FileRef
       location = "group:Package.swift">
    </FileRef>
    <FileRef
