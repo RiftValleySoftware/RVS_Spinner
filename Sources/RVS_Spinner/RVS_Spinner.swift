@@ -29,42 +29,6 @@ import AudioToolbox
 import UIKit
 
 /* ###################################################################################################################################### */
-// MARK: - UIImage Extension -
-/* ###################################################################################################################################### */
-/**
- This adds some simple image manipulation.
- */
-private extension UIImage {
-    /* ################################################################## */
-    /**
-     This allows an image to be resized, given both a width and a height, or just one of the dimensions.
-     
-     - parameters:
-         - toNewSize: The new size (in pixels) of the desired image. If either dimension is 0 (or less), then the aspect will be applied to the other dimension.
-     
-     - returns: A new image, with the given dimensions. May be nil, if no width or height was supplied, or if there was an error.
-     */
-    func resized(toNewSize inNewSize: CGSize) -> UIImage? {
-        var scaleX: CGFloat = inNewSize.width / size.width
-        var scaleY: CGFloat = inNewSize.height / size.height
-
-        scaleX = 0 < inNewSize.width ? scaleY : scaleX
-        scaleY = 0 < inNewSize.height ? scaleX : scaleY
-
-        guard 0 < scaleX,
-              0 < scaleY else { return nil }
-        
-        let destinationSize = CGSize(width: size.width * scaleX, height: size.height * scaleY)
-        let destinationRect = CGRect(origin: .zero, size: destinationSize)
-
-        UIGraphicsBeginImageContextWithOptions(destinationSize, false, 0)
-        defer { UIGraphicsEndImageContext() }   // This makes sure that we get rid of the offscreen context.
-        draw(in: destinationRect, blendMode: .normal, alpha: 1)
-        return UIGraphicsGetImageFromCurrentImageContext()?.withRenderingMode(renderingMode)
-    }
-}
-
-/* ###################################################################################################################################### */
 // MARK: - Color Test Extension -
 /* ###################################################################################################################################### */
 /**
@@ -307,6 +271,12 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      This is the width of the lines in the control, in display units.
      */
     private static let _kBorderWidthInDisplayUnits: CGFloat = 1.0
+    
+    /* ################################################################## */
+    /**
+     This is The inset we give images, if there will be a frame around them.
+     */
+    private static let _kFrameInsetMultiplier: CGFloat = 0.2
     
     /* ################################################################## */
     /**
@@ -784,6 +754,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             let temp = UIView(frame: bounds)
             temp.layer.addSublayer(centerLayer)
             temp.tintColor = tintColor
+            temp.isUserInteractionEnabled = false
             _centerImageView = temp
             addSubview(temp)
         }
@@ -834,8 +805,6 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         // The workingLength is our adjacent side, and we know the angle, which is a spoke angle, divided by 2.
         let oppositeLength = Swift.min(workingLength, abs((workingLength * tan(radiansPerValue / 2)) * 2))
     
-        let maxIconSize = value.icon.size   // We can't have icons bigger than the images provided.
-    
         // Draw the spoke.
         let path = UIBezierPath()
         path.move(to: centerPointInDisplayUnits)
@@ -845,23 +814,23 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         ret.fillColor = hudMode ? UIColor.clear.cgColor : !openBackgroundColor.isClear ? openBackgroundColor.withAlphaComponent(alpha).cgColor : nil
         
         // This is how big each icon will be, in our rendered spoke.
-        let iconSize = CGSize(width: Swift.min(maxIconSize.width, oppositeLength), height: Swift.min(maxIconSize.height, oppositeLength))
+        let iconSize = CGSize(width: oppositeLength, height: oppositeLength)
         
         // We like to have a fixed size, but if the image is smaller, or we are packed in too tight, we may need to go smaller.
         let maxWidth = Swift.min(iconSize.width, oppositeLength)  // This is how wide the displayed icon will be.
         
         let imageSquareSize = Swift.min(maxWidth, arcCircumferenceInDisplayUnits / 2)  // The image is displayed in a square.
         
-        let imageFrame = CGRect(x: centerPointInDisplayUnits.x - (imageSquareSize / 2), y: -(radiusInDisplayUnits - (_openSpinnerView.bounds.size.height / 2) - Self._kOpenPaddingInDisplayUnits), width: imageSquareSize, height: imageSquareSize)
+        let imageFrame = CGRect(x: 0, y: 0, width: imageSquareSize, height: imageSquareSize)
 
         // Each image is the same as the center.
         let displayLayer = _makeIconLayer(value.icon, inFrame: imageFrame, tintColor: tintColor, isDimmed: !value.isEnabled)
-        
-        let newFrame = displayLayer.frame
-        
-        // Calculate the frame for the rendered icon image. It is centered, at the end of the wedge.
-        displayLayer.frame = CGRect(x: centerPointInDisplayUnits.x - (newFrame.size.width / 2), y: -(radiusInDisplayUnits - (_openSpinnerView.bounds.size.height / 2) - Self._kOpenPaddingInDisplayUnits), width: newFrame.size.width, height: newFrame.size.height)
 
+        let imageXPos = centerPointInDisplayUnits.x - (imageSquareSize / 2)
+        let imageYPos = -(radiusInDisplayUnits - (_openSpinnerView.bounds.size.height / 2) - Self._kOpenPaddingInDisplayUnits)
+        
+        displayLayer.frame = displayLayer.frame.offsetBy(dx: imageXPos, dy: imageYPos)
+        
         ret.path = path.cgPath
         
         ret.addSublayer(displayLayer)
@@ -891,21 +860,21 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         returnLayer.backgroundColor = UIColor.clear.cgColor
         returnLayer.opacity = (inIsDimmed ? Self._kDimmedOpacity : 1.0) * Float(alpha)
 
-        let tweakedFrame = framedIcons ? inFrame.insetBy(dx: inFrame.size.width * 0.1, dy: inFrame.size.height * 0.1) : inFrame
+        let insetMultiplier: CGFloat = framedIcons ? Self._kFrameInsetMultiplier : 0.0
+        
+        let tweakedFrame = inFrame.insetBy(dx: inFrame.size.width * insetMultiplier, dy: inFrame.size.height * insetMultiplier)
         
         let iconDisplayLayer = CALayer()
         iconDisplayLayer.frame = tweakedFrame
         iconDisplayLayer.backgroundColor = UIColor.clear.cgColor
-        
-        if let displayIcon = inIcon.resized(toNewSize: tweakedFrame.size) {
-            if .alwaysTemplate == inIcon.renderingMode {    // If we are forced template, then we use the image as a "see through" mask.
-                iconDisplayLayer.mask = CALayer()
-                iconDisplayLayer.mask?.frame = iconDisplayLayer.bounds
-                iconDisplayLayer.mask?.contents = displayIcon.cgImage
-                iconDisplayLayer.backgroundColor = inTintColor.cgColor
-            } else {
-                iconDisplayLayer.contents = displayIcon.withTintColor(inTintColor).cgImage
-            }
+        iconDisplayLayer.mask?.contentsGravity = .resizeAspect
+        if .alwaysTemplate == inIcon.renderingMode {    // If we are forced template, then we use the image as a "see through" mask.
+            iconDisplayLayer.mask = CALayer()
+            iconDisplayLayer.mask?.frame = iconDisplayLayer.bounds
+            iconDisplayLayer.mask?.contents = inIcon.cgImage
+            iconDisplayLayer.backgroundColor = inTintColor.cgColor
+        } else {
+            iconDisplayLayer.contents = inIcon.withTintColor(inTintColor).cgImage
         }
 
         // If we are displaying framed icons, then we need to surround the icon with a circle, and shrink it.

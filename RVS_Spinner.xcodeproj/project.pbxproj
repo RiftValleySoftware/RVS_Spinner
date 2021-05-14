@@ -784,9 +784,9 @@
 			children = (
 				D45081BA249E452D002E7A68 /* RVS_Spinner_Leak_Test_AppDelegate.swift */,
 				D45081B4249E452D002E7A68 /* RVS_Spinner_Leak_Test_ViewController.swift */,
+				D45081B8249E452D002E7A68 /* Main.storyboard */,
 				D45081B5249E452D002E7A68 /* Assets.xcassets */,
 				D45081B6249E452D002E7A68 /* LaunchScreen.storyboard */,
-				D45081B8249E452D002E7A68 /* Main.storyboard */,
 				D45081BB249E452D002E7A68 /* Info.plist */,
 			);
 			path = RVS_Spinner_Leak_Test;
