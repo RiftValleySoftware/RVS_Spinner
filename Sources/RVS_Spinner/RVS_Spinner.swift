@@ -821,7 +821,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         
         let imageSquareSize = Swift.min(maxWidth, arcCircumferenceInDisplayUnits / 2)  // The image is displayed in a square.
         
-        let imageFrame = CGRect(x: 0, y: 0, width: imageSquareSize, height: imageSquareSize)
+        let imageFrame = CGRect(origin: .zero, size: CGSize(width: imageSquareSize, height: imageSquareSize))
 
         // Each image is the same as the center.
         let displayLayer = _makeIconLayer(value.icon, inFrame: imageFrame, tintColor: tintColor, isDimmed: !value.isEnabled)
@@ -860,6 +860,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         returnLayer.backgroundColor = UIColor.clear.cgColor
         returnLayer.opacity = (inIsDimmed ? Self._kDimmedOpacity : 1.0) * Float(alpha)
 
+        // If we'll be framing the icons, we need to shrink them a bit.
         let insetMultiplier: CGFloat = framedIcons ? Self._kFrameInsetMultiplier : 0.0
         
         let tweakedFrame = inFrame.insetBy(dx: inFrame.size.width * insetMultiplier, dy: inFrame.size.height * insetMultiplier)

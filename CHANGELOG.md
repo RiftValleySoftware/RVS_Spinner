@@ -2,12 +2,12 @@
 
 ## 2.5.2
 
-- **May 13, 2021**
+- **May 14, 2021**
 
 - Removed CocoaPods support.
 - Moved SwiftLint to use the system version.
 - Fixed an issue with the HUD demo, where the center image was not being displayed.
-- Improved the way that images are drawn.
+- Major improvement to the way that images are drawn.
 
 ## 2.5.1
 
