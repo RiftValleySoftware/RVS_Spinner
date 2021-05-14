@@ -40,30 +40,27 @@ private extension UIImage {
      This allows an image to be resized, given both a width and a height, or just one of the dimensions.
      
      - parameters:
-         - toNewWidth: The width (in pixels) of the desired image. If not provided, a scale will be determined from the toNewHeight parameter.
-         - toNewHeight: The height (in pixels) of the desired image. If not provided, a scale will be determined from the toNewWidth parameter.
+         - toNewSize: The new size (in pixels) of the desired image. If either dimension is 0 (or less), then the aspect will be applied to the other dimension.
      
      - returns: A new image, with the given dimensions. May be nil, if no width or height was supplied, or if there was an error.
      */
-    func resized(toNewWidth inNewWidth: CGFloat? = nil, toNewHeight inNewHeight: CGFloat? = nil) -> UIImage? {
-        guard nil == inNewWidth,
-              nil == inNewHeight else {
-            var scaleX: CGFloat = (inNewWidth ?? size.width) / size.width
-            var scaleY: CGFloat = (inNewHeight ?? size.height) / size.height
+    func resized(toNewSize inNewSize: CGSize) -> UIImage? {
+        var scaleX: CGFloat = inNewSize.width / size.width
+        var scaleY: CGFloat = inNewSize.height / size.height
 
-            scaleX = nil == inNewWidth ? scaleY : scaleX
-            scaleY = nil == inNewHeight ? scaleX : scaleY
+        scaleX = 0 < inNewSize.width ? scaleY : scaleX
+        scaleY = 0 < inNewSize.height ? scaleX : scaleY
 
-            let destinationSize = CGSize(width: size.width * scaleX, height: size.height * scaleY)
-            let destinationRect = CGRect(origin: .zero, size: destinationSize)
-
-            UIGraphicsBeginImageContextWithOptions(destinationSize, false, 0)
-            defer { UIGraphicsEndImageContext() }   // This makes sure that we get rid of the offscreen context.
-            draw(in: destinationRect, blendMode: .normal, alpha: 1)
-            return UIGraphicsGetImageFromCurrentImageContext()
-        }
+        guard 0 < scaleX,
+              0 < scaleY else { return nil }
         
-        return nil
+        let destinationSize = CGSize(width: size.width * scaleX, height: size.height * scaleY)
+        let destinationRect = CGRect(origin: .zero, size: destinationSize)
+
+        UIGraphicsBeginImageContextWithOptions(destinationSize, false, 0)
+        defer { UIGraphicsEndImageContext() }   // This makes sure that we get rid of the offscreen context.
+        draw(in: destinationRect, blendMode: .normal, alpha: 1)
+        return UIGraphicsGetImageFromCurrentImageContext()?.withRenderingMode(renderingMode)
     }
 }
 
@@ -768,13 +765,13 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             let centerLayer = CAShapeLayer()
             centerLayer.frame = bounds
 
-            // Get the image to be displayed over the oval. We first see if one has been assigned.
-            let selectedValueIcon = values[selectedIndex].icon
+            // Get the image to be displayed over the oval. We first see if one has been assigned. If we are in HUD mode, then the value will always be in template mode.
+            let selectedValueIcon = hudMode ? values[selectedIndex].icon.withRenderingMode(.alwaysTemplate) : values[selectedIndex].icon
             let selectCenterImage = centerImage ?? selectedValueIcon
             let useCenterImage = !(replaceCenterImage && (_isOpening || isOpen)) || !replaceCenterImage
             let centerImage = useCenterImage ? selectCenterImage : selectedValueIcon
             let isDimmed = !values[selectedIndex].isEnabled || !isEnabled || (isTracking && isTouchInside && !_doneTracking)
-            let imageLayer = _makeIconDisplay(centerImage, inFrame: centerLayer.frame, tintColor: tintColor, isDimmed: isDimmed)
+            let imageLayer = _makeIconLayer(centerImage, inFrame: centerLayer.frame, tintColor: tintColor, isDimmed: isDimmed)
             if isCompensatingForContainerRotation { // If we are compensating for container rotation, we null out that rotation for the center icon.
                 if let superTransform = superview?.transform {
                     let rotationInRadians = -CGFloat(atan2(Double(superTransform.b), Double(superTransform.a)))
@@ -858,7 +855,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
         let imageFrame = CGRect(x: centerPointInDisplayUnits.x - (imageSquareSize / 2), y: -(radiusInDisplayUnits - (_openSpinnerView.bounds.size.height / 2) - Self._kOpenPaddingInDisplayUnits), width: imageSquareSize, height: imageSquareSize)
 
         // Each image is the same as the center.
-        let displayLayer = _makeIconDisplay(value.icon, inFrame: imageFrame, tintColor: tintColor, isDimmed: !value.isEnabled)
+        let displayLayer = _makeIconLayer(value.icon, inFrame: imageFrame, tintColor: tintColor, isDimmed: !value.isEnabled)
         
         let newFrame = displayLayer.frame
         
@@ -888,46 +885,42 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      - returns a new CALayer, with the display-ready icon.
      */
-    private func _makeIconDisplay(_ inIcon: UIImage, inFrame: CGRect, tintColor inTintColor: UIColor, isDimmed inIsDimmed: Bool = false) -> CALayer {
+    private func _makeIconLayer(_ inIcon: UIImage, inFrame: CGRect, tintColor inTintColor: UIColor, isDimmed inIsDimmed: Bool = false) -> CALayer {
+        let returnLayer = CALayer()
+        returnLayer.frame = inFrame
+        returnLayer.backgroundColor = UIColor.clear.cgColor
+        returnLayer.opacity = (inIsDimmed ? Self._kDimmedOpacity : 1.0) * Float(alpha)
+
+        let tweakedFrame = framedIcons ? inFrame.insetBy(dx: inFrame.size.width * 0.1, dy: inFrame.size.height * 0.1) : inFrame
+        
         let iconDisplayLayer = CALayer()
+        iconDisplayLayer.frame = tweakedFrame
+        iconDisplayLayer.backgroundColor = UIColor.clear.cgColor
         
-        iconDisplayLayer.frame = inFrame
-        iconDisplayLayer.frame.origin = CGPoint.zero
-        iconDisplayLayer.contentsGravity = .resizeAspect  // We will always display the icon accurately, as large as possible to fill the rectangle. Keep this in mind, when designing icons.
-        iconDisplayLayer.opacity = (inIsDimmed ? Self._kDimmedOpacity : 1.0) * Float(alpha)
+        if let displayIcon = inIcon.resized(toNewSize: tweakedFrame.size) {
+            if .alwaysTemplate == inIcon.renderingMode {    // If we are forced template, then we use the image as a "see through" mask.
+                iconDisplayLayer.mask = CALayer()
+                iconDisplayLayer.mask?.frame = iconDisplayLayer.bounds
+                iconDisplayLayer.mask?.contents = displayIcon.cgImage
+                iconDisplayLayer.backgroundColor = inTintColor.cgColor
+            } else {
+                iconDisplayLayer.contents = displayIcon.withTintColor(inTintColor).cgImage
+            }
+        }
 
-        let multiplier = CGFloat((!hudMode && framedIcons) ? 0.1 : 0)
-        let tweakedFrame = inFrame.insetBy(dx: inFrame.size.width * multiplier, dy: inFrame.size.height * multiplier)
-
-        guard let displayIcon = inIcon.resized(toNewWidth: tweakedFrame.size.width, toNewHeight: tweakedFrame.size.height) else { return iconDisplayLayer }
-        
-        if .alwaysTemplate == inIcon.renderingMode {
-            let maskLayer = CALayer()
-            maskLayer.frame = tweakedFrame
-            maskLayer.contents = displayIcon.cgImage
-            iconDisplayLayer.mask = maskLayer
-            iconDisplayLayer.backgroundColor = inTintColor.cgColor
-        } else {
-            iconDisplayLayer.contents = displayIcon.cgImage
-            iconDisplayLayer.backgroundColor = UIColor.clear.cgColor
+        // If we are displaying framed icons, then we need to surround the icon with a circle, and shrink it.
+        if framedIcons {
+            let frameLayer = CAShapeLayer() // This is the circle "frame."
+            frameLayer.path = UIBezierPath(arcCenter: CGPoint(x: inFrame.midX, y: inFrame.midY), radius: inFrame.size.height / 2, startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true).cgPath
+            frameLayer.strokeColor = tintColor.cgColor
+            frameLayer.fillColor = _closedBackgroundColor?.withAlphaComponent(alpha).cgColor
+            frameLayer.lineWidth = Self._kBorderWidthInDisplayUnits
+            returnLayer.addSublayer(frameLayer)
         }
         
-        // If we are displaying framed icons, then we need to surround the icon with a circle, and shrink it.
-        guard !hudMode,
-              framedIcons else { return iconDisplayLayer }
-        
-        let frameCircleLayer = CAShapeLayer() // This is the circle "frame."
-        frameCircleLayer.backgroundColor = UIColor.clear.cgColor
-        frameCircleLayer.frame = inFrame
-        frameCircleLayer.path = UIBezierPath(arcCenter: CGPoint(x: inFrame.midX, y: inFrame.midY), radius: inFrame.size.height / 2, startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true).cgPath
-        frameCircleLayer.strokeColor = tintColor.cgColor
-        frameCircleLayer.fillColor = _closedBackgroundColor?.withAlphaComponent(alpha).cgColor
-        frameCircleLayer.lineWidth = Self._kBorderWidthInDisplayUnits
-        frameCircleLayer.opacity = (inIsDimmed ? Self._kDimmedOpacity : 1.0) * Float(alpha)
+        returnLayer.addSublayer(iconDisplayLayer)
 
-        frameCircleLayer.addSublayer(iconDisplayLayer)
-
-        return frameCircleLayer
+        return returnLayer
     }
     
     /* ################################################################## */
@@ -1515,7 +1508,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      - returns: True, if the images should be framed.
      */
-    public var framedIcons: Bool { !(_closedBackgroundColor?.isClear ?? true) || !(tintColor?.isClear ?? true) }
+    public var framedIcons: Bool { !hudMode && (!(_closedBackgroundColor?.isClear ?? true) || !(tintColor?.isClear ?? true)) }
     
     /* ################################################################## */
     /**

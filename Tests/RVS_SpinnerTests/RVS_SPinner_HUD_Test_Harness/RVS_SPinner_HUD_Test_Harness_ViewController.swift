@@ -96,12 +96,12 @@ class RVS_SPinner_HUD_Test_Harness_ViewController: UIViewController {
     /* ################################################################## */
     /**
      */
-    static let templateImage = UIImage(named: "Globe")
+    static let templateImage = UIImage(named: "Globe")?.withRenderingMode(.alwaysTemplate)
     
     /* ################################################################## */
     /**
      */
-    static let sfSymbolImage = UIImage(systemName: "questionmark.circle.fill")
+    static let sfSymbolImage = UIImage(systemName: "questionmark.circle.fill")?.withRenderingMode(.alwaysTemplate)
     
     /* ################################################################## */
     /**
@@ -179,7 +179,7 @@ extension RVS_SPinner_HUD_Test_Harness_ViewController {
            let color = 0 == index ? UIColor(named: "AccentColor") : 1 == index ? .label : UIColor(named: "Tint-\(index)") {
             spinnerItems = []
             Self.imageNames.forEach {
-                if let icon = UIImage(systemName: $0)?.withRenderingMode(.alwaysTemplate).resized(toNewWidth: Self.imageSize) {
+                if let icon = UIImage(systemName: $0)?.resized(toNewWidth: Self.imageSize)?.withRenderingMode(.alwaysTemplate) {
                     spinnerItems.append(RVS_SpinnerDataItem(title: $0, icon: icon))
                 }
             }

@@ -28,7 +28,7 @@ class RVS_Spinner_Leak_Test_ViewController: UIViewController, RVS_SpinnerDelegat
         spinner.delegate = self
         for index in 0..<10 {
             let imageName = "0" + String(index)
-            if let image = UIImage(named: imageName) {
+            if let image = UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate) {
                 let dataItem = RVS_SpinnerDataItem(title: imageName, icon: image)
                 spinnerValueItems.append(dataItem)
             }
