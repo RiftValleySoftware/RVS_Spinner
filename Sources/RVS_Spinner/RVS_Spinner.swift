@@ -244,7 +244,7 @@ public extension RVS_SpinnerDelegate {
  */
 @IBDesignable
 @available(iOS 13.0, *)
-public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource {
+open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource {
     /* ################################################################################################################################## */
     // MARK: - Private Static Properties
     /* ################################################################################################################################## */
@@ -1659,7 +1659,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
      
      - parameter coder: The decoder with the view state.
      */
-    required init?(coder inDecoder: NSCoder) {
+    required public init?(coder inDecoder: NSCoder) {
         super.init(coder: inDecoder)
     }
 
