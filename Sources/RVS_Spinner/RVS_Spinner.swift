@@ -20,7 +20,7 @@
  
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  
- - version: 2.5.2
+ - version: 2.5.3
  */
 
 import AudioToolbox
@@ -1620,7 +1620,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     @IBInspectable public var centerImage: UIImage? {
         didSet {
             DispatchQueue.main.async {
-                self.setNeedsDisplay()
+                self._clearDisplayCaches()
             }
         }
     }
@@ -1632,7 +1632,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     @IBInspectable public var hudMode: Bool = false {
         didSet {
             DispatchQueue.main.async {
-                self.setNeedsDisplay()
+                self._clearDisplayCaches()
             }
         }
     }
@@ -1645,7 +1645,7 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
     @IBInspectable public var replaceCenterImage: Bool = false {
         didSet {
             DispatchQueue.main.async {
-                self.setNeedsDisplay()
+                self._clearDisplayCaches()
             }
         }
     }
@@ -1896,31 +1896,24 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             return inView!
         }
         
-        let size = inPickerView.rowSize(forComponent: 0)
-        var myFrame = inPickerView.bounds
-        myFrame.size.height = size.height
-        myFrame.origin = CGPoint.zero
+        let rowFrame = CGRect(origin: .zero, size: CGSize(width: inPickerView.bounds.size.width, height: inPickerView.rowSize(forComponent: 0).height))
+        
+        let imageSize = rowFrame.size.height - (Self._kOpenPaddingInDisplayUnits * 2)
         // We create a frame for the image and the label, giving them a bit of "breathing room."
-        let imageFrame = CGRect(origin: CGPoint(x: Self._kOpenPaddingInDisplayUnits / 2,
-                                                y: Self._kOpenPaddingInDisplayUnits / 2),
-                                size: CGSize(width: myFrame.size.height - Self._kOpenPaddingInDisplayUnits,
-                                             height: myFrame.size.height - Self._kOpenPaddingInDisplayUnits))
-        let labelFrame = CGRect(origin: CGPoint(x: myFrame.size.height + Self._kOpenPaddingInDisplayUnits,
-                                                y: Self._kOpenPaddingInDisplayUnits / 2),
-                                size: CGSize(width: myFrame.size.width - (Self._kOpenPaddingInDisplayUnits + myFrame.size.height),
-                                             height: myFrame.size.height - Self._kOpenPaddingInDisplayUnits))
+        let imageFrame = CGRect(origin: .zero, size: CGSize(width: imageSize, height: imageSize))
+        let labelFrame = CGRect(origin: CGPoint(x: imageSize + Self._kOpenPaddingInDisplayUnits, y: 0), size: CGSize(width: rowFrame.size.width - (Self._kOpenPaddingInDisplayUnits + imageSize), height: imageSize))
 
-        let ret: UIView = UIView(frame: myFrame)
+        let ret: UIView = UIView(frame: rowFrame)
+        ret.backgroundColor = hudMode ? .clear : openBackgroundColor
         
-        ret.backgroundColor = openBackgroundColor
-        
-        let imageView = UIImageView(frame: imageFrame)
-        imageView.image = values[inRow].icon
+        let imageView = UIView(frame: imageFrame)
         imageView.backgroundColor = UIColor.clear
-        var enclosingRect = CGRect.zero
+        let displayLayer = _makeIconLayer(values[inRow].icon, inFrame: imageFrame, tintColor: tintColor, isDimmed: !values[inRow].isEnabled)
+        imageView.layer.addSublayer(displayLayer)
 
         let containerView = UIView()
         
+        var enclosingRect: CGRect = .zero
         if !values[inRow].title.isEmpty {   // If we have title text, then that goes in the label. If we don't have any, we won't even create a label.
             let label = UILabel(frame: labelFrame)
             label.textColor = tintColor?.isClear ?? true ? UIColor.black : tintColor    // This prevents us from drawing transparent text.
@@ -1929,13 +1922,11 @@ public class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSourc
             label.text = values[inRow].title
             containerView.addSubview(label)
             // This is how we center the combination of the icon and the text. This calculates the size necessary for the text.
-            enclosingRect = label.text?.boundingRect(with: ret.bounds.size, context: nil) ?? CGRect.zero
+            enclosingRect = label.text?.boundingRect(with: labelFrame.size, context: nil) ?? .zero
+            enclosingRect.size.width += Self._kOpenPaddingInDisplayUnits
         }
         
-        let containerRect = CGRect(x: ret.bounds.midX - (enclosingRect.size.width + myFrame.size.height + Self._kOpenPaddingInDisplayUnits) / 2,
-                                   y: 0,
-                                   width: (enclosingRect.size.width + myFrame.size.height + Self._kOpenPaddingInDisplayUnits),
-                                   height: myFrame.size.height)
+        let containerRect = CGRect(x: ret.bounds.midX - enclosingRect.midX, y: Self._kOpenPaddingInDisplayUnits, width: (enclosingRect.size.width + imageSize), height: imageSize)
         
         containerView.frame = containerRect
         containerView.addSubview(imageView)

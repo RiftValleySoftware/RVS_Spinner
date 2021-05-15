@@ -1,5 +1,13 @@
 # RVS_Spinner Change Log
 
+## 2.5.3
+
+- **May 14, 2021**
+
+- Improved the display of the PickerView variant.
+- Tweaked the way HUD Mode works, to include the picker variant.
+- Added a HUD Mode switch to the basic test harness.
+
 ## 2.5.2
 
 - **May 14, 2021**

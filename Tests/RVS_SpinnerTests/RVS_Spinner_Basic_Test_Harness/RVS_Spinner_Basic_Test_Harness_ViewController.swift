@@ -91,6 +91,8 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     @IBOutlet weak var associatedTextLabel: UILabel!
     /// This segmented control determines whether or not items are disabled.
     @IBOutlet weak var disabledItemsSegmentedControl: UISegmentedControl!
+    /// The switch that toggles HUD mode.
+    @IBOutlet weak var hudModeSwitch: UISwitch!
     
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -102,6 +104,16 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         setUpSpinnerControl()
     }
     
+    /* ################################################################## */
+    /**
+     This is called when the HUD Mode switch changes.
+     */
+    @IBAction func hudModeSwitchChanged(_ inSwitch: UISwitch) {
+        spinnerView?.hudMode = inSwitch.isOn
+        innerColorSegmentedControl.isEnabled = !inSwitch.isOn
+        radialColorSegmentedControl.isEnabled = !inSwitch.isOn
+    }
+
     /* ################################################################## */
     /**
      This is called when the "Sounds" switch changes.
