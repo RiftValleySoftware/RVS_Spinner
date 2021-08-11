@@ -20,7 +20,7 @@
  
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  
- - version: 2.5.3
+ - version: 2.5.4
  */
 
 import AudioToolbox
@@ -866,7 +866,15 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
         let tweakedFrame = inFrame.insetBy(dx: inFrame.size.width * insetMultiplier, dy: inFrame.size.height * insetMultiplier)
         
         let iconDisplayLayer = CALayer()
-        iconDisplayLayer.frame = tweakedFrame
+        
+        // What we do here, is resize the image, keeping its aspect, but making sure that it fills the display area.
+        let iconAspect = inIcon.size.height / inIcon.size.width
+        let maxWidth = 1.0 >= iconAspect ? tweakedFrame.size.width : tweakedFrame.size.height / iconAspect
+        let maxHeight = 1.0 >= iconAspect ? tweakedFrame.size.width * iconAspect : tweakedFrame.size.height
+        let top = tweakedFrame.origin.y + (tweakedFrame.size.height - maxHeight) / 2
+        let left = tweakedFrame.origin.x + (tweakedFrame.size.width - maxWidth) / 2
+        iconDisplayLayer.frame = CGRect(origin: CGPoint(x: left, y: top), size: CGSize(width: maxWidth, height: maxHeight))
+        
         iconDisplayLayer.backgroundColor = UIColor.clear.cgColor
         iconDisplayLayer.mask?.contentsGravity = .resizeAspect
         if .alwaysTemplate == inIcon.renderingMode {    // If we are forced template, then we use the image as a "see through" mask.

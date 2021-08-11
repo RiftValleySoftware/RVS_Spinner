@@ -1,5 +1,11 @@
 # RVS_Spinner Change Log
 
+## 2.5.4
+
+- **August 11, 2021**
+
+- The images were not being correctly resized, if they did not have a 1:1 aspect ratio.
+
 ## 2.5.3
 
 - **May 14, 2021**
