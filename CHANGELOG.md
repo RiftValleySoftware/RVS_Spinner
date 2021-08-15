@@ -1,5 +1,11 @@
 # RVS_Spinner Change Log
 
+## 2.5.6
+
+- **August 15, 2021**
+
+- Fixed a crash in the new animator.
+
 ## 2.5.5
 
 - **August 15, 2021**

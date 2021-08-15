@@ -20,7 +20,7 @@
  
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  
- - version: 2.5.5
+ - version: 2.5.6
  */
 
 import AudioToolbox
@@ -774,8 +774,8 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
                                usingSpringWithDamping: Self._kOpenDamping2,
                                initialSpringVelocity: Self._kOpenInitialVelocity2,
                                options: .allowUserInteraction,
-                               animations: { [unowned self] in self._centerImageView.transform = .identity },
-                               completion: { [unowned self] _ in self._stupidAnimationFlagCenter = false
+                               animations: { [weak self] in self?._centerImageView.transform = .identity },
+                               completion: { [weak self] _ in self?._stupidAnimationFlagCenter = false
                                }
                 )
             }
@@ -971,13 +971,13 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
                                usingSpringWithDamping: Self._kOpenDamping2,
                                initialSpringVelocity: Self._kOpenInitialVelocity2,
                                options: .allowUserInteraction,
-                               animations: { [unowned self] in
-                                self._openSpinnerView.transform = .identity
+                               animations: { [weak self] in
+                                self?._openSpinnerView.transform = .identity
                     },
-                               completion: { [unowned self] (_: Bool) -> Void in
+                               completion: { [weak self] (_: Bool) -> Void in
                                 DispatchQueue.main.async {
-                                    self._stupidAnimationFlag = false
-                                    self.setNeedsDisplay()
+                                    self?._stupidAnimationFlag = false
+                                    self?.setNeedsDisplay()
                                 }
                     }
                 )
@@ -991,10 +991,10 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
             if nil == _spinnerAnimation {
                 CATransaction.begin()
                 CATransaction.setAnimationDuration(0.2)
-                CATransaction.setCompletionBlock { [unowned self] in
-                    DispatchQueue.main.async {
-                        self._spinnerAnimation = nil
-                        self._animatedIconLayer?.transform = transform
+                CATransaction.setCompletionBlock {
+                    DispatchQueue.main.async { [weak self] in
+                        self?._spinnerAnimation = nil
+                        self?._animatedIconLayer?.transform = transform
                     }
                }
                 
@@ -1132,9 +1132,9 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
                            usingSpringWithDamping: Self._kCloseDamping,
                            initialSpringVelocity: 25.0,
                            options: .allowUserInteraction,
-                           animations: { [unowned self] in
-                            if nil != self._openPickerContainerView {
-                                self._openPickerContainerView?.transform = .identity
+                           animations: { [weak self] in
+                            if let container = self?._openPickerContainerView {
+                                container.transform = .identity
                             }
                 },
                            completion: { [weak self] _ in self?._stupidAnimationFlag = false}
@@ -1214,45 +1214,42 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
                                 usingSpringWithDamping: Self._kOpenDamping,
                                 initialSpringVelocity: Self._kOpenInitialVelocity,
                                 options: .allowUserInteraction,
-                                animations: { [unowned self] in
-                                    self._openSpinnerView.transform = CGAffineTransform(scaleX: Self._kBounceScale, y: Self._kBounceScale)
+                                animations: { [weak self] in
+                                    self?._openSpinnerView.transform = CGAffineTransform(scaleX: Self._kBounceScale, y: Self._kBounceScale)
                                 },
-                               completion: { [unowned self] (_: Bool) -> Void in
-                                self._stupidAnimationFlag = false
+                               completion: { [weak self] (_: Bool) -> Void in
+                                self?._stupidAnimationFlag = false
                                 DispatchQueue.main.async {
-                                    self._clearDisplayCaches()
-                                    self._openSpinnerView.removeFromSuperview()
-                                    self._openSpinnerView = nil
-                                    self._stupidAnimationFlagCenter = self.replaceCenterImage
-                                    self.setNeedsLayout()
+                                    self?._clearDisplayCaches()
+                                    self?._openSpinnerView.removeFromSuperview()
+                                    self?._openSpinnerView = nil
+                                    self?._stupidAnimationFlagCenter = (self?.replaceCenterImage ?? false)
+                                    self?.setNeedsLayout()
                                 }
                     }
                 )
-            } else if nil != self._openPickerContainerView {
-                self._openPickerContainerView?.transform = .identity
-                
+            } else if let container = self._openPickerContainerView {
+                self._openPickerContainerView = nil
+                container.transform = .identity
+
                 // We animate the closing of the picker.
                 UIView.animate(withDuration: Self._kClosingAnimationDurationInSeconds,
                                delay: 0,
                                usingSpringWithDamping: Self._kOpenDamping,
                                initialSpringVelocity: Self._kOpenInitialVelocity,
                                options: .allowUserInteraction,
-                               animations: { [unowned self] in
-                                self.transform = .identity
-                                if nil != self._openPickerContainerView {
-                                    self._openPickerContainerView?.transform =  CGAffineTransform(scaleX: Self._kBounceScale, y: Self._kBounceScale).concatenating(CGAffineTransform(translationX: 0, y: self._openPickerContainerView.bounds.size.height / 2))
-                                }
-                    },
-                               completion: { [unowned self] (_: Bool) in
-                                self.transform = .identity
-                                self._stupidAnimationFlag = false
-                                self._stupidAnimationFlagCenter = self.replaceCenterImage
-                                if nil != self._openPickerContainerView {
-                                    self._openPickerContainerView?.removeFromSuperview()
-                                    self._openPickerContainerView = nil
-                                    self.setNeedsLayout()
-                                    self._clearDisplayCaches()
-                                }
+                               animations: { [weak self] in
+                                self?.transform = .identity
+                                let height = container.bounds.size.height
+                                container.transform =  CGAffineTransform(scaleX: Self._kBounceScale, y: Self._kBounceScale).concatenating(CGAffineTransform(translationX: 0, y: height / 2))
+                               },
+                               completion: { [weak self] (_: Bool) in
+                                self?.transform = .identity
+                                self?._stupidAnimationFlag = false
+                                self?._stupidAnimationFlagCenter = (self?.replaceCenterImage ?? false)
+                                container.removeFromSuperview()
+                                self?.setNeedsLayout()
+                                self?._clearDisplayCaches()
                     }
                 )
             }
