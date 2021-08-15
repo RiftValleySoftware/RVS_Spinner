@@ -20,7 +20,7 @@
  
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  
- - version: 2.5.4
+ - version: 2.5.5
  */
 
 import AudioToolbox
@@ -575,6 +575,14 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
      */
     private var _stupidAnimationFlag: Bool = false
     
+    /* ################################################################## */
+    /**
+     This stupid flag is used to force animation of the center. We set it to true, after opening the control, so the center gets animated.
+     
+     Semaphores are a bad idea, in general. I used to love them, but they don't play well with asynchronous environments.
+     */
+    private var _stupidAnimationFlagCenter: Bool = false
+
     /* ################################################################################################################################## */
     // MARK: - Private Instance Calculated Properties
     /* ################################################################################################################################## */
@@ -729,6 +737,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
      */
     private func _drawControlCenter(_ inRect: CGRect) {
         _centerImageView?.removeFromSuperview()
+        _centerImageView = nil
         
         if 0 < values.count {   // Have to have values to draw anything more.
             // We stroke and fill the basic shape with the colors we have set up.
@@ -756,6 +765,21 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
             temp.tintColor = tintColor
             temp.isUserInteractionEnabled = false
             _centerImageView = temp
+            
+            if _stupidAnimationFlagCenter {
+                _centerImageView.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
+                // We animate the center display, making it "bounce."
+                UIView.animate(withDuration: Self._kOpeningAnimationDurationInSeconds,
+                               delay: 0,
+                               usingSpringWithDamping: Self._kOpenDamping2,
+                               initialSpringVelocity: Self._kOpenInitialVelocity2,
+                               options: .allowUserInteraction,
+                               animations: { [unowned self] in self._centerImageView.transform = .identity },
+                               completion: { [unowned self] _ in self._stupidAnimationFlagCenter = false
+                               }
+                )
+            }
+            
             addSubview(temp)
         }
     }
@@ -1034,7 +1058,8 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
         guard !isEmpty else { return }
 
         _stupidAnimationFlag = true // Make sure the opening is animated.
-        
+        _stupidAnimationFlagCenter = self.replaceCenterImage    // Maybe we also need to animate a center image replacement.
+
         if isHapticsOn {
             _selectionFeedbackGenerator = UISelectionFeedbackGenerator()
             _selectionFeedbackGenerator?.prepare()
@@ -1198,6 +1223,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
                                     self._clearDisplayCaches()
                                     self._openSpinnerView.removeFromSuperview()
                                     self._openSpinnerView = nil
+                                    self._stupidAnimationFlagCenter = self.replaceCenterImage
                                     self.setNeedsLayout()
                                 }
                     }
@@ -1220,6 +1246,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
                                completion: { [unowned self] (_: Bool) in
                                 self.transform = .identity
                                 self._stupidAnimationFlag = false
+                                self._stupidAnimationFlagCenter = self.replaceCenterImage
                                 if nil != self._openPickerContainerView {
                                     self._openPickerContainerView?.removeFromSuperview()
                                     self._openPickerContainerView = nil

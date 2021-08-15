@@ -1,5 +1,11 @@
 # RVS_Spinner Change Log
 
+## 2.5.5
+
+- **August 15, 2021**
+
+- Now animate the replacement of the center image.
+
 ## 2.5.4
 
 - **August 11, 2021**
