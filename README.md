@@ -83,11 +83,11 @@ RADIAL SPINNER
 -
 The way it works, is that the "quiescent" control is small. By default, it is an oval or circle; possibly with an image or text in it, or just an image.
 
-Tapping on the circle "pops up" a surrounding ring of images, which can be rotated about the center, like a prize wheel or a knob.
+Tapping on this image "pops up" a surrounding ring of images, which can be rotated about the center, like a prize wheel or a knob.
 
 ![Prize Wheel Display](img/SpinnerAnimation.gif)
 
-This popup is a [`UIControl`](https://developer.apple.com/documentation/uikit/uicontrol) that is opened in the superview of the center, so the superview must be able to support having a larger view added.
+This popup is a [`UIControl`](https://developer.apple.com/documentation/uikit/uicontrol) that is opened in the superview of the control, so the superview (the control's container) must be able to support having a larger view added. This container will constrain the size of the control, when it pops up.
 
 You can prescribe the radius of the popup or [`UIPickerView`](https://developer.apple.com/documentation/uikit/uipickerview) at runtime, or in the Interface Builder/Storyboard Editor. The sizes of the images will adjust to fit the circle.
 
@@ -267,7 +267,7 @@ The test harness app is deliberately simple, and should provide an excellent "st
 SIMPLE EXAMPLES
 =
 
-There are three simple examples, featuring the test harness app, that show how to implement the [`RVS_Spinner`](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html) into your project:
+There are two simple examples, featuring the test harness app, that show how to implement the [`RVS_Spinner`](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html) into your project:
 
 - [Here is an example using Swift Package Manager](https://github.com/RiftValleySoftware/RVS_Spinner/blob/master/RVS_Spinner-SPM-Demo.zip)
 - [Here is an example, where we directly import the source file](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/RVS_Spinner-Standalone-Demo.zip)
@@ -333,7 +333,6 @@ The "**Highlight Colors**" Segmented Switch allows you to change the [`UIView.ti
 TODO
 =
 There is a deprecated callback: the orientation callback (observer) It is on [line 1655](https://github.com/RiftValleySoftware/RVS_Spinner/blob/main/Sources/RVS_Spinner/RVS_Spinner.swift#L1655). We need to address this, but it isn't a showstopper (yet).
-
 
 LICENSE
 =
