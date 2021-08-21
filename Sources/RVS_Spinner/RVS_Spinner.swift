@@ -408,6 +408,10 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
     /* ################################################################################################################################## */
     // MARK: - Private Instance Properties
     /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     This is a flag, ensuring that we don't overdo the registration.
+     */
     private var _registeredOrientationObserver: Bool = false
     
     /* ################################################################## */
