@@ -20,7 +20,7 @@
  
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  
- - version: 2.5.6
+ - version: 2.5.7
  */
 
 import AudioToolbox
@@ -408,6 +408,8 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
     /* ################################################################################################################################## */
     // MARK: - Private Instance Properties
     /* ################################################################################################################################## */
+    private var _registeredOrientationObserver: Bool = false
+    
     /* ################################################################## */
     /**
      This is the display view for the center image.
@@ -1830,6 +1832,12 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
         
         super.layoutSubviews()
         _correctRadius()    // Make sure we stay in our lane.
+        
+        // This ensures that the layout is recalculated, when the orientation changes.
+        if !_registeredOrientationObserver {
+            _registeredOrientationObserver = true
+            NotificationCenter.default.addObserver(self, selector: #selector(setNeedsLayout), name: UIDevice.orientationDidChangeNotification, object: nil)
+        }
     }
     
     /* ################################################################################################################################## */
@@ -1865,7 +1873,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
     
     /* ################################################################## */
     /**
-     We cancel any decelerator display link from here, as well as our orientation notification.
+     We cancel any decelerator display link from here, and remove our listener.
      */
     deinit {
         NotificationCenter.default.removeObserver(self)

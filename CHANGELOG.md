@@ -1,5 +1,11 @@
 # RVS_Spinner Change Log
 
+## 2.5.7
+
+- **August 21, 2021**
+
+- I rewrote the deprecated callback to be more "future-proof."
+
 ## 2.5.6
 
 - **August 15, 2021**

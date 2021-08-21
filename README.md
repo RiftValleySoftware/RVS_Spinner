@@ -330,10 +330,6 @@ The "**Highlight Colors**" Segmented Switch allows you to change the [`UIView.ti
 
 ![The HUD Mode Test App (Template SF Symbols Image)](img/HUD-Yellow-Question.png)
 
-TODO
-=
-There is a deprecated callback: the orientation callback (observer) It is on [line 1655](https://github.com/RiftValleySoftware/RVS_Spinner/blob/main/Sources/RVS_Spinner/RVS_Spinner.swift#L1655). We need to address this, but it isn't a showstopper (yet).
-
 LICENSE
 =
 MIT License
