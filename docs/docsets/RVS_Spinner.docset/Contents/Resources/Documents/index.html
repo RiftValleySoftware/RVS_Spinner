@@ -157,11 +157,11 @@
 
 <p>The way it works, is that the &ldquo;quiescent&rdquo; control is small. By default, it is an oval or circle; possibly with an image or text in it, or just an image.</p>
 
-<p>Tapping on the circle &ldquo;pops up&rdquo; a surrounding ring of images, which can be rotated about the center, like a prize wheel or a knob.</p>
+<p>Tapping on this image &ldquo;pops up&rdquo; a surrounding ring of images, which can be rotated about the center, like a prize wheel or a knob.</p>
 
 <p><img src="img/SpinnerAnimation.gif" alt="Prize Wheel Display"></p>
 
-<p>This popup is a <a href="https://developer.apple.com/documentation/uikit/uicontrol"><code>UIControl</code></a> that is opened in the superview of the center, so the superview must be able to support having a larger view added.</p>
+<p>This popup is a <a href="https://developer.apple.com/documentation/uikit/uicontrol"><code>UIControl</code></a> that is opened in the superview of the control, so the superview (the control&rsquo;s container) must be able to support having a larger view added. This container will constrain the size of the control, when it pops up.</p>
 
 <p>You can prescribe the radius of the popup or <a href="https://developer.apple.com/documentation/uikit/uipickerview"><code>UIPickerView</code></a> at runtime, or in the Interface Builder/Storyboard Editor. The sizes of the images will adjust to fit the circle.</p>
 
@@ -231,7 +231,7 @@ If this is set to ON (default is OFF), then the control will render in &ldquo;HU
 
 <p>In the spinner popup, only the image is shown, but in the PickerView variant, the text is also shown. Setting the text to &ldquo;&rdquo; will show only the image in the picker.</p>
 
-<p>You can also attach any arbitrary data item to an instance of <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Structs/RVS_SpinnerDataItem.html"><code><a href="Structs/RVS_SpinnerDataItem.html">RVS_SpinnerDataItem</a></code></a>. There is a property called <a href="(https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Structs/RVS_SpinnerDataItem.html)"><code>value</code></a>, which is an <a href="https://docs.swift.org/swift-book/LanguageGuide/TypeCasting.html#ID342"><code>Any?</code></a> property. You can associate any data that you want with an RVS_Spinner data item. Selecting the <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html"><code><a href="Classes/RVS_Spinner.html#/s:11RVS_SpinnerAAC5valueAA0a1_B8DataItemVSgvp">RVS_Spinner.value</a></code></a> calculated property of the <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html"><code><a href="Classes/RVS_Spinner.html">RVS_Spinner</a></code></a> instance will return the entire selected data item. These are <a href="https://developer.apple.com/swift/blog/?id=10">value types, and not a reference types</a>.</p>
+<p>You can also attach any arbitrary data item to an instance of <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Structs/RVS_SpinnerDataItem.html"><code><a href="Structs/RVS_SpinnerDataItem.html">RVS_SpinnerDataItem</a></code></a>. There is a property called <a href="(https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Structs/RVS_SpinnerDataItem.html)"><code>value</code></a>, which is an <a href="https://docs.swift.org/swift-book/LanguageGuide/TypeCasting.html#ID342"><code>Any?</code></a> property. You can associate any data that you want with an RVS_Spinner data item. Selecting the <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html"><code><a href="Classes/RVS_Spinner.html#/s:11RVS_SpinnerAAC5valueAA0a1_B8DataItemVSgvp">RVS_Spinner.value</a></code></a> calculated property of the <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html"><code><a href="Classes/RVS_Spinner.html">RVS_Spinner</a></code></a> instance will return the entire selected data item. These are <a href="https://developer.apple.com/swift/blog/?id=10">value types, and not reference types</a>.</p>
 
 <p>You need to provide this array programmatically. You assign it to the <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html"><code><a href="Classes/RVS_Spinner.html#/s:11RVS_SpinnerAAC6valuesSayAA0a1_B8DataItemVGvp">RVS_Spinner.values</a></code></a> property, and the data will be immediately available to use.</p>
 <h2 id='rotation' class='heading'>ROTATION</h2>
@@ -326,7 +326,7 @@ If this is set to ON (default is OFF), then the control will render in &ldquo;HU
 <p>The test harness app is deliberately simple, and should provide an excellent &ldquo;starting point&rdquo; for using the <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html"><code><a href="Classes/RVS_Spinner.html">RVS_Spinner</a></code></a>.</p>
 <h1 id='simple-examples' class='heading'>SIMPLE EXAMPLES</h1>
 
-<p>There are three simple examples, featuring the test harness app, that show how to implement the <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html"><code><a href="Classes/RVS_Spinner.html">RVS_Spinner</a></code></a> into your project:</p>
+<p>There are two simple examples, featuring the test harness app, that show how to implement the <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html"><code><a href="Classes/RVS_Spinner.html">RVS_Spinner</a></code></a> into your project:</p>
 
 <ul>
 <li><a href="https://github.com/RiftValleySoftware/RVS_Spinner/blob/master/RVS_Spinner-SPM-Demo.zip">Here is an example using Swift Package Manager</a></li>
@@ -387,9 +387,6 @@ If this is set to ON (default is OFF), then the control will render in &ldquo;HU
 <p><img src="img/HUD-Blue-Globe.png" alt="The HUD Mode Test App (Template Resource Image)"></p>
 
 <p><img src="img/HUD-Yellow-Question.png" alt="The HUD Mode Test App (Template SF Symbols Image)"></p>
-<h1 id='todo' class='heading'>TODO</h1>
-
-<p>There is a deprecated callback: the orientation callback (observer) It is on <a href="https://github.com/RiftValleySoftware/RVS_Spinner/blob/main/Sources/RVS_Spinner/RVS_Spinner.swift#L1655">line 1655</a>. We need to address this, but it isn&rsquo;t a showstopper (yet).</p>
 <h1 id='license' class='heading'>LICENSE</h1>
 
 <p>MIT License</p>
@@ -416,7 +413,7 @@ CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFT
     </div>
     <section class="footer">
       <p><a class="link" href="https://riftvalleysoftware.com" target="_blank" rel="external">©2019 The Great Rift Valley Software Company</a></p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.7</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>
