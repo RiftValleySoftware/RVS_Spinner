@@ -236,7 +236,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
             do {
                 let imagePaths = try FileManager.default.contentsOfDirectory(atPath: imagePath).sorted()
                 imagePaths.forEach { fileName in
-                    if let imageData = FileManager.default.contents(atPath: "\(imagePath)/\(fileName)"), let image = UIImage(data: imageData) {
+                    if let imageData = FileManager.default.contents(atPath: "\(imagePath)/\(fileName)"), let image = UIImage(data: imageData)?.withRenderingMode(.alwaysTemplate) {
                     // The name is the filename, minus the file extension.
                         _shapes.append((name: String(fileName.prefix(fileName.count - 4)), image: image, index: _shapes.count))
                     }
