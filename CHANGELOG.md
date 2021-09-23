@@ -1,5 +1,12 @@
 # RVS_Spinner Change Log
 
+## 2.5.8
+
+- **September 23, 2021**
+
+- Updated to the latest toolchains.
+- Fixed an issue, where the images needed to be loaded as always template.
+
 ## 2.5.7
 
 - **August 21, 2021**
