@@ -471,6 +471,7 @@
 		D49214A624956D8B0047968F /* Warnings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Warnings.xcconfig; path = "Project-Meta/Warnings.xcconfig"; sourceTree = "<group>"; };
 		D495637A261CA59500267937 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4B039A222576DBD004031FF /* RVS_Spinner_Leak_Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RVS_Spinner_Leak_Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4C78B1627A447BA008CCEF7 /* RVS_Spinner.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = RVS_Spinner.docc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -570,6 +571,7 @@
 			isa = PBXGroup;
 			children = (
 				D428DB43216939A9004B130B /* RVS_Spinner.swift */,
+				D4C78B1627A447BA008CCEF7 /* RVS_Spinner.docc */,
 			);
 			path = RVS_Spinner;
 			sourceTree = "<group>";

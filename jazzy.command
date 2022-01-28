@@ -12,7 +12,7 @@ jazzy   --github_url https://github.com/RiftValleySoftware/RVS_Spinner\
         --module RVS_Spinner\
         --copyright [©2019\ The\ Great\ Rift\ Valley\ Software\ Company]\(https://riftvalleysoftware.com\)
 cp icon.png docs/icon.png
-cp img/*.* docs/img/
+cp Sources/RVS_Spinner/RVS_Spinner.docc/Resources/*.* docs/img/
 cp RVS_Spinner-Pod-Demo.zip docs/
 cp RVS_Spinner-Standalone-Demo.zip docs/
 cd "${CWD}"

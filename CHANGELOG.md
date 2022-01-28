@@ -1,5 +1,11 @@
 # RVS_Spinner Change Log
 
+## 2.5.10
+
+- **January 28, 2022**
+
+- Added support for DocC. No functional or API changes.
+
 ## 2.5.9
 
 - **December 14, 2021**
