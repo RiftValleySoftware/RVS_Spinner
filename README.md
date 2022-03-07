@@ -6,7 +6,7 @@ This is a special control class that implements a "pop-up spinner" control.
 
 - [Here is the GitHub Repo for This Project.](https://github.com/RiftValleySoftware/RVS_Spinner)
 
-- [Here are the technical docs for this project.](https://riftvalleysoftware.github.io/RVS_Spinner/))
+- [Here are the technical docs for this project.](https://riftvalleysoftware.github.io/RVS_Spinner/)
 
 You can associate an array of values with a Spinner, and they will be presented to the user when they tap the center of the control.
 
