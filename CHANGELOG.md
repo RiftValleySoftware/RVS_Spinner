@@ -1,5 +1,11 @@
 # RVS_Spinner Change Log
 
+## 2.5.11
+
+- **March 15, 2022**
+
+- Updated the tools. No functional or API changes.
+
 ## 2.5.10
 
 - **January 28, 2022**
