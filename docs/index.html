@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>RVS_Spinner  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+
+    <a title="RVS_Spinner  Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="index.html">
+          RVS_Spinner Docs
+        </a>
+         (100% documented)
+      </p>
+    
+      <div class="header-col--secondary">
+        <form role="search" action="search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </div>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/RiftValleySoftware/RVS_Spinner">
+            <img class="header-icon" src="img/gh.png" alt="GitHub"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="index.html">RVS_Spinner Reference</a>
+      <img class="carat" src="img/carat.png" alt=""/>
+      RVS_Spinner  Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/RVS_Spinner.html">RVS_Spinner</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/RVS_Spinner/SpinnerMode.html">– SpinnerMode</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/RVS_SpinnerDelegate.html">RVS_SpinnerDelegate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/RVS_SpinnerDataItem.html">RVS_SpinnerDataItem</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            
+            <p><img src="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/icon.png" alt="Spinner Icon"></p>
+<h1 id='rvs_spinner-control' class='heading'>RVS_Spinner Control</h1>
+
+<p>This is a special control class that implements a &ldquo;pop-up spinner&rdquo; control.</p>
+
+<ul>
+<li><p><a href="https://github.com/RiftValleySoftware/RVS_Spinner">Here is the GitHub Repo for This Project.</a></p></li>
+<li><p><a href="https://riftvalleysoftware.github.io/RVS_Spinner/">Here are the technical docs for this project.</a></p></li>
+</ul>
+
+<p>You can associate an array of values with a Spinner, and they will be presented to the user when they tap the center of the control.</p>
+
+<p>The control will pop up either a &ldquo;fan&rdquo; of values that can be scrolled like a knob, or a <a href="https://developer.apple.com/documentation/uikit/uipickerview"><code>UIPickerView</code></a>.</p>
+
+<p>It is completely self-contained. You only need to instantiate the control, give it a place in the view (just like any other control), and associate a set of values with it.</p>
+
+<p>The values should be accompanied by images.</p>
+
+<p>The operation and appearance of the Spinner are highly customizable, either at runtime, or through IB Inspectable properties.</p>
+<h1 id='what-problem-does-this-solve' class='heading'>WHAT PROBLEM DOES THIS SOLVE?</h1>
+
+<p>Mobile devices present difficulties for things like shuttles and pickers. Apple&rsquo;s <a href="https://developer.apple.com/documentation/uikit/uipickerview"><code>UIPickerView</code></a> is an excellent approach to the problem of dynamic selection, but there are issues.</p>
+
+<p>For one thing, <a href="https://developer.apple.com/documentation/uikit/uipickerview"><code>UIPickerView</code></a>s are BIG. They hog up a lot of precious screen real estate. This is necessary.</p>
+
+<p>Also, they use the DataSource pattern, in which you supply the data at runtime, in a JIT manner. This is an excellent method, but it is rather complex. You sacrifice simplicity for power.</p>
+
+<p>RVS_Spinner is a small icon, until it is touched and expanded. It is also designed to be operated by a thumb.</p>
+
+<p>It also uses a fairly simple <a href="https://developer.apple.com/documentation/swift/array"><code>Array</code></a> data provider. Simply associate an <a href="https://developer.apple.com/documentation/swift/array"><code>Array</code></a> of structs to the control, and it&rsquo;s sorted.</p>
+<h1 id='where-to-get' class='heading'>WHERE TO GET</h1>
+<h2 id='as-a-a-href-https-swift-org-package-manager-swift-package-a' class='heading'>As A <a href="https://swift.org/package-manager/">Swift Package</a></h2>
+
+<p>You can include the Spinner, using the Swift Package Manager, simply by referring to <a href="https://github.com/RiftValleySoftware/RVS_Spinner">its GitHub Repository</a> URI (SSH: <a href="git@github.com:RiftValleySoftware/RVS_Spinner.git">git@github.com:RiftValleySoftware/RVS_Spinner.git</a> or HTTPS: <a href="https://github.com/RiftValleySoftware/RVS_Spinner.git">https://github.com/RiftValleySoftware/RVS_Spinner.git</a>).</p>
+
+<p>You will then need to import the module, by adding the following to the source files that will be accessing the spinner:</p>
+<pre class="highlight plaintext"><code>import RVS_Spinner
+</code></pre>
+<h2 id='using-a-href-https-github-com-carthage-carthage-carthage-a' class='heading'>Using <a href="https://github.com/Carthage/Carthage">Carthage</a></h2>
+
+<p>You can install it, using Carthage as your dependency manager.</p>
+
+<p>Simply add the following to your <a href="https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md#cartfile">Cartfile</a>:</p>
+<pre class="highlight plaintext"><code>github "RiftValleySoftware/RVS_Spinner"
+</code></pre>
+
+<p>That will bring the project into a &ldquo;Carthage&rdquo; directory.</p>
+
+<p>You should probably add the single file from the project (as opposed to the product). That can be found in &ldquo;Checkins&rdquo;.</p>
+
+<p>If you do that, then no need to import.</p>
+
+<p>If you include the product (in the &ldquo;Build&rdquo; subdirectory), you will need to import the module, by adding the following to the source files that will be accessing the spinner:</p>
+<pre class="highlight plaintext"><code>import RVS_Spinner
+</code></pre>
+
+<p>Note that Carthage may not sign the module, and you may have issues submitting it.</p>
+<h2 id='directly-from-github' class='heading'>Directly From GitHub</h2>
+
+<p><a href="https://github.com/RiftValleySoftware/RVS_Spinner">Here is the GitHub Repo for This Project.</a></p>
+
+<p>Since the entire control is contained in only one file, you also have the option of simply grabbing that source file (<a href="https://github.com/RiftValleySoftware/RVS_Spinner/blob/master/RVS_Spinner/RVS_Spinner.swift">the RVS_Spinner/RVS_Spinner.swift file</a>), and just including that in your project; in which case, you won&rsquo;t need to <code>import</code> the module.</p>
+
+<p>In fact, I&rsquo;d actually suggest doing this. I&rsquo;m not a huge fan of &ldquo;live&rdquo; dependencies (I usually &ldquo;snapshot&rdquo; code dependencies and include them in the project repo), and it will actually slightly reduce overhead.</p>
+
+<p><a href="https://riftvalleysoftware.com/work/open-source-projects/#RVS_Spinner">Here is the online documentation page for this project.</a></p>
+<h1 id='requirements' class='heading'>REQUIREMENTS</h1>
+
+<p>The Spinner is provided as a <a href="https://developer.apple.com/swift/">Swift</a>-only static library (or <a href="https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Frameworks.html">dynamic framework</a>), supporting <a href="https://www.apple.com/ios/">iOS</a> 13.0 and above.</p>
+
+<p>This is meant for <a href="https://www.apple.com/ios/">iOS</a> (<a href="https://developer.apple.com/documentation/uikit">UIKit</a>) only.</p>
+<h1 id='dependencies' class='heading'>DEPENDENCIES</h1>
+
+<p>There are no dependencies to use this class in your project. It can be included as a single source file (no build or library linking required).</p>
+<h1 id='operation' class='heading'>OPERATION</h1>
+<h2 id='radial-spinner' class='heading'>RADIAL SPINNER</h2>
+
+<p>The way it works, is that the &ldquo;quiescent&rdquo; control is small. By default, it is an oval or circle; possibly with an image or text in it, or just an image.</p>
+
+<p>Tapping on this image &ldquo;pops up&rdquo; a surrounding ring of images, which can be rotated about the center, like a prize wheel or a knob.</p>
+
+<p><img src="img/SpinnerAnimation.gif" alt="Prize Wheel Display"></p>
+
+<p>This popup is a <a href="https://developer.apple.com/documentation/uikit/uicontrol"><code>UIControl</code></a> that is opened in the superview of the control, so the superview (the control&rsquo;s container) must be able to support having a larger view added. This container will constrain the size of the control, when it pops up.</p>
+
+<p>You can prescribe the radius of the popup or <a href="https://developer.apple.com/documentation/uikit/uipickerview"><code>UIPickerView</code></a> at runtime, or in the Interface Builder/Storyboard Editor. The sizes of the images will adjust to fit the circle.</p>
+
+<p>You can control the open Spinner with gestures. It was designed to be thumb-controlled; including a &ldquo;prize wheel&rdquo; spinner, where you can send the control spinning in a decelerating rotation. The top (most visible) value is the one that will be selected. Tapping in a spinning control will stop it. You can also single-tap on either side of the open control to advance (decrement) the control by one.</p>
+<h2 id='picker-view-variant' class='heading'>PICKER VIEW VARIANT</h2>
+
+<p>You can also have a standard <a href="https://developer.apple.com/documentation/uikit/uipickerview"><code>UIPickerView</code></a> come up, which may be better for larger numbers of values, or for developers that prefer a more standard Apple User Experience.</p>
+
+<p><img src="img/PickerAnimation.gif" alt="UIPickerView Wheel Display"></p>
+<h1 id='implementation' class='heading'>IMPLEMENTATION</h1>
+
+<p>To use <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html"><code><a href="Classes/RVS_Spinner.html">RVS_Spinner</a></code></a> in your project, import the framework into your Swift 4.0 or above project. The main Spinner class is called &ldquo;RVS_Spinner,&rdquo; and you can use this class in storyboards.</p>
+
+<p>Unlike the <a href="https://developer.apple.com/documentation/uikit/uipickerview"><code>UIPickerView</code></a>, the Spinner is self-contained. You supply it an <a href="https://developer.apple.com/documentation/swift/array"><code>Array</code></a> of <code><a href="Structs/RVS_SpinnerDataItem.html">RVS_SpinnerDataItem</a></code> instances, which contain, at minimum, an icon (a <a href="https://developer.apple.com/documentation/uikit/uiimage"><code>UIImage</code></a>), and a title (a <a href="https://developer.apple.com/documentation/swift/string"><code>String</code></a>). These are displayed by the Spinner when it is opened (the spinner variant displays only icons, but the picker variant displays both).</p>
+
+<p>The Spinner has a  <code><a href="Classes/RVS_Spinner.html#/s:11RVS_SpinnerAAC13selectedIndexSivp">RVS_Spinner.selectedIndex</a></code> property that denotes which <a href="https://developer.apple.com/documentation/swift/array"><code>Array</code></a> element is the selected value.</p>
+
+<p>In order to use this in Interface Builder/Storyboard Editor, you need to drag in a <a href="https://developer.apple.com/documentation/uikit/uiview"><code>UIView</code></a>, then make it an instance of <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html"><code><a href="Classes/RVS_Spinner.html">RVS_Spinner</a></code></a>. The module will be &ldquo;RVS_Spinner&rdquo; <em>(if you used the framework)</em>.</p>
+<h2 id='interface-builder-storyboard-editor-options' class='heading'>INTERFACE BUILDER/STORYBOARD EDITOR OPTIONS</h2>
+
+<p>Once you assign the <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html"><code><a href="Classes/RVS_Spinner.html">RVS_Spinner</a></code></a> class to the <a href="https://developer.apple.com/documentation/uikit/uiview"><code>UIView</code></a>, a number of options will appear in the Attributes Inspector for the Spinner:</p>
+
+<p><img src="img/IBOptions.png" alt="The Spinner Attributes Inspector Options"></p>
+
+<ol>
+<li><p><strong>Open Background Color</strong>
+This is a color to display behind the open radial spinner or picker. By default, it is clear.</p></li>
+<li><p><strong>Spinner Mode</strong>
+This is an integer, with 3 values:</p>
+
+<ul>
+<li><strong>-1</strong> Use only the radial spinner (ignore the <strong>Spinner Threshold</strong> value).</li>
+<li><strong>0</strong>  Switch between radial spinner and the picker (based on the <strong>Spinner Threshold</strong> value). This is default.</li>
+<li><strong>1</strong>  Use only the picker (ignore the <strong>Spinner Threshold</strong> value).</li>
+</ul></li>
+<li><p><strong>Spinner Threshold</strong>
+This is an integer, from 0 to whatever value you wish, that represents the point at which an <a href="https://developer.apple.com/documentation/swift/array"><code>Array</code></a> of values switches from the radial spinner to the picker. This only applies when the <strong>Spinner Mode</strong> option is set to 0 (<em>both</em>).</p></li>
+<li><p><strong>Is Sound On</strong>
+This specifies whether or not to use audible feedback. Sound will be disabled when the Alerts (ringer) setting is off.</p></li>
+<li><p><strong>Is Haptics On</strong>
+This specifies whether or not to use <a href="https://developer.apple.com/documentation/appkit/nshapticfeedbackmanager">haptic feedback</a> (on devices that can play haptics).</p></li>
+<li><p><strong>Center Image</strong>
+This allows you to specify a fixed image to be displayed in the center. If the image is template mode, it will be drawn with the <a href="https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor"><code>UIView.tintColor</code></a> property. Default means that the center image will use the image of the selected value.</p></li>
+<li><p><strong>Replace Center Image</strong>
+This is only effective if &ldquo;<code>centerImage</code>&rdquo; is applied.
+If set to True (ON), then, when the control is opened, the explicitly-assigned center image will be replaced by the current value icon. Closing the control will replace the icon with the assigned center image.</p></li>
+<li><p><strong>Hud Mode</strong>
+If this is set to ON (default is OFF), then the control will render in &ldquo;HUD Mode,&rdquo; where the backgrounds will be clear, and no borders will be drawn around the images.</p></li>
+</ol>
+
+<p>Additionally, the View <strong><a href="https://developer.apple.com/documentation/uikit/uiview/1622591-backgroundcolor">Background Color</a></strong> color is used to establish the color surrounding icons, and the <strong><a href="https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor">Tint</a></strong> color is used to set the color of the borders around icons, and displayed text in the picker. If the image is template mode, it will be drawn with this color.</p>
+
+<p><img src="img/OpenSpinner.png" alt="How the Options Affect the Spinner"></p>
+
+<p><img src="img/OpenPicker.png" alt="How the Options Affect the Picker"></p>
+
+<p><img src="img/HUDDesc.png" alt="How the Options Affect the HUD Center"></p>
+
+<p>If the <a href="https://developer.apple.com/documentation/uikit/uiview"><code>UIView</code></a> <a href="https://developer.apple.com/documentation/uikit/uiview/1622591-backgroundcolor">Background Color</a> is clear, and the <a href="https://developer.apple.com/documentation/uikit/uiview"><code>UIView</code></a> <a href="https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor">Tint</a> is clear, the icons will be displayed slightly larger, with no surrounding ring (BTW: You can change the shape of the ring programatically. Circle/Oval is default).</p>
+
+<p>If the <a href="https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor">Tint</a> is clear, then the <a href="https://developer.apple.com/documentation/uikit/uipickerview"><code>UIPickerView</code></a> text will be black.</p>
+<h2 id='programmatic-options' class='heading'>PROGRAMMATIC OPTIONS</h2>
+
+<p>One important part of the usage of RVS_Spinner is applying an <a href="https://developer.apple.com/documentation/swift/array"><code>Array</code></a> of <code><a href="Structs/RVS_SpinnerDataItem.html">RVS_SpinnerDataItem</a></code> instances.</p>
+
+<p>This is a struct that contains an icon for display (a <a href="https://developer.apple.com/documentation/uikit/uiimage"><code>UIImage</code></a>) and a <a href="https://developer.apple.com/documentation/swift/string">String</a> (the title of the image). You can also optionally attach a more detailed description <a href="https://developer.apple.com/documentation/swift/string"><code>String</code></a> to the data item.</p>
+
+<p>In the spinner popup, only the image is shown, but in the PickerView variant, the text is also shown. Setting the text to &ldquo;&rdquo; will show only the image in the picker.</p>
+
+<p>You can also attach any arbitrary data item to an instance of <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Structs/RVS_SpinnerDataItem.html"><code><a href="Structs/RVS_SpinnerDataItem.html">RVS_SpinnerDataItem</a></code></a>. There is a property called <a href="(https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Structs/RVS_SpinnerDataItem.html)"><code>value</code></a>, which is an <a href="https://docs.swift.org/swift-book/LanguageGuide/TypeCasting.html#ID342"><code>Any?</code></a> property. You can associate any data that you want with an RVS_Spinner data item. Selecting the <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html"><code><a href="Classes/RVS_Spinner.html#/s:11RVS_SpinnerAAC5valueAA0a1_B8DataItemVSgvp">RVS_Spinner.value</a></code></a> calculated property of the <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html"><code><a href="Classes/RVS_Spinner.html">RVS_Spinner</a></code></a> instance will return the entire selected data item. These are <a href="https://developer.apple.com/swift/blog/?id=10">value types, and not reference types</a>.</p>
+
+<p>You need to provide this array programmatically. You assign it to the <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html"><code><a href="Classes/RVS_Spinner.html#/s:11RVS_SpinnerAAC6valuesSayAA0a1_B8DataItemVGvp">RVS_Spinner.values</a></code></a> property, and the data will be immediately available to use.</p>
+<h2 id='rotation' class='heading'>ROTATION</h2>
+
+<p>You can rotate the control, and the center can compensate. There is a property, called &ldquo;<code>isCompensatingForContainerRotation</code>,&rdquo; that will force the icon in the center to always be vertical, despite the rotation of the control. By default, this is true. Setting it to false will cause the center icon to rotate to match the control rotation.</p>
+
+<p>You should not rotate the control. Instead, you should rotate the enclosing view (the one that constrains and defines the open spinner and picker). This ensures that all gestures are also rotated properly.</p>
+
+<p>Rotation should be done programmatically, by setting the <a href="https://developer.apple.com/documentation/uikit/uiview/1622459-transform"><code>transform</code> property</a> of the spinners&rsquo; superview.</p>
+<h2 id='code-sample' class='heading'>CODE SAMPLE</h2>
+
+<p>Here is an example code snippet (from the Test Harness app):</p>
+
+<p>First, we set up the data array to be set to the control:</p>
+<pre class="highlight plaintext"><code>func setUpDataItemsArray(_ inNumberOfItems: Int) {
+    _dataItems = []
+    let items = subsetOfShapes(inNumberOfItems)
+    items.forEach {
+        _dataItems.append(RVS_SpinnerDataItem(title: $0.name, icon: $0.image, value: _associatedText[$0.index]))
+    }
+    setUpSpinnerControl()
+}
+</code></pre>
+
+<p>Note the <code>value: _associatedText[$0.index]</code>. This is how we associate arbitrary data to data items. In this case, the data are simple <a href="https://developer.apple.com/documentation/swift/string"><code>String</code></a> instances, but they can be anything that you like. Remember that the data array is a <a href="https://developer.apple.com/swift/blog/?id=10">value type, and not a reference type</a>.</p>
+<pre class="highlight plaintext"><code>func setUpSpinnerControl() {
+    spinnerView.values = _dataItems
+    spinnerView.selectedIndex = _dataItems.count / 2
+    spinnerView.backgroundColor = _colorList[innerColorSegmentedControl.selectedSegmentIndex]
+    spinnerView.tintColor = _darkColorList[borderColorSegmentedControl.selectedSegmentIndex]
+    spinnerView.openBackgroundColor = _colorList[radialColorSegmentedControl.selectedSegmentIndex]
+    spinnerView.delegate = self
+}
+</code></pre>
+
+<p>Note the <code>spinnerView.delegate = self</code>. This is because the test harness <a href="https://developer.apple.com/documentation/uikit/uiviewcontroller"><code>UIViewController</code></a> applies the <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Protocols/RVS_SpinnerDelegate.html"><code><a href="Protocols/RVS_SpinnerDelegate.html">RVS_SpinnerDelegate</a></code></a> protocol.</p>
+<h2 id='delegate' class='heading'>DELEGATE</h2>
+
+<p>The spinner uses a <a href="https://developer.apple.com/documentation/swift/cocoa_design_patterns/using_delegates_to_customize_object_behavior"><code>Delegate</code></a> pattern to interact with the implementation. You can choose to use the control without assigning a delegate, but having the delegate allows greater interaction and reactiveness.</p>
+
+<p>In order to be a delegate, you should assign <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Protocols/RVS_SpinnerDelegate.html"><code><a href="Protocols/RVS_SpinnerDelegate.html">RVS_SpinnerDelegate</a></code></a> as a base <a href="https://docs.swift.org/swift-book/LanguageGuide/Protocols.html">protocol</a> for your class. Your class does not have to be a <a href="https://docs.swift.org/swift-book/ReferenceManual/Attributes.html#ID592"><code>@objc</code></a> class. The delegate protocol is a pure Swift protocol (Which is also why you can&rsquo;t assign the delegate in Interface Builder).</p>
+
+<p>The <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html"><code><a href="Classes/RVS_Spinner.html">RVS_Spinner</a></code></a> class does send out traditional <a href="https://developer.apple.com/documentation/uikit/uicontrol#1658488"><code>UIControl</code> Target/Action</a> events. In particular, <a href="https://developer.apple.com/documentation/uikit/uicontrol/event/1618238-valuechanged"><code>UIControl.Event.valueChanged</code></a> and <a href="https://developer.apple.com/documentation/uikit/uicontrol/event/1618236-touchupinside"><code>UIControl.Event.touchUpInside</code></a>. You can listen for these events. The spinner variant will send <a href="https://developer.apple.com/documentation/uikit/uicontrol/event/1618238-valuechanged"><code>UIControl.Event.valueChanged</code></a> out continuously while spinning, while the picker variant won&rsquo;t send them out until it finishes its scroll.</p>
+
+<p><a href="https://developer.apple.com/documentation/uikit/uicontrol/event/1618236-touchupinside"><code>UIControl.Event.touchUpInside</code></a> is called when the center of the control is tapped to open, close or behave like a button.</p>
+<h2 id='subclassing-and-modification' class='heading'>SUBCLASSING AND MODIFICATION</h2>
+
+<p>It is possible to subclass and extend <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html"><code><a href="Classes/RVS_Spinner.html">RVS_Spinner</a></code></a>.</p>
+
+<p>One reason might be to provide a &ldquo;frame&rdquo; shape for items other than the default circle. You do this by overidding the <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html"><code><a href="Classes/RVS_Spinner.html#/s:11RVS_SpinnerAAC11centerShapeSo12UIBezierPathCvp">RVS_Spinner.centerShape</a></code></a> property to supply a different <a href="https://developer.apple.com/documentation/uikit/uibezierpath"><code>UIBezierPath</code></a>.</p>
+
+<p>You can also modify all types of other things. <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html"><code><a href="Classes/RVS_Spinner.html">RVS_Spinner</a></code></a> was designed as a &ldquo;baseline&rdquo; control.</p>
+
+<p>You can modify the font used to display the title strings in the picker variant by setting a new value to the <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html"><code><a href="Classes/RVS_Spinner.html#/s:11RVS_SpinnerAAC11displayFontSo6UIFontCSgvp">RVS_Spinner.displayFont</a></code></a> property.</p>
+<h2 id='usage' class='heading'>USAGE</h2>
+
+<p>A lot has already been covered, here, and the test harness app will help to show some real-world implementation, but you change the selected index (which item is selected as the current value) by altering the 0-based index in <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html"><code><a href="Classes/RVS_Spinner.html#/s:11RVS_SpinnerAAC13selectedIndexSivp">RVS_Spinner.selectedIndex</a></code></a>. <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html"><code><a href="Classes/RVS_Spinner.html#/s:11RVS_SpinnerAAC5valueAA0a1_B8DataItemVSgvp">RVS_Spinner.value</a></code></a> cannot be set. It is a read-only property.</p>
+<h1 id='basic-test-harness-app' class='heading'>BASIC TEST HARNESS APP</h1>
+
+<p>The basic test harness target imports the compiled framework, so it does provide a real-world application of <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html"><code><a href="Classes/RVS_Spinner.html">RVS_Spinner</a></code></a>.</p>
+
+<p>This application gives access to a lot of the &ldquo;knobs and buttons&rdquo; for the spinner.</p>
+
+<p>It is a simple 1-view app, with a single window:</p>
+
+<p><img src="img/NewTestHarnessScreen.png" alt="The Test Harness Screen"></p>
+
+<p>The controls operate in real time on the instance of <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html"><code><a href="Classes/RVS_Spinner.html">RVS_Spinner</a></code></a>, displayed above the control panel:</p>
+
+<p>The white &ldquo;<strong>Associated Text #<em>XX</em> (<em>XXXXX</em>)</strong>*&rdquo; is a label that displays test data that was associated with each of 20 data items used for testing. The <code>value</code> property of each item was set to a <a href="https://developer.apple.com/documentation/swift/string"><code>String</code></a>, which is displayed as that item is selected.</p>
+
+<p>The &ldquo;<strong>Disabled Items</strong>&rdquo; Segmented Switch will affect the &ldquo;<strong>isEnabled</strong>&rdquo; property of individual items, at random.</p>
+
+<p>The &ldquo;<strong>Spinner/Picker Threshold</strong>&rdquo; Segmented Switch will affect the &ldquo;<strong>Spinner Threshold</strong>&rdquo; property, described above. It is only enabled for the &ldquo;<strong>Both</strong>&rdquo; Spinner Mode (discussed below)</p>
+
+<p>The &ldquo;<strong>Haptics</strong>&rdquo; and &ldquo;<strong>Sounds</strong>&rdquo; switches control whether or not each of those properties is on. Default is on.</p>
+
+<p>Below that, is the &ldquo;<strong>Spinner Mode</strong>&rdquo; Segmented Switch. If &ldquo;<strong>Spinner-Only</strong>&rdquo; is selected, then the control will ONLY pop up with a spinner; regardless of how many values are provided in the <code>values</code> array property. The &ldquo;<strong>Spinner/Picker Threshold</strong>&rdquo; Segmented Switch is disabled if this is selected.</p>
+
+<p>If &ldquo;<strong>Picker-Only</strong>&rdquo; is selected, then only the Picker will be displayed. The &ldquo;<strong>Spinner/Picker Threshold</strong>&rdquo; Segmented Switch is also disabled.</p>
+
+<p>If &ldquo;<strong>Both</strong>&rdquo; is selected, the &ldquo;<strong>Spinner/Picker Threshold</strong>&rdquo; Segmented Switch is enabled, and describes a number of values that change the behavior of the RVS_Spinner instance from a spinner popup to a picker popup.</p>
+
+<p>The &ldquo;<strong>Border and Text Color</strong>&rdquo; Segmented Switch has some presets that are applied to the <a href="https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor"><code>UIView.tintColor</code></a> property.</p>
+
+<p>The &ldquo;<strong>Open Control Background Color</strong>&rdquo; Segmented Switch affects the &ldquo;<strong>Open Background Color</strong>&rdquo; property, discussed above.</p>
+
+<p>The &ldquo;<strong>Center Background Color</strong>&rdquo; Segmented Switch affects the <a href="https://developer.apple.com/documentation/uikit/uiview/1622591-backgroundcolor"><code>UIView.backgroundColor</code></a> property, and affects the filler of the central circle, as well as any &ldquo;frames&rdquo; around the icons in an open control.</p>
+
+<p>The &ldquo;<strong>Number of Values</strong>&rdquo; Segmented Switch applies a subset of up to 20 available values to the control. If &ldquo;1&rdquo; is selected, then the control will not pop up, but will behave somewhat like a regular <a href="https://developer.apple.com/documentation/uikit/uibutton"><code>UIButton</code></a>.</p>
+
+<p>The test harness app is deliberately simple, and should provide an excellent &ldquo;starting point&rdquo; for using the <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html"><code><a href="Classes/RVS_Spinner.html">RVS_Spinner</a></code></a>.</p>
+<h1 id='simple-examples' class='heading'>SIMPLE EXAMPLES</h1>
+
+<p>There are two simple examples, featuring the test harness app, that show how to implement the <a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html"><code><a href="Classes/RVS_Spinner.html">RVS_Spinner</a></code></a> into your project:</p>
+
+<ul>
+<li><a href="https://github.com/RiftValleySoftware/RVS_Spinner/blob/master/RVS_Spinner-SPM-Demo.zip">Here is an example using Swift Package Manager</a></li>
+<li><a href="https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/RVS_Spinner-Standalone-Demo.zip">Here is an example, where we directly import the source file</a></li>
+</ul>
+
+<p>These links will download .zip files, which expand into small project directories.</p>
+<h1 id='tabbed-test-harness-app' class='heading'>TABBED TEST HARNESS APP</h1>
+
+<p>There is another test harness app that uses a tabbed layout to show the control in a few different scenarios, using tricky auto-layout techniques.</p>
+
+<p><img src="img/Tab0.png" alt="The First Tab"></p>
+
+<p>The first tab is a simple centered control. You can choose the dataset to use, and whether or not it is forced as a spinner or picker.</p>
+
+<p><img src="img/Tab1.png" alt="The Second Tab"></p>
+
+<p>The second tab is a control that is crammed all the way into the bottom right corner, and is rotated 45 degrees counter-clockwise.</p>
+
+<p><img src="img/Tab2-Comp.png" alt="The Third Tab with Rotation Compensation On"></p>
+
+<p>The third tab demonstrates rotation. The slider controls the rotation, and the enclosing view is shown as a slightly darker square.</p>
+
+<p>The above image shows rotation compensation on. Note that the center icon is vertical, despite the fact that the control is rotated.</p>
+
+<p><img src="img/Tab2-Uncomp.png" alt="The Third Tab with Rotation Compensation Off"></p>
+
+<p>This image shows rotation compensation off. Note that the icon in the middle is now tilted.</p>
+
+<p><img src="img/Tab3.png" alt="The Fourth Tab"></p>
+
+<p>The fourth tab is a bit crazy. It&rsquo;s four independent controls, broken into quarters of the screen, and each rotated 45 degrees off the plane, but mortised together in the middle.</p>
+<h1 id='leak-test-harness-app' class='heading'>LEAK TEST HARNESS APP</h1>
+
+<p>There is a small, simple app that lives for only one thing: to be run in &ldquo;Profile&rdquo; mode, and let the framework be examined for things like memory leaks.</p>
+
+<p><img src="img/LeakTestApp.png" alt="The Leak Test App"></p>
+<h1 id='hud-mode-test-harness-app' class='heading'>HUD MODE TEST HARNESS APP</h1>
+
+<p>This is a newer app that simply tests and demonstrates the new (since version 2.4.0) HUD Mode, and Center Image.</p>
+
+<p><img src="img/HUD-Vertical.png" alt="The HUD Mode Test App"></p>
+
+<p>The &ldquo;<strong>Center Image</strong>&rdquo; Segmented Switch allows you to change the center image.</p>
+
+<p>The &ldquo;blank&rdquo; segment means that no center image is specified. That means that the center image is determined by the selected value. In this case, it will be displayed in template mode, so it will be colored by the <a href="https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor"><code>UIView.tintColor</code></a> property.</p>
+
+<p>The &ldquo;Earth&rdquo; segment will make the center image an &ldquo;original mode&rdquo; image (a photo of Earth from space). This will also implement the &ldquo;Replace Center Image&rdquo; option.</p>
+
+<p>The &ldquo;Globe&rdquo; segment will make the center use a template mode image from the resources.</p>
+
+<p>The &ldquo;Question Mark&rdquo; segment will use an auto-generated image from the system&rsquo;s SF Symbols (template mode).</p>
+
+<p>The &ldquo;<strong>Highlight Colors</strong>&rdquo; Segmented Switch allows you to change the <a href="https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor"><code>UIView.tintColor</code></a> property.</p>
+
+<p><img src="img/HUD-Blue-Earth.png" alt="The HUD Mode Test App (Original Image)"></p>
+
+<p><img src="img/HUD-Blue-Globe.png" alt="The HUD Mode Test App (Template Resource Image)"></p>
+
+<p><img src="img/HUD-Yellow-Question.png" alt="The HUD Mode Test App (Template SF Symbols Image)"></p>
+<h1 id='license' class='heading'>LICENSE</h1>
+
+<p>MIT License</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
+files (the &ldquo;Software&rdquo;), to deal in the Software without restriction, including without limitation the rights to use, copy,
+modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED &ldquo;AS IS&rdquo;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+<p><a href="https://riftvalleysoftware.com">The Great Rift Valley Software Company: https://riftvalleysoftware.com</a></p>
+
+          </div>
+        </section>
+
+
+      </article>
+    </div>
+    <section class="footer">
+      <p><a class="link" href="https://riftvalleysoftware.com" target="_blank" rel="external noopener">©2019 The Great Rift Valley Software Company</a></p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+    </section>
+  </body>
+</html>
