@@ -1,5 +1,13 @@
 # RVS_Spinner Change Log
 
+## 2.6.0
+
+- **September 1, 2022**
+
+- Updated to the latest tools.
+- Removed the `centerShape` property, as it is not used, anymore.
+- Changed the implicit optionals into explicit optionals, as I don't like implicit optionals. This should not affect the API.
+
 ## 2.5.11
 
 - **March 15, 2022**

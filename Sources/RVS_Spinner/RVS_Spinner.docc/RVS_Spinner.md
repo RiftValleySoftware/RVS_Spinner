@@ -212,8 +212,6 @@ The [`RVS_Spinner`](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spi
 
 It is possible to subclass and extend [`RVS_Spinner`](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html).
 
-One reason might be to provide a "frame" shape for items other than the default circle. You do this by overidding the [`RVS_Spinner.centerShape`](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html) property to supply a different [`UIBezierPath`](https://developer.apple.com/documentation/uikit/uibezierpath).
-
 You can also modify all types of other things. [`RVS_Spinner`](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html) was designed as a "baseline" control.
 
 You can modify the font used to display the title strings in the picker variant by setting a new value to the [`RVS_Spinner.displayFont`](https://open-source-docs.riftvalleysoftware.com/docs/rvs_spinner/Classes/RVS_Spinner.html) property.

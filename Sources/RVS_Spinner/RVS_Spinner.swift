@@ -20,7 +20,7 @@
  
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  
- - version: 2.5.11
+ - version: 2.6.0
  */
 
 import AudioToolbox
@@ -420,7 +420,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
      
      It's a weak reference to avoid memory leaks.
      */
-    private weak var _centerImageView: UIView!
+    private weak var _centerImageView: UIView?
     
     /* ################################################################## */
     /**
@@ -428,13 +428,13 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
      
      It's a weak reference to avoid memory leaks.
      */
-    private weak var _animatedIconLayer: CALayer!
+    private weak var _animatedIconLayer: CALayer?
     
     /* ################################################################## */
     /**
      This is used to animate the spin.
      */
-    private var _spinnerAnimation: CABasicAnimation!
+    private var _spinnerAnimation: CABasicAnimation?
     
     /* ################################################################## */
     /**
@@ -510,37 +510,37 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
      This is an invisible view that we instantiate over the control to catch gestures and display the open control.
      It is only available when the control is open, and it is the spinner variant.
      */
-    private var _openSpinnerView: UIView!
+    private var _openSpinnerView: UIView?
 
     /* ################################################################## */
     /**
      This is the gesture recognizer we will use to determine if the control is being spun/panned.
      */
-    private var _rotateGestureRecognizer: UIPanGestureRecognizer!
+    private var _rotateGestureRecognizer: UIPanGestureRecognizer?
 
     /* ################################################################## */
     /**
      This is the gesture recognizer we will use to determine if the control is being tapped.
      */
-    private var _tapGestureRecognizer: UITapGestureRecognizer!
+    private var _tapGestureRecognizer: UITapGestureRecognizer?
 
     /* ################################################################## */
     /**
      This is the gesture recognizer we will use to determine if the control is being tapped, but in a long, lingering, kinda creepy way.
      */
-    private var _longPressGestureRecognizer: UILongPressGestureRecognizer!
+    private var _longPressGestureRecognizer: UILongPressGestureRecognizer?
     
     /* ################################################################## */
     /**
      This is a UIView that will hold the picker. It is only available for the picker variant.
      */
-    private var _openPickerContainerView: UIView!
+    private var _openPickerContainerView: UIView?
     
     /* ################################################################## */
     /**
      This is standard UIPickerView, for when we have too much.
      */
-    private var _openPickerView: UIPickerView!
+    private var _openPickerView: UIPickerView?
 
     /* ################################################################## */
     /**
@@ -756,7 +756,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
             let useCenterImage = !(replaceCenterImage && (_isOpening || isOpen)) || !replaceCenterImage
             let centerImage = useCenterImage ? selectCenterImage : selectedValueIcon
             let isDimmed = !values[selectedIndex].isEnabled || !isEnabled || (isTracking && isTouchInside && !_doneTracking)
-            let imageLayer = _makeIconLayer(centerImage, inFrame: centerLayer.frame, tintColor: tintColor, isDimmed: isDimmed)
+            let imageLayer = _makeIconLayer(centerImage, inFrame: centerLayer.frame, tintColor: tintColor ?? .label, isDimmed: isDimmed)
             if isCompensatingForContainerRotation { // If we are compensating for container rotation, we null out that rotation for the center icon.
                 if let superTransform = superview?.transform {
                     let rotationInRadians = -CGFloat(atan2(Double(superTransform.b), Double(superTransform.a)))
@@ -773,14 +773,14 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
             _centerImageView = temp
             
             if _stupidAnimationFlagCenter {
-                _centerImageView.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
+                _centerImageView?.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
                 // We animate the center display, making it "bounce."
                 UIView.animate(withDuration: Self._kOpeningAnimationDurationInSeconds,
                                delay: 0,
                                usingSpringWithDamping: Self._kOpenDamping2,
                                initialSpringVelocity: Self._kOpenInitialVelocity2,
                                options: .allowUserInteraction,
-                               animations: { [weak self] in self?._centerImageView.transform = .identity },
+                               animations: { [weak self] in self?._centerImageView?.transform = .identity },
                                completion: { [weak self] _ in self?._stupidAnimationFlagCenter = false
                                }
                 )
@@ -797,13 +797,13 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
      
      - parameter inIndex: The 0-based index of the value to be used.
      */
-    private func _drawOneValueRadius(_ inIndex: Int) -> CALayer! {
+    private func _drawOneValueRadius(_ inIndex: Int) -> CALayer? {
         guard !values.isEmpty else { return nil }
         
         let value = values[inIndex]
     
         // This is the center of the control. All spokes start here.
-        let centerPointInDisplayUnits = CGPoint(x: _openSpinnerView.bounds.size.width / 2, y: _openSpinnerView.bounds.size.height / 2)
+        let centerPointInDisplayUnits = CGPoint(x: (_openSpinnerView?.bounds.size.width ?? 0) / 2, y: (_openSpinnerView?.bounds.size.height ?? 0) / 2)
         
         // This is the circumference of the entire open spinner.
         let circumferenceInDisplayUnits = CGFloat(Double.pi * 2 * _radiusOfOpenControlInDisplayUnits)
@@ -820,7 +820,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
         // This is what we'll be changing and returning.
         let ret = CAShapeLayer()
         
-        ret.frame = _openSpinnerView.bounds
+        ret.frame = _openSpinnerView?.bounds ?? .zero
 
         // This is how much padding we'll want around the image.
         let paddingWidth = Self._kOpenPaddingInDisplayUnits * 2
@@ -841,7 +841,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
         path.addArc(withCenter: centerPointInDisplayUnits, radius: radiusInDisplayUnits, startAngle: centerAngleInRadians - (_arclengthInRadians / 2), endAngle: centerAngleInRadians + (_arclengthInRadians / 2), clockwise: true)
         path.move(to: centerPointInDisplayUnits)
         
-        ret.fillColor = hudMode ? UIColor.clear.cgColor : !openBackgroundColor.isClear ? openBackgroundColor.withAlphaComponent(alpha).cgColor : nil
+        ret.fillColor = hudMode ? UIColor.clear.cgColor : !(openBackgroundColor?.isClear ?? false) ? openBackgroundColor?.withAlphaComponent(alpha).cgColor : nil
         
         // This is how big each icon will be, in our rendered spoke.
         let iconSize = CGSize(width: oppositeLength, height: oppositeLength)
@@ -854,10 +854,10 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
         let imageFrame = CGRect(origin: .zero, size: CGSize(width: imageSquareSize, height: imageSquareSize))
 
         // Each image is the same as the center.
-        let displayLayer = _makeIconLayer(value.icon, inFrame: imageFrame, tintColor: tintColor, isDimmed: !value.isEnabled)
+        let displayLayer = _makeIconLayer(value.icon, inFrame: imageFrame, tintColor: tintColor ?? .label, isDimmed: !value.isEnabled)
 
         let imageXPos = centerPointInDisplayUnits.x - (imageSquareSize / 2)
-        let imageYPos = -(radiusInDisplayUnits - (_openSpinnerView.bounds.size.height / 2) - Self._kOpenPaddingInDisplayUnits)
+        let imageYPos = -(radiusInDisplayUnits - ((_openSpinnerView?.bounds.size.height ?? 0) / 2) - Self._kOpenPaddingInDisplayUnits)
         
         displayLayer.frame = displayLayer.frame.offsetBy(dx: imageXPos, dy: imageYPos)
         
@@ -920,7 +920,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
         if framedIcons {
             let frameLayer = CAShapeLayer() // This is the circle "frame."
             frameLayer.path = UIBezierPath(arcCenter: CGPoint(x: inFrame.midX, y: inFrame.midY), radius: inFrame.size.height / 2, startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true).cgPath
-            frameLayer.strokeColor = tintColor.cgColor
+            frameLayer.strokeColor = tintColor?.cgColor
             frameLayer.fillColor = _closedBackgroundColor?.withAlphaComponent(alpha).cgColor
             frameLayer.lineWidth = Self._kBorderWidthInDisplayUnits
             returnLayer.addSublayer(frameLayer)
@@ -945,18 +945,18 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
         if nil != _openSpinnerView {
             if nil == _spinnerTransparencyMask {
                 _spinnerTransparencyMask = CAGradientLayer()
-                _spinnerTransparencyMask?.frame = _openSpinnerView.bounds
+                _spinnerTransparencyMask?.frame = _openSpinnerView?.bounds ?? .zero
                 _spinnerTransparencyMask?.type = .conic
                 _spinnerTransparencyMask?.startPoint = CGPoint(x: 0.5, y: 0.5)
                 _spinnerTransparencyMask?.endPoint = CGPoint(x: 0.5, y: 0)
                 _spinnerTransparencyMask?.colors = Self._kTransparencyGradientSteps
 
-                _openSpinnerView.layer.mask = _spinnerTransparencyMask
+                _openSpinnerView?.layer.mask = _spinnerTransparencyMask
             }
             
             if nil == _animatedIconLayer {
                 let iconLayer = CALayer()
-                iconLayer.frame = _openSpinnerView.bounds
+                iconLayer.frame = _openSpinnerView?.bounds ?? .zero
 
                 for index in 0..<count {
                     if let subLayer = _drawOneValueRadius(index) {
@@ -965,12 +965,12 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
                 }
                 
                 _animatedIconLayer = iconLayer
-                _openSpinnerView.layer.addSublayer(_animatedIconLayer)
+                _openSpinnerView?.layer.addSublayer(iconLayer)
             }
             
             // We use a...gag...retch...semaphore to flag that we just opened a new bar, and are looking for a bouncer.
             if _stupidAnimationFlag {
-                _openSpinnerView.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
+                _openSpinnerView?.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
                 // We animate the opening of the spinner, making it "bounce."
                 UIView.animate(withDuration: Self._kOpeningAnimationDurationInSeconds,
                                delay: 0,
@@ -978,7 +978,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
                                initialSpringVelocity: Self._kOpenInitialVelocity2,
                                options: .allowUserInteraction,
                                animations: { [weak self] in
-                                self?._openSpinnerView.transform = .identity
+                                self?._openSpinnerView?.transform = .identity
                     },
                                completion: { [weak self] (_: Bool) -> Void in
                                 DispatchQueue.main.async {
@@ -1081,56 +1081,75 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
         if opensAsSpinner { // Only if we are opening the radial spinner.
             // We will add our big ol' getsure recognizer view.
             _openSpinnerView = UIView(frame: _openSpinnerFrame)
-            _openSpinnerView.backgroundColor = UIColor.clear
+            _openSpinnerView?.backgroundColor = UIColor.clear
 
             // We will add our view to the superview of the control, just under the center.
-            if let holderView = superview {
-                holderView.insertSubview(_openSpinnerView, belowSubview: self)
+            if let holderView = superview,
+               let openSpinnerView = _openSpinnerView {
+                holderView.insertSubview(openSpinnerView, belowSubview: self)
             }
             
             // Add our tap gesture recognizer. Make sure to scrub any existing one, first (fast open/close can do that).
-            if nil != _tapGestureRecognizer {
-                _tapGestureRecognizer?.removeTarget(self, action: #selector(Self._handleOpenTapGesture(_:)))
-                _openSpinnerView.removeGestureRecognizer(_tapGestureRecognizer)
+            if let tapGestureRecognizer = _tapGestureRecognizer {
+                tapGestureRecognizer.removeTarget(self, action: #selector(Self._handleOpenTapGesture(_:)))
+                _openSpinnerView?.removeGestureRecognizer(tapGestureRecognizer)
             }
             _tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(Self._handleOpenTapGesture(_:)))
-            _openSpinnerView.addGestureRecognizer(_tapGestureRecognizer)
+            
+            if let tapGestureRecognizer = _tapGestureRecognizer {
+                _openSpinnerView?.addGestureRecognizer(tapGestureRecognizer)
+            }
             
             // Add our long press gesture recognizer.
-            if nil != _longPressGestureRecognizer {
-                _longPressGestureRecognizer?.removeTarget(self, action: #selector(Self._handleOpenLongPressGesture(_:)))
-                _openSpinnerView.removeGestureRecognizer(_longPressGestureRecognizer)
+            if let longPressGestureRecognizer = _longPressGestureRecognizer {
+                longPressGestureRecognizer.removeTarget(self, action: #selector(Self._handleOpenLongPressGesture(_:)))
+                _openSpinnerView?.removeGestureRecognizer(longPressGestureRecognizer)
             }
+            
             _longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(Self._handleOpenLongPressGesture(_:)))
-            _longPressGestureRecognizer.require(toFail: _tapGestureRecognizer)
-            _openSpinnerView.addGestureRecognizer(_longPressGestureRecognizer)
+            if let longPressGestureRecognizer = _longPressGestureRecognizer,
+               let tapGestureRecognizer = _tapGestureRecognizer {
+                longPressGestureRecognizer.require(toFail: tapGestureRecognizer)
+                _openSpinnerView?.addGestureRecognizer(longPressGestureRecognizer)
+            }
             
             // Add our rotation pan tracker gesture recognizer.
-            if nil != _rotateGestureRecognizer {
-                _rotateGestureRecognizer?.removeTarget(self, action: #selector(Self._handleOpenPanGesture(_:)))
-                _openSpinnerView.removeGestureRecognizer(_rotateGestureRecognizer)
+            if let rotateGestureRecognizer = _rotateGestureRecognizer {
+                rotateGestureRecognizer.removeTarget(self, action: #selector(Self._handleOpenPanGesture(_:)))
+                _openSpinnerView?.removeGestureRecognizer(rotateGestureRecognizer)
             }
             _rotateGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(Self._handleOpenPanGesture(_:)))
-            _rotateGestureRecognizer.require(toFail: _tapGestureRecognizer)
-            _rotateGestureRecognizer.require(toFail: _longPressGestureRecognizer)
-            _openSpinnerView.addGestureRecognizer(_rotateGestureRecognizer)
-            _rotateGestureRecognizer.delaysTouchesBegan = false
+            if let longPressGestureRecognizer = _longPressGestureRecognizer,
+               let rotateGestureRecognizer = _rotateGestureRecognizer,
+               let tapGestureRecognizer = _tapGestureRecognizer {
+                rotateGestureRecognizer.require(toFail: tapGestureRecognizer)
+                rotateGestureRecognizer.require(toFail: longPressGestureRecognizer)
+                _openSpinnerView?.addGestureRecognizer(rotateGestureRecognizer)
+                rotateGestureRecognizer.delaysTouchesBegan = false
+            }
         } else {    // Otherwise, we are using the picker.
             _openPickerContainerView = UIView(frame: _openPickerFrame)
             if let pickerContainer = _openPickerContainerView {    // Just to be sure, but what the heck...
                 pickerContainer.backgroundColor = UIColor.clear
                 _openPickerView = UIPickerView(frame: pickerContainer.bounds)
-                _openPickerView.dataSource = self
-                _openPickerView.delegate = self
-                pickerContainer.addSubview(_openPickerView!)
+                if let openPickerView = _openPickerView {
+                    openPickerView.dataSource = self
+                    openPickerView.delegate = self
+                    pickerContainer.addSubview(openPickerView)
+                }
             }
             
-            if let holderView = superview {
-                holderView.insertSubview(_openPickerContainerView!, belowSubview: self)
+            if let holderView = superview,
+               let openPickerContainerView = _openPickerContainerView {
+                holderView.insertSubview(openPickerContainerView, belowSubview: self)
             }
             
-            _openPickerView.selectRow(selectedIndex, inComponent: 0, animated: true)
-            _openPickerContainerView?.transform =  CGAffineTransform(scaleX: Self._kBounceScale, y: Self._kBounceScale).concatenating(CGAffineTransform(translationX: 0, y: _openPickerContainerView.bounds.size.height / 2))
+            _openPickerView?.selectRow(selectedIndex, inComponent: 0, animated: true)
+            
+            if let openPickerContainerView = _openPickerContainerView {
+                openPickerContainerView.transform =  CGAffineTransform(scaleX: Self._kBounceScale, y: Self._kBounceScale)
+                    .concatenating(CGAffineTransform(translationX: 0, y: openPickerContainerView.bounds.size.height / 2))
+            }
             
             // We animate the opening of the picker.
             UIView.animate(withDuration: Self._kOpeningAnimationDurationInSeconds,
@@ -1200,19 +1219,19 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
             self._impactFeedbackGenerator = nil
 
             if nil != self._openSpinnerView {
-                if nil != self._rotateGestureRecognizer {
-                    self._rotateGestureRecognizer.removeTarget(self, action: #selector(Self._handleOpenPanGesture(_:)))
-                    self._openSpinnerView.removeGestureRecognizer(self._rotateGestureRecognizer)
+                if let rotateGestureRecognizer = self._rotateGestureRecognizer {
+                    rotateGestureRecognizer.removeTarget(self, action: #selector(Self._handleOpenPanGesture(_:)))
+                    self._openSpinnerView?.removeGestureRecognizer(rotateGestureRecognizer)
                     self._rotateGestureRecognizer = nil
                 }
                 
-                if nil != self._tapGestureRecognizer {
-                    self._tapGestureRecognizer.removeTarget(self, action: #selector(Self._handleOpenTapGesture(_:)))
-                    self._openSpinnerView.removeGestureRecognizer(self._tapGestureRecognizer)
+                if let tapGestureRecognizer = self._tapGestureRecognizer {
+                    tapGestureRecognizer.removeTarget(self, action: #selector(Self._handleOpenTapGesture(_:)))
+                    self._openSpinnerView?.removeGestureRecognizer(tapGestureRecognizer)
                     self._tapGestureRecognizer = nil
                 }
                 
-                self._openSpinnerView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                self._openSpinnerView?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
                 
                 // We animate the closing of the spinner.
                 UIView.animate( withDuration: Self._kOpeningAnimationDurationInSeconds,
@@ -1221,13 +1240,13 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
                                 initialSpringVelocity: Self._kOpenInitialVelocity,
                                 options: .allowUserInteraction,
                                 animations: { [weak self] in
-                                    self?._openSpinnerView.transform = CGAffineTransform(scaleX: Self._kBounceScale, y: Self._kBounceScale)
+                                    self?._openSpinnerView?.transform = CGAffineTransform(scaleX: Self._kBounceScale, y: Self._kBounceScale)
                                 },
                                completion: { [weak self] (_: Bool) -> Void in
                                 self?._stupidAnimationFlag = false
                                 DispatchQueue.main.async {
                                     self?._clearDisplayCaches()
-                                    self?._openSpinnerView.removeFromSuperview()
+                                    self?._openSpinnerView?.removeFromSuperview()
                                     self?._openSpinnerView = nil
                                     self?._stupidAnimationFlagCenter = (self?.replaceCenterImage ?? false)
                                     self?.setNeedsLayout()
@@ -1397,19 +1416,9 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
     
     /* ################################################################## */
     /**
-     This property can be overridden. It returns a UIBezierPath that defines the shape of the center.
-     */
-    public var centerShape: UIBezierPath {
-        // We shrink by one border width, because the shape is stroked halfway through the border.
-        let inset = Self._kBorderWidthInDisplayUnits / 2.0
-        return UIBezierPath(ovalIn: bounds.inset(by: UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)))
-    }
-    
-    /* ################################################################## */
-    /**
      This is the display font that we'll use in the picker. Default is system bold 20. It can be overridden.
      */
-    public var displayFont: UIFont! = UIFont.boldSystemFont(ofSize: 20) {
+    public var displayFont: UIFont? = UIFont.boldSystemFont(ofSize: 20) {
         didSet {
             // We will want to update our layout. Do it in the main thread, just in case.
             DispatchQueue.main.async {
@@ -1573,7 +1582,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
      
      This is set from the view background color.
      */
-    public override var tintColor: UIColor! {
+    public override var tintColor: UIColor? {
         didSet {
             // We will want to update our layout. Do it in the main thread, just in case.
             DispatchQueue.main.async {
@@ -1590,7 +1599,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
     /**
      This is the background color associated with the "open" control "pie-slices." Default is nil (clear).
      */
-    @IBInspectable public var openBackgroundColor: UIColor! {
+    @IBInspectable public var openBackgroundColor: UIColor? {
         didSet {
             // We will want to update our layout. Do it in the main thread, just in case.
             DispatchQueue.main.async {
@@ -1937,7 +1946,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
      */
     public func pickerView(_ inPickerView: UIPickerView, viewForRow inRow: Int, forComponent inComponent: Int, reusing inView: UIView?) -> UIView {
         if nil != inView { // Since the values don't change in this. It's safe to do this.
-            return inView!
+            return inView ?? UIView()
         }
         
         let rowFrame = CGRect(origin: .zero, size: CGSize(width: inPickerView.bounds.size.width, height: inPickerView.rowSize(forComponent: 0).height))
@@ -1952,7 +1961,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
         
         let imageView = UIView(frame: imageFrame)
         imageView.backgroundColor = UIColor.clear
-        let displayLayer = _makeIconLayer(values[inRow].icon, inFrame: imageFrame, tintColor: tintColor, isDimmed: !values[inRow].isEnabled)
+        let displayLayer = _makeIconLayer(values[inRow].icon, inFrame: imageFrame, tintColor: tintColor ?? .label, isDimmed: !values[inRow].isEnabled)
         imageView.layer.addSublayer(displayLayer)
 
         let containerView = UIView()
