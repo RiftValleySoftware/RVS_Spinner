@@ -20,7 +20,7 @@
  
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  
- - version: 2.6.0
+ - version: 2.6.1
  */
 
 import AudioToolbox
@@ -1890,7 +1890,8 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
      */
     deinit {
         NotificationCenter.default.removeObserver(self)
-        _decelerationDisplayLink?.invalidate()
+// Hopefully, there's nothing wrong with not doing this, as Swift 6 no longer lets us get this.
+//        _decelerationDisplayLink?.invalidate()
     }
     
     /* ################################################################################################################################## */

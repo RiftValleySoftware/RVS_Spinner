@@ -820,7 +820,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D40705EF224A9FC700F1E8A2 /* Build configuration list for PBXNativeTarget "RVS_Spinner_Basic_Test_Harness" */;
 			buildPhases = (
-				D4380617224ABC97002FE0E0 /* SwiftLINT */,
+				D4380617224ABC97002FE0E0 /* SwiftLint */,
 				D40705DC224A9FC500F1E8A2 /* Sources */,
 				D40705DD224A9FC500F1E8A2 /* Frameworks */,
 				D40705DE224A9FC500F1E8A2 /* Resources */,
@@ -856,7 +856,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D44CE7AB22537BF900B8AB51 /* Build configuration list for PBXNativeTarget "RVS_Spinner_Tabbed_Test_Harness" */;
 			buildPhases = (
-				D4E759322253B4B900A88091 /* SwiftLINT */,
+				D4E759322253B4B900A88091 /* SwiftLint */,
 				D44CE79622537BF800B8AB51 /* Sources */,
 				D44CE79722537BF800B8AB51 /* Frameworks */,
 				D44CE79822537BF800B8AB51 /* Resources */,
@@ -900,7 +900,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4B039B322576DBD004031FF /* Build configuration list for PBXNativeTarget "RVS_Spinner_Leak_Test" */;
 			buildPhases = (
-				D4CC804322576F0F00873FA6 /* SwiftLINT */,
+				D4CC804322576F0F00873FA6 /* SwiftLint */,
 				D4B0399E22576DBD004031FF /* Sources */,
 				D4B0399F22576DBD004031FF /* Frameworks */,
 				D4B039A022576DBD004031FF /* Resources */,
@@ -923,7 +923,7 @@
 			attributes = {
 				CLASSPREFIX = RVS_;
 				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1400;
 				ORGANIZATIONNAME = "The Great Rift Valley Software Company";
 				TargetAttributes = {
 					D40705DF224A9FC500F1E8A2 = {
@@ -1010,8 +1010,9 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		D4380617224ABC97002FE0E0 /* SwiftLINT */ = {
+		D4380617224ABC97002FE0E0 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -1019,7 +1020,7 @@
 			);
 			inputPaths = (
 			);
-			name = SwiftLINT;
+			name = SwiftLint;
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -1030,6 +1031,7 @@
 		};
 		D44FFEC5264D930F00520F80 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -1048,6 +1050,7 @@
 		};
 		D4956377261CA4D800267937 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -1064,8 +1067,9 @@
 			shellPath = /bin/sh;
 			shellScript = "if command -v swiftlint\nthen\n    swiftlint\nfi\n";
 		};
-		D4CC804322576F0F00873FA6 /* SwiftLINT */ = {
+		D4CC804322576F0F00873FA6 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -1073,7 +1077,7 @@
 			);
 			inputPaths = (
 			);
-			name = SwiftLINT;
+			name = SwiftLint;
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -1082,8 +1086,9 @@
 			shellPath = /bin/sh;
 			shellScript = "if command -v swiftlint\nthen\n    swiftlint\nfi\n";
 		};
-		D4E759322253B4B900A88091 /* SwiftLINT */ = {
+		D4E759322253B4B900A88091 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -1091,7 +1096,7 @@
 			);
 			inputPaths = (
 			);
-			name = SwiftLINT;
+			name = SwiftLint;
 			outputFileListPaths = (
 			);
 			outputPaths = (

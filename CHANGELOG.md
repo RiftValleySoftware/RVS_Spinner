@@ -1,5 +1,12 @@
 # RVS_Spinner Change Log
 
+## 2.6.1
+
+- **September 16, 2022**
+
+- Updated to the latest tools.
+- Removed a [hopefully] redundant call, as Swift 6 will no longer allow it.
+
 ## 2.6.0
 
 - **September 1, 2022**
