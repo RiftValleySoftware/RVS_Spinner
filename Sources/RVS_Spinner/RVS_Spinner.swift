@@ -20,7 +20,7 @@
  
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  
- - version: 2.6.1
+ - version: 2.6.2
  */
 
 import AudioToolbox

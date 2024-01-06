@@ -8,10 +8,13 @@
       location = "group:CHANGELOG.md">
    </FileRef>
    <FileRef
-      location = "group:.swiftlint.yml">
+      location = "group:LICENSE">
    </FileRef>
    <FileRef
-      location = "group:LICENSE">
+      location = "group:PRIVACY.md">
+   </FileRef>
+   <FileRef
+      location = "group:PrivacyInfo.xcprivacy">
    </FileRef>
    <FileRef
       location = "group:Package.swift">

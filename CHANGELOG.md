@@ -1,5 +1,12 @@
 # RVS_Spinner Change Log
 
+## 2.6.2
+
+- **January 6, 2024**
+
+- Added privacy statements.
+- Had to get rid of SwiftLint, as it no longer works. :(
+
 ## 2.6.1
 
 - **September 16, 2022**
