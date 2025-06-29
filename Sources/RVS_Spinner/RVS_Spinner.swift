@@ -20,12 +20,10 @@
  
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  
- - version: 2.6.2
+ - version: 2.7.0
  */
 
 import AudioToolbox
-
-#if os(iOS) // This prevents the IB errors from showing up, under SPM (From SO Answer: https://stackoverflow.com/a/66334661/879365).
 import UIKit
 
 /* ###################################################################################################################################### */
@@ -99,7 +97,6 @@ public struct RVS_SpinnerDataItem {
  
  Its methods are all "optional" (they have default implementations that do nothing), but the control works best if you use them.
  */
-@available(iOS 13.0, *)
 public protocol RVS_SpinnerDelegate: AnyObject {
     /* ################################################################## */
     /**
@@ -153,7 +150,6 @@ public protocol RVS_SpinnerDelegate: AnyObject {
 /**
  These empty methods allow the protocol methods to be "optional."
  */
-@available(iOS 13.0, *)
 public extension RVS_SpinnerDelegate {
     /* ################################################################## */
     /**
@@ -243,7 +239,6 @@ public extension RVS_SpinnerDelegate {
  There is a delegate protocol, and the control will also emit "valueChanged" messages (the selected item changed), and "touchUpInside" messages (the center was tapped).
  */
 @IBDesignable
-@available(iOS 13.0, *)
 open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource {
     /* ################################################################################################################################## */
     // MARK: - Private Static Properties
@@ -745,7 +740,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
         _centerImageView?.removeFromSuperview()
         _centerImageView = nil
         
-        if 0 < values.count {   // Have to have values to draw anything more.
+        if !values.isEmpty {   // Have to have values to draw anything more.
             // We stroke and fill the basic shape with the colors we have set up.
             let centerLayer = CAShapeLayer()
             centerLayer.frame = bounds
@@ -980,7 +975,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
                                animations: { [weak self] in
                                 self?._openSpinnerView?.transform = .identity
                     },
-                               completion: { [weak self] (_: Bool) -> Void in
+                               completion: { [weak self] _ in
                                 DispatchQueue.main.async {
                                     self?._stupidAnimationFlag = false
                                     self?.setNeedsDisplay()
@@ -1242,7 +1237,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
                                 animations: { [weak self] in
                                     self?._openSpinnerView?.transform = CGAffineTransform(scaleX: Self._kBounceScale, y: Self._kBounceScale)
                                 },
-                               completion: { [weak self] (_: Bool) -> Void in
+                               completion: { [weak self] _ in
                                 self?._stupidAnimationFlag = false
                                 DispatchQueue.main.async {
                                     self?._clearDisplayCaches()
@@ -1730,7 +1725,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
         super.draw(inRect)  // Won't do much, but lets the superclass do any housekeeping. It's only polite.
         
         // Draw the control; either open or closed.
-        if 0 < values.count && isOpen {
+        if !values.isEmpty && isOpen {
             _drawOpenControl(inRect)
         }
      
@@ -1929,9 +1924,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
      
      - returns: float, with the row height for that component.
      */
-    public func pickerView(_ inPickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return Swift.min(Self._kMaxOpenPickerViewImageSizeInDisplayUnits, inPickerView.bounds.height)
-    }
+    public func pickerView(_ inPickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat { Swift.min(Self._kMaxOpenPickerViewImageSizeInDisplayUnits, inPickerView.bounds.height) }
     
     /* ################################################################## */
     /**
@@ -2002,4 +1995,3 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
         setNeedsDisplay()
     }
 }
-#endif

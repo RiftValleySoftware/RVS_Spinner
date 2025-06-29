@@ -1,0 +1,46 @@
+disabled_rules:
+- identifier_name
+- nesting
+- function_parameter_count
+- trailing_whitespace
+- type_name
+- todo
+- inert_defer
+- syntactic_sugar
+- implicit_getter
+- non_optional_string_data_conversion
+- private_over_fileprivate
+- legacy_hashing
+
+opt_in_rules:
+- control_statement
+- empty_count
+- trailing_newline
+- colon
+- comma
+
+function_body_length:
+- 99 # warning
+- 100 #error
+
+file_length:
+- 1999 # warning
+- 2000 # error
+
+type_body_length:
+- 999 # warning
+- 1000 # error
+
+line_length:
+- 299 # warning
+- 300 # error
+
+cyclomatic_complexity:
+- 15 # warning
+- 20 # error
+
+excluded:
+- Pods
+- Carthage
+- .build
+- Tests
