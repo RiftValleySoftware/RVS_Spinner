@@ -137,6 +137,7 @@
 		D46F997E261C815500C3EA34 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D46F9976261C815500C3EA34 /* Main.storyboard */; };
 		D46F997F261C815500C3EA34 /* RVS_SPinner_HUD_Test_Harness_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46F9978261C815500C3EA34 /* RVS_SPinner_HUD_Test_Harness_AppDelegate.swift */; };
 		D495637B261CA59500267937 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4956379261CA59500267937 /* Localizable.strings */; };
+		D4B6BB042F3B7A0F001FB8A3 /* RVS_Spinner.docc in Sources */ = {isa = PBXBuildFile; fileRef = D4C78B1627A447BA008CCEF7 /* RVS_Spinner.docc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -920,7 +921,7 @@
 				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = RVS_;
 				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 2600;
+				LastUpgradeCheck = 2620;
 				ORGANIZATIONNAME = "The Great Rift Valley Software Company";
 				TargetAttributes = {
 					D40705DF224A9FC500F1E8A2 = {
@@ -1042,6 +1043,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4B6BB042F3B7A0F001FB8A3 /* RVS_Spinner.docc in Sources */,
 				D4350A2E261E3FBF0057F9E6 /* RVS_Spinner.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

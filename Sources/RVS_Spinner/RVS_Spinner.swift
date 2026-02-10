@@ -1,5 +1,5 @@
 /**
- © Copyright 2021, The Great Rift Valley Software Company
+ © Copyright 2021-2026, The Great Rift Valley Software Company
  
  LICENSE:
  
@@ -20,7 +20,7 @@
  
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  
- - version: 2.7.0
+ - version: 2.6.3
  */
 
 import AudioToolbox
@@ -75,10 +75,10 @@ public struct RVS_SpinnerDataItem {
      The default initializer. The only required argument is the icon.
      
      - parameter inTitle: A String, with the title of this value. This is optional. Default is a blank String.
-     - parameter icon: An image to be displayed for the value. This is the only required argument.
-     - parameter description: An optional String (default is nil), with a description of the value.
-     - parameter value: An optional value (default is nil) to be associated with this value item.
-     - parameter isEnabled: An optional value (default is true). If false, the item is disabled.
+     - parameter inIcon: An image to be displayed for the value. This is the only required argument.
+     - parameter inDescription: An optional String (default is nil), with a description of the value.
+     - parameter inValue: An optional value (default is nil) to be associated with this value item.
+     - parameter inIsEnabled: An optional value (default is true). If false, the item is disabled.
      */
     public init(title inTitle: String = "", icon inIcon: UIImage, description inDescription: String? = nil, value inValue: Any? = nil, isEnabled inIsEnabled: Bool = true) {
         title = inTitle
@@ -1699,7 +1699,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
     /**
      The NSCoder init.
      
-     - parameter coder: The decoder with the view state.
+     - parameter inDecoder: The decoder with the view state.
      */
     required public init?(coder inDecoder: NSCoder) {
         super.init(coder: inDecoder)
@@ -1736,7 +1736,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
     /**
      This is required for a designable.
      
-     - parameter frame: The new frame for the view.
+     - parameter inRect: The new frame for the view.
      */
     override public init(frame inRect: CGRect) {
         super.init(frame: inRect)
@@ -1747,7 +1747,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
      This is called when we start tracking a pan.
      
      - parameter inTouch: The touch object associated with this event.
-     - parameter with: The event that triggered this.
+     - parameter inEvent: The event that triggered this.
      */
     override public func beginTracking(_ inTouch: UITouch, with inEvent: UIEvent?) -> Bool {
         _doneTracking = false
@@ -1763,7 +1763,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
      This is called repeatedly while we are tracking a pan. We just make sure that we keep updating the display.
      
      - parameter inTouch: The touch object associated with this event.
-     - parameter with: The event that triggered this.
+     - parameter inEvent: The event that triggered this.
      */
     override public func continueTracking(_ inTouch: UITouch, with inEvent: UIEvent?) -> Bool {
         DispatchQueue.main.async {
@@ -1777,7 +1777,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
      We end the tracking, and make sure that we update the display properly.
      
      - parameter inTouch: The touch object associated with this event.
-     - parameter with: The event that triggered this.
+     - parameter inEvent: The event that triggered this.
      */
     override public func endTracking(_ inTouch: UITouch?, with inEvent: UIEvent?) {
         _doneTracking = true
@@ -1814,7 +1814,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
     /**
      We cancel the tracking, and make sure that we update the display.
      
-     - parameter with: The event that triggered this.
+     - parameter inEvent: The event that triggered this.
      */
     override public func cancelTracking(with inEvent: UIEvent?) {
         DispatchQueue.main.async {
@@ -1855,11 +1855,11 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
     /**
      A convenience init with a preset values array and value.
      
-     - parameter values: The values to be associated with the control. It is optional, and default is nil.
-     - parameter selectedIndex: An initial selected index for the control. It is 0-based, and optional. Default is 0.
-     - parameter frame: Any initial frame for the control. It is optional, and default is an empty frame.
-     - parameter spinnerMode: An integer, eith -1 (Spinner only), 0 (Both), or 1 (Picker only). It is optional, and default is 0 (Both).
-     - parameter delegate: A delegate instance for the spinner. It is optional, and default is nil.
+     - parameter inValuesArray: The values to be associated with the control. It is optional, and default is nil.
+     - parameter inSelectedIndex: An initial selected index for the control. It is 0-based, and optional. Default is 0.
+     - parameter inFrame: Any initial frame for the control. It is optional, and default is an empty frame.
+     - parameter inSpinnerMode: An integer, eith -1 (Spinner only), 0 (Both), or 1 (Picker only). It is optional, and default is 0 (Both).
+     - parameter inDelegate: A delegate instance for the spinner. It is optional, and default is nil.
      */
     public convenience init(values inValuesArray: [RVS_SpinnerDataItem]? = nil, selectedIndex inSelectedIndex: Int = 0, frame inFrame: CGRect = CGRect.zero, spinnerMode inSpinnerMode: SpinnerMode = .both, delegate inDelegate: RVS_SpinnerDelegate? = nil) {
         self.init(frame: inFrame)
@@ -1896,7 +1896,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
     /**
      Simple number of components response (always 1)
      
-     - parameter in: The UIPickerView doing the querying.
+     - parameter inPickerView: The UIPickerView doing the querying.
      
      - returns 1 (always).
      */
@@ -1913,7 +1913,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
      
      - returns the number of rows (the number of values in our Array).
      */
-    public func pickerView(_ inPickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    public func pickerView(_ inPickerView: UIPickerView, numberOfRowsInComponent: Int) -> Int {
         return count
     }
     
@@ -1924,7 +1924,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
      
      - returns: float, with the row height for that component.
      */
-    public func pickerView(_ inPickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat { Swift.min(Self._kMaxOpenPickerViewImageSizeInDisplayUnits, inPickerView.bounds.height) }
+    public func pickerView(_ inPickerView: UIPickerView, rowHeightForComponent: Int) -> CGFloat { Swift.min(Self._kMaxOpenPickerViewImageSizeInDisplayUnits, inPickerView.bounds.height) }
     
     /* ################################################################## */
     /**
@@ -1932,13 +1932,13 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
      It will center them over the center of the Spinner.
      
      - parameter inPickerView: The pickerview doing the querying.
-     - parameter viewForRow: the 0-based index of the row (used to index our values).
+     - parameter inRow: the 0-based index of the row (used to index our values).
      - parameter forComponent: The 0-based index (always 0, and ignored) of the component we are asking after.
-     - parameter reusing: The view object to reuse.
+     - parameter inView: The view object to reuse.
      
      - returns: a new (or refurbed) view object.
      */
-    public func pickerView(_ inPickerView: UIPickerView, viewForRow inRow: Int, forComponent inComponent: Int, reusing inView: UIView?) -> UIView {
+    public func pickerView(_ inPickerView: UIPickerView, viewForRow inRow: Int, forComponent: Int, reusing inView: UIView?) -> UIView {
         if nil != inView { // Since the values don't change in this. It's safe to do this.
             return inView ?? UIView()
         }
@@ -1987,7 +1987,7 @@ open class RVS_Spinner: UIControl, UIPickerViewDelegate, UIPickerViewDataSource 
      This is called when a row is selected in the picker.
      
      - parameter inPickerView: The pickerview doing the querying.
-     - parameter didSelectRow: the 0-based index of the row (used to index our values).
+     - parameter inRow: the 0-based index of the row (used to index our values).
      - parameter inComponent: The 0-based index (always 0, and ignored) of the component we are asking after.
      */
     public func pickerView(_ inPickerView: UIPickerView, didSelectRow inRow: Int, inComponent: Int) {

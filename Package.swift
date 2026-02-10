@@ -1,7 +1,7 @@
 // swift-tools-version:5.5
 
 /*
-© Copyright 2021, The Great Rift Valley Software Company
+© Copyright 2021-2026, The Great Rift Valley Software Company
 
 LICENSE:
 

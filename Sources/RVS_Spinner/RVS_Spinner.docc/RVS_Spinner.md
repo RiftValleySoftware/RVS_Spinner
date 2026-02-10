@@ -1,5 +1,7 @@
 # ``RVS_Spinner``
 
+![](icon.png)
+
 This is a special control class that implements a "pop-up spinner" control.
 
 ## Overview
