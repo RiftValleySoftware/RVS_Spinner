@@ -4,6 +4,13 @@ RVS_Spinner Control
 =
 This is a special control class that implements a "pop-up spinner" control.
 
+Version **2.7.1** supports iOS 15 and later. See the [DocC guide](Sources/RVS_Spinner/RVS_Spinner.docc/RVS_Spinner.md)
+for current API behavior, synchronous callback ordering, accessibility, dimmed items, and integration.
+The [four test harnesses](Tests/Verification.md) exercise presentation, appearance, geometry, and cleanup.
+
+The Swift package includes its privacy manifest. Direct-source and static-library consumers should
+copy `PrivacyInfo.xcprivacy` into their app's resources.
+
 - [Here is the GitHub Repo for This Project.](https://github.com/RiftValleySoftware/RVS_Spinner)
 
 - [Here are the technical docs for this project.](https://riftvalleysoftware.github.io/RVS_Spinner/)
@@ -64,7 +71,7 @@ Directly From GitHub
 -
 [Here is the GitHub Repo for This Project.](https://github.com/RiftValleySoftware/RVS_Spinner)
 
-Since the entire control is contained in only one file, you also have the option of simply grabbing that source file ([the RVS_Spinner/RVS_Spinner.swift file](https://github.com/RiftValleySoftware/RVS_Spinner/blob/master/RVS_Spinner/RVS_Spinner.swift)), and just including that in your project; in which case, you won't need to `import` the module.
+Since the entire control is contained in only one file, you also have the option of simply grabbing that source file ([the RVS_Spinner/RVS_Spinner.swift file](https://github.com/RiftValleySoftware/RVS_Spinner/blob/master/Sources/RVS_Spinner/RVS_Spinner.swift)), and just including that in your project; in which case, you won't need to `import` the module.
 
 In fact, I'd actually suggest doing this. I'm not a huge fan of "live" dependencies (I usually "snapshot" code dependencies and include them in the project repo), and it will actually slightly reduce overhead.
 
@@ -72,7 +79,7 @@ In fact, I'd actually suggest doing this. I'm not a huge fan of "live" dependenc
 
 REQUIREMENTS
 =
-The Spinner is provided as a [Swift](https://developer.apple.com/swift/)-only static library (or [dynamic framework](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Frameworks.html)), supporting [iOS](https://www.apple.com/ios/) 13.0 and above.
+The Spinner is provided as a [Swift](https://developer.apple.com/swift/)-only static library (or [dynamic framework](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Frameworks.html)), supporting [iOS](https://www.apple.com/ios/) 15.0 and above.
 
 This is meant for [iOS](https://www.apple.com/ios/) ([UIKit](https://developer.apple.com/documentation/uikit)) only.
 
@@ -93,7 +100,7 @@ Tapping on this image "pops up" a surrounding ring of images, which can be rotat
 
 This popup is a [`UIControl`](https://developer.apple.com/documentation/uikit/uicontrol) that is opened in the superview of the control, so the superview (the control's container) must be able to support having a larger view added. This container will constrain the size of the control, when it pops up.
 
-You can prescribe the radius of the popup or [`UIPickerView`](https://developer.apple.com/documentation/uikit/uipickerview) at runtime, or in the Interface Builder/Storyboard Editor. The sizes of the images will adjust to fit the circle.
+The popup size is calculated from its container. Place the center away from the edges and provide sufficient space above it for the picker. Icon sizes adjust to fit the ring.
 
 You can control the open Spinner with gestures. It was designed to be thumb-controlled; including a "prize wheel" spinner, where you can send the control spinning in a decelerating rotation. The top (most visible) value is the one that will be selected. Tapping in a spinning control will stop it. You can also single-tap on either side of the open control to advance (decrement) the control by one.
 

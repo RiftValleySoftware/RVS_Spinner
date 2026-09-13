@@ -27,8 +27,12 @@ import UIKit
 /**
  Not much to see here...
  */
-@UIApplicationMain
+@main
 class RVS_Spinner_Basic_Test_Harness_AppDelegate: UIResponder, UIApplicationDelegate {
     /* ################################################################################################################################## */
+}
+
+/// Owns the storyboard window for this harness scene.
+class HarnessSceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 }

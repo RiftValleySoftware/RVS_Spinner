@@ -68,7 +68,7 @@ class RVS_Spinner_Tabbed_Test_Harness_TabBarController: UITabBarController {
                 
                 dirPaths.forEach {
                     let path = rootPath + "/" + $0
-                    let name = String($0[$0.index($0.startIndex, offsetBy: 3)...])  // Strip off the number in front (used to sort).
+                    let name = String($0.dropFirst(3))  // Strip off the number in front (used to sort).
                     directories.append(RVS_Spinner_Tabbed_Test_Harness_DirElement(name: name, path: path, items: []))
                 }
                 
@@ -80,7 +80,7 @@ class RVS_Spinner_Tabbed_Test_Harness_TabBarController: UITabBarController {
                     imagePaths.forEach {
                         if let imageFile = FileManager.default.contents(atPath: "\(i.element.path)/\($0)"), let image = UIImage(data: imageFile) {
                             // The name is the filename, minus the file extension, and minus the numbers in front.
-                            let imageName = String($0.prefix($0.count - 4)[$0.index($0.startIndex, offsetBy: 3)...])    // Strip off the sorting number (front), and the file extension.
+                            let imageName = String(($0 as NSString).deletingPathExtension.dropFirst(3))    // Strip off the sorting number (front), and the file extension.
                             let item = RVS_SpinnerDataItem(title: imageName, icon: image)
                             directories[i.offset].items.append(item)
                         }

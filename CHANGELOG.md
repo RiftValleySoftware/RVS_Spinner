@@ -1,5 +1,20 @@
 # RVS_Spinner Change Log
 
+## 2.7.1
+
+- **September 13, 2026**
+
+- Fixed flywheel lifetime and termination, including slow spins, interrupted gestures, and removal from the window. Display links use a weak target proxy; ring angles are derived directly from the current item count, including convenience initialization.
+- Made popup state and cleanup synchronous and safe during rapid close/reopen, delegate reentrancy, value replacement, mode changes, disabling, hiding, and detachment.
+- Selection changes now notify synchronously. Replacing values emits one value-changed event after clamping, without a duplicate selection callback. Superseded reentrant changes do not deliver stale outer events.
+- Corrected recycled picker rows, programmatic picker selection, tiny/empty images, transparent colors, original image colors, image aspect ratio, dynamic colors, opacity, and container geometry.
+- Used trait-change registration for color appearance on iOS 17 and later, retaining the legacy callback only for iOS 15 and 16.
+- Corrected ring drag direction and angle-boundary handling, applied the intended density damping, and limited long-press stepping to one change.
+- Removed duplicate physical touch-up actions and added accessibility adjustment and semantic primary activation. Respected Reduce Motion while preserving dimmed items as selectable choices.
+- Expanded DocC and Quick Help, including event ordering, close-veto limits, item flags, layout requirements, and memory ownership. Default delegate implementations are silent.
+- Set iOS 15 as the common minimum; aligned source and Xcode versions. Packaged the privacy manifest for SwiftPM and all four harness apps.
+- Migrated Basic, HUD, Tabbed, and Leak harnesses to window scenes for iOS 27. Added optional in-app regression checks and a verification guide.
+
 ## 2.6.3
 
 - **February 10, 2024**

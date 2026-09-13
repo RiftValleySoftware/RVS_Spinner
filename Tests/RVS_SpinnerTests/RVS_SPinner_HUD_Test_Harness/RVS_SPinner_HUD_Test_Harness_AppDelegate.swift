@@ -32,7 +32,6 @@ class RVS_SPinner_HUD_Test_Harness_AppDelegate: UIResponder, UIApplicationDelega
     /* ################################################################## */
     /**
      */
-    var window: UIWindow?
     
     /* ################################################################## */
     /**
@@ -40,4 +39,9 @@ class RVS_SPinner_HUD_Test_Harness_AppDelegate: UIResponder, UIApplicationDelega
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         return true
     }
+}
+
+/// Owns the storyboard window for this harness scene.
+class HarnessSceneDelegate: UIResponder, UIWindowSceneDelegate {
+    var window: UIWindow?
 }

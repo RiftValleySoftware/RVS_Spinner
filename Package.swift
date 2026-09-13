@@ -27,7 +27,7 @@ import PackageDescription
 let package = Package(
     name: "RVS_Spinner",
     platforms: [
-        .iOS(.v13)
+        .iOS(.v15)
     ],
     products: [
         .library(
@@ -35,6 +35,6 @@ let package = Package(
             targets: ["RVS_Spinner"])
     ],
     targets: [
-        .target(name: "RVS_Spinner")
+        .target(name: "RVS_Spinner", resources: [.copy("PrivacyInfo.xcprivacy")])
     ]
 )

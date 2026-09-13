@@ -322,6 +322,26 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     /**
      Do our initialization here.
      */
+    private var didVerifySpinner = false
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        guard !didVerifySpinner, ProcessInfo.processInfo.arguments.contains("--verify-spinner") else { return }
+        didVerifySpinner = true
+        SpinnerHarnessVerification.run(in: view)
+        #if DEBUG
+        Task { await SpinnerFlywheelVerification.run(in: view) }
+        #endif
+        spinnerView.addTarget(self, action: #selector(verificationTouch), for: .touchUpInside)
+        spinnerView.addTarget(self, action: #selector(verificationPrimary), for: .primaryActionTriggered)
+    }
+
+    @objc private func verificationTouch() { print("SPINNER CENTER touchUpInside, open=\(spinnerView.isOpen)") }
+    @objc private func verificationPrimary() { print("SPINNER CENTER primaryAction, open=\(spinnerView.isOpen)") }
+    @objc private func verificationPan(_ gesture: UIPanGestureRecognizer) {
+        if gesture.state != .changed { print("SPINNER PAN state=\(gesture.state.rawValue), velocity=\(gesture.velocity(in: gesture.view))") }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         extractValueList()
@@ -368,6 +388,13 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
      This is called when the popup opens.
      */
     func spinner(_ inSpinnerObject: RVS_Spinner, hasOpenedWithTheValue: RVS_SpinnerDataItem?) {
+        if ProcessInfo.processInfo.arguments.contains("--verify-spinner") {
+            for sibling in inSpinnerObject.superview?.subviews ?? [] {
+                for recognizer in sibling.gestureRecognizers ?? [] where recognizer is UIPanGestureRecognizer {
+                    recognizer.addTarget(self, action: #selector(verificationPan(_:)))
+                }
+            }
+        }
         let spinnerPicker = inSpinnerObject.opensAsSpinner ? "spinner" : "picker"
         associatedTextLabel?.text = "The user opened the \(spinnerPicker)."
         associatedTextLabel?.textColor = UIColor.black
@@ -393,3 +420,243 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         return inSpinner.isEnabled
     }
 }
+
+#if DEBUG
+/// Optional, repeatable regression checks inside the existing app; no test target or coverage instrumentation.
+@MainActor private final class SpinnerHarnessVerification: NSObject, RVS_SpinnerDelegate {
+    private var events = 0
+    private var activations = 0
+    private var primaryActions = 0
+    private var selected: [Int] = []
+    private var opened = 0
+    private var closed = 0
+    private var singles = 0
+    private var veto = false
+    private var onSelect: ((RVS_Spinner) -> Void)?
+    private var onOpen: ((RVS_Spinner) -> Void)?
+    private var onCloseDecision: ((RVS_Spinner) -> Void)?
+    @objc private func changed() { events += 1 }
+    @objc private func activated() { activations += 1 }
+    @objc private func primary() { primaryActions += 1 }
+    func spinner(_ spinner: RVS_Spinner, hasSelectedTheValue: RVS_SpinnerDataItem?) {
+        selected.append(spinner.selectedIndex)
+        onSelect?(spinner)
+    }
+    func spinner(_ spinner: RVS_Spinner, hasOpenedWithTheValue: RVS_SpinnerDataItem?) {
+        assert(spinner.isOpen, "Open callback must observe open state")
+        opened += 1
+        onOpen?(spinner)
+    }
+    func spinner(_ spinner: RVS_Spinner, hasClosedWithTheValue: RVS_SpinnerDataItem?) {
+        assert(!spinner.isOpen, "Closed callback must observe closed state")
+        closed += 1
+    }
+    func spinner(_ spinner: RVS_Spinner, willCloseWithTheValue: RVS_SpinnerDataItem?) -> Bool {
+        onCloseDecision?(spinner)
+        return !veto
+    }
+    func spinner(_: RVS_Spinner, singleValueSelected: RVS_SpinnerDataItem?) { singles += 1 }
+
+    static func run(in host: UIView) {
+        let probe = SpinnerHarnessVerification()
+        let image = UIGraphicsImageRenderer(size: CGSize(width: 12, height: 6)).image { context in
+            UIColor.red.setFill()
+            context.fill(CGRect(x: 0, y: 0, width: 12, height: 6))
+        }.withRenderingMode(.alwaysOriginal)
+        let items = [RVS_SpinnerDataItem(title: "Red", icon: image),
+                     RVS_SpinnerDataItem(title: "Dimmed", icon: image, description: "Unavailable example", isEnabled: false),
+                     RVS_SpinnerDataItem(title: "Empty icon", icon: UIImage())]
+        let container = UIView(frame: host.bounds)
+        host.addSubview(container)
+        defer { container.removeFromSuperview() }
+        let spinner = RVS_Spinner(values: items, selectedIndex: 0,
+                                  frame: CGRect(x: container.bounds.midX - 25, y: container.bounds.midY - 25, width: 50, height: 50), delegate: probe)
+        spinner.isSoundOn = false
+        spinner.isHapticsOn = false
+        container.addSubview(spinner)
+        spinner.addTarget(probe, action: #selector(changed), for: .valueChanged)
+        spinner.addTarget(probe, action: #selector(activated), for: .touchUpInside)
+        spinner.addTarget(probe, action: #selector(primary), for: .primaryActionTriggered)
+        assert(probe.events == 0 && probe.selected.isEmpty)
+        spinner.selectedIndex = Int.max
+        assert(spinner.selectedIndex == 2 && probe.events == 1 && probe.selected == [2])
+        spinner.selectedIndex = Int.max
+        assert(probe.events == 1)
+        spinner.selectedIndex = Int.min
+        assert(spinner.selectedIndex == 0 && probe.events == 2)
+        probe.onSelect = { value in if value.selectedIndex == 1 { value.selectedIndex = 2 } }
+        spinner.selectedIndex = 1
+        assert(spinner.selectedIndex == 2 && probe.events == 3, "Nested selection must not emit a stale outer event")
+        probe.onSelect = nil
+        spinner.isOpen = true
+        probe.veto = true
+        spinner.isOpen = false
+        assert(spinner.isOpen)
+        let beforeReplacement = probe.events
+        spinner.values = [items[0]]
+        assert(!spinner.isOpen && spinner.selectedIndex == 0 && probe.events == beforeReplacement + 1)
+        assert(container.subviews.count == 1, "Replacement must remove an open popup even with a veto")
+        assert(spinner.accessibilityActivate() && probe.singles == 1 && probe.activations == 1 && probe.primaryActions == 1)
+        spinner.values = []
+        spinner.selectedIndex = Int.max
+        spinner.isOpen = true
+        assert(spinner.value == nil && spinner.selectedIndex == 0 && !spinner.isOpen && !spinner.accessibilityActivate())
+        spinner.values = items
+        probe.veto = false
+        probe.onOpen = { $0.isOpen = false }
+        spinner.isOpen = true
+        assert(!spinner.isOpen, "Opening delegate may close synchronously")
+        probe.onOpen = nil
+        spinner.isOpen = true
+        probe.onCloseDecision = { value in value.isOpen = false; value.selectedIndex = 1 }
+        spinner.isOpen = false
+        assert(spinner.isOpen && spinner.selectedIndex == 1, "A changed selection invalidates a pending close decision")
+        probe.onCloseDecision = nil
+        spinner.isOpen = false
+        spinner.isOpen = true
+        assert(spinner.isOpen && container.subviews.count == 2)
+        spinner.spinnerMode = RVS_Spinner.SpinnerMode.pickerOnly.rawValue
+        assert(!spinner.isOpen && container.subviews.count == 1)
+        spinner.isOpen = true
+        spinner.selectedIndex = 2
+        let picker = container.subviews.flatMap(\.subviews).compactMap { $0 as? UIPickerView }.first!
+        assert(picker.selectedRow(inComponent: 0) == 2)
+        let row0 = spinner.pickerView(picker, viewForRow: 0, forComponent: 0, reusing: nil)
+        let row1 = spinner.pickerView(picker, viewForRow: 1, forComponent: 0, reusing: row0)
+        assert(row1.accessibilityLabel == "Dimmed" && row0 !== row1)
+        _ = spinner.pickerView(picker, viewForRow: Int.max, forComponent: 0, reusing: row0)
+        spinner.pickerView(picker, didSelectRow: Int.min, inComponent: 0)
+        assert(spinner.selectedIndex == 2)
+        spinner.pickerView(picker, didSelectRow: 1, inComponent: 0)
+        assert(spinner.value?.isEnabled == false && spinner.accessibilityValue == "Dimmed")
+        spinner.tintColor = UIColor.red.withAlphaComponent(0)
+        spinner.backgroundColor = UIColor.blue.withAlphaComponent(0)
+        assert(!spinner.framedIcons, "Transparent RGB colors must not create frames")
+        spinner.isEnabled = false
+        assert(!spinner.isOpen && !spinner.accessibilityActivate())
+        spinner.accessibilityIncrement()
+        assert(spinner.selectedIndex == 1)
+        spinner.isEnabled = true
+        spinner.accessibilityIncrement()
+        assert(spinner.selectedIndex == 2)
+        spinner.accessibilityIncrement()
+        assert(spinner.selectedIndex == 0)
+        spinner.accessibilityDecrement()
+        assert(spinner.selectedIndex == 2)
+        spinner.spinnerMode = Int.max
+        spinner.spinnerThreshold = Int.min
+        assert(spinner.spinnerMode == 0 && spinner.spinnerThreshold == 2 && !spinner.opensAsSpinner)
+        spinner.spinnerMode = -1
+        spinner.selectedIndex = 0
+        spinner.tintColor = .blue
+        spinner.backgroundColor = .clear
+        spinner.hudMode = false
+        spinner.layoutIfNeeded()
+        spinner.setNeedsDisplay(CGRect(x: 1, y: 1, width: 2, height: 2))
+        spinner.layer.displayIfNeeded()
+        _ = UIGraphicsImageRenderer(bounds: spinner.bounds).image { spinner.layer.render(in: $0.cgContext) }
+        spinner.selectedIndex = 2
+        spinner.layer.displayIfNeeded() // Empty UIImage must not produce invalid layer geometry.
+        spinner.isOpen = true
+        spinner.isHidden = true
+        assert(!spinner.isOpen && container.subviews.count == 1)
+        spinner.isHidden = false
+        spinner.isOpen = true
+        spinner.removeFromSuperview()
+        assert(!spinner.isOpen && container.subviews.isEmpty)
+        weak var released: RVS_Spinner?
+        autoreleasepool {
+            let transient = RVS_Spinner(values: items, frame: CGRect(x: 50, y: 100, width: 50, height: 50))
+            transient.isSoundOn = false
+            transient.isHapticsOn = false
+            released = transient
+            container.addSubview(transient)
+            transient.isOpen = true
+            transient.isOpen = false
+            transient.isOpen = true
+            transient.removeFromSuperview()
+        }
+        assert(released == nil && container.subviews.isEmpty, "Popup lifetime must not retain the control")
+        print("SPINNER VERIFICATION PASSED: selection, callbacks, veto/reentrancy, popup cleanup, picker rows, accessibility, and rendering")
+    }
+}
+#else
+private enum SpinnerHarnessVerification {
+    static func run(in host: UIView) {}
+}
+#endif
+
+#if DEBUG
+/// Supplies deterministic samples to the production pan action. Device Hub's automated
+/// drag currently delivers zero velocity, so it cannot exercise the flywheel reliably.
+@MainActor private final class SpinnerHarnessPan: UIPanGestureRecognizer {
+    var sampleState: UIGestureRecognizer.State = .began
+    var samplePoint = CGPoint.zero
+    var sampleTranslation = CGPoint.zero
+    var sampleVelocity = CGPoint.zero
+    override var state: UIGestureRecognizer.State {
+        get { sampleState }
+        set { sampleState = newValue }
+    }
+    override func location(in view: UIView?) -> CGPoint { samplePoint }
+    override func translation(in view: UIView?) -> CGPoint { sampleTranslation }
+    override func velocity(in view: UIView?) -> CGPoint { sampleVelocity }
+}
+
+@MainActor private enum SpinnerFlywheelVerification {
+    static func run(in host: UIView) async {
+        let area = UIView(frame: host.bounds)
+        host.addSubview(area)
+        defer { area.removeFromSuperview() }
+        let image = UIImage(systemName: "circle")!
+        let items = (0..<10).map { RVS_SpinnerDataItem(title: String($0), icon: image) }
+        var spinner: RVS_Spinner? = RVS_Spinner(values: items, frame: CGRect(x: area.bounds.midX - 25, y: area.bounds.midY - 25, width: 50, height: 50))
+        spinner?.isSoundOn = false
+        spinner?.isHapticsOn = false
+        area.addSubview(spinner!)
+        spinner?.isOpen = true
+        let action = NSSelectorFromString("_handleOpenPanGesture:")
+        assert(spinner!.responds(to: action), "Update this gesture probe if the production selector changes")
+        let pan = SpinnerHarnessPan()
+        let radius = min(area.bounds.width, area.bounds.height) / 2
+        pan.samplePoint = CGPoint(x: radius * 1.5, y: radius)
+        _ = spinner?.perform(action, with: pan)
+        pan.sampleState = .changed
+        pan.samplePoint = CGPoint(x: radius, y: radius * 1.5)
+        _ = spinner?.perform(action, with: pan)
+        assert(spinner?.selectedIndex == 2, "A quarter-turn must advance two of ten items")
+        // A low but qualifying velocity produces no whole-item movement before stopping.
+        pan.sampleState = .ended
+        pan.sampleVelocity = CGPoint(x: -486, y: 0)
+        _ = spinner?.perform(action, with: pan)
+        try? await Task.sleep(nanoseconds: 350_000_000)
+        _ = spinner?.accessibilityActivate()
+        assert(spinner?.isOpen == false, "Slow flywheel must stop even without crossing an item boundary")
+        spinner?.isOpen = true
+        pan.sampleState = .began
+        _ = spinner?.perform(action, with: pan)
+        pan.sampleState = .ended
+        pan.sampleVelocity = CGPoint(x: -30_000, y: 0)
+        _ = spinner?.perform(action, with: pan)
+        let before = spinner?.selectedIndex
+        try? await Task.sleep(nanoseconds: 100_000_000)
+        assert(spinner?.selectedIndex != before, "Fast flywheel must advance selection")
+        spinner?.values = []
+        assert(spinner?.isOpen == false && spinner?.value == nil)
+        spinner?.values = items
+        spinner?.isOpen = true
+        pan.sampleState = .began
+        _ = spinner?.perform(action, with: pan)
+        pan.sampleState = .ended
+        _ = spinner?.perform(action, with: pan)
+        weak var released = spinner
+        spinner?.removeFromSuperview()
+        spinner = nil
+        // Allow UIKit's current display transaction and autorelease pool to drain.
+        try? await Task.sleep(nanoseconds: 100_000_000)
+        assert(released == nil, "Removing a spinning control must release it")
+        released = nil
+        print("SPINNER FLYWHEEL VERIFICATION PASSED: drag direction, slow stop, fast spin, empty replacement, and release during spin")
+    }
+}
+#endif

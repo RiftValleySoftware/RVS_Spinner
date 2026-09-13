@@ -28,8 +28,12 @@ import UIKit
 /* ###################################################################################################################################### */
 /**
  */
-@UIApplicationMain
+@main
 class RVS_Spinner_Tabbed_Test_Harness_AppDelegate: UIResponder, UIApplicationDelegate {
     /* ################################################################################################################################## */
+}
+
+/// Owns the storyboard window for this harness scene.
+class HarnessSceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 }
