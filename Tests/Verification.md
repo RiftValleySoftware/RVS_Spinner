@@ -12,7 +12,7 @@ line. Remove the argument for ordinary interactive use.
 
 | Scheme | Launch argument | What it checks |
 | --- | --- | --- |
-| `RVS_Spinner_Basic_Test_Harness` | `--verify-spinner` | Index clamping, empty and one-item states, selection notifications, reentrancy, vetoes, configuration changes, rapid reopening, picker row refresh/selection, transparent colors, accessibility, empty-image rendering, view removal, and object lifetime |
+| `RVS_Spinner_Basic_Test_Harness` | `--verify-spinner` | Index clamping, empty and one-item states, selection notifications, reentrancy, vetoes, configuration changes, rapid reopening, picker row refresh/selection, transparent colors, accessibility, programmatic highlighting and restoration without selection events, empty-image rendering, view removal, and object lifetime |
 | `RVS_Spinner_Basic_Test_Harness` | Same argument | Deterministic pan samples exercise drag direction, low-velocity stopping without a whole-item change, fast spinning, replacing data during a spin, and release during a spin |
 | `RVS_Spinner_Leak_Test` | `--verify-spinner-leaks` | 100 open/close/reopen/removal cycles, sibling-view cleanup, and weak-reference release after recreation |
 
@@ -67,6 +67,34 @@ complement Instruments; they are not a complete heap-leak analysis.
 
 - Spin, then use Remove & Recreate. Confirm the release message and absence of stray popups.
 - Switch modes while open and repeat recreation. Run Instruments for a longer profiling session.
+
+## Building harness documentation
+
+Select **RVS_Spinner Local Documentation**, choose an iPhone or iPad simulator,
+and use **Product → Build Documentation** with the Debug configuration. The scheme
+builds separate archives for the library and all four apps. Harness catalogs belong
+only to their app targets under `Tests`; the Swift package and **RVS_Spinner Framework**
+scheme expose only the library catalog.
+
+Run `./Scripts/build-documentation.sh --include-harnesses` from the repository root
+to build and merge all five archives into `.build/documentation/RVS_Spinner-Local.doccarchive`.
+Omit the argument for library documentation alone. The script isolates its products
+from global Xcode output-directory preferences and safely replaces its previously
+generated combined archive after a successful merge. DocC warnings are treated as errors.
+
+## Recorded results — October 2, 2026 (2.7.2)
+
+- All four harness apps and their catalogs built with Xcode 27 using the explicit iOS 15 deployment minimum.
+- Library-only and combined local documentation builds passed with DocC warnings treated as errors. The combined archive contains exactly the library, Basic, HUD, Tabbed, and Leak modules.
+- A separate UIKit app consuming the local Swift package produced only its own archive and the library archive. The dependency archive contains no harness symbols.
+- The new programmatic-highlight rendering check failed against the original library, then passed after the fix. Clearing the highlight restores the rendered center without changing selection or emitting value-changed events.
+- Basic synchronous and asynchronous flywheel verification passed on iPhone 16 / iOS 18.6 and iPhone 18 Pro / iOS 27.
+- Leak stress and weak-reference recreation verification passed on both runtimes.
+- The iOS device Release library build passed. SwiftLint reported no violations in the package manifest or library source.
+
+iOS 15 was verified as the build deployment target; these runtime checks used the
+installed iOS 18.6 and iOS 27 simulators. Physical flick feel, haptics, spoken VoiceOver,
+and longer Instruments sessions were not repeated in this documentation pass.
 
 ## Recorded results — September 13, 2026
 

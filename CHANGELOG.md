@@ -1,5 +1,16 @@
 # RVS_Spinner Change Log
 
+## 2.7.2
+
+- **October 2, 2026**
+
+- Converted Swift documentation to block comments with hashmark dividers matching the project style.
+- Reviewed and expanded documentation for Basic, HUD, Tabbed, and Leak harnesses, including scene lifecycle, item dimming, image sizing, callbacks, and Debug verification.
+- Kept dependency documentation limited to the library; added harness-specific DocC catalogs, a shared local documentation scheme, and a script for building and merging local archives.
+- Aligned source, README, and all Xcode target marketing versions at 2.7.2.
+- Made Xcode targets inherit the explicit iOS 15 minimum instead of silently adopting newer recommended deployment targets.
+- Honored UIKit's programmatic `isHighlighted` state in center rendering; added a regression check for highlighting, restoration, and unchanged selection events.
+
 ## 2.7.1
 
 - **September 13, 2026**

@@ -142,6 +142,10 @@
 		FAD871000000000000000003 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = FAD871000000000000000001 /* PrivacyInfo.xcprivacy */; };
 		FAD871000000000000000004 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = FAD871000000000000000001 /* PrivacyInfo.xcprivacy */; };
 		FAD871000000000000000005 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = FAD871000000000000000001 /* PrivacyInfo.xcprivacy */; };
+		287D7E02D63F4EA0828D2F1F /* RVS_Spinner_Basic_Test_Harness.docc in Sources */ = {isa = PBXBuildFile; fileRef = 41FDD04C6EF043B193E44745 /* RVS_Spinner_Basic_Test_Harness.docc */; };
+		FF6425C103184F68A62ACAED /* RVS_SPinner_HUD_Test_Harness.docc in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A9D90A69443ACA0BB197A /* RVS_SPinner_HUD_Test_Harness.docc */; };
+		EE26FDE7E8E5429A91A95B2F /* RVS_Spinner_Tabbed_Test_Harness.docc in Sources */ = {isa = PBXBuildFile; fileRef = A8A98E50029E4359961F0CE4 /* RVS_Spinner_Tabbed_Test_Harness.docc */; };
+		86BC97B97E0C46DF9312F6AE /* RVS_Spinner_Leak_Test.docc in Sources */ = {isa = PBXBuildFile; fileRef = 336F0DEA7C2D4DD88A188603 /* RVS_Spinner_Leak_Test.docc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -478,6 +482,10 @@
 		D4B039A222576DBD004031FF /* RVS_Spinner_Leak_Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RVS_Spinner_Leak_Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4C78B1627A447BA008CCEF7 /* RVS_Spinner.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = RVS_Spinner.docc; sourceTree = "<group>"; };
 		FAD871000000000000000001 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = SOURCE_ROOT; };
+		41FDD04C6EF043B193E44745 /* RVS_Spinner_Basic_Test_Harness.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = RVS_Spinner_Basic_Test_Harness.docc; sourceTree = "<group>"; };
+		2A8A9D90A69443ACA0BB197A /* RVS_SPinner_HUD_Test_Harness.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = RVS_SPinner_HUD_Test_Harness.docc; sourceTree = "<group>"; };
+		A8A98E50029E4359961F0CE4 /* RVS_Spinner_Tabbed_Test_Harness.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = RVS_Spinner_Tabbed_Test_Harness.docc; sourceTree = "<group>"; };
+		336F0DEA7C2D4DD88A188603 /* RVS_Spinner_Leak_Test.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = RVS_Spinner_Leak_Test.docc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -597,6 +605,7 @@
 		D4508131249E452D002E7A68 /* RVS_Spinner_Basic_Test_Harness */ = {
 			isa = PBXGroup;
 			children = (
+				41FDD04C6EF043B193E44745 /* RVS_Spinner_Basic_Test_Harness.docc */,
 				D4508132249E452D002E7A68 /* SpinnerIcons */,
 				D4508147249E452D002E7A68 /* Assets.xcassets */,
 				D4508148249E452D002E7A68 /* LaunchScreen.storyboard */,
@@ -638,6 +647,7 @@
 		D450814F249E452D002E7A68 /* RVS_Spinner_Tabbed_Test_Harness */ = {
 			isa = PBXGroup;
 			children = (
+				A8A98E50029E4359961F0CE4 /* RVS_Spinner_Tabbed_Test_Harness.docc */,
 				D4508150249E452D002E7A68 /* RVS_Spinner_Tabbed_Test_Harness_Bottom_Right_ViewController.swift */,
 				D4508151249E452D002E7A68 /* RVS_Spinner_Tabbed_Test_Harness_AppDelegate.swift */,
 				D4508152249E452D002E7A68 /* Assets.xcassets */,
@@ -791,6 +801,7 @@
 		D45081B3249E452D002E7A68 /* RVS_Spinner_Leak_Test */ = {
 			isa = PBXGroup;
 			children = (
+				336F0DEA7C2D4DD88A188603 /* RVS_Spinner_Leak_Test.docc */,
 				D45081BA249E452D002E7A68 /* RVS_Spinner_Leak_Test_AppDelegate.swift */,
 				D45081B4249E452D002E7A68 /* RVS_Spinner_Leak_Test_ViewController.swift */,
 				D45081B8249E452D002E7A68 /* Main.storyboard */,
@@ -804,6 +815,7 @@
 		D46F9971261C815500C3EA34 /* RVS_SPinner_HUD_Test_Harness */ = {
 			isa = PBXGroup;
 			children = (
+				2A8A9D90A69443ACA0BB197A /* RVS_SPinner_HUD_Test_Harness.docc */,
 				D46F9978261C815500C3EA34 /* RVS_SPinner_HUD_Test_Harness_AppDelegate.swift */,
 				D46F9972261C815500C3EA34 /* RVS_SPinner_HUD_Test_Harness_ViewController.swift */,
 				D41CDBE9261CA0D900C58FA9 /* Resources */,
@@ -1052,6 +1064,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				287D7E02D63F4EA0828D2F1F /* RVS_Spinner_Basic_Test_Harness.docc in Sources */,
 				D45081BD249E4551002E7A68 /* RVS_Spinner_Basic_Test_Harness_ViewController.swift in Sources */,
 				D45081BC249E4551002E7A68 /* RVS_Spinner_Basic_Test_Harness_AppDelegate.swift in Sources */,
 			);
@@ -1070,6 +1083,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE26FDE7E8E5429A91A95B2F /* RVS_Spinner_Tabbed_Test_Harness.docc in Sources */,
 				D45081E9249E484F002E7A68 /* RVS_Spinner_Tabbed_Test_Harness_Bottom_Right_ViewController.swift in Sources */,
 				D45081EB249E484F002E7A68 /* RVS_Spinner_Tabbed_Test_Harness_NavController.swift in Sources */,
 				D45081ED249E484F002E7A68 /* RVS_Spinner_Tabbed_Test_Harness_Basic_Centered_ViewController.swift in Sources */,
@@ -1086,6 +1100,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF6425C103184F68A62ACAED /* RVS_SPinner_HUD_Test_Harness.docc in Sources */,
 				D46F997F261C815500C3EA34 /* RVS_SPinner_HUD_Test_Harness_AppDelegate.swift in Sources */,
 				D46F997B261C815500C3EA34 /* RVS_SPinner_HUD_Test_Harness_ViewController.swift in Sources */,
 			);
@@ -1095,6 +1110,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86BC97B97E0C46DF9312F6AE /* RVS_Spinner_Leak_Test.docc in Sources */,
 				D4508242249E49AB002E7A68 /* RVS_Spinner_Leak_Test_ViewController.swift in Sources */,
 				D4508246249E49BE002E7A68 /* RVS_Spinner_Leak_Test_AppDelegate.swift in Sources */,
 			);
@@ -1204,17 +1220,17 @@
 		D40705F0224A9FC700F1E8A2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DOCC_MINIMUM_ACCESS_LEVEL = internal;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0000;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = Tests/RVS_SpinnerTests/RVS_Spinner_Basic_Test_Harness/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.7.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-Spinner-Basic-Test-Harness";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1225,16 +1241,16 @@
 		D40705F1224A9FC700F1E8A2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DOCC_MINIMUM_ACCESS_LEVEL = internal;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0000;
 				INFOPLIST_FILE = Tests/RVS_SpinnerTests/RVS_Spinner_Basic_Test_Harness/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.7.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-Spinner-Basic-Test-Harness";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1383,9 +1399,10 @@
 		D4350A18261E3F330057F9E6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DOCC_MINIMUM_ACCESS_LEVEL = public;
+				MARKETING_VERSION = 2.7.2;
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1400,9 +1417,10 @@
 		D4350A19261E3F330057F9E6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DOCC_MINIMUM_ACCESS_LEVEL = public;
+				MARKETING_VERSION = 2.7.2;
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1417,16 +1435,16 @@
 		D44CE7AC22537BF900B8AB51 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DOCC_MINIMUM_ACCESS_LEVEL = internal;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0000;
 				INFOPLIST_FILE = Tests/RVS_SpinnerTests/RVS_Spinner_Tabbed_Test_Harness/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.7.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-Spinner-Tabbed-Test-Harness";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1437,16 +1455,16 @@
 		D44CE7AD22537BF900B8AB51 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DOCC_MINIMUM_ACCESS_LEVEL = internal;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0000;
 				INFOPLIST_FILE = Tests/RVS_SpinnerTests/RVS_Spinner_Tabbed_Test_Harness/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.7.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-Spinner-Tabbed-Test-Harness";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1457,18 +1475,18 @@
 		D46F996B261C812000C3EA34 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DOCC_MINIMUM_ACCESS_LEVEL = internal;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0000;
 				INFOPLIST_FILE = "$(SRCROOT)/Tests/RVS_SpinnerTests/RVS_SPinner_HUD_Test_Harness/Meta/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.7.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.Spinner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1479,18 +1497,18 @@
 		D46F996C261C812000C3EA34 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DOCC_MINIMUM_ACCESS_LEVEL = internal;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0000;
 				INFOPLIST_FILE = "$(SRCROOT)/Tests/RVS_SpinnerTests/RVS_SPinner_HUD_Test_Harness/Meta/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.7.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.Spinner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1501,16 +1519,16 @@
 		D4B039B122576DBD004031FF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DOCC_MINIMUM_ACCESS_LEVEL = internal;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0000;
 				INFOPLIST_FILE = Tests/RVS_SpinnerTests/RVS_Spinner_Leak_Test/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.7.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-Spinner-Leak-Test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1521,16 +1539,16 @@
 		D4B039B222576DBD004031FF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DOCC_MINIMUM_ACCESS_LEVEL = internal;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0000;
 				INFOPLIST_FILE = Tests/RVS_SpinnerTests/RVS_Spinner_Leak_Test/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.7.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-Spinner-Leak-Test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

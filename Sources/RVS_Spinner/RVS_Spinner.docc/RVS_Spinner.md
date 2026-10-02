@@ -110,6 +110,11 @@ picker rows. Dynamic colors refresh with appearance changes. The control's alpha
 applied once to its center and sibling popup. Transparent tint uses the system label
 color for picker text so titles remain readable.
 
+The standard UIKit `isHighlighted` state dims the center and requests a redraw,
+including when set by the containing app. Clearing it restores the normal appearance
+unless the item or control is disabled. Highlighting does not change selection or
+send value-changed events.
+
 Set `centerImage` to show a fixed center icon. With `replaceCenterImage = true`, the
 selected item's icon replaces it while open, then the fixed image returns on closing.
 `isCompensatingForContainerRotation` counter-rotates the center against its immediate

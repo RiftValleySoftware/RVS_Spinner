@@ -1,23 +1,23 @@
 /**
  © Copyright 2021-2026, The Great Rift Valley Software Company
- 
+
  LICENSE:
- 
+
  MIT License
- 
+
  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
  files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
  modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
  Software is furnished to do so, subject to the following conditions:
- 
+
  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
  OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
  CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- 
- 
+
+
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  */
 
@@ -28,16 +28,22 @@ import RVS_Spinner
 // MARK: - The Main View Controller Class
 /* ###################################################################################################################################### */
 /**
- All the action happens here.
+ Exercises item counts, presentation modes, colors, feedback, and delegate callbacks.
+
+ The storyboard supplies the controls. Launch with `--verify-spinner` in a Debug build
+ to run synchronous regression checks followed by asynchronous flywheel checks.
  */
 class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_SpinnerDelegate {
-    /* ################################################################################################################################## */
-    /// This is a simple tuple that we use to hold an iterated value.
-    typealias ShapeValueTuple = (name: String, image: UIImage, index: Int)
-    
+
     /* ################################################################################################################################## */
     /**
-     This is a set of washed-out colors (for the most part), that are applied as backgrounds.
+     A bundled icon, its filename-derived title, and its index in the complete icon list.
+     */
+    typealias ShapeValueTuple = (name: String, image: UIImage, index: Int)
+
+    /* ################################################################################################################################## */
+    /**
+     Background presets, indexed by the center and open-background segmented controls.
      */
     private let _colorList: [UIColor] = [
         UIColor.clear,
@@ -48,9 +54,10 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         UIColor(red: 1, green: 0.75, blue: 1, alpha: 1),
         UIColor(red: 0.75, green: 1, blue: 1, alpha: 1)
     ]
-    
+
+    /* ################################################################## */
     /**
-     This is a set of more saturated colors that are used for borders and text.
+     Tint presets, indexed by the border and text color segmented control.
      */
     private let _darkColorList: [UIColor] = [
         UIColor.clear,
@@ -61,52 +68,108 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         UIColor(red: 1, green: 0, blue: 1, alpha: 1),
         UIColor(red: 0, green: 1, blue: 1, alpha: 1)
     ]
-    
+
     /* ################################################################################################################################## */
-    /// This will contain all of the shapes that we will use to establish our data items array. It contains the full list, and is populated by reading in a bunch of images in the bundle.
+    /**
+     The complete, filename-sorted icon list loaded from the bundle.
+     */
     private var _shapes = [ShapeValueTuple]()
-    /// This is our actual data items array. This changes to reflect the number of items selected by the "Number of Values" switch.
+
+    /* ################################################################## */
+    /**
+     The sampled items and dimming flags currently assigned to the spinner.
+     */
     private var _dataItems = [RVS_SpinnerDataItem]()
 
     /* ################################################################################################################################## */
-    /// These are hooks to our IB items. This is the RVS_Spinner instance.
+    /**
+     The storyboard spinner under test.
+     */
     @IBOutlet weak var spinnerView: RVS_Spinner!
-    /// This is the "Number of Values" switch at the bottom.
-    @IBOutlet weak var numberOfItemsSegmentedControl: UISegmentedControl!
-    /// This is the "Center Background Color" switch.
-    @IBOutlet weak var innerColorSegmentedControl: UISegmentedControl!
-    /// This is the "Open Control Background Color" switch.
-    @IBOutlet weak var radialColorSegmentedControl: UISegmentedControl!
-    /// This is the "Border and Text Color" switch
-    @IBOutlet weak var borderColorSegmentedControl: UISegmentedControl!
-    /// This is the Spinner Mode switch
-    @IBOutlet weak var spinnerModeSegmentedControl: UISegmentedControl!
-    /// This is the "Spinner/Picker Threshold" switch, at the top.
-    @IBOutlet weak var thresholdSegmentedControl: UISegmentedControl!
-    /// This is the "Haptics" switch
-    @IBOutlet weak var hapticsSwitch: UISwitch!
-    /// This is the "Sounds" switch
-    @IBOutlet weak var soundsSwitch: UISwitch!
-    /// This is the label under the spinner that displays the associated strings (in red text).
-    @IBOutlet weak var associatedTextLabel: UILabel!
-    /// This segmented control determines whether or not items are disabled.
-    @IBOutlet weak var disabledItemsSegmentedControl: UISegmentedControl!
-    /// The switch that toggles HUD mode.
-    @IBOutlet weak var hudModeSwitch: UISwitch!
-    
-    /* ################################################################################################################################## */
+
     /* ################################################################## */
     /**
-     This is called when the disabled segmented control changes.
+     Selects the number of bundled icons to sample.
      */
+    @IBOutlet weak var numberOfItemsSegmentedControl: UISegmentedControl!
+
+    /* ################################################################## */
+    /**
+     Selects the fill color of the center and icon frames.
+     */
+    @IBOutlet weak var innerColorSegmentedControl: UISegmentedControl!
+
+    /* ################################################################## */
+    /**
+     Selects the open ring-sector or picker-row background color.
+     */
+    @IBOutlet weak var radialColorSegmentedControl: UISegmentedControl!
+
+    /* ################################################################## */
+    /**
+     Selects the tint used for template icons, frames, and picker text.
+     */
+    @IBOutlet weak var borderColorSegmentedControl: UISegmentedControl!
+
+    /* ################################################################## */
+    /**
+     Selects ring, automatic, or picker presentation, in that order.
+     */
+    @IBOutlet weak var spinnerModeSegmentedControl: UISegmentedControl!
+
+    /* ################################################################## */
+    /**
+     Selects the exclusive ring threshold used in automatic mode.
+     */
+    @IBOutlet weak var thresholdSegmentedControl: UISegmentedControl!
+
+    /* ################################################################## */
+    /**
+     Enables haptic feedback on supported physical devices.
+     */
+    @IBOutlet weak var hapticsSwitch: UISwitch!
+
+    /* ################################################################## */
+    /**
+     Enables system sounds for spinner interaction.
+     */
+    @IBOutlet weak var soundsSwitch: UISwitch!
+
+    /* ################################################################## */
+    /**
+     Displays the selected item's String payload in white, or a temporary callback message in black.
+     */
+    @IBOutlet weak var associatedTextLabel: UILabel!
+
+    /* ################################################################## */
+    /**
+     Selects which items are dimmed. Dimmed items remain selectable.
+     */
+    @IBOutlet weak var disabledItemsSegmentedControl: UISegmentedControl!
+
+    /* ################################################################## */
+    /**
+     Toggles template-only HUD rendering without icon frames or sector backgrounds.
+     */
+    @IBOutlet weak var hudModeSwitch: UISwitch!
+
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+   /**
+    Rebuilds the current item sample with the selected dimming pattern and resets its selection.
+
+    - parameter inSegmentedControl: The dimming selector; its state is read through the outlet.
+    */
    @IBAction func disabledSegmentedControlChanged(_ inSegmentedControl: UISegmentedControl) {
         setUpDataItemsArray()
         setUpSpinnerControl()
     }
-    
+
     /* ################################################################## */
     /**
-     This is called when the HUD Mode switch changes.
+     Applies HUD mode and enables background selectors only when those colors are used.
+
+     - parameter inSwitch: The switch whose on state enables HUD rendering.
      */
     @IBAction func hudModeSwitchChanged(_ inSwitch: UISwitch) {
         spinnerView?.hudMode = inSwitch.isOn
@@ -116,7 +179,9 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
 
     /* ################################################################## */
     /**
-     This is called when the "Sounds" switch changes.
+     Applies the selected sound-feedback setting.
+
+     - parameter inSwitch: The switch whose on state enables sounds.
      */
     @IBAction func soundsSwitchChanged(_ inSwitch: UISwitch) {
         spinnerView.isSoundOn = inSwitch.isOn
@@ -124,15 +189,19 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
 
     /* ################################################################## */
     /**
-     This is called when the "Haptics" switch changes.
+     Applies the selected haptic-feedback setting.
+
+     - parameter inSwitch: The switch whose on state enables haptics.
      */
     @IBAction func hapticsSwitchChanged(_ inSwitch: UISwitch) {
         spinnerView.isHapticsOn = inSwitch.isOn
     }
-    
+
     /* ################################################################## */
     /**
-     This is called when the "Spinner/Picker Threshold" segmented switch changes.
+     Reads the selected numeric title and applies the automatic-mode threshold.
+
+     - parameter inSegmentedSwitch: The threshold selector.
      */
     @IBAction func thresholdSegmentedControlHit(_ inSegmentedSwitch: UISegmentedControl) {
         if let value = Int(inSegmentedSwitch.titleForSegment(at: inSegmentedSwitch.selectedSegmentIndex) ?? "") {
@@ -142,7 +211,9 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
 
     /* ################################################################## */
     /**
-     This is called when the Spinner Mode segmented switch changes.
+     Maps segments to -1, 0, and 1, and enables the threshold selector only in automatic mode.
+
+     - parameter inSegmentedSwitch: The presentation-mode selector.
      */
     @IBAction func spinnerModeSegSwitchHit(_ inSegmentedSwitch: UISegmentedControl) {
         spinnerView.spinnerMode = inSegmentedSwitch.selectedSegmentIndex - 1
@@ -151,7 +222,9 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
 
     /* ################################################################## */
     /**
-     This is called when the "Number of Values" segmented switch changes.
+     Rebuilds the sample for the selected count, clears item dimming, and refreshes the payload label.
+
+     - parameter inSegmentedSwitch: The item-count selector, whose titles contain numeric counts.
      */
     @IBAction func numberSegSwitchHit(_ inSegmentedSwitch: UISegmentedControl) {
         if let numberOfItems = Int(inSegmentedSwitch.titleForSegment(at: inSegmentedSwitch.selectedSegmentIndex) ?? "") {
@@ -165,7 +238,9 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
 
     /* ################################################################## */
     /**
-     This is called when any of the color segmented switches change.
+     Applies the selected preset to the center background, open background, or tint.
+
+     - parameter inSegmentedSwitch: One of the three color selectors.
      */
     @IBAction func colorSegSwitchHit(_ inSegmentedSwitch: UISegmentedControl) {
         if inSegmentedSwitch == innerColorSegmentedControl {
@@ -179,13 +254,13 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
 
     /* ################################################################## */
     /**
-     This is redundant, but it shows how we can listen for spinner control events.
-     
-     It is called when the spinner selects a new value.
-     
-     In the case of the spinner variant, this is called repeatedly while the spinner is spinning.
-     
-     In the case of the picker variant, it is called once, after the picker has settled.
+     Refreshes the payload label on a `.valueChanged` target/action event.
+
+     Events include assignments in code and replacement of the values array. Ring selection
+     can change repeatedly while spinning; picker selection changes when scrolling settles.
+     This deliberately demonstrates target/action alongside the selection delegate.
+
+     - parameter inSpinnerObject: The spinner that emitted the event.
      */
     @IBAction func valueChanged(_ inSpinnerObject: RVS_Spinner) {
         updateAssociatedText()
@@ -194,9 +269,10 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
-     This just makes sure that the associated text label shows the associated value for the current selected item.
-     
-     The ignored parameter is so this can be used as a timer callback.
+     Queues a main-thread update that displays the current selected item's String payload in white.
+
+     The optional ignored argument allows the same method to restore the label after the
+     one-shot timers used by activation and popup callbacks.
      */
     @objc func updateAssociatedText(_: Any! = nil) {
         DispatchQueue.main.async {  // Since this could be called from a timer completion, we need to make sure that UI changes are done in the main thread.
@@ -208,29 +284,33 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
-     This filters the main list, and returns a subset of the images. This is used by the "Number of Values" handler.
+     Samples the complete icon list at evenly spaced fractional indices.
+
+     - parameter inNumberOfShapes: A positive requested count from the count selector.
+     - returns: Icons in their original order. Fractional stepping can round the resulting count.
      */
     func subsetOfShapes(_ inNumberOfShapes: Int) -> [ShapeValueTuple] {
         let stepSize = Double(_shapes.count) / Double(inNumberOfShapes)
         var ret: [ShapeValueTuple] = []
         let stepper = stride(from: 0.0, to: Double(_shapes.count), by: stepSize)
-        
+
         for step in stepper {
             ret.append(_shapes[Int(step)])
         }
-        
+
         return ret
     }
 
     /* ################################################################## */
     /**
-     This runs through the images we have stored in the app bundle, and produces our list.
-     
-     It uses the file name as the text for each image.
+     Loads filename-sorted files from the bundled SpinnerIcons directory as template images.
+
+     Each successfully decoded image gets a title with its four-character extension removed
+     and an index used in its associated payload. File-system errors are printed.
      */
     func extractValueList() {
         _shapes = []
-        
+
         if let resourcePath = Bundle.main.resourcePath {
             let imagePath =  "\(resourcePath)/SpinnerIcons"
             do {
@@ -246,10 +326,12 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
             }
         }
     }
-    
+
     /* ################################################################## */
     /**
-     This sets up the segmented switch for disabling.
+     Enables the two partial-dimming choices only for sufficiently large samples.
+
+     The no-dimming and all-dimmed choices remain available at every count.
      */
     func setUpDisabledSegmentedControl() {
         // The two endpoints are always enabled.
@@ -258,10 +340,13 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         disabledItemsSegmentedControl.setEnabled(_dataItems.count > 6, forSegmentAt: 1)
         disabledItemsSegmentedControl.setEnabled(_dataItems.count > 3, forSegmentAt: 2)
     }
-    
+
     /* ################################################################## */
     /**
-     This sets up the spinner view to reflect the condition of the controls.
+     Assigns the current items, selects the middle index, applies color presets, and installs the delegate.
+
+     Assigning values closes any popup and sends a value-changed event; changing the
+     selected index can also notify the delegate already installed on the control.
      */
     func setUpSpinnerControl() {
         spinnerView.values = _dataItems
@@ -275,7 +360,9 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
 
     /* ################################################################## */
     /**
-     This sets up the "Number of Values" switch, selecting the center one.
+     Builds count-selector titles from the available icon count and selects the middle segment.
+
+     The first segment always requests one item so that button behavior can be exercised.
      */
     func setUpCountSwitch() {
         let step = Double(_shapes.count) / Double(numberOfItemsSegmentedControl.numberOfSegments)
@@ -284,13 +371,18 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
             let count = Int(Swift.max(2.0, Swift.min(Double(_shapes.count), ceil(Double(index + 1) * step))))
             numberOfItemsSegmentedControl.setTitle(String(count), forSegmentAt: index)
         }
-        
+
         numberOfItemsSegmentedControl.selectedSegmentIndex = numberOfItemsSegmentedControl.numberOfSegments / 2
     }
-    
+
     /* ################################################################## */
     /**
-     This sets up the data items array to reflect the number of values selected by the "Number of Values" switch.
+     Builds sampled items with String payloads and the selected dimming pattern, then configures the spinner.
+
+     Pattern 1 dims every third sampled item; pattern 2 dims offsets divisible by two or
+     three; pattern 3 dims all items. Dimming does not prevent selection.
+
+     - parameter inNumberOfItems: The requested count; zero reuses the current sample count.
      */
     func setUpDataItemsArray(_ inNumberOfItems: Int = 0) {
         let numberOfItems = 0 == inNumberOfItems ? _dataItems.count : inNumberOfItems
@@ -300,7 +392,7 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
             switch disabledItemsSegmentedControl.selectedSegmentIndex {
                 case 1:
                     isEnabled = !(0 == shape.offset % 3)
-                    
+
                 case 2:
                     isEnabled = !(0 == shape.offset % 2 || 0 == shape.offset % 3)
 
@@ -310,20 +402,29 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
                 default:
                     isEnabled = true
             }
-        
+
 
             _dataItems.append(RVS_SpinnerDataItem(title: shape.element.name, icon: shape.element.image, value: String(format: "Associated Text #%02d (\(shape.element.name))", shape.element.index + 1), isEnabled: isEnabled))
         }
         setUpSpinnerControl()
     }
-    
+
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
-     Do our initialization here.
+     Prevents the launch-argument verification from running again on subsequent appearances.
      */
     private var didVerifySpinner = false
 
+    /* ################################################################## */
+    /**
+     Runs optional verification once after the host view enters a window and installs manual event logging.
+
+     The assertions and flywheel probe are active only in Debug builds. Wait for both
+     verification groups to finish before interacting with the controls.
+
+     - parameter animated: Whether UIKit animated the appearance.
+     */
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         guard !didVerifySpinner, ProcessInfo.processInfo.arguments.contains("--verify-spinner") else { return }
@@ -336,12 +437,32 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         spinnerView.addTarget(self, action: #selector(verificationPrimary), for: .primaryActionTriggered)
     }
 
+    /* ################################################################## */
+    /**
+     Logs a center touch-up event and the popup state during optional verification.
+     */
     @objc private func verificationTouch() { print("SPINNER CENTER touchUpInside, open=\(spinnerView.isOpen)") }
+
+    /* ################################################################## */
+    /**
+     Logs a primary-action event and the popup state during optional verification.
+     */
     @objc private func verificationPrimary() { print("SPINNER CENTER primaryAction, open=\(spinnerView.isOpen)") }
+
+    /* ################################################################## */
+    /**
+     Logs pan state and velocity at gesture boundaries during optional verification.
+
+     - parameter gesture: A pan recognizer on the popup.
+     */
     @objc private func verificationPan(_ gesture: UIPanGestureRecognizer) {
         if gesture.state != .changed { print("SPINNER PAN state=\(gesture.state.rawValue), velocity=\(gesture.velocity(in: gesture.view))") }
     }
 
+    /* ################################################################## */
+    /**
+     Loads icon data, configures the count and mode selectors, and applies the initial spinner settings.
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
         extractValueList()
@@ -352,40 +473,45 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         updateAssociatedText()
         setUpSpinnerControl()
     }
-    
+
     /* ################################################################################################################################## */
     /**
      These are the various delegate callbacks.
-     
+
      They are all made in the main thread.
-     
-     For some of them, the text will briefly flash a message in green text, indicating the callback was made.
+
+     Activation and popup callbacks briefly display a message in black, then restore the payload in white.
      */
+
     /* ################################################################## */
     /**
-     This is called when the user taps a control with only one value.
+     Displays a temporary button-activation message for a one-item control.
+
+     A one-shot timer restores the selected payload after half a second. The item can be dimmed.
      */
     func spinner(_: RVS_Spinner, singleValueSelected: RVS_SpinnerDataItem?) {
         associatedTextLabel?.text = "The user tapped the Button."
         associatedTextLabel?.textColor = UIColor.black
         _ = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(updateAssociatedText), userInfo: nil, repeats: false)
     }
-    
+
     /* ################################################################## */
     /**
-     This is called when a selection is made from a multiple selection list.
-     
-     In the case of the spinner variant, this is called repeatedly while the spinner is spinning.
-     
-     In the case of the picker variant, it is called once, after the picker has settled.
+     Refreshes the payload label after a synchronous selection-delegate notification.
+
+     This callback also occurs for a changed selected index assigned in code. Replacing
+     values can clamp selection without delivering this particular callback.
      */
     func spinner(_: RVS_Spinner, hasSelectedTheValue: RVS_SpinnerDataItem?) {
         updateAssociatedText()
     }
-    
+
     /* ################################################################## */
     /**
-     This is called when the popup opens.
+     Displays a temporary popup-opening message and optionally attaches pan logging.
+
+     The callback observes `isOpen == true` before the opening animation finishes.
+     The label returns to the payload after half a second.
      */
     func spinner(_ inSpinnerObject: RVS_Spinner, hasOpenedWithTheValue: RVS_SpinnerDataItem?) {
         if ProcessInfo.processInfo.arguments.contains("--verify-spinner") {
@@ -400,10 +526,13 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         associatedTextLabel?.textColor = UIColor.black
         _ = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(updateAssociatedText), userInfo: nil, repeats: false)
     }
-    
+
     /* ################################################################## */
     /**
-     This is called when the popup closes.
+     Displays a temporary popup-closing message, including closes caused by configuration changes.
+
+     The callback observes `isOpen == false` before any closing animation finishes.
+     The label returns to the payload after half a second.
      */
     func spinner(_ inSpinnerObject: RVS_Spinner, hasClosedWithTheValue: RVS_SpinnerDataItem?) {
         let spinnerPicker = inSpinnerObject.opensAsSpinner ? "spinner" : "picker"
@@ -411,10 +540,15 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         associatedTextLabel?.textColor = UIColor.black
         _ = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(updateAssociatedText), userInfo: nil, repeats: false)
     }
-    
+
     /* ################################################################## */
     /**
-     This is called before the user closes the spinner. It allows the delegate to interrupt the close process.
+     Allows an explicit close while the whole control is enabled.
+
+     This checks the control, rather than the item's dimming flag, so a dimmed item is
+     accepted. Forced cleanup for configuration changes or detachment bypasses this callback.
+
+     - returns: The spinner's `isEnabled` state.
      */
     func spinner(_ inSpinner: RVS_Spinner, willCloseWithTheValue: RVS_SpinnerDataItem?) -> Bool {
         return inSpinner.isEnabled
@@ -422,41 +556,150 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
 }
 
 #if DEBUG
-/// Optional, repeatable regression checks inside the existing app; no test target or coverage instrumentation.
+/**
+ Runs optional synchronous Debug assertions against temporary controls in the existing app.
+
+ Checks selection, callbacks, reentrancy, close vetoes, popup cleanup, picker rows,
+ accessibility, rendering, and object release. It does not create a test target or enable coverage.
+ */
 @MainActor private final class SpinnerHarnessVerification: NSObject, RVS_SpinnerDelegate {
+
+    /* ################################################################## */
+    /**
+     Number of value-changed target/action events observed by the synchronous probe.
+     */
     private var events = 0
+
+    /* ################################################################## */
+    /**
+     Number of touch-up activation events observed by the synchronous probe.
+     */
     private var activations = 0
+
+    /* ################################################################## */
+    /**
+     Number of primary-action events observed by the synchronous probe.
+     */
     private var primaryActions = 0
+
+    /* ################################################################## */
+    /**
+     Selected indices observed by the selection delegate, in callback order.
+     */
     private var selected: [Int] = []
+
+    /* ################################################################## */
+    /**
+     Number of opening callbacks observed by the synchronous probe.
+     */
     private var opened = 0
+
+    /* ################################################################## */
+    /**
+     Number of closing callbacks observed by the synchronous probe.
+     */
     private var closed = 0
+
+    /* ################################################################## */
+    /**
+     Number of one-item activations observed by the synchronous probe.
+     */
     private var singles = 0
+
+    /* ################################################################## */
+    /**
+     Whether the probe rejects explicit close requests.
+     */
     private var veto = false
+
+    /* ################################################################## */
+    /**
+     Optional reentrant work executed from a selection callback.
+     */
     private var onSelect: ((RVS_Spinner) -> Void)?
+
+    /* ################################################################## */
+    /**
+     Optional reentrant work executed from an opening callback.
+     */
     private var onOpen: ((RVS_Spinner) -> Void)?
+
+    /* ################################################################## */
+    /**
+     Optional reentrant work executed while the control consults its close delegate.
+     */
     private var onCloseDecision: ((RVS_Spinner) -> Void)?
+
+    /* ################################################################## */
+    /**
+     Counts a value-changed event.
+     */
     @objc private func changed() { events += 1 }
+
+    /* ################################################################## */
+    /**
+     Counts a touch-up activation event.
+     */
     @objc private func activated() { activations += 1 }
+
+    /* ################################################################## */
+    /**
+     Counts a primary-action event.
+     */
     @objc private func primary() { primaryActions += 1 }
+
+    /* ################################################################## */
+    /**
+     Records the new index and performs any configured reentrant selection work.
+     */
     func spinner(_ spinner: RVS_Spinner, hasSelectedTheValue: RVS_SpinnerDataItem?) {
         selected.append(spinner.selectedIndex)
         onSelect?(spinner)
     }
+
+    /* ################################################################## */
+    /**
+     Asserts logical opening, counts the callback, and performs any configured reentrant work.
+     */
     func spinner(_ spinner: RVS_Spinner, hasOpenedWithTheValue: RVS_SpinnerDataItem?) {
         assert(spinner.isOpen, "Open callback must observe open state")
         opened += 1
         onOpen?(spinner)
     }
+
+    /* ################################################################## */
+    /**
+     Asserts logical closure and counts the callback.
+     */
     func spinner(_ spinner: RVS_Spinner, hasClosedWithTheValue: RVS_SpinnerDataItem?) {
         assert(!spinner.isOpen, "Closed callback must observe closed state")
         closed += 1
     }
+
+    /* ################################################################## */
+    /**
+     Performs any configured reentrant work before applying the probe's explicit-close veto.
+
+      - returns: True unless the probe is configured to veto closing.
+     */
     func spinner(_ spinner: RVS_Spinner, willCloseWithTheValue: RVS_SpinnerDataItem?) -> Bool {
         onCloseDecision?(spinner)
         return !veto
     }
+
+    /* ################################################################## */
+    /**
+     Counts one-item activation.
+     */
     func spinner(_: RVS_Spinner, singleValueSelected: RVS_SpinnerDataItem?) { singles += 1 }
 
+    /* ################################################################## */
+    /**
+     Runs the synchronous checks using temporary controls and removes their host on return.
+
+      - parameter host: A view already attached to a window.
+      - precondition: Invoke from the main actor in a Debug build.
+     */
     static func run(in host: UIView) {
         let probe = SpinnerHarnessVerification()
         let image = UIGraphicsImageRenderer(size: CGSize(width: 12, height: 6)).image { context in
@@ -554,7 +797,18 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
         spinner.layoutIfNeeded()
         spinner.setNeedsDisplay(CGRect(x: 1, y: 1, width: 2, height: 2))
         spinner.layer.displayIfNeeded()
-        _ = UIGraphicsImageRenderer(bounds: spinner.bounds).image { spinner.layer.render(in: $0.cgContext) }
+        let normalCenter = UIGraphicsImageRenderer(bounds: spinner.bounds).image { spinner.layer.render(in: $0.cgContext) }.pngData()
+        let eventsBeforeHighlight = probe.events
+        spinner.isHighlighted = true
+        spinner.layer.displayIfNeeded()
+        let highlightedCenter = UIGraphicsImageRenderer(bounds: spinner.bounds).image { spinner.layer.render(in: $0.cgContext) }.pngData()
+        assert(normalCenter != nil && highlightedCenter != nil && normalCenter != highlightedCenter,
+               "Programmatic UIControl highlighting must update the center's rendered appearance")
+        spinner.isHighlighted = false
+        spinner.layer.displayIfNeeded()
+        let restoredCenter = UIGraphicsImageRenderer(bounds: spinner.bounds).image { spinner.layer.render(in: $0.cgContext) }.pngData()
+        assert(restoredCenter == normalCenter && spinner.selectedIndex == 0 && probe.events == eventsBeforeHighlight,
+               "Clearing highlight must restore the center without changing selection or emitting events")
         spinner.selectedIndex = 2
         spinner.layer.displayIfNeeded() // Empty UIImage must not produce invalid layer geometry.
         spinner.isOpen = true
@@ -581,29 +835,98 @@ class RVS_Spinner_Basic_Test_Harness_ViewController: UIViewController, RVS_Spinn
     }
 }
 #else
+/* ###################################################################################################################################### */
+/**
+ Keeps the optional verification call available in Release builds without running Debug assertions.
+ */
 private enum SpinnerHarnessVerification {
+
+    /* ################################################################## */
+    /**
+     The Release-build shim for the optional synchronous verification entry point.
+
+      - parameter host: Unused; no assertions or temporary controls are created.
+     */
     static func run(in host: UIView) {}
 }
 #endif
 
 #if DEBUG
-/// Supplies deterministic samples to the production pan action. Device Hub's automated
-/// drag currently delivers zero velocity, so it cannot exercise the flywheel reliably.
+/**
+ Supplies deterministic gesture samples to the production pan action in Debug builds.
+
+ The probe allows flywheel checks without relying on an automated drag's velocity.
+ It uses a private selector and must be updated if the production action is renamed.
+ */
 @MainActor private final class SpinnerHarnessPan: UIPanGestureRecognizer {
+
+    /* ################################################################## */
+    /**
+     Gesture state returned to the production action.
+     */
     var sampleState: UIGestureRecognizer.State = .began
+
+    /* ################################################################## */
+    /**
+     Sampled touch location in the popup's coordinates.
+     */
     var samplePoint = CGPoint.zero
+
+    /* ################################################################## */
+    /**
+     Sampled translation used to reconstruct the gesture's starting angle.
+     */
     var sampleTranslation = CGPoint.zero
+
+    /* ################################################################## */
+    /**
+     Sampled velocity in points per second used to start the flywheel.
+     */
     var sampleVelocity = CGPoint.zero
+
+    /* ################################################################## */
+    /**
+     Reads and writes the deterministic state sample.
+     */
     override var state: UIGestureRecognizer.State {
         get { sampleState }
         set { sampleState = newValue }
     }
+
+    /* ################################################################## */
+    /**
+     Returns the deterministic location sample. The requested coordinate space is ignored.
+     */
     override func location(in view: UIView?) -> CGPoint { samplePoint }
+
+    /* ################################################################## */
+    /**
+     Returns the deterministic translation sample. The requested coordinate space is ignored.
+     */
     override func translation(in view: UIView?) -> CGPoint { sampleTranslation }
+
+    /* ################################################################## */
+    /**
+     Returns the deterministic velocity sample. The requested coordinate space is ignored.
+     */
     override func velocity(in view: UIView?) -> CGPoint { sampleVelocity }
 }
 
+/* ###################################################################################################################################### */
+/**
+ Runs asynchronous Debug checks for ring drag direction, flywheel stopping, and release during a spin.
+ */
 @MainActor private enum SpinnerFlywheelVerification {
+
+    /* ################################################################## */
+    /**
+     Runs deterministic pan and flywheel checks while allowing real display-link updates between samples.
+
+      The private selector assertion fails if the production pan action is renamed.
+      Reduce Motion must be off for the inertial-motion assertions.
+
+      - parameter host: A view already attached to a window.
+     */
     static func run(in host: UIView) async {
         let area = UIView(frame: host.bounds)
         host.addSubview(area)

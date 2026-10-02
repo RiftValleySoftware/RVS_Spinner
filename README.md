@@ -4,7 +4,7 @@ RVS_Spinner Control
 =
 This is a special control class that implements a "pop-up spinner" control.
 
-Version **2.7.1** supports iOS 15 and later. See the [DocC guide](Sources/RVS_Spinner/RVS_Spinner.docc/RVS_Spinner.md)
+Version **2.7.2** supports iOS 15 and later. See the [DocC guide](Sources/RVS_Spinner/RVS_Spinner.docc/RVS_Spinner.md)
 for current API behavior, synchronous callback ordering, accessibility, dimmed items, and integration.
 The [four test harnesses](Tests/Verification.md) exercise presentation, appearance, geometry, and cleanup.
 
@@ -24,6 +24,30 @@ It is completely self-contained. You only need to instantiate the control, give 
 The values should be accompanied by images.
 
 The operation and appearance of the Spinner are highly customizable, either at runtime, or through IB Inspectable properties.
+
+BUILDING DOCUMENTATION
+=
+
+Apps consuming the Swift package receive only the library target and its DocC catalog.
+Harness apps and catalogs live under Tests and are not package targets or library dependencies.
+The **RVS_Spinner Framework** scheme also builds only the library.
+
+For local documentation including all four harnesses, select **RVS_Spinner Local Documentation**,
+choose an iPhone or iPad simulator destination, and use **Product → Build Documentation**
+with the Debug configuration. This produces separate archives for the library, Basic, HUD,
+Tabbed, and Leak modules. Harness archives include the app modules' internal symbols; the library includes
+only its public API. Private regression helpers remain documented in the source.
+
+```sh
+./Scripts/build-documentation.sh
+./Scripts/build-documentation.sh --include-harnesses
+```
+
+The first command builds library documentation. The second also builds all harnesses and
+merges the five archives. The script uses a simulator build without code signing, treats DocC
+warnings as errors, and prints the resulting archive path under `.build/documentation`.
+The combined build requires an Xcode toolchain with `docc merge`. Open the `.doccarchive`
+in Xcode to browse it. See [harness verification](Tests/Verification.md) for checks.
 
 WHAT PROBLEM DOES THIS SOLVE?
 =
@@ -325,7 +349,7 @@ The "**Center Image**" Segmented Switch allows you to change the center image.
 
 The "blank" segment means that no center image is specified. That means that the center image is determined by the selected value. In this case, it will be displayed in template mode, so it will be colored by the [`UIView.tintColor`](https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor) property.
 
-The "Earth" segment will make the center image an "original mode" image (a photo of Earth from space). This will also implement the "Replace Center Image" option.
+The "Earth" segment supplies a photo of Earth from space as a custom center and enables "Replace Center Image." While open, the selected icon replaces it. HUD mode renders all icons as templates, so the photo is tinted as well.
 
 The "Globe" segment will make the center use a template mode image from the resources.
 

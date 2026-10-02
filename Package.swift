@@ -35,6 +35,8 @@ let package = Package(
             targets: ["RVS_Spinner"])
     ],
     targets: [
-        .target(name: "RVS_Spinner", resources: [.copy("PrivacyInfo.xcprivacy")])
+        // Only the library and its DocC catalog belong to the dependency.
+        // Harness apps and catalogs are built by the separate local Xcode scheme.
+        .target(name: "RVS_Spinner", path: "Sources/RVS_Spinner", resources: [.copy("PrivacyInfo.xcprivacy")])
     ]
 )
